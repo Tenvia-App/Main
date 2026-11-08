@@ -73,6 +73,13 @@ class MatcherTest {
         assertEquals(listOf("medical"), m.match("my lips are swelling and I'm wheezing").outOfScope.map { it.id })
     }
 
+    @Test fun flagsHeatStrokeAndCarbonMonoxideSigns() {
+        // Missed in AI round 6 (CDC warning signs): heat stroke and CO poisoning.
+        val m = Matcher(library.copy(outOfScope = listOf(OutOfScope("medical", listOf("confused", "headache", "generator", "hot and dry"), "medical"))))
+        assertEquals(listOf("medical"), m.match("my skin is hot and dry and I'm confused").outOfScope.map { it.id })
+        assertEquals(listOf("medical"), m.match("headache and nausea, generator running by the door").outOfScope.map { it.id })
+    }
+
     @Test fun emptyOrUnknownTextMatchesNothing() {
         assertTrue(matcher.match("   ").guides.isEmpty())
         assertTrue(matcher.match("purple elephant").guides.isEmpty())
