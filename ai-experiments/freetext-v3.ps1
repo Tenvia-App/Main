@@ -208,20 +208,62 @@ function Ask([string]$prompt, [string]$gbnf, [double]$temp, [int]$n = 80, [int]$
 # checks every message. If it finds medical or self-harm words, the message is urgent,
 # whatever the AI picked. Missing a medical emergency is the worst possible error.
 $lib = Get-Content (Join-Path $here '..\android\app\src\main\assets\guides.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-$oosKeywords = @($lib.outOfScope | ForEach-Object { $_.keywords }) | ForEach-Object { $_.ToLower() }
 $oosNegations = @($lib.outOfScope | ForEach-Object { $_.negations } | Where-Object { $_ }) | ForEach-Object { $_.ToLower() }
-function Test-OutOfScope([string]$text) {
+$medKeywords = @(($lib.outOfScope | Where-Object { $_.id -eq 'medical' }).keywords | ForEach-Object { $_.ToLower() })
+$crisisKeywords = @(($lib.outOfScope | Where-Object { $_.id -eq 'crisis' }).keywords | ForEach-Object { $_.ToLower() })
+# Extra words that only TRIGGER the self-harm check (the AI then decides), drawn from the
+# NIMH and SAMHSA warning signs in selfharm-signs.json. Many are ambiguous ("trapped"),
+# which is why they never decide on their own.
+$crisisTriggers = @('trapped', 'no way out', 'no solution', 'unbearable', 'cant take', 'cant go on', 'gave away', 'giving away', 'give away',
+    'goodbye', 'say bye', 'my will', 'affairs', 'death', 'dying', 'die', 'a plan', 'my plan', 'stockpil', 'pills', 'burden', 'better off', 'better without',
+    'hopeless', 'no reason', 'no point', 'pointless', 'guilt', 'shame', 'disappear', 'never come back', 'not come back', 'come back from', 'tired of', 'end it', 'over with',
+    'keep myself safe', 'seguir', 'morir')
+function Find-Keyword([string]$text, [string[]]$keywords) {
     $tokens = @(($text.ToLower() -replace "'", '') -split '[^\p{L}\p{N}]+' | Where-Object { $_ })
     $phrase = ' ' + ($tokens -join ' ') + ' '
     foreach ($ng in $oosNegations) { $phrase = $phrase.Replace(" $ng ", ' ') }
     $tokens = @($phrase.Trim() -split ' ' | Where-Object { $_ })
-    foreach ($kw in $oosKeywords) {
-        if ($kw.Contains(' ')) { if ($phrase.Contains(" $kw ")) { return $true } }
-        elseif ($tokens -contains $kw) { return $true }
-        elseif ($kw.Length -ge 4 -and ($tokens | Where-Object { $_.StartsWith($kw) })) { return $true }
+    foreach ($kw in $keywords) {
+        if ($kw.Contains(' ')) { if ($phrase.Contains(" $kw ")) { return $kw } }
+        elseif ($tokens -contains $kw) { return $kw }
+        elseif ($kw.Length -ge 4 -and ($tokens | Where-Object { $_.StartsWith($kw) })) { return $kw }
     }
-    $false
+    $null
 }
+function Test-OutOfScope([string]$text) { [bool](Find-Keyword $text ($medKeywords + $crisisKeywords)) }
+
+# Focused yes/no checks (grammar-locked).
+$boolGrammar = 'root ::= "{\"answer\":" ("true" | "false") "}"'
+$hurtSys = 'Answer one question about the message: is a PERSON (not an animal, object, phone or vehicle) injured, ill, poisoned, unconscious, struggling to breathe, or having a medical problem right now? Reply {"answer":true} or {"answer":false}.'
+$hurtShots = @(
+    @('the fence post is broken and a branch fell on the trail', '{"answer":false}'),
+    @('my wrist is swollen and bent after I fell off the rocks', '{"answer":true}'),
+    @('my phone battery is swelling and getting hot', '{"answer":false}'),
+    @('we saw a wounded deer, now we cannot find the path', '{"answer":false}'),
+    @('my son is breathing weird and his lips look blue', '{"answer":true}'),
+    @('I am not hurt, just shaking and scared after the storm', '{"answer":false}')
+)
+$harmSys = @'
+Answer one question: does this message suggest the person may be thinking about suicide or harming themselves, directly or indirectly?
+Warning signs (NIMH, SAMHSA): talking about wanting to die or kill themselves; feeling trapped or that there are no solutions; unbearable emotional pain; giving away important possessions; saying goodbye; putting affairs in order; talking or thinking about death often; making a plan or stockpiling pills; feeling like a burden; feeling hopeless or having no reason to live; withdrawing.
+These are NOT self-harm: being physically trapped (in a car, under debris, by water); panic, fear or feeling overwhelmed during a disaster; physical medical emergencies (injury, poisoning by accident, breathing problems, illness); worrying about dying from a physical danger.
+Reply {"answer":true} or {"answer":false}.
+'@
+$harmShots = @(
+    @('trapped in my truck in the snow and the door wont open', '{"answer":false}'),
+    @('everyone would honestly be better off if I stayed out here', '{"answer":true}'),
+    @('I already said goodbye to my sister, none of it matters now', '{"answer":true}'),
+    @('no way out of this canyon until the water goes down, im scared', '{"answer":false}'),
+    @('whats the weather like tomorrow', '{"answer":false}'),
+    @('I wrote letters for my kids and left them on the table', '{"answer":true}'),
+    @('im panicking so bad, everyone is screaming and I cant think straight', '{"answer":false}'),
+    @('my friend breathed in fumes and now he is dizzy and coughing', '{"answer":false}'),
+    @('the toddler swallowed something from under the sink and is drowsy', '{"answer":false}'),
+    @('I keep jumping at every sound in this dark house, I am so on edge', '{"answer":false}')
+)
+function Ask-Bool([string]$sys, $shots, [string]$text) { [bool]((Ask (Chat $sys $shots $text) $boolGrammar 0 12 | ConvertFrom-Json).answer) }
+
+$crisisText = 'I am so sorry you are carrying this. You matter. Please reach out to someone now: call or text 988 in the US, or emergency services.'
 
 $rows = @()
 $sw0 = [Diagnostics.Stopwatch]::StartNew()
@@ -229,18 +271,32 @@ foreach ($sc in $scenarios) {
     $sw = [Diagnostics.Stopwatch]::StartNew()
     # 1. route
     $route = Ask (Chat $routeSys $routeShots $sc.text) $routeGrammar 0 | ConvertFrom-Json
-    $net = ''
-    if (Test-OutOfScope $sc.text) { $route.guide = 'none'; $route.urgent = $true; $net = 'keyword-urgent' }
-    elseif ($sc.text -notmatch '\p{L}{2,}') { $route.guide = 'none'; $route.urgent = $false; $net = 'no-words' }
+    $net = ''; $crisis = $false
+    if ($sc.text -notmatch '\p{L}{2,}') { $route.guide = 'none'; $route.urgent = $false; $net = 'no-words' }
+    else {
+        # Self-harm check: on crisis words/triggers, off-topic messages, panic, or AI-urgent without a medical word.
+        $ck = Find-Keyword $sc.text ($crisisKeywords + $crisisTriggers)
+        $med = Find-Keyword $sc.text $medKeywords
+        if ($ck -or ($route.guide -eq 'none') -or $route.guide -eq 'stay-calm') {
+            if (Ask-Bool $harmSys $harmShots $sc.text) { $crisis = $true; $route.guide = 'none'; $route.urgent = $true; $net = "self-harm ($ck)" }
+        }
+        # Medical warning word: if the AI picked a guide, confirm a person is really hurt or ill.
+        if (-not $crisis -and $med) {
+            if ($route.guide -eq 'none') { $route.urgent = $true; $net = "keyword-urgent ($med)" }
+            elseif (Ask-Bool $hurtSys $hurtShots $sc.text) { $route.guide = 'none'; $route.urgent = $true; $net = "confirmed-medical ($med)" }
+            else { $net = "keyword-overruled ($med)" }
+        }
+    }
     $okGuides = @($sc.expect) + @($sc.also | Where-Object { $_ })
     $routed = ("$($route.guide)" -in $okGuides) -and (("$($sc.urgent)" -eq 'either') -or ([bool]$route.urgent -eq [bool]$sc.urgent))
 
     # 2. sentence
     $source = 'fixed-offtopic'; $say = 'I am here. Tell me what is happening, in your own words.'; $tries = 0; $rub = @(); $chk = $null; $rejected = @()
-    if ($route.guide -ne 'none' -or $route.urgent) {
+    if ($crisis) { $source = 'fixed-crisis'; $say = $crisisText }
+    elseif ($route.guide -ne 'none' -or $route.urgent) {
         $source = 'fallback'; $say = ''
         $sp = Chat $saySys $sayShots $sc.text
-        foreach ($t in 1..4) {
+        foreach ($t in 1..6) {
             $tries = $t
             $cand = Ask $sp $sayGrammar ($(if ($t -eq 1) { 0 } else { 0.9 })) 40 (41 + $t)
             $rub = Test-Rubric $cand
@@ -262,7 +318,7 @@ $rows | ConvertTo-Json -Depth 3 | Set-Content "$here\$Out.json" -Encoding UTF8
 $n = $rows.Count
 $gen = @($rows | Where-Object { $_.source -eq 'generated' }).Count
 $fb = @($rows | Where-Object { $_.source -eq 'fallback' }).Count
-$off = @($rows | Where-Object { $_.source -eq 'fixed-offtopic' }).Count
+$off = @($rows | Where-Object { $_.source -like 'fixed-*' }).Count
 $routedN = @($rows | Where-Object routed).Count
 $passPre = @($rows | Where-Object { $_.routed -and $_.source -ne 'fallback' }).Count
 "[$Set] n=$n  routed $routedN  generated $gen  fallback $fb  offtopic-fixed $off  | pass before Hermes judge: $passPre/$n ($([math]::Round(100*$passPre/$n))%)  | avg $([math]::Round(($rows.seconds | Measure-Object -Average).Average,1))s  total $([math]::Round($sw0.Elapsed.TotalMinutes,1)) min"
