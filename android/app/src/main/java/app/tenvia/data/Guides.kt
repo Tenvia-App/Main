@@ -3,13 +3,23 @@ package app.tenvia.data
 import org.json.JSONArray
 import org.json.JSONObject
 
+/** One instruction, with the official page it was paraphrased from. */
+data class Step(
+    val text: String,
+    val sourceUrl: String,
+) {
+    /** Short source name to show people, for example "nps.gov". */
+    val sourceName: String
+        get() = runCatching { java.net.URI(sourceUrl).host.removePrefix("www.") }.getOrDefault("")
+}
+
 /** One step-by-step guide from the vetted guide library. */
 data class Guide(
     val id: String,
     val title: String,
     val summary: String,
     val keywords: List<String>,
-    val steps: List<String>,
+    val steps: List<Step>,
     /** True until the content has been sourced and reviewed. */
     val draft: Boolean,
 )
@@ -38,7 +48,9 @@ fun parseGuideLibrary(json: String): GuideLibrary {
                 title = g.getString("title"),
                 summary = g.getString("summary"),
                 keywords = g.getJSONArray("keywords").strings(),
-                steps = g.getJSONArray("steps").strings(),
+                steps = g.getJSONArray("steps").objects().map { s ->
+                    Step(text = s.getString("text"), sourceUrl = s.optString("source_url", ""))
+                },
                 draft = g.optBoolean("draft", true),
             )
         },

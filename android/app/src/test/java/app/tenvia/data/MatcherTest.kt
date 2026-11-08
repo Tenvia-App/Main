@@ -7,7 +7,12 @@ import org.junit.Test
 class MatcherTest {
 
     private fun guide(id: String, vararg keywords: String) =
-        Guide(id, id, "", keywords.toList(), listOf("step"), draft = true)
+        Guide(id, id, "", keywords.toList(), listOf(Step("step", "https://www.nps.gov/x")), draft = true)
+
+    @Test fun showsShortSourceName() {
+        assertEquals("nps.gov", Step("t", "https://www.nps.gov/articles/x.htm").sourceName)
+        assertEquals("911.gov", Step("t", "https://www.911.gov/calling-911/").sourceName)
+    }
 
     private val library = GuideLibrary(
         version = 1,

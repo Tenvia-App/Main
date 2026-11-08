@@ -45,7 +45,7 @@ fun PrototypeBanner() {
     ) {
         Text("PROTOTYPE: NOT FOR REAL EMERGENCIES", color = Warning,
             style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
-        Text("The guides are placeholders. If you can call or text emergency services, do that first.",
+        Text("Guides come from US government safety pages but haven't been reviewed by experts yet. If you can call or text emergency services, do that first.",
             style = MaterialTheme.typography.bodyMedium, color = Muted)
     }
 }
@@ -116,14 +116,19 @@ fun GuideScreen(guide: Guide, onDone: () -> Unit) {
         if (guide.draft) PrototypeBanner()
         Text(guide.title, style = MaterialTheme.typography.headlineSmall, color = Amber)
         Text("Step ${step + 1} of ${guide.steps.size}", style = MaterialTheme.typography.bodyMedium, color = Muted)
-        Text(
-            guide.steps[step],
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.fillMaxWidth()
+        val current = guide.steps[step]
+        Column(
+            Modifier.fillMaxWidth()
                 .background(ForestLight, Corner)
                 .padding(20.dp)
                 .heightIn(min = 160.dp),
-        )
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text(current.text, style = MaterialTheme.typography.bodyLarge)
+            if (current.sourceName.isNotEmpty()) {
+                Text("Source: ${current.sourceName}", style = MaterialTheme.typography.bodyMedium, color = Muted)
+            }
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
             OutlinedButton(
                 onClick = { if (step > 0) step-- else onDone() },
