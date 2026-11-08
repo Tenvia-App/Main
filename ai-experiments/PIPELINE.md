@@ -1,4 +1,4 @@
-# Tenvia AI pipeline (as of round 6, 8 November 2026)
+# Tenvia AI pipeline (as of round 7, 8 November 2026)
 
 This is how Tenvia's optional on-device AI handles one message, end to end. Everything runs **on the phone, offline**. The model is Qwen3 4B (Apache 2.0, 4-bit, about 2.3 GB), run with llama.cpp. The reference implementation is [`freetext-v3.ps1`](freetext-v3.ps1); the evidence for each design choice is in [`RESULTS.md`](RESULTS.md).
 
@@ -13,6 +13,8 @@ message
   │
   ├─ 2. SAFETY NET A: medical warning words (keywords → AI confirms)
   │      keyword list = 50 warning signs verified on CDC / NIH / NIMH / Ready.gov pages
+  │      + heat-stroke and carbon-monoxide signs (round 7: confused, hot and dry, headache,
+  │        nausea, generator...)
   │      (medical-signs.json) + negations ("not hurt")
   │      if a warning word appears:
   │        - AI already said urgent → medical
@@ -32,12 +34,14 @@ message
   │      guide    → the vetted guide + one AI sentence
   │      off-topic → fixed "Tell me what is happening, in your own words."
   │
-  └─ 5. THE ONE AI SENTENCE (semi-free, round 6)
+  └─ 5. THE ONE AI SENTENCE (semi-free, rounds 6-7)
          grammar allows ONLY:  <vetted opener>  [ " - " <phrase copied from their message> ] "."
-           openers: "That sounds really frightening", "That sounds overwhelming", …,
-                    "I am so sorry this is happening"
-           phrases: every 2–7 word run of their own words, I/my → you/your,
-                    no questions, no requests for help, no dangling words
+           openers: "That sounds really frightening", "That sounds overwhelming", …
+           medical: phrase REQUIRED, openers "I am so sorry", "That sounds really scary", …
+                    (round 7: the bare "I am so sorry this is happening" was too generic)
+           phrases: 3-10 word runs of their own words, I/my → you/your; must start and
+                    end at a natural break (not mid noun group), contain a verb; no
+                    questions, no requests for help, no dangling words
          each candidate (up to 6) must pass:
            - rubric: no instructions, promises, claims to act, treatment words, digits,
                      alarming words ("dangerous"), invented risky details
@@ -59,6 +63,9 @@ message
 | Self-harm net B, fixed crisis text | Missed "I gave my favorite things away… no reason to be here tomorrow" | 5 |
 | Net B skipped for confirmed physical emergencies | Vomiting blood got the crisis message | 6 |
 | Semi-free sentence | Free text misread details ("your cane is missing") | 6 |
+| Heat-stroke and CO signs in net A | Missed heat stroke ("hot and dry, confused") and CO poisoning ("headache, generator by the door") | 7 |
+| Medical sentences must name what is happening | "I am so sorry this is happening" judged too generic (15 of 22 rejections) | 7 |
+| Phrase boundaries + verb rule | Garbled phrases ("all in the gull", "phone both got rained") | 7 |
 
 ## How it is tested
 

@@ -35,7 +35,7 @@ reach-help: signal or service just appeared, or asking how to call or text 911 /
 stranded-vehicle: car, truck, van, bus, RV or other vehicle stuck, broken down or stalled
 stay-calm: fear, panic, overwhelmed, racing thoughts, can't think
 
-urgent = true ONLY if someone is injured, ill, bleeding, unconscious, not breathing, choking, having chest pain, a stroke, a seizure, an allergic reaction or asthma attack, swallowed something harmful, or wants to harm or kill themselves. When urgent is true, guide is none.
+urgent = true ONLY if someone is injured, ill, bleeding, unconscious, not breathing, choking, having chest pain, a stroke, a seizure, an allergic reaction or asthma attack, swallowed something harmful, has heat stroke signs (hot dry skin, confusion, cannot walk straight), has carbon monoxide signs (headache, nausea or dizziness near a generator, heater, stove or engine), or wants to harm or kill themselves. When urgent is true, guide is none.
 Having signal, wanting to call 911, being lost, cold, hot, thirsty, stuck or scared is NOT urgent on its own.
 If the message is not about an emergency (greetings, jokes, questions, tests, nonsense), guide is none and urgent is false.
 If two guides fit, choose the most pressing one.
@@ -94,45 +94,71 @@ $pronouns = [ordered]@{ "i'm" = "you're"; 'im' = "you're"; "i've" = "you've"; 'i
     'my' = 'your'; 'mine' = 'yours'; 'myself' = 'yourself'; 'we' = 'you'; "we're" = "you're"; "we've" = "you've"; 'us' = 'you'; 'our' = 'your'; 'ours' = 'yours'; 'am' = 'are' }
 $badStart = 'and|but|so|or|to|of|with|in|on|at|for|from|by|as|is|are|was|were|be|been|that|which|who|if|than|then|just|because|cause|like|also'
 $badEnd = 'the|a|an|and|but|so|or|to|of|with|in|on|at|for|from|by|as|is|are|was|were|be|that|your|you|this|these|those|very|really|too|not|no|its|it|their|his|her|beside|near|into|over|under|around|through|about|off|up|down|out|behind|between|against|toward|towards|onto|can''t|cant|won''t|wont|don''t|dont|keep|keeps|get|getting|than|yours|tell|retrace|try|go|move|stay|now|here|there|just|still'
-$badAny = 'what|how|should|could|would|can|do|does|did|help|please|tips|advice|why|when|where|who|which|anyone|someone|any'
+$badAny = 'what|how|should|could|would|can|do|does|did|help|please|tips|advice|why|when|where|who|which|anyone|someone|any|sorry|hi|hey|hello|lol|thanks|mixed'
+# Round 7: phrases must start and end at natural boundaries, so they are never cut out of the
+# middle of a noun group ("phone both got rained on", "lost in all the gull" + noise).
+#  - START: at the start of the clause, or on a word that can begin a clause (you, your, the, it's...).
+#  - END:   at the end of the clause, or right before a joining word (and, while, after, with...).
+#  - It must contain a verb-like word (so "the bird blind" alone is not a phrase).
+$goodStart = "you|you're|you've|your|the|a|an|it|its|it's|there|everything|nothing|nobody|everyone|he|she|he's|she's|his|her|they|they're|their|this|that|our|every"
+# A phrase starting mid-clause after a preposition is an object ("in | the blizzard shelter have..."), never a subject.
+$prepBefore = 'in|on|at|of|from|by|near|into|over|under|around|through|about|to|for|with|without|across|beside|behind|past|above|below|after|before|during|since|like|than|onto|inside|outside'
+$boundary = 'and|but|so|or|while|after|before|since|because|when|then|with|without|in|on|at|for|from|by|near|into|over|under|around|through|about|of|to|as|now|until|though|although'
+$verbish = "^(is|are|was|were|be|been|has|have|had|got|get|gets|keep|keeps|feel|feels|felt|look|looks|seem|seems|hurts?|aches?|bends|stops|goes|comes|says|needs|won't|wont|isn't|aren't|don't|doesn't|didn't|can't|cant|stuck|lost|dead|gone|out|you're|it's|there's|he's|she's|they're|you've|\w+ing|\w+ed)$"
+$boundaryEnd = "after|before|while|since|during|until|because|when|then|both|all|every|one|some|several|other|another|you're|he's|she's|they're|it's|there's|you've|handful|bunch|lot|couple|pair|piece|like"
+$badStart += '|after|before|while|since|when|until|though|although|now'
 function Get-Phrases([string]$msg) {
     $phrases = New-Object System.Collections.Generic.List[string]
     # Split into clauses at punctuation AND at numbers (so "at 6 percent" never becomes "at percent").
-    foreach ($clause in ($msg.ToLower() -replace '[‘’]', "'" -split '[.,!?;:—–()\[\]]|\s-\s|\.\.\.|\S*\d\S*')) {
+    # Round 7: also split where a joining word starts a new sub-clause ("...ridge | and my skin is hot").
+    $subj = "i|i'm|im|my|we|we're|our|you|your|the|he|she|his|her|they|their|it|its|it's|there|every|now|breathing|blood"
+    foreach ($clause in ($msg.ToLower() -replace '[\u2018\u2019]', "'" -split "[.,!?;:\u2014\u2013()\[\]]|\s-\s|\.\.\.|\S*\d\S*|\s(?:and now|and|but|so|while|because|when|now)\s(?=(?:$subj)\b)")) {
         # Skip question or request clauses entirely ("should I retrace the tunnel" is not their situation).
         if ($clause -match "\b(should|what|how|can i|can we|do i|do we|could|would|is there|any way|tips|advice|help me|tell me|please)\b") { continue }
         $words = @($clause -split '\s+' | ForEach-Object { ($_ -replace "[^a-z']", '').Trim("'") } | Where-Object { $_ } | ForEach-Object { if ($pronouns.Contains($_)) { $pronouns[$_] } else { $_ } })
-        for ($len = 3; $len -le 8; $len++) {
+        # Keep the grammar right after I -> you ("I was" -> "you were").
+        for ($k = 1; $k -lt $words.Count; $k++) { if ($words[$k] -eq 'was' -and $words[$k - 1] -eq 'you') { $words[$k] = 'were' } }
+        for ($len = 3; $len -le 10; $len++) {
             for ($i = 0; $i + $len -le $words.Count; $i++) {
                 $ph = $words[$i..($i + $len - 1)]
-                if ($ph[0] -match "^($badStart)$" -or $ph[-1] -match "^($badEnd)$") { continue }
+                if ($ph[0] -match "^($badStart)$" -or $ph[-1] -match "^($badEnd|$boundaryEnd)$") { continue }
                 if (@($ph | Where-Object { $_ -match "^($badAny)$" }).Count) { continue }
+                if ($i -gt 0 -and ($ph[0] -notmatch "^($goodStart)$" -or $words[$i - 1] -match "^($prepBefore)$")) { continue }
+                $next = $i + $len
+                if ($next -lt $words.Count -and $words[$next] -notmatch "^($boundary)$") { continue }
+                if (-not @($ph[1..($ph.Count - 1)] | Where-Object { $_ -match $verbish }).Count) { continue }
                 $phrases.Add(($ph -join ' '))
             }
         }
     }
     @($phrases | Select-Object -Unique)
 }
-function Build-SemiGrammar([string]$msg) {
+# Round 7: for someone hurt or ill the bare "I am so sorry this is happening." was judged too
+# generic (15 of 22 rejections in round 6). Medical sentences now MUST name what is happening,
+# using the person's own words, after one of these openers.
+$medOpeners = @('I am so sorry', 'That sounds really frightening', 'That sounds really scary', 'That sounds painful', 'That sounds terrifying')
+function Build-SemiGrammar([string]$msg, [bool]$medical = $false) {
     $q = [char]34
-    $op = ($openers | ForEach-Object { $q + $_ + $q }) -join ' | '
+    $ops = if ($medical) { $medOpeners } else { $openers }
+    $op = ($ops | ForEach-Object { $q + $_ + $q }) -join ' | '
     $ph = @(Get-Phrases $msg)
     if ($ph.Count -eq 0) { return "root ::= opener `".`"`nopener ::= $op" }
     $slot = ($ph | ForEach-Object { $q + $_ + $q }) -join ' | '
+    if ($medical) { return "root ::= opener `" - `" slot `".`"`nopener ::= $op`nslot ::= $slot" }
     # A dash reads naturally before either a phrase or a whole clause from their message.
     "root ::= opener ending`nopener ::= $op`nending ::= `".`" | `" - `" slot `".`"`nslot ::= $slot"
 }
 $semiSys = @"
 You are Tenvia, an app on a phone with no internet. Write ONE short, kind sentence that only acknowledges what the person is going through. You never give advice, promise anything, or say you can help.
-Start with the opener that best fits their feelings. Then, only if it makes a correct, natural English sentence, add a short phrase taken from their own message that names their situation (I and my become you and your). Prefer the phrase that best captures what is hardest for them. If no phrase reads naturally, end after the opener. For someone hurt or ill, "I am so sorry this is happening." on its own is often best.
+Start with the opener that best fits their feelings. Then, only if it makes a correct, natural English sentence, add a short phrase taken from their own message that names their situation (I and my become you and your). Prefer the phrase that best captures what is hardest for them. If no phrase reads naturally, end after the opener. For someone hurt or ill, always name what is happening to them (the injury or symptom), not where they are.
 "@
 $semiShots = @(
     @('lost on the mountain and its getting dark', 'That sounds really frightening - its getting dark.'),
     @('our car is stuck in deep mud miles from town', 'That sounds really stressful - your car is stuck in deep mud.'),
-    @('my friend fell and is bleeding a lot', 'I am so sorry this is happening.'),
+    @('my friend fell off the ledge and is bleeding a lot', 'I am so sorry - your friend is bleeding a lot.'),
     @('I cant stop shaking, everything feels like too much', 'That sounds overwhelming - everything feels like too much.'),
     @('signal keeps dropping in and out, how do i text 911', 'That sounds really stressful - signal keeps dropping in and out.'),
-    @('I threw up blood twice at the rest stop and feel faint', 'I am so sorry this is happening.'),
+    @('we are camping by the lake and my wife suddenly cant breathe properly', 'That sounds really frightening - your wife suddenly cant breathe properly.'),
     @('the sun is cooking me and there is no shade at all', 'That sounds really uncomfortable - there is no shade at all.')
 )
 
@@ -297,7 +323,12 @@ $hurtShots = @(
     @('my phone battery is swelling and getting hot', '{"answer":false}'),
     @('we saw a wounded deer, now we cannot find the path', '{"answer":false}'),
     @('my son is breathing weird and his lips look blue', '{"answer":true}'),
-    @('I am not hurt, just shaking and scared after the storm', '{"answer":false}')
+    @('I am not hurt, just shaking and scared after the storm', '{"answer":false}'),
+    # Round 7 (missed in round 6): heat stroke and carbon monoxide signs ARE medical; plain confusion about directions is not.
+    @('out in the desert, my skin is hot and dry and I feel confused and wobbly', '{"answer":true}'),
+    @('we all have headaches and feel sick, the heater has been running in the tent', '{"answer":true}'),
+    @('I am confused which trail goes back to the parking lot', '{"answer":false}'),
+    @('the generator ran out of gas and now the cabin is cold', '{"answer":false}')
 )
 $harmSys = @'
 Answer one question: does this message suggest the person may be thinking about suicide or harming themselves, directly or indirectly?
@@ -369,7 +400,7 @@ foreach ($sc in $scenarios) {
     if ($crisis) { $source = 'fixed-crisis'; $say = $crisisText }
     elseif ($route.guide -ne 'none' -or $route.urgent) {
         $source = 'fallback'; $say = ''
-        if ($Mode -eq 'semi') { $sp = Chat $semiSys $semiShots $sc.text; $g = Build-SemiGrammar $sc.text } else { $sp = Chat $saySys $sayShots $sc.text; $g = $sayGrammar }
+        if ($Mode -eq 'semi') { $sp = Chat $semiSys $semiShots $sc.text; $g = Build-SemiGrammar $sc.text ($route.guide -eq 'none' -and [bool]$route.urgent) } else { $sp = Chat $saySys $sayShots $sc.text; $g = $sayGrammar }
         foreach ($t in 1..6) {
             $tries = $t
             $cand = Ask $sp $g ($(if ($t -eq 1) { 0 } else { 0.9 })) 40 (41 + $t)
