@@ -128,12 +128,14 @@
   "outOfScope": [
     {
       "id": "medical",
-      "keywords": ["bleed", "blood", "broke my", "broken", "fracture", "unconscious", "not waking", "wont wake", "passed out", "fell", "not breathing", "breathing", "heart", "chest pain", "cpr", "chok", "burn", "bite", "bitten", "snake", "allerg", "seizure", "injur", "hurt", "wound", "poison", "overdose", "stroke", "labor", "pregnan", "head injury", "pain", "sick", "vomit", "fainted", "hypotherm", "frostbite", "heat stroke"],
+      "keywords": ["bleed", "blood", "broke my", "broken", "fracture", "unconscious", "not waking", "wont wake", "passed out", "fell", "not breathing", "breathing", "heart", "chest pain", "cpr", "chok", "burn", "bite", "bitten", "snake", "allerg", "seizure", "injur", "hurt", "wound", "poison", "overdose", "stroke", "labor", "pregnan", "head injury", "pain", "sick", "vomit", "fainted", "hypotherm", "frostbite", "heat stroke", "swell", "swollen", "wheez", "hives", "short of breath", "shortness of breath", "cant breathe", "can not breathe", "trouble breathing", "struggling to breathe", "hard to breathe", "chest hurts", "chest pressure", "chest is tight", "faint", "cold sweat", "slurred", "slurring", "trouble speaking", "cant speak", "face drooping", "unresponsive", "cant wake", "pass out", "turning blue", "lips are blue", "blue lips", "gurgl", "pinpoint pupils", "convuls", "throwing up", "carbon monoxide", "swallowed"],
+      "negations": ["not hurt", "nobody is hurt", "no one is hurt", "nobody hurt", "not injured", "no injuries", "not bleeding"],
+      "sources": "Warning signs added 2026-11-07 from official pages (CDC, NIH, NIMH, Ready.gov), each quote verified: ai-experiments/medical-signs.json",
       "message": "Tenvia can't guide medical problems yet. If there is any way to reach emergency services, do that now."
     },
     {
       "id": "crisis",
-      "keywords": ["suicide", "kill myself", "end my life", "self harm", "hurt myself", "want to die"],
+      "keywords": ["suicide", "kill myself", "end my life", "ending my life", "self harm", "hurt myself", "want to die", "dont want to be alive", "dont want to live", "no reason to live", "a burden", "plan to kill"],
       "message": "Tenvia can't help with this yet, but you matter. If you can reach anyone, please contact emergency services or a crisis line."
     }
   ]

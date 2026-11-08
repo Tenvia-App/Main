@@ -61,6 +61,18 @@ class MatcherTest {
         assertEquals(listOf("medical"), m.match("my friend fell down the rocks and he's not waking up").outOfScope.map { it.id })
     }
 
+    @Test fun negatedInjuryIsNotFlagged() {
+        val m = Matcher(library.copy(outOfScope = listOf(OutOfScope("medical", listOf("hurt"), "medical", negations = listOf("not hurt")))))
+        assertTrue(m.match("I know I'm not hurt but I'm so overwhelmed").outOfScope.isEmpty())
+        assertEquals(listOf("medical"), m.match("my leg is hurt").outOfScope.map { it.id })
+    }
+
+    @Test fun flagsAllergyWarningSigns() {
+        // Missed in milestone 2 round 3: swelling + wheezing (sourced from CDC warning signs).
+        val m = Matcher(library.copy(outOfScope = listOf(OutOfScope("medical", listOf("swell", "wheez"), "medical"))))
+        assertEquals(listOf("medical"), m.match("my lips are swelling and I'm wheezing").outOfScope.map { it.id })
+    }
+
     @Test fun emptyOrUnknownTextMatchesNothing() {
         assertTrue(matcher.match("   ").guides.isEmpty())
         assertTrue(matcher.match("purple elephant").guides.isEmpty())

@@ -29,6 +29,8 @@ data class OutOfScope(
     val id: String,
     val keywords: List<String>,
     val message: String,
+    /** Phrases removed before matching, so "I'm not hurt" doesn't count as "hurt". */
+    val negations: List<String> = emptyList(),
 )
 
 data class GuideLibrary(
@@ -59,6 +61,7 @@ fun parseGuideLibrary(json: String): GuideLibrary {
                 id = o.getString("id"),
                 keywords = o.getJSONArray("keywords").strings(),
                 message = o.getString("message"),
+                negations = o.optJSONArray("negations")?.strings() ?: emptyList(),
             )
         },
     )

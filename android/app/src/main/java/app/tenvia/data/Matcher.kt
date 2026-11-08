@@ -17,7 +17,13 @@ class Matcher(private val library: GuideLibrary) {
         if (tokens.isEmpty()) return MatchResult(emptyList(), emptyList())
         val phrase = tokens.joinToString(" ")
 
-        val outOfScope = library.outOfScope.filter { score(it.keywords, tokens, phrase) > 0 }
+        val outOfScope = library.outOfScope.filter { oos ->
+            // Remove negated phrases first ("I'm not hurt"), then look for warning words.
+            var p = " $phrase "
+            oos.negations.forEach { p = p.replace(" ${it.lowercase()} ", " ") }
+            val t = p.trim().split(' ').filter { it.isNotBlank() }
+            score(oos.keywords, t, t.joinToString(" ")) > 0
+        }
 
         val guides = library.guides
             .map { it to score(it.keywords, tokens, phrase) }
