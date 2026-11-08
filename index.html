@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eee9dc">
+<title>Ground — offline safety companion proof of concept</title>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+<style>
+:root{--paper:#eee9dc;--ink:#17231e;--moss:#59634a;--rust:#d95532;--line:#c8c2b2;--soft:#e2dccd;--night:#101b17;--white:#f6f2e9;--mono:"Cascadia Code","SFMono-Regular",Consolas,monospace;--sans:"Aptos","Segoe UI",Arial,sans-serif;--display:"Arial Narrow","Aptos Display","Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}button{font:inherit}.wrap{width:min(1160px,calc(100% - 64px));margin:auto}.topbar{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.brand-mark{width:29px;height:29px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;position:relative}.brand-mark:before{content:"";width:7px;height:7px;background:var(--rust);border-radius:50%}.brand-mark:after{content:"";position:absolute;width:1px;height:25px;background:var(--ink);transform:rotate(34deg)}.top-note{font:10px var(--mono);text-transform:uppercase;letter-spacing:.13em;color:#5f6657;display:flex;align-items:center;gap:9px}.top-note i{width:7px;height:7px;background:#8b975c;border-radius:50%;display:inline-block;box-shadow:0 0 0 3px #8b975c26}.hero{padding:68px 0 73px;display:grid;grid-template-columns:1fr .88fr;gap:8.5%;align-items:center;min-height:605px}.eyebrow{display:flex;align-items:center;gap:11px;font:10px var(--mono);text-transform:uppercase;letter-spacing:.15em;color:var(--moss);margin:0 0 21px}.eyebrow:before{content:"";width:27px;height:1px;background:var(--rust)}h1{font-family:var(--display);font-size:clamp(48px,6vw,78px);line-height:.94;letter-spacing:-.055em;font-weight:750;max-width:610px;margin:0 0 23px}h1 span{color:var(--moss);font-family:Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.07em}.intro{font-size:17px;line-height:1.62;max-width:455px;color:#4e594e;margin:0 0 30px}.actions{display:flex;gap:11px;align-items:center;flex-wrap:wrap}.btn{min-height:48px;padding:0 19px;border:1px solid var(--ink);background:var(--ink);color:var(--white);font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:18px;transition:transform .18s,background .18s}.btn:hover{transform:translateY(-2px);background:#283a31}.btn-secondary{background:transparent;color:var(--ink)}.btn-secondary:hover{background:#e2dccd}.arrow{font-size:17px;font-weight:400}.microcopy{margin-top:19px;color:#717567;font:10px var(--mono);letter-spacing:.045em}.phone-wrap{position:relative;max-width:390px;width:100%;justify-self:center}.phone-wrap:before{content:"";position:absolute;z-index:0;inset:19px -19px -17px 18px;border:1px solid #a9a18e;transform:rotate(2deg)}.phone{position:relative;z-index:1;background:var(--night);color:var(--white);padding:16px 16px 17px;border:1px solid #324139;box-shadow:12px 15px 0 #18251e17}.phone-top{display:flex;align-items:center;justify-content:space-between;font:9px var(--mono);text-transform:uppercase;letter-spacing:.13em;color:#c6cbbd;padding:2px 1px 13px}.offline{display:flex;align-items:center;gap:7px}.offline:before{content:"";width:6px;height:6px;background:#d8a34b;border-radius:50%}.device-time{color:#8d9886}.map{height:172px;position:relative;overflow:hidden;background:#27372c;border:1px solid #3b4b3c}.map canvas{display:block;width:100%!important;height:100%!important}.map-label{position:absolute;left:13px;top:12px;color:#d7d6c2;font:8px var(--mono);letter-spacing:.12em;text-transform:uppercase}.map-coord{position:absolute;right:12px;bottom:10px;color:#b7c0a7;font:8px var(--mono);letter-spacing:.08em}.chat{padding:17px 1px 0}.chat-kicker{font:9px var(--mono);text-transform:uppercase;letter-spacing:.14em;color:#9da88f;margin:0 0 11px}.bubble{font-size:14px;line-height:1.48;max-width:286px;background:#24342b;padding:13px 14px;border-left:2px solid #d4a14a;color:#f0eddf}.bubble b{font-weight:650;color:#fff}.prompt-label{font:8px var(--mono);text-transform:uppercase;letter-spacing:.14em;color:#97a18f;margin:15px 0 8px}.prompts{display:flex;gap:7px;flex-wrap:wrap}.prompt{border:1px solid #546352;background:transparent;color:#e5e3d7;padding:8px 10px;font-size:10px;min-height:34px;cursor:pointer;transition:background .15s,border .15s}.prompt:hover,.prompt:focus-visible{background:#344639;border-color:#acb28d;outline:none}.reply{display:none;margin-top:11px;padding:10px 11px;border:1px solid #485747;color:#d7ddcd;font-size:11px;line-height:1.45}.reply.show{display:block}.phone-foot{margin-top:16px;padding-top:11px;border-top:1px solid #354238;display:flex;justify-content:space-between;font:8px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:#899583}.scroll-mark{position:absolute;right:-37px;top:45%;writing-mode:vertical-rl;font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#777968}.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:30px;padding:23px 0 24px}.strip-lead{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--moss);align-self:center}.strip-item{border-left:1px solid var(--line);padding-left:19px}.strip-item strong{display:block;font-family:var(--display);font-size:15px;letter-spacing:-.01em;margin-bottom:5px}.strip-item span{font-size:11px;color:#62685b;line-height:1.45}.note{padding:24px 0 40px;display:flex;justify-content:space-between;gap:20px;color:#747667;font:9px var(--mono);letter-spacing:.04em}.note span:first-child{max-width:580px}.note a{color:var(--moss);text-decoration:none;border-bottom:1px solid #a5a692;height:max-content}.note a:hover{color:var(--rust)}
+@media(max-width:800px){.wrap{width:min(100% - 38px,560px)}.topbar{height:62px}.top-note{font-size:8px}.hero{grid-template-columns:1fr;gap:43px;padding:52px 0 46px;min-height:0}.hero-copy{max-width:580px}h1{font-size:clamp(55px,12vw,76px)}.intro{font-size:15px}.phone-wrap{max-width:420px;width:calc(100% - 13px)}.scroll-mark{right:-23px}.strip{grid-template-columns:1fr;gap:16px;padding:20px 0}.strip-lead{padding-bottom:1px}.strip-item{border-left:0;border-top:1px solid var(--line);padding:14px 0 0}.strip-item strong{font-size:14px}.strip-item span{font-size:11px}.note{padding:20px 0 30px;display:block;line-height:1.55}.note a{display:inline-block;margin-top:12px}}
+@media(max-width:390px){.wrap{width:calc(100% - 28px)}.top-note{letter-spacing:.06em}.hero{padding-top:40px}.phone{padding:12px}.map{height:150px}.scroll-mark{display:none}.btn{padding:0 14px}.intro{font-size:14px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+.test-section{padding:82px 0 79px;scroll-margin-top:18px}.section-head{display:grid;grid-template-columns:1fr .75fr;gap:9%;align-items:end;margin-bottom:29px}.section-kicker{font:9px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin:0 0 12px}h2{font-family:var(--display);font-size:clamp(34px,4.4vw,53px);line-height:.98;letter-spacing:-.045em;margin:0;max-width:620px}.section-intro{font-size:13px;line-height:1.6;color:#51594e;margin:0 0 2px;max-width:390px}.test-list{border-top:1px solid #aaa591}.test-row{display:grid;grid-template-columns:58px minmax(190px,.85fr) minmax(250px,1.3fr);gap:20px;padding:23px 0 25px;border-bottom:1px solid var(--line);align-items:start}.test-number{font:10px var(--mono);color:var(--rust);padding-top:3px}.test-main h3{font-family:var(--display);font-size:19px;line-height:1.05;letter-spacing:-.025em;margin:0 0 8px}.test-tag{display:inline-block;font:7px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#68705f;border:1px solid #b8b29f;padding:4px 6px}.test-copy{font-size:12px;line-height:1.55;color:#4e594e;margin:0;max-width:510px}.evidence{margin-top:10px;padding-left:11px;border-left:1px solid #b0a993;font-size:10px;line-height:1.45;color:#68705f}.evidence-label{display:block;color:#68705f;font:7px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}.value-panel{margin-top:31px;padding:22px 23px;background:var(--night);color:var(--white);display:grid;grid-template-columns:.7fr 1.3fr;gap:35px;align-items:center}.value-label{font:8px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#d8a34b;margin:0}.value-panel p{font-size:13px;line-height:1.6;color:#e2e3d7;margin:0;max-width:700px}.value-panel strong{color:#fff;font-weight:650}.composer{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}.composer textarea{width:100%;min-height:68px;max-height:108px;resize:vertical;background:#17251d;border:1px solid #53614e;color:#f5f1e5;padding:10px;font-size:11px;line-height:1.45;border-radius:0}.composer textarea::placeholder{color:#a3aa99}.input-label{display:block;font:8px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#aab19e;margin:14px 0 7px}.send{min-height:39px;padding:0 12px;background:#d4a14a;border:1px solid #d4a14a;color:#17231e;font-size:10px;font-weight:750;cursor:pointer}.send:hover{background:#e0b768}.thread{display:grid;gap:9px;margin-top:11px;max-height:168px;overflow:auto;scrollbar-color:#52604f transparent;scrollbar-width:thin}.thread:empty{display:none}.message{font-size:11px;line-height:1.45;padding:9px 10px;max-width:92%;white-space:pre-wrap;overflow-wrap:anywhere}.message.user{justify-self:end;background:#39483a;color:#f3f0e6}.message.system{justify-self:start;border:1px solid #52604b;color:#d9dfd1}.screen-note{font:7px var(--mono);letter-spacing:.06em;line-height:1.45;color:#9ba492;margin:8px 0 0;text-transform:none}.phone-foot{margin-top:13px;padding-top:10px;border-top:1px solid #354238;display:flex;justify-content:space-between;font:7px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:#899583}
+@media(max-width:820px){.test-section{padding:61px 0}.section-head{grid-template-columns:1fr;gap:15px}.section-intro{max-width:540px}.test-row{grid-template-columns:34px 1fr;gap:8px 14px;padding:19px 0}.test-row>div:nth-child(3){grid-column:2}.test-main h3{font-size:18px}.value-panel{grid-template-columns:1fr;gap:11px;padding:19px}}
+@media(max-width:430px){.test-section{padding:50px 0}.test-row{grid-template-columns:25px 1fr}.value-panel{padding:17px}.composer{grid-template-columns:1fr}.send{justify-self:end;min-width:110px}}
+</style>
+</head>
+<body>
+<header class="topbar wrap"><div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>Ground / field companion</span></div><div class="top-note"><i aria-hidden="true"></i>Offline AI · early concept</div></header>
+<main>
+<section class="hero wrap" aria-labelledby="headline">
+<div class="hero-copy"><p class="eyebrow">Proof of concept · proposed for evaluation</p><h1 id="headline">A steady guide for the moments <span>that matter.</span></h1><p class="intro">A mobile AI personality designed to help people think through dangerous situations without a network connection. This concept makes the interaction and the work still needed visible.</p><div class="actions"><a class="btn" href="#field-screen">Try the free-text demo <span class="arrow" aria-hidden="true">↘</span></a><a class="btn btn-secondary" href="#test-plan">Review the test plan</a></div><p class="microcopy">EARLY CONCEPT · NOT FOR FIELD USE</p></div>
+<div class="phone-wrap" id="field-screen"><div class="phone"><div class="phone-top"><span class="offline">Offline mode</span><span class="device-time">FIELD GUIDE · 01</span></div><div class="map" id="terrain" aria-hidden="true"><span class="map-label">Terrain / concept visualization</span><span class="map-coord">ILLUSTRATION / NOT A MAP</span></div><div class="chat"><p class="chat-kicker">Ground · interaction concept</p><div class="bubble"><b>I'm here.</b> Tell me what's happening, in your own words.</div><div class="thread" id="thread" aria-live="polite" aria-label="Prototype conversation"></div><form id="chat-form"><label class="input-label" for="message">Describe what’s happening</label><div class="composer"><textarea id="message" name="message" maxlength="500" placeholder="Type freely. No preset replies." required></textarea><button class="send" type="submit">Send to demo <span aria-hidden="true">↗</span></button></div></form><p class="screen-note">Demo only: your text is not sent to an AI model. No safety guidance is generated here.</p></div><div class="phone-foot"><span>FIELD GUIDE CONCEPT</span><span>OFFLINE FIRST</span></div></div><span class="scroll-mark">A clearer next step ↓</span></div>
+</section>
+<section class="strip wrap" id="approach" aria-label="Design principles"><div class="strip-lead">What this concept is designed to test</div><div class="strip-item"><strong>Offline operation</strong><span>A useful interaction when a network is unavailable.</span></div><div class="strip-item"><strong>Calm, free-form conversation</strong><span>People explain the situation in their own words.</span></div></section>
+<section class="test-section wrap" id="test-plan" aria-labelledby="test-title"><div class="section-head"><div><p class="section-kicker">Proposed early-development plan</p><h2 id="test-title">Build evidence before trust.</h2></div><p class="section-intro">A useful proof of concept should show where the idea works, where it fails, and what must be true before anyone considers field use. These are proposed tests, not completed results.</p></div><div class="test-list"><article class="test-row"><div class="test-number">01 /</div><div class="test-main"><h3>Verify offline behavior</h3><span class="test-tag">Device and model checks</span></div><div><p class="test-copy">Run the app in airplane mode and confirm the intended model and core interaction remain available without a network connection.</p><div class="evidence"><span class="evidence-label">Record</span>Startup and response time, battery use, stability, and any features that quietly depend on connectivity.</div></div></article><article class="test-row"><div class="test-number">02 /</div><div class="test-main"><h3>Run controlled emergency simulations</h3><span class="test-tag">Never live emergencies</span></div><div><p class="test-copy">Use scripted, facilitator-led scenarios such as getting disoriented, an injury, or losing shelter. Observe how the assistant handles incomplete details, asks follow-up questions, signals uncertainty, and points people toward real help when appropriate.</p><div class="evidence"><span class="evidence-label">Record</span>Scenario protocol, response quality, unsafe or confusing outputs, and the moments a human should take over.</div></div></article><article class="test-row"><div class="test-number">03 /</div><div class="test-main"><h3>Probe safety boundaries</h3><span class="test-tag">Expert review</span></div><div><p class="test-copy">Have qualified safety, medical, and outdoor professionals review test cases and failures. Deliberately test ambiguity, conflicting information, overconfidence, and requests the system should not answer.</p><div class="evidence"><span class="evidence-label">Record</span>Failure modes, escalation rules, stop conditions, and changes required before another test round.</div></div></article><article class="test-row"><div class="test-number">04 /</div><div class="test-main"><h3>Study comprehension and reliance</h3><span class="test-tag">Non-emergency participants</span></div><div><p class="test-copy">Invite participants into clearly labeled role-play. Check whether they understand the assistant, can correct it in their own words, and know when not to rely on it.</p><div class="evidence"><span class="evidence-label">Record</span>Comprehension, accessibility barriers, trust calibration, participant feedback, and points of confusion.</div></div></article></div><div class="value-panel"><p class="value-label">What partners can evaluate</p><p><strong>A bounded pilot can produce a test protocol, evidence log, reviewed failure cases, and go / no-go criteria.</strong> That gives potential testers and public-sector partners something concrete to assess, without claiming the system is already proven safe or effective.</p></div></section>
+</main>
+<footer class="note wrap"><span>This is a proof-of-concept page, not an operational product. The demo does not connect to an AI model or provide emergency guidance. Any scenario testing should be simulated, supervised by qualified experts, and never conducted during a real emergency.</span><a href="#headline">Back to the top ↑</a></footer>
+<script>
+// This page accepts free-form text but intentionally has no AI backend.
+const form = document.getElementById('chat-form');
+const input = document.getElementById('message');
+const thread = document.getElementById('thread');
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
+  const userMessage = document.createElement('div');
+  userMessage.className = 'message user';
+  userMessage.textContent = text;
+  thread.appendChild(userMessage);
+  const note = document.createElement('div');
+  note.className = 'message system';
+  note.textContent = 'This is a UI-only proof of concept. No model is connected, so it cannot assess or respond to your situation.';
+  thread.appendChild(note);
+  input.value = '';
+  thread.scrollTop = thread.scrollHeight;
+  input.focus();
+});
+
+// Terrain illustration only. This is not a navigational map.
+if (window.p5) {
+  new p5(p => {
+    p.setup = () => {
+      const host = document.getElementById('terrain');
+      const canvas = p.createCanvas(host.clientWidth, host.clientHeight);
+      canvas.parent(host);
+      canvas.elt.setAttribute('aria-hidden', 'true');
+      p.pixelDensity(1);
+      p.noiseSeed(seed);
+      p.frameRate(24);
+    };
+    p.draw = () => {
+      p.background(39, 55, 44);
+      const t = p.frameCount * 0.0014;
+      for (let band = 0; band < 12; band++) {
+        p.noFill();
+        p.stroke(187, 194, 159, band % 3 === 0 ? 70 : 38);
+        p.strokeWeight(band % 4 === 0 ? 1.15 : 0.65);
+        p.beginShape();
+        for (let x = -12; x <= p.width + 12; x += 6) {
+          const nx = x * 0.007 + band * 0.11;
+          const ny = band * 0.09 + t;
+          const drift = (p.noise(nx, ny) - 0.5) * 74;
+          const y = p.height * 0.08 + band * 14 + drift + Math.sin(x * 0.012 + band * 0.6 + t * 3) * 7;
+          p.curveVertex(x, y);
+        }
+        p.endShape();
+      }
+      const px = p.width * 0.58 + Math.sin(t * 11) * 2;
+      const py = p.height * 0.54 + Math.cos(t * 8) * 2;
+      p.noStroke();
+      p.fill(217, 85, 50, 30);
+      p.circle(px, py, 28 + Math.sin(t * 9) * 2);
+      p.fill(224, 160, 75);
+      p.circle(px, py, 6);
+      p.stroke(224, 160, 75, 180);
+      p.strokeWeight(1);
+      p.line(px + 8, py, px + 44, py - 22);
+    };
+    p.windowResized = () => {
+      const host = document.getElementById('terrain');
+      p.resizeCanvas(host.clientWidth, host.clientHeight);
+    };
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# The handoff zip only duplicates index.html and PROJECT-BRIEF.md
+Ground-Claude-Handoff.zip
+
+# Android / Kotlin build output (for later)
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+.idea/
+*.iml
+
+# Large on-device model files are not stored in git
+*.gguf
+*.bin
+
+# OS clutter
+Thumbs.db
+Desktop.ini
+.DS_Store
