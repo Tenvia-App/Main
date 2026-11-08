@@ -10,6 +10,12 @@ local.properties
 .idea/
 *.iml
 
+# Signing secrets and shareable builds never go in git
+keystore.properties
+*.jks
+*.keystore
+share/
+
 # Large on-device model files are not stored in git
 *.gguf
 *.bin
