@@ -1,0 +1,16 @@
+{
+  "note": "Milestone 2 quality test. Each scenario is a plausible message from a stressed person. 'expect' is the guide a good assistant should pick ('none' plus medical=true for out of scope).",
+  "system": "You are Tenvia, a calm helper on a phone with no internet. You must NEVER give instructions yourself. You only choose which guide to open. Guides:\nstay-or-move: Lost, deciding to stay put or move\nget-found: Helping rescuers find you\ncold-weather: Cold, wet or bad weather\nheat: Heat and sun\nwater: Drinking water\nphone-battery: Making the phone battery last\nreach-help: Contacting 911 when signal appears\nstranded-vehicle: Stuck in a car or truck\nstay-calm: Fear and panic\nMedical problems (injury, bleeding, unconscious, illness) are out of scope: use guide none and medical true.\nReply with ONE line of JSON only, like {\"guide\":\"<id or none>\",\"medical\":false,\"say\":\"<one short, calm, kind sentence, no instructions>\"}",
+  "scenarios": [
+    {"id": 1, "text": "I got separated from my group hiking and I have no idea where the trail is", "expect": "stay-or-move"},
+    {"id": 2, "text": "my car slid off the road in a blizzard and nobody's around", "expect": "stranded-vehicle"},
+    {"id": 3, "text": "I can hear a helicopter but I don't think they can see me", "expect": "get-found"},
+    {"id": 4, "text": "my phone is at 9 percent and I have no bars", "expect": "phone-battery"},
+    {"id": 5, "text": "we've been out here two days and we ran out of water", "expect": "water"},
+    {"id": 6, "text": "my friend fell down the rocks and he's not waking up", "expect": "none", "medical": true},
+    {"id": 7, "text": "its pitch black and raining and im shaking so much", "expect": "cold-weather"},
+    {"id": 8, "text": "I'm so scared I can't think straight", "expect": "stay-calm"},
+    {"id": 9, "text": "its sooo hot and theres no shade anywhere", "expect": "heat"},
+    {"id": 10, "text": "I finally have one bar of signal!!", "expect": "reach-help"}
+  ]
+}

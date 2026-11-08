@@ -55,6 +55,12 @@ class MatcherTest {
         assertEquals("stay-or-move", r.guides.first().id)
     }
 
+    @Test fun flagsUnconsciousDescribedInOwnWords() {
+        // Found by the milestone 2 AI test: "not waking up" wasn't caught before.
+        val m = Matcher(library.copy(outOfScope = listOf(OutOfScope("medical", listOf("not waking", "fell"), "medical"))))
+        assertEquals(listOf("medical"), m.match("my friend fell down the rocks and he's not waking up").outOfScope.map { it.id })
+    }
+
     @Test fun emptyOrUnknownTextMatchesNothing() {
         assertTrue(matcher.match("   ").guides.isEmpty())
         assertTrue(matcher.match("purple elephant").guides.isEmpty())

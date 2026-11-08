@@ -1,0 +1,402 @@
+﻿[
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  1,
+        "expect":  "stay-or-move",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  16.3,
+        "say":  "You\u0027re not alone. The trail is still in the forest. You should stay and try to find it yourself."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  2,
+        "expect":  "stranded-vehicle",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  14.9,
+        "say":  "I\u0027m safe and I\u0027m not in danger. Let me know if you need help."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  3,
+        "expect":  "get-found",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  18.3,
+        "say":  "I can hear a helicopter, but I don\u0027t think they can see me. It\u0027s a good thing."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  4,
+        "expect":  "phone-battery",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  17.9,
+        "say":  "I\u0027m safe and I\u0027m not in danger. I can stay here."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  5,
+        "expect":  "water",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  16.6,
+        "say":  "It\u0027s okay to feel sad and tired, but we\u0027re not alone. We\u0027re here for each other."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  6,
+        "expect":  "none",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  16.3,
+        "say":  "I\u0027m here for you, my friend. Please don\u0027t worry about me. We can get you help soon."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  7,
+        "expect":  "cold-weather",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  13.3,
+        "say":  "I\u0027m feeling very scared and I need to stay here. It\u0027s pitch black and raining, but I can\u0027t move. I need to stay calm and stay here."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  8,
+        "expect":  "stay-calm",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  11.6,
+        "say":  "You\u0027re not alone, and you\u0027re safe. Stay calm and remember to take care of yourself."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  9,
+        "expect":  "heat",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  15.5,
+        "say":  "The sun is out, and the heat is just here. We should stay calm and enjoy the moment."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q4_0.gguf",
+        "id":  10,
+        "expect":  "reach-help",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  14.3,
+        "say":  "I\u0027m safe and I\u0027m feeling better now. Let me know if you need anything else."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  1,
+        "expect":  "stay-or-move",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  18.1,
+        "say":  null
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  2,
+        "expect":  "stranded-vehicle",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  19.2,
+        "say":  "I\u0027m safe and not in danger. Let me know if you need help."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  3,
+        "expect":  "get-found",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  18.2,
+        "say":  "I can hear a helicopter, but I don\u0027t think they can see me."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  4,
+        "expect":  "phone-battery",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  19.9,
+        "say":  "I\u0027m not sure how to help you right now. Let me know if you need anything else."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  5,
+        "expect":  "water",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  17.7,
+        "say":  "It\u0027s important to stay hydrated, so drink water as you go."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  6,
+        "expect":  "none",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  19.9,
+        "say":  "Your friend needs immediate medical attention. Please call emergency services."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  7,
+        "expect":  "cold-weather",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  16.5,
+        "say":  "Stay calm and take it easy while the rain is falling."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  8,
+        "expect":  "stay-calm",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  15.1,
+        "say":  null
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  9,
+        "expect":  "heat",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  16.8,
+        "say":  "Stay cool and stay safe."
+    },
+    {
+        "model":  "Qwen3-0.6B-Q8_0.gguf",
+        "id":  10,
+        "expect":  "reach-help",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  17.2,
+        "say":  "I\u0027m safe and ready to help!"
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  1,
+        "expect":  "stay-or-move",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  22.9,
+        "say":  "You should stay put and wait for help."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  2,
+        "expect":  "stranded-vehicle",
+        "got":  "cold-weather",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  18.2,
+        "say":  "You need to stay warm and avoid moving."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  3,
+        "expect":  "get-found",
+        "got":  "none",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  15.2,
+        "say":  "You are safe, and the helicopter will find you."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  4,
+        "expect":  "phone-battery",
+        "got":  "reach-help",
+        "medical":  false,
+        "ok":  false,
+        "seconds":  26.7,
+        "say":  "Contact 911 for assistance."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  5,
+        "expect":  "water",
+        "got":  "water",
+        "medical":  true,
+        "ok":  true,
+        "seconds":  25.3,
+        "say":  "You need to find some water or drink from a source."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  6,
+        "expect":  "none",
+        "got":  "none",
+        "medical":  true,
+        "ok":  true,
+        "seconds":  26,
+        "say":  "I\u0027m sorry, please stay with your friend and wait for help."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  7,
+        "expect":  "cold-weather",
+        "got":  "cold-weather",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  12.8,
+        "say":  "you are shaking and it is cold, stay warm and safe."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  8,
+        "expect":  "stay-calm",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  25.2,
+        "say":  "You\u0027re safe now. Take deep breaths and stay calm."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  9,
+        "expect":  "heat",
+        "got":  "heat",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  22.5,
+        "say":  "You should stay hydrated and seek shade if possible."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q4_0.gguf",
+        "id":  10,
+        "expect":  "reach-help",
+        "got":  "reach-help",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  22.8,
+        "say":  "You are safe, and I will contact the appropriate authorities."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  1,
+        "expect":  "stay-or-move",
+        "got":  "stay-or-move",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  35.9,
+        "say":  "It\u0027s okay, you\u0027re not alone. Let me help you find the trail."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  2,
+        "expect":  "stranded-vehicle",
+        "got":  "stranded-vehicle",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  34.2,
+        "say":  "You\u0027re safe, just stay calm and wait for help."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  3,
+        "expect":  "get-found",
+        "got":  "get-found",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  34,
+        "say":  "I\u0027m trying to stay calm and wait for help to find me."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  4,
+        "expect":  "phone-battery",
+        "got":  "phone-battery",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  35.6,
+        "say":  "Your phone battery is at 9%, try moving to a warmer place to conserve power."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  5,
+        "expect":  "water",
+        "got":  "water",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  37.2,
+        "say":  "It\u0027s important to stay hydrated. Let me know if you need help finding water or preparing it."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  6,
+        "expect":  "none",
+        "got":  "none",
+        "medical":  true,
+        "ok":  true,
+        "seconds":  33.6,
+        "say":  "I\u0027m sorry your friend is not waking up. Please stay with them and seek medical help immediately."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  7,
+        "expect":  "cold-weather",
+        "got":  "cold-weather",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  35.2,
+        "say":  "Stay warm and try to stay calm."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  8,
+        "expect":  "stay-calm",
+        "got":  "stay-calm",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  27,
+        "say":  "Take a deep breath and stay calm. You\u0027re not alone."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  9,
+        "expect":  "heat",
+        "got":  "heat",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  35.9,
+        "say":  "It\u0027s very hot, let me know if you need anything."
+    },
+    {
+        "model":  "Qwen3-1.7B-Q8_0.gguf",
+        "id":  10,
+        "expect":  "reach-help",
+        "got":  "reach-help",
+        "medical":  false,
+        "ok":  true,
+        "seconds":  36.2,
+        "say":  "Great! Let\u0027s reach help quickly."
+    }
+]

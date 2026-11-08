@@ -80,7 +80,7 @@ Targets (battery use, response time and so on) will be set with experts and by m
 |---|---|---|
 | 0 | Name, emblem, ownership record, this document | Done |
 | 1 | App skeleton: guide library and simple matcher, no AI, draft content clearly labelled not for real use | Done 7 Nov 2026 (placeholder guides) |
-| 2 | On-device AI experiment: does a small model run acceptably on a mid-range phone? | No |
+| 2 | On-device AI experiment: does a small model run acceptably on a mid-range phone? | First round done 7 Nov 2026: see [ai-experiments/RESULTS.md](ai-experiments/RESULTS.md) |
 | 3 | Offline and battery testing (testing track 1) | No |
 | 4 | Expert review and supervised simulations (testing tracks 2–4) | Likely |
 | 5 | Medical first aid category, with expert-reviewed content | Likely |
