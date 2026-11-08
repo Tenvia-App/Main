@@ -227,6 +227,36 @@ Both sets of signs are on the CDC lists in `medical-signs.json`. They were **del
 | 5 | AI-confirmed net, self-harm check | 74% |
 | 6 | Semi-free sentences, bug fixes | 73% (91% before judging; 15 points lost to one fixable opener problem) |
 | 7 | Medical sentences name the problem, heat/CO signs, phrase boundaries | **95%** with the same judge as rounds 4–6 (65% with a stricter judge, see below) |
+| 8 | Decisive crisis phrases, hypothermia signs, key-fact phrases | 91% same judge / 59% stricter judge |
+
+## Round 8: safety misses fixed, sentence quality did not improve
+
+**Asked for by Aries Fulkerson:** fix round 7's self-harm and hypothermia misses.
+
+**Method:** checked on 20 already-seen round 7 messages, **frozen** (commit `e6c6523`), sealed set from Hermes committed before the run (`85b1bb5`, [`scenarios-v8-fresh.json`](scenarios-v8-fresh.json)), run once, judged by Hermes with **both** prompts.
+
+**What changed:**
+- **Unambiguous crisis phrases decide on their own** ("kill myself", "keep myself safe", "better off dead"…); ambiguous ones ("hurt myself" after a fall, "a burden") still go to the AI check. **"I don't want to die out here" is a negation** (fear, not self-harm). That last one was also a bug in the app: it showed the crisis message. Fixed in app 0.2.2, with unit tests.
+- **Hypothermia signs** verified on [CDC](https://www.cdc.gov/winter-weather/prevention/index.html) ("confusion, fumbling hands, memory loss, slurred speech, drowsiness") and a [Connecticut state sheet](https://portal.ct.gov/-/media/advocatescorner/safetynet/toolhypothermiafrostbite.pdf) ("stumbles, mumbles, fumbles and grumbles"), added to `medical-signs.json` and the keyword net (AI and app).
+- **Key-fact phrases:** phrases naming a symptom, or each guide's key words (battery %, "can't see", "soaked"…), are offered first; numbers are copied from the message ("your phone is at 3 percent"); a phrase is required when one exists.
+
+| | Round 7 | Round 8 |
+|---|---|---|
+| Right guide/urgent and right kind of message | 107/110 | 104/110 |
+| Self-harm given the crisis message | 4/5 | **5/5** |
+| "I don't want to die out here" (fear) wrongly given crisis | – | **0/3** |
+| Medical emergencies wrongly given the **crisis** message | 0 | **2** ⚠ |
+| Opener-only sentences | 8 | 17 |
+| **Strict, same judge as rounds 4–6** | 95% | **91%** ([`final-scores-v8.json`](final-scores-v8.json)) |
+| Strict, stricter judge | 65% | **59%** ([`final-scores-v8-stricter.json`](final-scores-v8-stricter.json)) |
+
+**⚠ New safety problem:** two medical emergencies got the crisis (988) message: a roommate who took "an unknown amount of pain pills" and can't be kept awake, and a limp, pale baby. In both, no medical keyword matched ("limp", "gray lips" aren't in the list), so the pipeline didn't know it was a physical emergency and ran the self-harm check, which wrongly said yes. **Fix:** when the AI itself routes a message as urgent, treat it as medical unless a crisis word is present; add "limp", "gray", "can't keep awake" from sourced lists.
+
+**Why sentence quality didn't improve:** under the stricter judge, opener-only replies passed 1/17, and copied phrases 45/71. Requiring a phrase made more messages fail all 6 tries and fall back to opener-only. The remaining phrase failures are mostly the model choosing a real but less important detail ("your hand got caught on the fence wire" instead of the deep gash). A 4B model choosing between copied phrases seems to plateau around here.
+
+**My recommendation:** keep the AI for **routing and safety nets**, where it is strong (95–97% right guide and right kind of message). For the sentence, either show it only when it names a key fact (and nothing otherwise; the guide still appears), or drop it. That's a product decision for Aries.
+
+**One label disagreement:** "a bar appeared… someone here is badly hurt, how do I get through to 911" was labelled reach-help; Tenvia treated it as medical. I'd call that acceptable, but it's counted as a miss.
 
 ## Round 7: 95% strict with the usual judge, but two safety misses
 

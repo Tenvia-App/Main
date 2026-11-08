@@ -1,4 +1,4 @@
-# Testing Tenvia (test version 0.2.1)
+# Testing Tenvia (test version 0.2.2)
 
 Thanks for helping test **Tenvia**, a free offline app meant to help people through dangerous situations when there's no signal.
 
@@ -6,7 +6,7 @@ Thanks for helping test **Tenvia**, a free offline app meant to help people thro
 
 ## Install (Android 8 or newer)
 
-1. Get the file **`Tenvia-0.2.1-test.apk`** from Aries.
+1. Get the file **`Tenvia-0.2.2-test.apk`** from Aries.
 2. Tap it on your phone. Android will warn that the app is from an unknown source. That's normal for test apps that aren't on the Play Store yet.
 3. If asked, allow your Files app or browser to **"Install unknown apps"**, then go back and tap **Install**.
 4. Open **Tenvia** from your app list (it's the gold path-and-walker icon).
