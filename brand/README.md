@@ -2,7 +2,7 @@
 
 **Final emblem:** [tenvia-icon.png](tenvia-icon.png). Adopted 7 November 2026 by Aries Fulkerson.
 
-A small walking figure travels along an even-width S-shaped path between two gold hill shapes, on a dark green rounded square. It shows the meaning of the name, "hold on, there's a way through": someone making their way through.
+A small walking figure travels along an even-width S-shaped path between two gold hill shapes, each with a pine tree, on a dark green rounded square. It shows the meaning of the name, "hold on, there's a way through": someone making their way through.
 
 Colors: dark green `#17231E`, amber `#D4A14A`, off-white `#EEE9DC`.
 
@@ -17,9 +17,10 @@ ChatGPT produced the drafts. Aries Fulkerson directed every step: choosing conce
 | 3 | `03-throughline-offset-dot-angry-eye.png` | The dot moved off-center | Rejected: a test viewer saw an "angry eye". The cause was the almond-shaped gap itself |
 | 4 | `04-even-path-round-outline.png` | An even-width path, with the shapes joined into a circle | Rejected: the circle with a slash looks like a "no" sign or a coffee bean |
 | 5 | `05-rolling-trail-broken-outline.png` | Separate offset shapes, the path running out to the edges | Twin Slopes was best; the dot still felt abstract |
-| 6 | `06-walking-figure-final.png` | A walking figure on the path | **Adopted.** Passed the "what do you see?" test |
+| 6 | `06-walking-figure-final.png` | A walking figure on the path | Passed the "what do you see?" test |
+| 7 | `07-walking-figure-with-trees-final.png` | Pine trees added to both hills, placing the path in the wilderness | **Final emblem**, adopted 7 November 2026 |
 
 ## Still to do
 
-- Check the figure at 24–48 px. If the arms and legs blur, thicken them or use a simple dot version for tiny sizes such as the notification icon and favicon.
+- Check the figure and trees at 24–48 px. If they blur, thicken them or use a simpler version for tiny sizes, such as the notification icon and favicon (for example the path and figure without trees).
 - A final cleanup or redraw by hand in a vector tool (Figma or Inkscape), plus an SVG master file.
