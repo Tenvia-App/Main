@@ -1,0 +1,285 @@
+{
+    "scenarios":  [
+                      {
+                          "id":  1,
+                          "text":  "I wandered off the trail and now none of this looks familiar. should I stay here or try to find the path",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  2,
+                          "text":  "been walking in circles for like an hour, cant tell which way we came from",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  3,
+                          "text":  "We got seperated from the hike group and the trail just... ends? what do i do",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  4,
+                          "text":  "I can hear people shouting but they cant see me!!",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  5,
+                          "text":  "lost in the woods and i hear a helicopter circling, how do i make them notice me",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  "stay-or-move"
+                      },
+                      {
+                          "id":  6,
+                          "text":  "theyre looking for me i think, what can i do so rescuers can spot where im at",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  7,
+                          "text":  "my socks are soaked and im shaking bad, its getting dark too",
+                          "expect":  "cold-weather",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  8,
+                          "text":  "snow coming down sideways and my hands are numb what now",
+                          "expect":  "cold-weather",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  9,
+                          "text":  "Its cold and windy and raining, I cant get warm",
+                          "expect":  "cold-weather",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  10,
+                          "text":  "sun is cooking me out here and theres literally no shade",
+                          "expect":  "heat",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  11,
+                          "text":  "im dizzy from this heat and my face feels like its on fire",
+                          "expect":  "heat",
+                          "urgent":  "either",
+                          "also":  "none"
+                      },
+                      {
+                          "id":  12,
+                          "text":  "its 100 degrees, we\u0027ve got almost no water left and nowhere to cool down",
+                          "expect":  "heat",
+                          "urgent":  false,
+                          "also":  "water"
+                      },
+                      {
+                          "id":  13,
+                          "text":  "we ran out of water this morning and the creek is dry too",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  14,
+                          "text":  "how long can I go without drinking? my bottle is empty",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  15,
+                          "text":  "theres a stream nearby but idk if the water is safe to drink",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  16,
+                          "text":  "phone battery 4% and no charger, need it to last",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  17,
+                          "text":  "my phone is dyinggg its on 2 percent what can i turn off",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  18,
+                          "text":  "No bars and 8% battery, worried its gonna shut off before anyone finds me",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  19,
+                          "text":  "one bar just popped up!! how do i call 911 fast",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  20,
+                          "text":  "signal keeps coming and going, is there a way to get an emergency call through",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  21,
+                          "text":  "I finally have service but my phone is at 3%, need to reach 911",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  "phone-battery"
+                      },
+                      {
+                          "id":  22,
+                          "text":  "truck slid into a ditch and the wheels just spin when I try to move",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  23,
+                          "text":  "Stuck on the shoulder in my car, it wont start and cars are flying past",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  24,
+                          "text":  "our van is stuck in snow, its freezing and the windows are icing up",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  "cold-weather"
+                      },
+                      {
+                          "id":  25,
+                          "text":  "im freaking out cant get my breathing to slow down",
+                          "expect":  "stay-calm",
+                          "urgent":  "either",
+                          "also":  "none"
+                      },
+                      {
+                          "id":  26,
+                          "text":  "I\u0027m lost and starting to panic, my brain is not working",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  "stay-or-move"
+                      },
+                      {
+                          "id":  27,
+                          "text":  "I am so scared right now. everything feels too much",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  28,
+                          "text":  "I fell off a ledge and my ankle is bent weird, cant stand on it",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  29,
+                          "text":  "My hand wont stop bleeding after I cut it on a rock",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  30,
+                          "text":  "my hiking buddy collapsed and wont wake up, we\u0027re miles from the trailhead",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  31,
+                          "text":  "I got stung and now my throat feels tight and my lips are swelling",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  32,
+                          "text":  "fell hard in the woods, my head is bleeding and i feel really confused",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  33,
+                          "text":  "my friend is having a seizure in the back seat, we are lost on a dirt road",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  34,
+                          "text":  "I dont want to be alive anymore and im scared ill hurt myself",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  35,
+                          "text":  "I might hurt myself tonight. i dont know who to tell",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  36,
+                          "text":  "hi",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  37,
+                          "text":  "whats the weather tomorrow",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  38,
+                          "text":  "test",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  39,
+                          "text":  "help",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  "stay-calm"
+                      },
+                      {
+                          "id":  40,
+                          "text":  "????",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      }
+                  ],
+    "note":  "Written by Hermes, labels reviewed by Claude 2026-11-07. Pass = guide is \u0027expect\u0027 or \u0027also\u0027, and urgent matches (unless \u0027either\u0027)."
+}
