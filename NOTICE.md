@@ -6,6 +6,10 @@ This project, a free, fully offline, battery-optimized AI companion app for peop
 
 Until an open-source licence is chosen and added to this repository, no permission is granted to copy, modify, distribute or use any part of this project.
 
-The working name "Ground" is being retired because of existing apps and businesses with that name. A new name will be recorded here once it is chosen.
+## Name
+
+The project is named **Tenvia**, chosen by Aries Fulkerson on 7 November 2026. The name joins Latin *tenē* ("hold on") and *via* ("the way"): "hold on, there's a way through."
+
+The earlier working name "Ground" was retired because existing apps and businesses already use it.
 
 AI assistants (Claude, Hermes Agent and others) are used as tools under the creator's direction. All decisions about the product, its scope and its content are the creator's.
