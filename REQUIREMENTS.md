@@ -79,7 +79,7 @@ Targets (battery use, response time and so on) will be set with experts and by m
 | # | Milestone | Needs funding? |
 |---|---|---|
 | 0 | Name, emblem, ownership record, this document | Done |
-| 1 | App skeleton: guide library and simple matcher, no AI, draft content clearly labelled not for real use | No |
+| 1 | App skeleton: guide library and simple matcher, no AI, draft content clearly labelled not for real use | Done 7 Nov 2026 (placeholder guides) |
 | 2 | On-device AI experiment: does a small model run acceptably on a mid-range phone? | No |
 | 3 | Offline and battery testing (testing track 1) | No |
 | 4 | Expert review and supervised simulations (testing tracks 2–4) | Likely |

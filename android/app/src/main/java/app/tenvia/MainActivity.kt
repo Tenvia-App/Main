@@ -1,0 +1,75 @@
+package app.tenvia
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import app.tenvia.data.Guide
+import app.tenvia.data.MatchResult
+import app.tenvia.data.Matcher
+import app.tenvia.data.parseGuideLibrary
+import app.tenvia.ui.GuideScreen
+import app.tenvia.ui.HomeScreen
+import app.tenvia.ui.Night
+import app.tenvia.ui.Paper
+import app.tenvia.ui.ResultsScreen
+import app.tenvia.ui.TenviaTheme
+
+private sealed interface Screen {
+    data object Home : Screen
+    data class Results(val result: MatchResult) : Screen
+    data class GuideView(val guide: Guide, val back: Screen) : Screen
+}
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        // The whole guide library ships inside the app; nothing is ever downloaded.
+        val library = assets.open("guides.json").bufferedReader().use { parseGuideLibrary(it.readText()) }
+        val matcher = Matcher(library)
+
+        setContent {
+            TenviaTheme {
+                var screen by remember { mutableStateOf<Screen>(Screen.Home) }
+                BackHandler(enabled = screen != Screen.Home) {
+                    screen = when (val s = screen) {
+                        is Screen.GuideView -> s.back
+                        else -> Screen.Home
+                    }
+                }
+                // Surface sets the default text color to light Paper for everything inside it.
+                Surface(Modifier.fillMaxSize(), color = Night, contentColor = Paper) {
+                Box(Modifier.fillMaxSize().safeDrawingPadding().imePadding()) {
+                    when (val s = screen) {
+                        Screen.Home -> HomeScreen(
+                            guides = library.guides,
+                            onSearch = { screen = Screen.Results(matcher.match(it)) },
+                            onOpenGuide = { screen = Screen.GuideView(it, Screen.Home) },
+                        )
+                        is Screen.Results -> ResultsScreen(
+                            result = s.result,
+                            allGuides = library.guides,
+                            onOpenGuide = { screen = Screen.GuideView(it, s) },
+                            onBack = { screen = Screen.Home },
+                        )
+                        is Screen.GuideView -> GuideScreen(s.guide, onDone = { screen = s.back })
+                    }
+                }
+                }
+            }
+        }
+    }
+}

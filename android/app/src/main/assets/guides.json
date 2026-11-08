@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "note": "PROTOTYPE LIBRARY. Every guide below is a placeholder. Real steps must be drafted from vetted public sources, with each source and licence recorded, and reviewed by qualified people before anyone relies on them.",
+  "guides": [
+    {
+      "id": "stay-or-move",
+      "title": "Lost: stay put or move?",
+      "summary": "Deciding whether to stay where you are or try to move.",
+      "keywords": ["lost", "stay", "move", "which way", "direction", "trail", "path", "wander", "where am i", "dont know where", "turned around", "woods", "forest"],
+      "steps": [
+        "Placeholder step 1 of 3. Vetted guidance on stopping and thinking before you act will go here.",
+        "Placeholder step 2 of 3. Vetted guidance on when staying put is safer will go here.",
+        "Placeholder step 3 of 3. Vetted guidance on when moving may be necessary will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "get-found",
+      "title": "Help rescuers find you",
+      "summary": "Making yourself easy to see and hear.",
+      "keywords": ["found", "find me", "rescue", "rescuer", "rescuers", "search", "searching", "helicopter", "plane", "whistle", "signal fire", "seen", "noticed", "waiting"],
+      "steps": [
+        "Placeholder step 1 of 3. Vetted guidance on being visible will go here.",
+        "Placeholder step 2 of 3. Vetted guidance on being heard will go here.",
+        "Placeholder step 3 of 3. Vetted guidance on leaving signs for searchers will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "cold-weather",
+      "title": "Cold, wet or bad weather",
+      "summary": "Staying protected from cold, wind, rain and snow.",
+      "keywords": ["cold", "freez", "wet", "rain", "snow", "wind", "shiver", "storm", "night", "dark", "shelter", "soaked", "ice"],
+      "steps": [
+        "Placeholder step 1 of 3. Vetted guidance on getting out of wind and wet will go here.",
+        "Placeholder step 2 of 3. Vetted guidance on keeping warm will go here.",
+        "Placeholder step 3 of 3. Vetted guidance on getting through the night will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "heat",
+      "title": "Heat and sun",
+      "summary": "Staying protected from heat and strong sun.",
+      "keywords": ["hot", "heat", "sun", "sunny", "desert", "sweat", "burning up", "no shade"],
+      "steps": [
+        "Placeholder step 1 of 2. Vetted guidance on finding shade and cooling down will go here.",
+        "Placeholder step 2 of 2. Vetted guidance on saving energy and water in heat will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "water",
+      "title": "Water",
+      "summary": "Thinking about drinking water.",
+      "keywords": ["water", "thirst", "thirsty", "drink", "dehydrat", "stream", "river"],
+      "steps": [
+        "Placeholder step 1 of 2. Vetted guidance on how to think about water will go here.",
+        "Placeholder step 2 of 2. Vetted guidance on water from natural sources will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "phone-battery",
+      "title": "Make your phone battery last",
+      "summary": "Saving battery so your phone works when it matters.",
+      "keywords": ["battery", "charge", "charger", "dying", "power", "percent", "phone dying"],
+      "steps": [
+        "Placeholder step 1 of 2. Vetted guidance on cutting battery use will go here.",
+        "Placeholder step 2 of 2. Vetted guidance on when to use the phone will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "reach-help",
+      "title": "Contact help when you get signal",
+      "summary": "Reaching emergency services if any connection appears.",
+      "keywords": ["signal", "call", "911", "112", "text", "help", "emergency", "reception", "bars", "service", "no signal", "contact"],
+      "steps": [
+        "Placeholder step 1 of 2. Vetted guidance on finding signal will go here.",
+        "Placeholder step 2 of 2. Vetted guidance on what to tell emergency services will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "stranded-vehicle",
+      "title": "Stranded in a vehicle",
+      "summary": "Stuck in a car, truck or other vehicle.",
+      "keywords": ["car", "vehicle", "truck", "stuck", "stranded", "broke down", "broken down", "snowbank", "ditch", "road"],
+      "steps": [
+        "Placeholder step 1 of 3. Vetted guidance on whether to stay with the vehicle will go here.",
+        "Placeholder step 2 of 3. Vetted guidance on staying warm and safe inside will go here.",
+        "Placeholder step 3 of 3. Vetted guidance on being found will go here."
+      ],
+      "draft": true
+    },
+    {
+      "id": "stay-calm",
+      "title": "Stay calm and think clearly",
+      "summary": "Getting through fear and panic.",
+      "keywords": ["scared", "panic", "panicking", "afraid", "calm", "anxious", "alone", "think", "fear", "frightened", "help me"],
+      "steps": [
+        "Placeholder step 1 of 2. Vetted guidance on slowing down and breathing will go here.",
+        "Placeholder step 2 of 2. Vetted guidance on making a simple plan will go here."
+      ],
+      "draft": true
+    }
+  ],
+  "outOfScope": [
+    {
+      "id": "medical",
+      "keywords": ["bleed", "blood", "broke my", "broken", "fracture", "unconscious", "not breathing", "breathing", "heart", "chest pain", "cpr", "chok", "burn", "bite", "bitten", "snake", "allerg", "seizure", "injur", "hurt", "wound", "poison", "overdose", "stroke", "labor", "pregnan", "head injury", "pain", "sick", "vomit", "fainted", "hypotherm", "frostbite", "heat stroke"],
+      "message": "Tenvia can't guide medical problems yet. If there is any way to reach emergency services, do that now."
+    },
+    {
+      "id": "crisis",
+      "keywords": ["suicide", "kill myself", "end my life", "self harm", "hurt myself", "want to die"],
+      "message": "Tenvia can't help with this yet, but you matter. If you can reach anyone, please contact emergency services or a crisis line."
+    }
+  ]
+}
