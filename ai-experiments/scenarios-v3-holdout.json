@@ -1,0 +1,495 @@
+{
+    "scenarios":  [
+                      {
+                          "id":  101,
+                          "text":  "My dog pulled me off the marked loop and now I can\u0027t match the trail on my paper map. Do I wait here or pick a direction?",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  102,
+                          "text":  "I\u0027m 12 and got separated from my aunt at the campground, there\u0027s two paths and I don\u0027t know which one goes back to the cabins",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  103,
+                          "text":  "Visiting from Manila, the canyon signs stopped and all the rocks look the same. Should I retrace my steps or stay put?",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  104,
+                          "text":  "I\u0027m 76, the blazes don\u0027t match what I remember and I think I\u0027ve gone past the junction. How do I decide whether to keep walking?",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  105,
+                          "text":  "We paddled around this island and can\u0027t find the landing where we left our canoe. Everything on shore looks unfamiliar",
+                          "expect":  "stay-or-move",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  106,
+                          "text":  "Searchers are somewhere on this ridge but the trees hide me from view; what can I do to get their attention?",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  107,
+                          "text":  "SKI PATROL IS BELOW ME BUT THEY KEEP PASSING THE GULLY IM IN how do I signal them",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  108,
+                          "text":  "Our little fishing boat is drifting near the reeds and the coast guard boat hasn\u0027t spotted us yet. How can we make ourselves visible?",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  109,
+                          "text":  "I speak only a little English. Rescue people called out but I cannot answer well; what sound or sign should I use so they find my campsite?",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  110,
+                          "text":  "My wheelchair is on a broad clearing and I can hear the rescue helicopter. What should I put out or do so they see exactly where I am?",
+                          "expect":  "get-found",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  111,
+                          "text":  "My toddler fell in the creek and now his clothes are soaked; the wind\u0027s picking up and he\u0027s shivering. How do I warm him safely?",
+                          "expect":  "cold-weather",
+                          "urgent":  "either",
+                          "also":  "none"
+                      },
+                      {
+                          "id":  112,
+                          "text":  "Rain got through my tent and sleeping bag, and I have no dry layer left for tonight. What can I do to stay warm?",
+                          "expect":  "cold-weather",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  113,
+                          "text":  "My fingers are clumsy and white after hours on this windy ridge, jacket zipped but still freezing. what now",
+                          "expect":  "cold-weather",
+                          "urgent":  "either",
+                          "also":  "none"
+                      },
+                      {
+                          "id":  114,
+                          "text":  "A gust knocked my tarp down and sleet is coming in sideways. We have a small dog too—how do we keep warm and dry?",
+                          "expect":  "cold-weather",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  115,
+                          "text":  "I\u0027m deaf and didn\u0027t notice the storm rolled in until I saw the snow piling up; my clothes are damp and I can\u0027t stop shivering",
+                          "expect":  "cold-weather",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  116,
+                          "text":  "Our guide took the shady route but my grandma and I are stuck on an exposed slope in the afternoon sun, both getting woozy",
+                          "expect":  "heat",
+                          "urgent":  "either",
+                          "also":  "none"
+                      },
+                      {
+                          "id":  117,
+                          "text":  "The sun is blasting off the white sand and my neck is burning through my shirt. Where should I get out of it?",
+                          "expect":  "heat",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  118,
+                          "text":  "CAN\u0027T FIND ANY SHADE and the metal handcycle is too hot to touch, I\u0027m roasting out here",
+                          "expect":  "heat",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  119,
+                          "text":  "My kid\u0027s cheeks are bright red after playing on the open beach and she\u0027s getting cranky in the sun, what should I do to cool her down?",
+                          "expect":  "heat",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  120,
+                          "text":  "We\u0027re tourists on a treeless lava field and the heat bouncing off the rocks is brutal. How do we protect ourselves until the path is shaded?",
+                          "expect":  "heat",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  121,
+                          "text":  "The spring marked on my trail map is completely dry. There are four of us and only one bottle left—what\u0027s the safest next move?",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  122,
+                          "text":  "Found a puddle after the storm but it has leaves and dirt in it; can I make this water drinkable somehow?",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  123,
+                          "text":  "My service dog and I are out of drinking water, and I see a stream down the bank. how do I treat it with no filter",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  124,
+                          "text":  "We\u0027re stranded on a small sailboat with no fresh water left, just seawater all around us. What can we safely drink?",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  125,
+                          "text":  "My bottle froze solid overnight and I can\u0027t get water out. I have a little snow nearby—is that usable for drinking?",
+                          "expect":  "water",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  126,
+                          "text":  "Battery says 6% and the touchscreen is cracked so it\u0027s lighting up constantly. Need to save enough power to show my location later",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  127,
+                          "text":  "my phone is at 9 percent and keeps searching for service in this valley, what settings stop it draining so fast",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  128,
+                          "text":  "ONLY 1% LEFT!! no charger in my pack, how can I make this thing last til morning",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  129,
+                          "text":  "I\u0027m using a screen reader and the battery warning just came on at 7%. Which features can I switch off without losing the phone?",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  130,
+                          "text":  "Long story but my phone got wet in the kayak and is down to 5%, I need to keep it alive for the rest of this trip",
+                          "expect":  "phone-battery",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  131,
+                          "text":  "A single bar showed up for a second on this island. How do I get an emergency call to connect before it disappears?",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  132,
+                          "text":  "I can see LTE now after driving up the pass—what\u0027s the quickest way to tell dispatch where this remote road is?",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  133,
+                          "text":  "No English keyboard on this borrowed phone and a signal just came back. How do I contact emergency services without speaking much?",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  134,
+                          "text":  "Got one bar at the top of the chairlift and it may go away when I move. How should I try to reach 911?",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  135,
+                          "text":  "my phone shows SOS now after saying no service all day, can I get a message out to rescuers or make a call",
+                          "expect":  "reach-help",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  136,
+                          "text":  "Our campervan slid sideways into a muddy farm track and the tires are buried. Is there anything safe to try before we call for a tow?",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  137,
+                          "text":  "The bus broke down on an unlit mountain road, we\u0027re passengers and cars are whipping past. Where should everyone wait?",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  138,
+                          "text":  "My pickup\u0027s stuck on a beach and the tide is coming back in, the wheels just dig deeper when I accelerate",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  139,
+                          "text":  "Wheelchair van won\u0027t start and it\u0027s stopped partly in the road with my dad inside. what do we do first",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  140,
+                          "text":  "Our electric car died on a remote road, no charging station nearby, and it won\u0027t roll out of park. How do we stay safe?",
+                          "expect":  "stranded-vehicle",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  141,
+                          "text":  "My hands are shaking and I keep imagining every worst case. Can you walk me through one thing at a time?",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  142,
+                          "text":  "I know I\u0027m not hurt but I\u0027m so overwhelmed I can\u0027t choose what to do next, please help me slow down",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  143,
+                          "text":  "THIS IS TOO MUCH. I\u0027m alone at the campsite and my thoughts are racing all over the place",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  144,
+                          "text":  "First time camping, night noises everywhere, I feel jumpy and keep waking my sister up. How do I settle myself?",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  145,
+                          "text":  "Sorry my English is bad. I am afraid and cannot think clearly, can you tell me how to calm down slowly",
+                          "expect":  "stay-calm",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  146,
+                          "text":  "My husband suddenly can\u0027t move his left arm and his words are coming out all wrong. We\u0027re at a trail picnic area",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  147,
+                          "text":  "My 8 year old swallowed a button battery from the headlamp and says it hurts going down",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  148,
+                          "text":  "I slipped getting out of the kayak and now my chest hurts badly and I can\u0027t take a full breath",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  149,
+                          "text":  "My grandpa has crushing chest pressure and is sweating through his shirt, we\u0027re parked at a remote overlook",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  150,
+                          "text":  "My hiking partner is choking on a piece of food and can\u0027t talk or cough, what do I do right now",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  151,
+                          "text":  "I got pinned under a fallen branch and my lower leg is crushed; we\u0027re off trail and it hurts like crazy",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  152,
+                          "text":  "My friend drank from a bottle that had cleaning fluid in it by mistake, we\u0027re two miles from the road",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  153,
+                          "text":  "My daughter is having a severe asthma attack in our stalled RV and her inhaler isn\u0027t helping",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  154,
+                          "text":  "Grandma fell in the parking lot and now one hip looks badly out of place, she can\u0027t stand up",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  155,
+                          "text":  "My friend has a deep cut in his thigh and blood is pulsing out with each heartbeat, we are lost in the woods",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  156,
+                          "text":  "A toddler in our canoe is unresponsive and barely breathing after going under for a moment",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  157,
+                          "text":  "My lips and tongue are swelling fast after eating a snack, and I\u0027m wheezing in this parked car",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  158,
+                          "text":  "I\u0027m thinking about ending my life and I\u0027m alone in the cabin with things I could use to do it",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  159,
+                          "text":  "I might hurt myself tonight. I\u0027m out on this trail by myself and don\u0027t trust what I\u0027ll do",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  160,
+                          "text":  "I don\u0027t want to keep living and I have a plan to kill myself when I get home",
+                          "expect":  "none",
+                          "urgent":  true,
+                          "also":  null
+                      },
+                      {
+                          "id":  161,
+                          "text":  "Can you translate \u0027good morning\u0027 into Icelandic?",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  162,
+                          "text":  "What time does the museum close today",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  163,
+                          "text":  "my dog is such a goofball lol",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  164,
+                          "text":  "Tell me a joke about a penguin",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  165,
+                          "text":  "uhhhh green blue 17??",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  166,
+                          "text":  "I don\u0027t understand this app, buttons are weird",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  167,
+                          "text":  "How far away is the moon from Earth?",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  168,
+                          "text":  "Need help with a thing from yesterday but not sure what to ask",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  169,
+                          "text":  "buy milk call Sam photos 4pm",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      },
+                      {
+                          "id":  170,
+                          "text":  "Why is my backpack blue if the label says green",
+                          "expect":  "none",
+                          "urgent":  false,
+                          "also":  null
+                      }
+                  ],
+    "note":  "Hold-out set written by Hermes 2026-11-07, never used for tuning. Labels reviewed by Claude."
+}
