@@ -31,7 +31,7 @@ cold-weather: cold, wet, wind, rain, snow, sleet, shivering, numb or soaked
 heat: heat, sun, no shade, overheating, sunburn
 water: drinking water: running out, finding it, making it safe
 phone-battery: phone battery low or dying
-reach-help: signal or service just appeared, or asking how to call or text 911 / emergency services
+reach-help: signal, service or SOS just appeared, or asking how to call or text 911 / emergency services / responders
 stranded-vehicle: car, truck, van, bus, RV or other vehicle stuck, broken down or stalled
 stay-calm: fear, panic, overwhelmed, racing thoughts, can't think
 
@@ -104,7 +104,7 @@ $goodStart = "you|you're|you've|your|the|a|an|it|its|it's|there|everything|nothi
 # A phrase starting mid-clause after a preposition is an object ("in | the blizzard shelter have..."), never a subject.
 $prepBefore = 'in|on|at|of|from|by|near|into|over|under|around|through|about|to|for|with|without|across|beside|behind|past|above|below|after|before|during|since|like|than|onto|inside|outside'
 $boundary = 'and|but|so|or|while|after|before|since|because|when|then|with|without|in|on|at|for|from|by|near|into|over|under|around|through|about|of|to|as|now|until|though|although'
-$verbish = "^(is|are|was|were|be|been|has|have|had|got|get|gets|keep|keeps|feel|feels|felt|look|looks|seem|seems|hurts?|aches?|bends|stops|goes|comes|says|needs|won't|wont|isn't|aren't|don't|doesn't|didn't|can't|cant|stuck|lost|dead|gone|out|you're|it's|there's|he's|she's|they're|you've|\w+ing|\w+ed)$"
+$verbish = "^(is|are|was|were|be|been|has|have|had|got|get|gets|keep|keeps|feel|feels|felt|look|looks|seem|seems|hurts?|aches?|bends|stops|goes|comes|says|needs|won't|wont|isn't|aren't|don't|doesn't|didn't|can't|cant|stuck|lost|dead|gone|out|down|frozen|broken|torn|swollen|hidden|fallen|hides|blocks|covers|you're|it's|there's|he's|she's|they're|you've|\w+ing|\w+ed)$"
 $boundaryEnd = "after|before|while|since|during|until|because|when|then|both|all|every|one|some|several|other|another|you're|he's|she's|they're|it's|there's|you've|handful|bunch|lot|couple|pair|piece|like"
 $badStart += '|after|before|while|since|when|until|though|although|now'
 function Get-Phrases([string]$msg) {
@@ -112,20 +112,27 @@ function Get-Phrases([string]$msg) {
     # Split into clauses at punctuation AND at numbers (so "at 6 percent" never becomes "at percent").
     # Round 7: also split where a joining word starts a new sub-clause ("...ridge | and my skin is hot").
     $subj = "i|i'm|im|my|we|we're|our|you|your|the|he|she|his|her|they|their|it|its|it's|there|every|now|breathing|blood"
-    foreach ($clause in ($msg.ToLower() -replace '[\u2018\u2019]', "'" -split "[.,!?;:\u2014\u2013()\[\]]|\s-\s|\.\.\.|\S*\d\S*|\s(?:and now|and|but|so|while|because|when|now)\s(?=(?:$subj)\b)")) {
+    # Round 8: numbers are kept (copied exactly), so "your phone is at 3 percent" is possible.
+    foreach ($clause in ($msg.ToLower() -replace '[\u2018\u2019]', "'" -split "[,!?;:\u2014\u2013()\[\]]|(?<!\d)\.|\.(?!\d)|\s-\s|\.\.\.|\s(?:and now|and|but|so|while|because|when|now)\s(?=(?:$subj)\b)")) {
         # Skip question or request clauses entirely ("should I retrace the tunnel" is not their situation).
-        if ($clause -match "\b(should|what|how|can i|can we|do i|do we|could|would|is there|any way|tips|advice|help me|tell me|please)\b") { continue }
-        $words = @($clause -split '\s+' | ForEach-Object { ($_ -replace "[^a-z']", '').Trim("'") } | Where-Object { $_ } | ForEach-Object { if ($pronouns.Contains($_)) { $pronouns[$_] } else { $_ } })
+        if ($clause -match "\b(should|what|how|can i|can we|can it|can this|can that|is it|is this|are they|do i|do we|could|would|is there|any way|tips|advice|help me|tell me|please)\b") { continue }
+        $words = @($clause -split '\s+' | ForEach-Object { ($_ -replace "[^a-z0-9%']", '').Trim("'") } | Where-Object { $_ } | ForEach-Object { if ($pronouns.Contains($_)) { $pronouns[$_] } else { $_ } })
         # Keep the grammar right after I -> you ("I was" -> "you were").
         for ($k = 1; $k -lt $words.Count; $k++) { if ($words[$k] -eq 'was' -and $words[$k - 1] -eq 'you') { $words[$k] = 'were' } }
-        for ($len = 3; $len -le 10; $len++) {
+        for ($len = 2; $len -le 10; $len++) {
             for ($i = 0; $i + $len -le $words.Count; $i++) {
                 $ph = $words[$i..($i + $len - 1)]
-                if ($ph[0] -match "^($badStart)$" -or $ph[-1] -match "^($badEnd|$boundaryEnd)$") { continue }
+                # Two words only as "he's mumbling" / "you're bleeding".
+                if ($len -eq 2 -and -not ($ph[0] -match "^(he's|she's|you're|they're|it's)$" -and $ph[1] -match '^\w+(ing|ed)$')) { continue }
+                # "the tide is coming in": a particle may end the phrase at the very end of a clause.
+                $particleEnd = ($i + $len -eq $words.Count) -and $ph[-1] -match '^(in|out|up|down|off|on|over|away)$' -and $len -ge 3 -and $ph[-2] -match '^\w+(ing|ed)$'
+                if ($ph[0] -match "^($badStart)$" -or ($ph[-1] -match "^($badEnd|$boundaryEnd)$" -and -not $particleEnd)) { continue }
                 if (@($ph | Where-Object { $_ -match "^($badAny)$" }).Count) { continue }
                 if ($i -gt 0 -and ($ph[0] -notmatch "^($goodStart)$" -or $words[$i - 1] -match "^($prepBefore)$")) { continue }
                 $next = $i + $len
                 if ($next -lt $words.Count -and $words[$next] -notmatch "^($boundary)$") { continue }
+                # "...chest spreading | into your jaw": a motion verb needs its destination.
+                if ($next -lt $words.Count -and $ph[-1] -match 'ing$' -and $words[$next] -match '^(into|to|across|through|toward|towards|onto|down|up|over)$') { continue }
                 if (-not @($ph[1..($ph.Count - 1)] | Where-Object { $_ -match $verbish }).Count) { continue }
                 $phrases.Add(($ph -join ' '))
             }
@@ -137,20 +144,41 @@ function Get-Phrases([string]$msg) {
 # generic (15 of 22 rejections in round 6). Medical sentences now MUST name what is happening,
 # using the person's own words, after one of these openers.
 $medOpeners = @('I am so sorry', 'That sounds really frightening', 'That sounds really scary', 'That sounds painful', 'That sounds terrifying')
-function Build-SemiGrammar([string]$msg, [bool]$medical = $false) {
+# Round 8: phrases that name the key fact are preferred. If any phrase contains one of these word
+# starts, only those are offered (else all). Medical = symptoms and body parts; guides = the
+# thing that makes that situation hard ("can't see us", "4%", "soaked", "frozen with fear").
+$keyStems = @{
+    'none'             = 'chest head neck back arm leg ankle knee wrist hand foot feet face eye lip throat skin rib hip breath pulse heart cut wound bone pain hurt ach bleed blood burn vomit throw swell sting bite faint dizz confus mumbl stumbl fumbl shak seiz convuls unconscious wake respond limp blue pale numb nause headache drowsy slurr squeez pressure droop swallow poison fever sick cough wheez collaps crumpl'
+    'stay-or-move'     = 'lost look unfamiliar recogni same bearings wrong turn circle sure know'
+    'get-found'        = 'see seen spot notice hear heard hidden hide block cant miss pass'
+    'cold-weather'     = 'cold wet damp soak numb freez shiver ice icy snow wind chill'
+    'heat'             = 'hot heat sun shade air cook bak swelter dizzy sweat'
+    'water'            = 'water drink thirst out empty ran'
+    'phone-battery'    = 'battery % percent dying dead charge'
+    'reach-help'       = 'signal bar service sos call text reach'
+    'stranded-vehicle' = 'stuck start broke sink tide flat stall dead wont slid'
+    'stay-calm'        = 'fear panic scar frozen shak breath think heart overwhelm cry afraid terrif'
+}
+function Select-KeyPhrases([string[]]$ph, [string]$guide) {
+    $stems = "$($keyStems[$guide])" -split ' ' | Where-Object { $_ }
+    if (-not $stems) { return $ph }
+    $key = @($ph | Where-Object { $words = $_ -split ' '; @($words | Where-Object { $w = $_; @($stems | Where-Object { $w.StartsWith($_) -or ($_ -eq '%' -and $w.Contains('%')) }).Count }).Count })
+    if ($key.Count) { $key } else { $ph }
+}
+function Build-SemiGrammar([string]$msg, [bool]$medical = $false, [string]$guide = 'none') {
     $q = [char]34
     $ops = if ($medical) { $medOpeners } else { $openers }
     $op = ($ops | ForEach-Object { $q + $_ + $q }) -join ' | '
-    $ph = @(Get-Phrases $msg)
+    $ph = @(Select-KeyPhrases @(Get-Phrases $msg) $guide)
     if ($ph.Count -eq 0) { return "root ::= opener `".`"`nopener ::= $op" }
     $slot = ($ph | ForEach-Object { $q + $_ + $q }) -join ' | '
-    if ($medical) { return "root ::= opener `" - `" slot `".`"`nopener ::= $op`nslot ::= $slot" }
-    # A dash reads naturally before either a phrase or a whole clause from their message.
-    "root ::= opener ending`nopener ::= $op`nending ::= `".`" | `" - `" slot `".`"`nslot ::= $slot"
+    # Round 8: a phrase is now always required when one exists (opener-only replies were judged
+    # too generic by the stricter judge). Opener-only stays as the last resort after 6 tries.
+    "root ::= opener `" - `" slot `".`"`nopener ::= $op`nslot ::= $slot"
 }
 $semiSys = @"
 You are Tenvia, an app on a phone with no internet. Write ONE short, kind sentence that only acknowledges what the person is going through. You never give advice, promise anything, or say you can help.
-Start with the opener that best fits their feelings. Then, only if it makes a correct, natural English sentence, add a short phrase taken from their own message that names their situation (I and my become you and your). Prefer the phrase that best captures what is hardest for them. If no phrase reads naturally, end after the opener. For someone hurt or ill, always name what is happening to them (the injury or symptom), not where they are.
+Start with the opener that best fits their feelings. Then, only if it makes a correct, natural English sentence, add a short phrase taken from their own message that names their situation (I and my become you and your). Prefer the phrase that best captures what is hardest for them. If no phrase reads naturally, end after the opener. Choose the phrase that names the MOST important or urgent part: for someone hurt or ill, the injury or symptom (the worst one); otherwise how low the battery is, a danger such as rising water, fire or night falling, being unseen by searchers, or running out of water. Never just where they are or what they were doing.
 "@
 $semiShots = @(
     @('lost on the mountain and its getting dark', 'That sounds really frightening - its getting dark.'),
@@ -159,7 +187,9 @@ $semiShots = @(
     @('I cant stop shaking, everything feels like too much', 'That sounds overwhelming - everything feels like too much.'),
     @('signal keeps dropping in and out, how do i text 911', 'That sounds really stressful - signal keeps dropping in and out.'),
     @('we are camping by the lake and my wife suddenly cant breathe properly', 'That sounds really frightening - your wife suddenly cant breathe properly.'),
-    @('the sun is cooking me and there is no shade at all', 'That sounds really uncomfortable - there is no shade at all.')
+    @('the sun is cooking me and there is no shade at all', 'That sounds really uncomfortable - there is no shade at all.'),
+    @('drove to the lake for sunset and now my phone is at 4% with no charger', 'That sounds really stressful - your phone is at 4%.'),
+    @('our boat drifted into the reeds and the searchers on the dock cant see us', 'That sounds really hard - the searchers on the dock cant see you.')
 )
 
 # On-phone self-check of a candidate sentence.
@@ -371,6 +401,10 @@ foreach ($sc in $scenarios) {
     else {
         # Self-harm check: on crisis words/triggers, off-topic messages, panic, or AI-urgent without a medical word.
         $ck = Find-Keyword $sc.text ($crisisKeywords + $crisisTriggers)
+        # Round 8: unambiguous crisis phrases decide on their own (round 7: the AI said "no" to
+        # "I can't keep myself safe tonight"). Ambiguous ones ("hurt myself" after a fall,
+        # "a burden", "self harm") still go to the AI check below.
+        $decisive = Find-Keyword $sc.text @($crisisKeywords | Where-Object { $_ -notin 'hurt myself', 'a burden', 'self harm' })
         $med = Find-Keyword $sc.text $medKeywords
         $medical = $false
         # 1. Medical warning word -> the AI confirms a PERSON is hurt or ill, whatever it routed to
@@ -384,7 +418,8 @@ foreach ($sc in $scenarios) {
         # 2. Self-harm check. A confirmed physical emergency only gets checked if a crisis word or
         #    trigger is present (round 5 bug: vomiting blood got the crisis message).
         $runHarm = if ($medical) { [bool]$ck } else { [bool]$ck -or $route.guide -eq 'none' -or $route.guide -eq 'stay-calm' }
-        if ($runHarm -and (Ask-Bool $harmSys $harmShots $sc.text)) { $crisis = $true; $medical = $false; $route.guide = 'none'; $route.urgent = $true; $net = "self-harm ($ck)" }
+        if ($decisive) { $crisis = $true; $medical = $false; $route.guide = 'none'; $route.urgent = $true; $net = "crisis-phrase ($decisive)" }
+        elseif ($runHarm -and (Ask-Bool $harmSys $harmShots $sc.text)) { $crisis = $true; $medical = $false; $route.guide = 'none'; $route.urgent = $true; $net = "self-harm ($ck)" }
     }
     $okGuides = @($sc.expect) + @($sc.also | Where-Object { $_ })
     $routed = ("$($route.guide)" -in $okGuides) -and (("$($sc.urgent)" -eq 'either') -or ([bool]$route.urgent -eq [bool]$sc.urgent))
@@ -400,11 +435,13 @@ foreach ($sc in $scenarios) {
     if ($crisis) { $source = 'fixed-crisis'; $say = $crisisText }
     elseif ($route.guide -ne 'none' -or $route.urgent) {
         $source = 'fallback'; $say = ''
-        if ($Mode -eq 'semi') { $sp = Chat $semiSys $semiShots $sc.text; $g = Build-SemiGrammar $sc.text ($route.guide -eq 'none' -and [bool]$route.urgent) } else { $sp = Chat $saySys $sayShots $sc.text; $g = $sayGrammar }
+        if ($Mode -eq 'semi') { $sp = Chat $semiSys $semiShots $sc.text; $g = Build-SemiGrammar $sc.text ($route.guide -eq 'none' -and [bool]$route.urgent) "$($route.guide)" } else { $sp = Chat $saySys $sayShots $sc.text; $g = $sayGrammar }
         foreach ($t in 1..6) {
             $tries = $t
             $cand = Ask $sp $g ($(if ($t -eq 1) { 0 } else { 0.9 })) 40 (41 + $t)
             $rub = Test-Rubric $cand
+            # Round 8: a number is fine when it was copied from the person's own message.
+            if ($rub -contains 'numbers' -and -not @([regex]::Matches($cand, '\d+') | Where-Object { $sc.text -notmatch "(?<!\d)$($_.Value)(?!\d)" }).Count) { $rub = @($rub | Where-Object { $_ -ne 'numbers' }) }
             $inv = @(Test-Invented $cand $sc.text "$($route.guide)")
             if ($inv.Count) { $rub += "invented: $($inv -join ' ')" }
             if ($rub.Count) { $rejected += "[rubric: $($rub -join ',')] $cand"; continue }

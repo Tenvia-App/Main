@@ -80,6 +80,30 @@ class MatcherTest {
         assertEquals(listOf("medical"), m.match("headache and nausea, generator running by the door").outOfScope.map { it.id })
     }
 
+    @Test fun flagsHypothermiaSigns() {
+        // Missed in AI round 7: "mumbling, stumbling" (CDC + CT.gov hypothermia signs).
+        val m = Matcher(library.copy(outOfScope = listOf(OutOfScope("medical", listOf("mumbl", "stumbl", "fumbl", "drowsy"), "medical"))))
+        assertEquals(listOf("medical"), m.match("he's mumbling, stumbling, and can't stop shaking").outOfScope.map { it.id })
+    }
+
+    @Test fun crisisPhraseFlagsButFearOfDyingDoesNot() {
+        // Round 8: "keep myself safe" is a crisis phrase; "I don't want to die out here" is fear, not self-harm.
+        val crisis = OutOfScope("crisis", listOf("want to die", "keep myself safe"), "crisis", negations = listOf("dont want to die"))
+        val m = Matcher(library.copy(outOfScope = listOf(crisis)))
+        assertEquals(listOf("crisis"), m.match("I don't know how much longer I can keep myself safe tonight").outOfScope.map { it.id })
+        assertTrue(m.match("I don't want to die out here, it's so cold").outOfScope.isEmpty())
+        assertEquals(listOf("crisis"), m.match("I just want to die").outOfScope.map { it.id })
+    }
+
+    @Test fun realGuideFileParsesWithNegations() {
+        val json = java.io.File("src/main/assets/guides.json").readText()
+        val lib = parseGuideLibrary(json)
+        val m = Matcher(lib)
+        assertTrue(m.match("I don't want to die out here, I'm lost").outOfScope.none { it.id == "crisis" })
+        assertTrue(m.match("I can't keep myself safe tonight").outOfScope.any { it.id == "crisis" })
+        assertTrue(m.match("my friend is mumbling and stumbling after the freezing rain").outOfScope.any { it.id == "medical" })
+    }
+
     @Test fun emptyOrUnknownTextMatchesNothing() {
         assertTrue(matcher.match("   ").guides.isEmpty())
         assertTrue(matcher.match("purple elephant").guides.isEmpty())

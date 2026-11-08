@@ -1,4 +1,4 @@
-# Tenvia AI pipeline (as of round 7, 8 November 2026)
+# Tenvia AI pipeline (as of round 8, 8 November 2026)
 
 This is how Tenvia's optional on-device AI handles one message, end to end. Everything runs **on the phone, offline**. The model is Qwen3 4B (Apache 2.0, 4-bit, about 2.3 GB), run with llama.cpp. The reference implementation is [`freetext-v3.ps1`](freetext-v3.ps1); the evidence for each design choice is in [`RESULTS.md`](RESULTS.md).
 
@@ -23,7 +23,9 @@ message
   │
   ├─ 3. SAFETY NET B: self-harm check (AI, sourced warning signs)
   │      18 warning signs verified on NIMH + SAMHSA pages (selfharm-signs.json)
-  │      runs when: crisis word / trigger word appears, OR the message looks off-topic,
+  │      unambiguous crisis phrases ("kill myself", "keep myself safe"...) decide ALONE (round 8);
+  │      "don't want to die" (fear) is a negation, not a crisis.
+  │      otherwise runs when: crisis word / trigger word appears, OR the message looks off-topic,
   │      OR it was routed to "stay calm" (and NOT for a confirmed physical emergency
   │      unless a crisis word appears)
   │      yes → crisis (urgent)
@@ -66,6 +68,9 @@ message
 | Heat-stroke and CO signs in net A | Missed heat stroke ("hot and dry, confused") and CO poisoning ("headache, generator by the door") | 7 |
 | Medical sentences must name what is happening | "I am so sorry this is happening" judged too generic (15 of 22 rejections) | 7 |
 | Phrase boundaries + verb rule | Garbled phrases ("all in the gull", "phone both got rained") | 7 |
+| Decisive crisis phrases, "don't want to die" negation | AI said no to "I can't keep myself safe tonight" | 8 |
+| Hypothermia signs (CDC, CT.gov) in net A | Missed "mumbling, stumbling, can't stop shaking" | 8 |
+| Key-fact phrases, numbers copied, phrase required | Safe but generic sentences ("That sounds really stressful." at 3% battery) | 8 |
 
 ## How it is tested
 

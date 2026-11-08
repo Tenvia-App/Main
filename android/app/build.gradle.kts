@@ -20,8 +20,8 @@ android {
         // Android 8.0: keeps Tenvia usable on older and cheaper phones.
         minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.2.1-test"
+        versionCode = 4
+        versionName = "0.2.2-test"
     }
 
     signingConfigs {
@@ -62,4 +62,6 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.11.0")
 
     testImplementation("junit:junit:4.13.2")
+    // Real org.json for unit tests (Android's copy is only a stub off-device), so tests can read guides.json.
+    testImplementation("org.json:json:20250517")
 }
