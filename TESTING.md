@@ -1,8 +1,8 @@
-﻿# Testing Tenvia (test version 0.2.1)
+# Testing Tenvia (test version 0.2.1)
 
 Thanks for helping test **Tenvia**, a free offline app meant to help people through dangerous situations when there's no signal.
 
-> âš  **This is a prototype. Do not rely on it in a real emergency.** In a real emergency, call or text 911 (or your local emergency number). The guides come from US government safety pages but haven't been reviewed by experts yet.
+> **WARNING: This is a prototype. Do not rely on it in a real emergency.** In a real emergency, call or text 911 (or your local emergency number). The guides come from US government safety pages but haven't been reviewed by experts yet.
 
 ## Install (Android 8 or newer)
 
@@ -11,7 +11,7 @@ Thanks for helping test **Tenvia**, a free offline app meant to help people thro
 3. If asked, allow your Files app or browser to **"Install unknown apps"**, then go back and tap **Install**.
 4. Open **Tenvia** from your app list (it's the gold path-and-walker icon).
 
-Tenvia needs **no internet and no permissions**. You can check: Settings â†’ Apps â†’ Tenvia â†’ Permissions shows none.
+Tenvia needs **no internet and no permissions**. You can check: Settings → Apps → Tenvia → Permissions shows none.
 
 ## What to try (10 minutes)
 
