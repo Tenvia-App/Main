@@ -104,6 +104,13 @@ class MatcherTest {
         assertTrue(m.match("my friend is mumbling and stumbling after the freezing rain").outOfScope.any { it.id == "medical" })
     }
 
+    @Test fun floodAndWildfireGuidesMatch() {
+        // Added after sealed chat test 1 (ready.gov steps): flood and wildfire had no checked guide.
+        val m = Matcher(parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText()))
+        assertTrue(m.match("our truck is stuck and the flood water is rising").guides.any { it.id == "flood" })
+        assertTrue(m.match("smoke all around the road and an orange glow over the ridge").guides.any { it.id == "wildfire" })
+    }
+
     @Test fun emptyOrUnknownTextMatchesNothing() {
         assertTrue(matcher.match("   ").guides.isEmpty())
         assertTrue(matcher.match("purple elephant").guides.isEmpty())

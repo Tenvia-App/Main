@@ -33,12 +33,14 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
     private var isCrisis = false
     private var hazard = false
     private var hot = false
+    private var coSource = false
+    private var co = false
     private val history = mutableListOf<Pair<String, String>>()
     private val prevReplies = mutableListOf<String>()
     private var curMsg = ""
 
     fun reset() {
-        active.clear(); isMedical = false; isCrisis = false; hazard = false; hot = false
+        active.clear(); isMedical = false; isCrisis = false; hazard = false; hot = false; coSource = false; co = false
         history.clear(); prevReplies.clear()
     }
 
@@ -117,13 +119,17 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
         val steps = grounding(use)
 
         // situation notes (fixed word rules, not AI)
-        if (Regex("\\b(fire|wildfire|smoke|flames?|burning|evacuat\\w*|flood\\w*|water (is )?(rising|coming in|up to)|rising water|tornado)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hazard = true
-        if (Regex("\\b(hot|heat|overheat\\w*|desert|scorching|sun is (brutal|hot|beating)|9\\d ?(f|degrees)|1\\d\\d ?(f|degrees))\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hot = true
+        if (Regex("\\b(fire|wildfire|smoke|flames?|burning|evacuat\\w*|flood\\w*|water (is )?(rising|coming in|up to)|rising water|tornado|tide (is )?(coming|rising|up)\\w*|high tide|lightning)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hazard = true
+        // CDC carbon monoxide signs near a fuel-burning source = medical (sealed set 1, 301: "the heater is making us sleepy").
+        if (Regex("\\b(heater|engine|exhaust|tailpipe|generator|stove|grill|charcoal|propane|kerosene|fumes|idling|car (is )?running|running the car)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) coSource = true
+        if (coSource && Regex("\\b(sleepy|drowsy|so tired|can't stay awake|hard to (stay awake|wake)|won't wake|headaches?|dizz\\w*|lightheaded|weak|nause\\w*|upset stomach|throw(ing)? up|threw up|vomit\\w*|chest pain|confus\\w*|passed out|pass(ing)? out)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) { co = true; isMedical = true }
+        if (Regex("\\b(hot|heat wave|the heat (is|was)|in (this|the) heat|overheat\\w*|desert|scorching|sun is (brutal|hot|beating)|9\\d ?(f|degrees)|1\\d\\d ?(f|degrees))\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hot = true
         val hasSignal = SIGNAL_RE.containsMatchIn(msg)
         val ctx = mutableListOf<String>()
         if (isCrisis) ctx += "NOTE: ${crisisNote()}" else if (isMedical) ctx += "NOTE: ${medicalNote()}"
         ctx += if (steps.isNotEmpty()) "CHECKED STEPS:\n$steps" else "CHECKED STEPS: none match yet. Do not give practical advice. Kindly ask what is happening."
-        if (hazard) ctx += "NOTE: There is fire, smoke or flood. No checked guide covers that. Say so honestly. Say to follow any directions from police, sheriff or firefighters, and to call 911 as soon as they have any signal. Do not tell them to stay with the vehicle or stay where they are, and do not tell them to move."
+        if (hazard) ctx += "NOTE: There is fire, smoke, flood, a rising tide or lightning. Use the checked flood or wildfire steps if they are given. Otherwise say honestly that you do not have checked advice for this, and to call 911 as soon as they have any signal. Do not tell them to stay put or to move unless a checked step says so."
+        if (co) ctx += "NOTE: These can be carbon monoxide warning signs (CDC: headache, dizziness, weakness, upset stomach, vomiting, chest pain, confusion; people who are sleeping can die before they have symptoms). Say that reaching 911 is the most important thing. Do not suggest running the engine, heater or generator."
         if (hasSignal) ctx += "NOTE: The person has some signal right now. The most important thing is to call 911 now (call if you can, text if you cannot)."
         val context = ctx.joinToString("\n\n")
 
@@ -145,7 +151,7 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
         if (reply == null) {
             val first = use.take(1).flatMap { id -> guideById[id]?.steps?.take(2)?.map { it.text } ?: emptyList() }
             val fb = when {
-                hazard -> "I don't have checked advice for fire, smoke or flooding. Follow any directions from police, sheriff or firefighters, and call 911 as soon as you have any signal."
+                hazard -> "I don't have checked advice for this. If authorities tell you to evacuate, go right away, and call 911 as soon as you have any signal."
                 first.isNotEmpty() -> "Here is what the checked guide says: " + first.joinToString(" ")
                 else -> "I'm here. Tell me what is happening, in your own words."
             }
@@ -260,10 +266,11 @@ bool ::= "true" | "false""""
         "engine without limits" to { s, _ -> engineAdvice(s) && !(r("10 minutes").containsMatchIn(s) && r("exhaust|tailpipe").containsMatchIn(s) && r("window").containsMatchIn(s) && r("\\bcold\\b").containsMatchIn(s)) },
         "engine advice in heat" to { s, _ -> hot && engineAdvice(s) },
         "repeats an earlier reply" to { s, _ -> repeats(s) },
-        "stay put in fire or flood" to { s, _ -> hazard && r("\\bstay (with|in|inside) (your|the) (vehicle|car|truck|van|suv|pickup)\\b|\\bstay (with|in|inside) it\\b|\\bstay inside\\b|\\bstay where you are\\b|\\bstay put\\b|\\bremain (in|with|where)\\b").containsMatchIn(s) },
+        "stay put in fire or flood" to { s, _ -> hazard && r("\\bstay (with|in|inside) (your|the) (vehicle|car|truck|van|suv|pickup)\\b|\\bstay (with|in|inside) it\\b|\\bstay inside\\b|\\bstay where you are\\b|\\bstay put\\b|\\bremain (in|with|where)\\b").containsMatchIn(s) && !r("rapidly moving water|rising inside|on the roof").containsMatchIn(s) },
+        "engine with CO signs" to { s, _ -> co && engineAdvice(s) },
         "alarming speculation" to { s, _ -> r("\\b(may|might|could|will)\\b[^.!?]{0,20}\\b(rise|rising|spread|get worse|worsen|come back|flood|collapse)\\b").containsMatchIn(s) },
         "untreated water" to { s, _ -> anySentence(s, r("\\bdrink\\w*\\b[^.!?]{0,40}\\b(stream|creek|river|puddle|lake|pond|wash|spring|swamp|it|that|this water|water here)\\b")) && !r("\\b(treat\\w*|boil\\w*)\\b").containsMatchIn(s) },
-        "rationing" to { s, _ -> anySentence(s, r("\\bration\\w*|\\bsips?\\b|\\bsave (it|your water|the water|the drinking water|your drinking water)\\b|\\bwhen (your |their )?mouths? (is |are |gets? |feels? )?(very |really )?dry|\\bonly when (your )?mouth|\\bwait (until|till) (you're |you are )?thirsty|\\bonly drink\\b|\\bdrink (it |them )?(all )?(right )?now\\b|\\bdrink (all|everything)\\b")) },
+        "rationing" to { s, _ -> anySentence(s, r("\\bration\\w*|\\bsips?\\b|\\bsave (it|your water|the water|the drinking water|your drinking water)\\b|\\bwhen (your |their )?mouths? (is |are |gets? |feels? )?(very |really )?dry|\\bonly when (your )?mouth|\\bwait (until|till) (you're |you are )?thirsty|\\bonly drink\\b|\\bdrink\\w* (water |it )?only (if|when)\\b|\\bshare (it|the (bottle|water))[^.!?]{0,20}carefully|\\bmake (it|the water) last\\b|\\bdrink (it |them )?(all )?(right )?now\\b|\\bdrink (all|everything)\\b")) },
         "phone off with signal" to { s, _ -> SIGNAL_RE.containsMatchIn(curMsg) && phoneOff(s) },
         "phone off without condition" to { s, _ -> phoneOff(s) && !r("no (signal|bars)|no signal bars").containsMatchIn(s) },
         "movement advice" to { s, _ -> anySentence(s, r("\\b(walk\\w*|hik\\w*|head(ing)?|driv\\w*|paddl\\w*|cross\\w*|climb\\w*|swim\\w*|wad\\w*|go(ing)?|mov\\w*)\\b\\s+(to|toward|towards|down|up|across|over|for|back to|out to|along|around|downstream|upstream|higher)\\b(?!\\s+(airplane|low power|sleep))|\\bleav\\w* (the|your) (car|vehicle|truck|van|suv|shelter|island|kayak)\\b|\\bfollow\\w* (the|that) (river|stream|creek|road|lights?|dog|sound)\\b|\\bstand in the road\\b|\\bflag (it|them|the \\w+) down\\b")) },
@@ -287,9 +294,10 @@ bool ::= "true" | "false""""
             "treatment" to "It gave medical treatment advice. Give none.",
             "first aid while hurt" to "It gave first-aid advice about the injury or illness. Give none: only say reaching 911 is the most important thing.",
             "engine without limits" to "It talked about running the engine without all the limits. Either leave the engine out, or say all of: only in the cold, check the exhaust pipe is not blocked, run it about 10 minutes each hour, with a window open a little.",
+            "engine with CO signs" to "They have carbon monoxide warning signs. Do not suggest running the engine, heater or generator; say reaching 911 is the most important thing.",
             "engine advice in heat" to "It gave the engine-for-warmth step, which is only for the cold. It is hot, so leave the engine out.",
             "repeats an earlier reply" to "It repeated an earlier reply. Respond to what they just said, with something new.",
-            "stay put in fire or flood" to "There is fire, smoke or flood. No checked guide covers that, so do not tell them to stay with the vehicle or stay where they are. Say you do not have checked advice for fire or flood, that they should follow any directions from police, sheriff or firefighters, and call 911 as soon as they have any signal.",
+            "stay put in fire or flood" to "There is fire, smoke, flood, tide or lightning. Do not tell them to stay with the vehicle or stay where they are unless a checked flood or wildfire step says so. Use those checked steps, or say you do not have checked advice for this, and to call 911 as soon as they have any signal.",
             "alarming speculation" to "It guessed that things could get worse. Do not speculate.",
             "untreated water" to "It talked about drinking outdoor water without saying it must be treated (boiled) first.",
             "rationing" to "It suggested rationing or saving water. The checked step says: do not ration your drinking water; drink what you need today.",
@@ -338,6 +346,8 @@ phone-battery: phone battery low or dying
 reach-help: signal, service or SOS just appeared, or asking how to call or text 911 / emergency services / responders
 stranded-vehicle: car, truck, van, bus, RV or other vehicle stuck, broken down or stalled
 stay-calm: fear, panic, overwhelmed, racing thoughts, can't think
+flood: flood water, rising water, water coming into the car or over the road
+wildfire: wildfire, smoke, flames, orange glow, evacuation
 
 urgent = true ONLY if someone is injured, ill, bleeding, unconscious, not breathing, choking, having chest pain, a stroke, a seizure, an allergic reaction or asthma attack, swallowed something harmful, has heat stroke signs (hot dry skin, confusion, cannot walk straight), has carbon monoxide signs (headache, nausea or dizziness near a generator, heater, stove or engine), or wants to harm or kill themselves. When urgent is true, guide is none.
 Having signal, wanting to call 911, being lost, cold, hot, thirsty, stuck or scared is NOT urgent on its own.

@@ -1,143 +1,618 @@
 {
-  "version": 2,
-  "note": "DRAFT LIBRARY. Every step is paraphrased from an official US government page (source_url), and the supporting quote was checked word for word against that page on 2026-11-07. Not yet reviewed by qualified experts: not for real emergencies. Process: content/README.md.",
-  "guides": [
-    {
-      "id": "stay-or-move",
-      "title": "Lost: stay put or move?",
-      "summary": "Deciding whether to stay where you are or try to move.",
-      "keywords": ["lost", "stay", "move", "which way", "direction", "trail", "path", "wander", "where am i", "dont know where", "turned around", "woods", "forest"],
-      "steps": [
-        {"text": "Stop. Take a moment to calmly look at your situation.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "Take a moment to calmly assess your situation"},
-        {"text": "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "Use your map, compass, handheld GPS, or visible landmarks to try to find your location"},
-        {"text": "If it's safe, retrace your steps to get back to the route you planned.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "If it is safe to do so, retrace your steps to get back on your planned route"},
-        {"text": "If you can't safely find your way back, stay where you are.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "Stay put"}
-      ],
-      "draft": true
-    },
-    {
-      "id": "get-found",
-      "title": "Help rescuers find you",
-      "summary": "Making yourself easy to see and hear.",
-      "keywords": ["found", "find me", "rescue", "rescuer", "rescuers", "search", "searching", "helicopter", "plane", "whistle", "signal fire", "seen", "noticed", "waiting"],
-      "steps": [
-        {"text": "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "Blowing a whistle helps people find you and saves your energy from yelling."},
-        {"text": "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "Flash the SOS pattern: Three times quickly, three times slowly, three times quickly."},
-        {"text": "If you have a mirror, flash it toward planes or helicopters flying nearby.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "This can alert planes and helicopters flying in the area"},
-        {"text": "Lay out brightly colored clothing in an open clearing where searchers can see it.", "source_url": "https://www.nps.gov/olym/planyourvisit/wilderness-safety.htm", "quote": "Lay out brightly-colored clothing in a forest clearing."}
-      ],
-      "draft": true
-    },
-    {
-      "id": "cold-weather",
-      "title": "Cold, wet or bad weather",
-      "summary": "Staying protected from cold, wind, rain and snow.",
-      "keywords": ["cold", "freez", "wet", "rain", "snow", "wind", "shiver", "storm", "night", "dark", "shelter", "soaked", "ice"],
-      "steps": [
-        {"text": "Find shelter. Try to stay dry and cover all exposed skin.", "source_url": "https://www.weather.gov/safety/winter-during", "quote": "Find Shelter: Try to stay dry and cover all exposed body parts."},
-        {"text": "If there's no shelter, build a lean-to or windbreak to block the wind.", "source_url": "https://www.weather.gov/safety/winter-during", "quote": "Build a lean-to, windbreak or snow cave for protection from the wind."},
-        {"text": "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.", "source_url": "https://www.nps.gov/articles/winterweather.htm", "quote": "a wind and waterproof jacket will keep out wind, rain and wet snow"},
-        {"text": "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.", "source_url": "https://www.nps.gov/articles/winterweather.htm", "quote": "Choose clothing made of wool or synthetic material over cotton. Cotton absorbs moisture easily and won’t keep you warm if it gets wet."},
-        {"text": "Keep your feet as dry as you can.", "source_url": "https://www.nps.gov/yell/planyourvisit/winter-safety.htm", "quote": "Keep feet dry with wool socks, gaiters, and insulated boots."}
-      ],
-      "draft": true
-    },
-    {
-      "id": "heat",
-      "title": "Heat and sun",
-      "summary": "Staying protected from heat and strong sun.",
-      "keywords": ["hot", "heat", "sun", "sunny", "desert", "sweat", "burning up", "no shade"],
-      "steps": [
-        {"text": "Rest in the shade.", "source_url": "https://www.weather.gov/rnk/outdoorsheat", "quote": "Set up your tent in the shade"},
-        {"text": "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.", "source_url": "https://www.weather.gov/rnk/outdoorsheat", "quote": "Wear a wide brim sun hat to shield your face and neck from the sun as much as possible"},
-        {"text": "Avoid hard activity during the hottest part of the day if you can.", "source_url": "https://www.ready.gov/heat", "quote": "Avoid high-energy activities or outdoor work during midday heat if possible."},
-        {"text": "Drink plenty of water, even if you don't feel thirsty.", "source_url": "https://www.weather.gov/rnk/outdoorsheat", "quote": "Whether you feel thirsty or not, drink plenty of water"}
-      ],
-      "draft": true
-    },
-    {
-      "id": "water",
-      "title": "Water",
-      "summary": "Thinking about drinking water.",
-      "keywords": ["water", "thirst", "thirsty", "drink", "dehydrat", "stream", "river"],
-      "steps": [
-        {"text": "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.", "source_url": "https://www.ready.gov/water", "quote": "Never ration drinking water unless ordered to do so by authorities. Drink the amount you need today and try to find more for tomorrow."},
-        {"text": "Streams, rivers and other moving water can be sources of water.", "source_url": "https://www.cdc.gov/water-emergency/about/how-to-find-clean-water-in-an-emergency.html", "quote": "Streams, rivers, and other moving bodies of water"},
-        {"text": "Water from outdoor sources must be treated to kill germs before you drink it.", "source_url": "https://www.cdc.gov/water-emergency/about/how-to-find-clean-water-in-an-emergency.html", "quote": "Water from sources outside the home must be treated to kill harmful germs as described in Make Water Safe in an Emergency."},
-        {"text": "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.", "source_url": "https://www.cdc.gov/water-emergency/about/how-to-find-clean-water-in-an-emergency.html", "quote": "If you suspect or know the water is contaminated with toxic chemicals or fuels, it cannot be made safe and you should not drink or bathe in this water."},
-        {"text": "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.", "source_url": "https://www.cdc.gov/water-emergency/about/index.html", "quote": "If the water is cloudy, first filter it through a clean cloth, paper towel, or coffee filter."},
-        {"text": "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.", "source_url": "https://www.cdc.gov/water-emergency/about/index.html", "quote": "Bring clear water to a rolling boil for 1 minute (at elevations above 6,500 feet, boil for 3 minutes)."}
-      ],
-      "draft": true
-    },
-    {
-      "id": "phone-battery",
-      "title": "Make your phone battery last",
-      "summary": "Saving battery so your phone works when it matters.",
-      "keywords": ["battery", "charge", "charger", "dying", "power", "percent", "phone dying"],
-      "steps": [
-        {"text": "Use your phone as little as possible to save battery.", "source_url": "https://www.ready.gov/get-tech-ready", "quote": "If the power goes out save battery power by minimizing device use."},
-        {"text": "Turn on low power mode, or airplane mode, to save energy.", "source_url": "https://www.ready.gov/get-tech-ready", "quote": "Change the settings on your phone to low power mode or place it on airplane mode to conserve energy."},
-        {"text": "Dim your screen and turn off apps you don't need.", "source_url": "https://www.fcc.gov/emergency", "quote": "dimming the brightness of your display screen and disabling certain applications."},
-        {"text": "Keep any calls short and share only vital information.", "source_url": "https://www.fcc.gov/emergency", "quote": "If you do need to make a call, try to keep it brief and only convey vital information to emergency personnel and family."},
-        {"text": "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.", "source_url": "https://www.fcc.gov/emergency", "quote": "turning your phone off helps prevent the battery from draining as your phone seeks a usable wireless signal."}
-      ],
-      "draft": true
-    },
-    {
-      "id": "reach-help",
-      "title": "Contact help when you get signal",
-      "summary": "Reaching emergency services if any connection appears.",
-      "keywords": ["signal", "call", "911", "112", "text", "help", "emergency", "reception", "bars", "service", "no signal", "contact"],
-      "steps": [
-        {"text": "As soon as you have signal, call 911.", "source_url": "https://www.911.gov/calling-911/", "quote": "In an emergency, dial 911 from your phone immediately."},
-        {"text": "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.", "source_url": "https://www.911.gov/calling-911/frequently-asked-questions/", "quote": "call 911 if you can and text if you can't"},
-        {"text": "Be ready to tell them where you are, as exactly as you can.", "source_url": "https://www.911.gov/calling-911/frequently-asked-questions/", "quote": "The location of the emergency, including the street address"},
-        {"text": "Tell them the phone number you're calling from.", "source_url": "https://www.911.gov/calling-911/frequently-asked-questions/", "quote": "The phone number you are calling from"},
-        {"text": "Tell them what the emergency is.", "source_url": "https://www.911.gov/calling-911/frequently-asked-questions/", "quote": "The nature of the emergency"},
-        {"text": "Don't hang up until the call-taker tells you to.", "source_url": "https://www.911.gov/calling-911/frequently-asked-questions/", "quote": "Do not hang up until the call-taker instructs you to do so."}
-      ],
-      "draft": true
-    },
-    {
-      "id": "stranded-vehicle",
-      "title": "Stranded in a vehicle",
-      "summary": "Stuck in a car, truck or other vehicle.",
-      "keywords": ["car", "vehicle", "truck", "stuck", "stranded", "broke down", "broken down", "snowbank", "ditch", "road"],
-      "steps": [
-        {"text": "Stay with your vehicle and try not to panic.", "source_url": "https://www.weather.gov/bou/travelsafety", "quote": "If you should become stranded during a winter storm, stay with your vehicle and do not panic."},
-        {"text": "Before running the engine, make sure the exhaust pipe isn't blocked.", "source_url": "https://www.weather.gov/bou/travelsafety", "quote": "Make sure the exhaust pipe is not blocked."},
-        {"text": "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.", "source_url": "https://www.weather.gov/bou/travelsafety", "quote": "Run the motor every hour for about ten minutes to maintain warmth, but keep windows open a little to prevent the buildup of carbon monoxide."},
-        {"text": "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.", "source_url": "https://www.weather.gov/bou/travelsafety", "quote": "Keep the car visible with brightly colored cloths tied to the side view mirrors, door handles, or external antenna."},
-        {"text": "At night, turn on the inside light while the engine is running.", "source_url": "https://www.weather.gov/bou/travelsafety", "quote": "At night, turn on the dome light when running the engine."}
-      ],
-      "draft": true
-    },
-    {
-      "id": "stay-calm",
-      "title": "Stay calm and think clearly",
-      "summary": "Getting through fear and panic.",
-      "keywords": ["scared", "panic", "panicking", "afraid", "calm", "anxious", "alone", "think", "fear", "frightened", "help me"],
-      "steps": [
-        {"text": "Stay calm and think through your situation.", "source_url": "https://www.nps.gov/olym/planyourvisit/wilderness-safety.htm", "quote": "Stay calm and think through the situation."},
-        {"text": "If you're waiting for help, rest, save your energy and wait patiently.", "source_url": "https://www.nps.gov/articles/gtgemergencyplan.htm", "quote": "Wait patiently for help to arrive and conserve your energy"}
-      ],
-      "draft": true
-    }
-  ],
-  "outOfScope": [
-    {
-      "id": "medical",
-      "keywords": ["bleed", "blood", "broke my", "broken", "fracture", "unconscious", "not waking", "wont wake", "passed out", "fell", "not breathing", "breathing", "heart", "chest pain", "cpr", "chok", "burn", "bite", "bitten", "snake", "allerg", "seizure", "injur", "hurt", "wound", "poison", "overdose", "stroke", "labor", "pregnan", "head injury", "pain", "sick", "vomit", "fainted", "hypotherm", "frostbite", "heat stroke", "swell", "swollen", "wheez", "hives", "short of breath", "shortness of breath", "cant breathe", "can not breathe", "trouble breathing", "struggling to breathe", "hard to breathe", "chest hurts", "chest pressure", "chest is tight", "faint", "cold sweat", "slurred", "slurring", "trouble speaking", "cant speak", "face drooping", "unresponsive", "cant wake", "pass out", "turning blue", "lips are blue", "blue lips", "gurgl", "pinpoint pupils", "convuls", "throwing up", "carbon monoxide", "swallowed", "confused", "confusion", "nausea", "nauseous", "headache", "generator", "hot and dry", "stopped sweating", "not sweating", "cant walk straight", "slurr", "disoriented", "mumbl", "stumbl", "fumbl", "drowsy", "drowsiness", "memory loss", "cant stay balanced", "bright red"],
-      "negations": ["not hurt", "nobody is hurt", "no one is hurt", "nobody hurt", "not injured", "no injuries", "not bleeding"],
-      "sources": "Warning signs added 2026-11-07 from official pages (CDC, NIH, NIMH, Ready.gov), each quote verified: ai-experiments/medical-signs.json",
-      "message": "Tenvia can't guide medical problems yet. If there is any way to reach emergency services, do that now."
-    },
-    {
-      "id": "crisis",
-      "keywords": ["suicide", "kill myself", "end my life", "ending my life", "self harm", "hurt myself", "want to die", "dont want to be alive", "dont want to live", "no reason to live", "a burden", "plan to kill", "keep myself safe", "take my own life", "better off without me", "better off dead", "end it all"],
-      "negations": ["dont want to die", "do not want to die", "dont wanna die", "not going to die", "afraid to die", "scared to die"],
-      "message": "I am so sorry you are carrying this. You matter. Please reach out to someone now: call or text 988 in the US, or emergency services."
-    }
-  ]
+    "version":  2,
+    "note":  "DRAFT LIBRARY. Every step is paraphrased from an official US government page (source_url), and the supporting quote was checked word for word against that page on 2026-11-07. Not yet reviewed by qualified experts: not for real emergencies. Process: content/README.md.",
+    "guides":  [
+                   {
+                       "id":  "stay-or-move",
+                       "title":  "Lost: stay put or move?",
+                       "summary":  "Deciding whether to stay where you are or try to move.",
+                       "keywords":  [
+                                        "lost",
+                                        "stay",
+                                        "move",
+                                        "which way",
+                                        "direction",
+                                        "trail",
+                                        "path",
+                                        "wander",
+                                        "where am i",
+                                        "dont know where",
+                                        "turned around",
+                                        "woods",
+                                        "forest"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Stop. Take a moment to calmly look at your situation.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Take a moment to calmly assess your situation"
+                                     },
+                                     {
+                                         "text":  "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Use your map, compass, handheld GPS, or visible landmarks to try to find your location"
+                                     },
+                                     {
+                                         "text":  "If it\u0027s safe, retrace your steps to get back to the route you planned.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "If it is safe to do so, retrace your steps to get back on your planned route"
+                                     },
+                                     {
+                                         "text":  "If you can\u0027t safely find your way back, stay where you are.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Stay put"
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "get-found",
+                       "title":  "Help rescuers find you",
+                       "summary":  "Making yourself easy to see and hear.",
+                       "keywords":  [
+                                        "found",
+                                        "find me",
+                                        "rescue",
+                                        "rescuer",
+                                        "rescuers",
+                                        "search",
+                                        "searching",
+                                        "helicopter",
+                                        "plane",
+                                        "whistle",
+                                        "signal fire",
+                                        "seen",
+                                        "noticed",
+                                        "waiting"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "If you have a whistle, blow it often. It helps people find you and saves the energy you\u0027d use yelling.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Blowing a whistle helps people find you and saves your energy from yelling."
+                                     },
+                                     {
+                                         "text":  "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Flash the SOS pattern: Three times quickly, three times slowly, three times quickly."
+                                     },
+                                     {
+                                         "text":  "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "This can alert planes and helicopters flying in the area"
+                                     },
+                                     {
+                                         "text":  "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+                                         "source_url":  "https://www.nps.gov/olym/planyourvisit/wilderness-safety.htm",
+                                         "quote":  "Lay out brightly-colored clothing in a forest clearing."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "cold-weather",
+                       "title":  "Cold, wet or bad weather",
+                       "summary":  "Staying protected from cold, wind, rain and snow.",
+                       "keywords":  [
+                                        "cold",
+                                        "freez",
+                                        "wet",
+                                        "rain",
+                                        "snow",
+                                        "wind",
+                                        "shiver",
+                                        "storm",
+                                        "night",
+                                        "dark",
+                                        "shelter",
+                                        "soaked",
+                                        "ice"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Find shelter. Try to stay dry and cover all exposed skin.",
+                                         "source_url":  "https://www.weather.gov/safety/winter-during",
+                                         "quote":  "Find Shelter: Try to stay dry and cover all exposed body parts."
+                                     },
+                                     {
+                                         "text":  "If there\u0027s no shelter, build a lean-to or windbreak to block the wind.",
+                                         "source_url":  "https://www.weather.gov/safety/winter-during",
+                                         "quote":  "Build a lean-to, windbreak or snow cave for protection from the wind."
+                                     },
+                                     {
+                                         "text":  "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+                                         "source_url":  "https://www.nps.gov/articles/winterweather.htm",
+                                         "quote":  "a wind and waterproof jacket will keep out wind, rain and wet snow"
+                                     },
+                                     {
+                                         "text":  "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won\u0027t keep you warm when it\u0027s wet.",
+                                         "source_url":  "https://www.nps.gov/articles/winterweather.htm",
+                                         "quote":  "Choose clothing made of wool or synthetic material over cotton. Cotton absorbs moisture easily and won’t keep you warm if it gets wet."
+                                     },
+                                     {
+                                         "text":  "Keep your feet as dry as you can.",
+                                         "source_url":  "https://www.nps.gov/yell/planyourvisit/winter-safety.htm",
+                                         "quote":  "Keep feet dry with wool socks, gaiters, and insulated boots."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "heat",
+                       "title":  "Heat and sun",
+                       "summary":  "Staying protected from heat and strong sun.",
+                       "keywords":  [
+                                        "hot",
+                                        "heat",
+                                        "sun",
+                                        "sunny",
+                                        "desert",
+                                        "sweat",
+                                        "burning up",
+                                        "no shade"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Rest in the shade.",
+                                         "source_url":  "https://www.weather.gov/rnk/outdoorsheat",
+                                         "quote":  "Set up your tent in the shade"
+                                     },
+                                     {
+                                         "text":  "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+                                         "source_url":  "https://www.weather.gov/rnk/outdoorsheat",
+                                         "quote":  "Wear a wide brim sun hat to shield your face and neck from the sun as much as possible"
+                                     },
+                                     {
+                                         "text":  "Avoid hard activity during the hottest part of the day if you can.",
+                                         "source_url":  "https://www.ready.gov/heat",
+                                         "quote":  "Avoid high-energy activities or outdoor work during midday heat if possible."
+                                     },
+                                     {
+                                         "text":  "Drink plenty of water, even if you don\u0027t feel thirsty.",
+                                         "source_url":  "https://www.weather.gov/rnk/outdoorsheat",
+                                         "quote":  "Whether you feel thirsty or not, drink plenty of water"
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "water",
+                       "title":  "Water",
+                       "summary":  "Thinking about drinking water.",
+                       "keywords":  [
+                                        "water",
+                                        "thirst",
+                                        "thirsty",
+                                        "drink",
+                                        "dehydrat",
+                                        "stream",
+                                        "river"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Don\u0027t ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+                                         "source_url":  "https://www.ready.gov/water",
+                                         "quote":  "Never ration drinking water unless ordered to do so by authorities. Drink the amount you need today and try to find more for tomorrow."
+                                     },
+                                     {
+                                         "text":  "Streams, rivers and other moving water can be sources of water.",
+                                         "source_url":  "https://www.cdc.gov/water-emergency/about/how-to-find-clean-water-in-an-emergency.html",
+                                         "quote":  "Streams, rivers, and other moving bodies of water"
+                                     },
+                                     {
+                                         "text":  "Water from outdoor sources must be treated to kill germs before you drink it.",
+                                         "source_url":  "https://www.cdc.gov/water-emergency/about/how-to-find-clean-water-in-an-emergency.html",
+                                         "quote":  "Water from sources outside the home must be treated to kill harmful germs as described in Make Water Safe in an Emergency."
+                                     },
+                                     {
+                                         "text":  "If the water might have fuel or chemicals in it, don\u0027t drink it. Boiling won\u0027t make it safe.",
+                                         "source_url":  "https://www.cdc.gov/water-emergency/about/how-to-find-clean-water-in-an-emergency.html",
+                                         "quote":  "If you suspect or know the water is contaminated with toxic chemicals or fuels, it cannot be made safe and you should not drink or bathe in this water."
+                                     },
+                                     {
+                                         "text":  "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+                                         "source_url":  "https://www.cdc.gov/water-emergency/about/index.html",
+                                         "quote":  "If the water is cloudy, first filter it through a clean cloth, paper towel, or coffee filter."
+                                     },
+                                     {
+                                         "text":  "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+                                         "source_url":  "https://www.cdc.gov/water-emergency/about/index.html",
+                                         "quote":  "Bring clear water to a rolling boil for 1 minute (at elevations above 6,500 feet, boil for 3 minutes)."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "phone-battery",
+                       "title":  "Make your phone battery last",
+                       "summary":  "Saving battery so your phone works when it matters.",
+                       "keywords":  [
+                                        "battery",
+                                        "charge",
+                                        "charger",
+                                        "dying",
+                                        "power",
+                                        "percent",
+                                        "phone dying"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Use your phone as little as possible to save battery.",
+                                         "source_url":  "https://www.ready.gov/get-tech-ready",
+                                         "quote":  "If the power goes out save battery power by minimizing device use."
+                                     },
+                                     {
+                                         "text":  "Turn on low power mode, or airplane mode, to save energy.",
+                                         "source_url":  "https://www.ready.gov/get-tech-ready",
+                                         "quote":  "Change the settings on your phone to low power mode or place it on airplane mode to conserve energy."
+                                     },
+                                     {
+                                         "text":  "Dim your screen and turn off apps you don\u0027t need.",
+                                         "source_url":  "https://www.fcc.gov/emergency",
+                                         "quote":  "dimming the brightness of your display screen and disabling certain applications."
+                                     },
+                                     {
+                                         "text":  "Keep any calls short and share only vital information.",
+                                         "source_url":  "https://www.fcc.gov/emergency",
+                                         "quote":  "If you do need to make a call, try to keep it brief and only convey vital information to emergency personnel and family."
+                                     },
+                                     {
+                                         "text":  "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+                                         "source_url":  "https://www.fcc.gov/emergency",
+                                         "quote":  "turning your phone off helps prevent the battery from draining as your phone seeks a usable wireless signal."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "reach-help",
+                       "title":  "Contact help when you get signal",
+                       "summary":  "Reaching emergency services if any connection appears.",
+                       "keywords":  [
+                                        "signal",
+                                        "call",
+                                        "911",
+                                        "112",
+                                        "text",
+                                        "help",
+                                        "emergency",
+                                        "reception",
+                                        "bars",
+                                        "service",
+                                        "no signal",
+                                        "contact"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "As soon as you have signal, call 911.",
+                                         "source_url":  "https://www.911.gov/calling-911/",
+                                         "quote":  "In an emergency, dial 911 from your phone immediately."
+                                     },
+                                     {
+                                         "text":  "Call if you can, text if you can\u0027t. Some areas accept texts to 911, but a voice call is best.",
+                                         "source_url":  "https://www.911.gov/calling-911/frequently-asked-questions/",
+                                         "quote":  "call 911 if you can and text if you can\u0027t"
+                                     },
+                                     {
+                                         "text":  "Be ready to tell them where you are, as exactly as you can.",
+                                         "source_url":  "https://www.911.gov/calling-911/frequently-asked-questions/",
+                                         "quote":  "The location of the emergency, including the street address"
+                                     },
+                                     {
+                                         "text":  "Tell them the phone number you\u0027re calling from.",
+                                         "source_url":  "https://www.911.gov/calling-911/frequently-asked-questions/",
+                                         "quote":  "The phone number you are calling from"
+                                     },
+                                     {
+                                         "text":  "Tell them what the emergency is.",
+                                         "source_url":  "https://www.911.gov/calling-911/frequently-asked-questions/",
+                                         "quote":  "The nature of the emergency"
+                                     },
+                                     {
+                                         "text":  "Don\u0027t hang up until the call-taker tells you to.",
+                                         "source_url":  "https://www.911.gov/calling-911/frequently-asked-questions/",
+                                         "quote":  "Do not hang up until the call-taker instructs you to do so."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "stranded-vehicle",
+                       "title":  "Stranded in a vehicle",
+                       "summary":  "Stuck in a car, truck or other vehicle.",
+                       "keywords":  [
+                                        "car",
+                                        "vehicle",
+                                        "truck",
+                                        "stuck",
+                                        "stranded",
+                                        "broke down",
+                                        "broken down",
+                                        "snowbank",
+                                        "ditch",
+                                        "road"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Stay with your vehicle and try not to panic.",
+                                         "source_url":  "https://www.weather.gov/bou/travelsafety",
+                                         "quote":  "If you should become stranded during a winter storm, stay with your vehicle and do not panic."
+                                     },
+                                     {
+                                         "text":  "Before running the engine, make sure the exhaust pipe isn\u0027t blocked.",
+                                         "source_url":  "https://www.weather.gov/bou/travelsafety",
+                                         "quote":  "Make sure the exhaust pipe is not blocked."
+                                     },
+                                     {
+                                         "text":  "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+                                         "source_url":  "https://www.weather.gov/bou/travelsafety",
+                                         "quote":  "Run the motor every hour for about ten minutes to maintain warmth, but keep windows open a little to prevent the buildup of carbon monoxide."
+                                     },
+                                     {
+                                         "text":  "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+                                         "source_url":  "https://www.weather.gov/bou/travelsafety",
+                                         "quote":  "Keep the car visible with brightly colored cloths tied to the side view mirrors, door handles, or external antenna."
+                                     },
+                                     {
+                                         "text":  "At night, turn on the inside light while the engine is running.",
+                                         "source_url":  "https://www.weather.gov/bou/travelsafety",
+                                         "quote":  "At night, turn on the dome light when running the engine."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "stay-calm",
+                       "title":  "Stay calm and think clearly",
+                       "summary":  "Getting through fear and panic.",
+                       "keywords":  [
+                                        "scared",
+                                        "panic",
+                                        "panicking",
+                                        "afraid",
+                                        "calm",
+                                        "anxious",
+                                        "alone",
+                                        "think",
+                                        "fear",
+                                        "frightened",
+                                        "help me"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Stay calm and think through your situation.",
+                                         "source_url":  "https://www.nps.gov/olym/planyourvisit/wilderness-safety.htm",
+                                         "quote":  "Stay calm and think through the situation."
+                                     },
+                                     {
+                                         "text":  "If you\u0027re waiting for help, rest, save your energy and wait patiently.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Wait patiently for help to arrive and conserve your energy"
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "flood",
+                       "title":  "Flooding and rising water",
+                       "summary":  "Flood water on the road, around you or coming into the car.",
+                       "keywords":  [
+                                        "flood",
+                                        "flooded",
+                                        "flooding",
+                                        "floodwater",
+                                        "flood water",
+                                        "rising water",
+                                        "water rising",
+                                        "water is rising",
+                                        "water coming in",
+                                        "flash flood",
+                                        "washed out"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Do not walk, swim or drive through flood water. Turn around, don\u0027t drown.",
+                                         "source_url":  "https://www.ready.gov/floods",
+                                         "quote":  "Do not walk, swim or drive through flood waters. Turn Around, Don’t Drown!"
+                                     },
+                                     {
+                                         "text":  "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+                                         "source_url":  "https://www.ready.gov/floods",
+                                         "quote":  "Remember, just six inches of moving water can knock you down, and one foot of moving water can sweep your vehicle away."
+                                     },
+                                     {
+                                         "text":  "Stay off bridges over fast-moving water.",
+                                         "source_url":  "https://www.ready.gov/floods",
+                                         "quote":  "Stay off bridges over fast-moving water."
+                                     },
+                                     {
+                                         "text":  "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+                                         "source_url":  "https://www.ready.gov/floods",
+                                         "quote":  "Stay inside your car if it is trapped in rapidly moving water. Get on the roof if water is rising inside the car."
+                                     },
+                                     {
+                                         "text":  "Evacuate right away if you are told to.",
+                                         "source_url":  "https://www.ready.gov/floods",
+                                         "quote":  "Evacuate immediately, if told to do so."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "wildfire",
+                       "title":  "Wildfire and smoke",
+                       "summary":  "Fire, smoke or an evacuation order nearby.",
+                       "keywords":  [
+                                        "wildfire",
+                                        "forest fire",
+                                        "brush fire",
+                                        "smoke",
+                                        "smoky",
+                                        "flames",
+                                        "on fire",
+                                        "burning",
+                                        "evacuate",
+                                        "evacuation",
+                                        "orange glow"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "If authorities tell you to evacuate, go right away.",
+                                         "source_url":  "https://www.ready.gov/wildfires",
+                                         "quote":  "Evacuate immediately if authorities tell you to do so."
+                                     },
+                                     {
+                                         "text":  "Pay attention to emergency alerts and notifications for information and instructions.",
+                                         "source_url":  "https://www.ready.gov/wildfires",
+                                         "quote":  "Pay attention to emergency alerts and notifications for information and instructions."
+                                     },
+                                     {
+                                         "text":  "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+                                         "source_url":  "https://www.ready.gov/wildfires",
+                                         "quote":  "If trapped, call 9-1-1 and give your location, but be aware that emergency response could be delayed or impossible. Turn on lights to help rescuers find you."
+                                     }
+                                 ],
+                       "draft":  true
+                   }
+               ],
+    "outOfScope":  [
+                       {
+                           "id":  "medical",
+                           "keywords":  [
+                                            "bleed",
+                                            "blood",
+                                            "broke my",
+                                            "broken",
+                                            "fracture",
+                                            "unconscious",
+                                            "not waking",
+                                            "wont wake",
+                                            "passed out",
+                                            "fell",
+                                            "not breathing",
+                                            "breathing",
+                                            "heart",
+                                            "chest pain",
+                                            "cpr",
+                                            "chok",
+                                            "burn",
+                                            "bite",
+                                            "bitten",
+                                            "snake",
+                                            "allerg",
+                                            "seizure",
+                                            "injur",
+                                            "hurt",
+                                            "wound",
+                                            "poison",
+                                            "overdose",
+                                            "stroke",
+                                            "labor",
+                                            "pregnan",
+                                            "head injury",
+                                            "pain",
+                                            "sick",
+                                            "vomit",
+                                            "fainted",
+                                            "hypotherm",
+                                            "frostbite",
+                                            "heat stroke",
+                                            "swell",
+                                            "swollen",
+                                            "wheez",
+                                            "hives",
+                                            "short of breath",
+                                            "shortness of breath",
+                                            "cant breathe",
+                                            "can not breathe",
+                                            "trouble breathing",
+                                            "struggling to breathe",
+                                            "hard to breathe",
+                                            "chest hurts",
+                                            "chest pressure",
+                                            "chest is tight",
+                                            "faint",
+                                            "cold sweat",
+                                            "slurred",
+                                            "slurring",
+                                            "trouble speaking",
+                                            "cant speak",
+                                            "face drooping",
+                                            "unresponsive",
+                                            "cant wake",
+                                            "pass out",
+                                            "turning blue",
+                                            "lips are blue",
+                                            "blue lips",
+                                            "gurgl",
+                                            "pinpoint pupils",
+                                            "convuls",
+                                            "throwing up",
+                                            "carbon monoxide",
+                                            "swallowed",
+                                            "confused",
+                                            "confusion",
+                                            "nausea",
+                                            "nauseous",
+                                            "headache",
+                                            "generator",
+                                            "hot and dry",
+                                            "stopped sweating",
+                                            "not sweating",
+                                            "cant walk straight",
+                                            "slurr",
+                                            "disoriented",
+                                            "mumbl",
+                                            "stumbl",
+                                            "fumbl",
+                                            "drowsy",
+                                            "drowsiness",
+                                            "memory loss",
+                                            "cant stay balanced",
+                                            "bright red"
+                                        ],
+                           "negations":  [
+                                             "not hurt",
+                                             "nobody is hurt",
+                                             "no one is hurt",
+                                             "nobody hurt",
+                                             "not injured",
+                                             "no injuries",
+                                             "not bleeding"
+                                         ],
+                           "sources":  "Warning signs added 2026-11-07 from official pages (CDC, NIH, NIMH, Ready.gov), each quote verified: ai-experiments/medical-signs.json",
+                           "message":  "Tenvia can\u0027t guide medical problems yet. If there is any way to reach emergency services, do that now."
+                       },
+                       {
+                           "id":  "crisis",
+                           "keywords":  [
+                                            "suicide",
+                                            "kill myself",
+                                            "end my life",
+                                            "ending my life",
+                                            "self harm",
+                                            "hurt myself",
+                                            "want to die",
+                                            "dont want to be alive",
+                                            "dont want to live",
+                                            "no reason to live",
+                                            "a burden",
+                                            "plan to kill",
+                                            "keep myself safe",
+                                            "take my own life",
+                                            "better off without me",
+                                            "better off dead",
+                                            "end it all"
+                                        ],
+                           "negations":  [
+                                             "dont want to die",
+                                             "do not want to die",
+                                             "dont wanna die",
+                                             "not going to die",
+                                             "afraid to die",
+                                             "scared to die"
+                                         ],
+                           "message":  "I am so sorry you are carrying this. You matter. Please reach out to someone now: call or text 988 in the US, or emergency services."
+                       }
+                   ]
 }
