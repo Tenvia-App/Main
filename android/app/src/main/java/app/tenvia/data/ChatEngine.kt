@@ -6,7 +6,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 /**
- * TEST BUILD: open AI conversation (high tier), ported from ai-experiments/chat-v2.ps1.
+ * TEST BUILD: open AI conversation (high tier), ported from ai-experiments/chat-v4.ps1 (chat round 2:
+ * advice must match the ACTIVE guides' steps, claim/guess/invented-fact rules, no unvetted fallback lines).
  *
  * The model runs in a llama-server process on THIS phone (started over USB for testing) and is
  * reached at 127.0.0.1 only. Per message:
@@ -38,10 +39,14 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
     private val history = mutableListOf<Pair<String, String>>()
     private val prevReplies = mutableListOf<String>()
     private var curMsg = ""
+    private var convUser = ""
+    private var hasSignalNow = false
+    private var curSteps = ""
+    private var inVehicle = false
 
     fun reset() {
         active.clear(); isMedical = false; isCrisis = false; hazard = false; hot = false; coSource = false; co = false
-        history.clear(); prevReplies.clear()
+        history.clear(); prevReplies.clear(); convUser = ""; hasSignalNow = false; curSteps = ""
     }
 
     /** True when the on-phone AI server answers. */
@@ -94,6 +99,7 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
     // ---------------- one turn ----------------
     fun respond(msg: String): Reply {
         curMsg = msg
+        convUser += " $msg"
         // 1. routing + safety nets
         val route = runCatching { JSONObject(complete(chat(ROUTE_SYS, ROUTE_SHOTS, msg), routeGrammar(), 0.0, 80)) }.getOrNull()
         val rGuide = route?.optString("guide") ?: "none"
@@ -115,20 +121,24 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
             }
             if (rGuide != "none" && guideById.containsKey(rGuide)) { active.remove(rGuide); active.add(0, rGuide) }
         }
-        val use = active.take(3)
+        val use = active.take(4)
+        inVehicle = "stranded-vehicle" in use
         val steps = grounding(use)
+        curSteps = steps
 
-        // situation notes (fixed word rules, not AI)
-        if (Regex("\\b(fire|wildfire|smoke|flames?|burning|evacuat\\w*|flood\\w*|water (is )?(rising|coming in|up to)|rising water|tornado|tide (is )?(coming|rising|up)\\w*|high tide|lightning)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hazard = true
+        // situation notes (fixed word rules, not AI). v4: lightning has its own checked guide now.
+        val hazardNow = Regex("\\b(fire|wildfire|smoke|flames?|burning|evacuat\\w*|flood\\w*|water (is )?(rising|coming in|up to)|rising water|tornado|tide (is )?(coming|rising|up)\\w*|tide coming|high tide|incoming tide)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)
+        if (hazardNow) hazard = true
         // CDC carbon monoxide signs near a fuel-burning source = medical (sealed set 1, 301: "the heater is making us sleepy").
         if (Regex("\\b(heater|engine|exhaust|tailpipe|generator|stove|grill|charcoal|propane|kerosene|fumes|idling|car (is )?running|running the car)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) coSource = true
         if (coSource && Regex("\\b(sleepy|drowsy|so tired|can't stay awake|hard to (stay awake|wake)|won't wake|headaches?|dizz\\w*|lightheaded|weak|nause\\w*|upset stomach|throw(ing)? up|threw up|vomit\\w*|chest pain|confus\\w*|passed out|pass(ing)? out)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) { co = true; isMedical = true }
         if (Regex("\\b(hot|heat wave|the heat (is|was)|in (this|the) heat|overheat\\w*|desert|scorching|sun is (brutal|hot|beating)|9\\d ?(f|degrees)|1\\d\\d ?(f|degrees))\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hot = true
         val hasSignal = SIGNAL_RE.containsMatchIn(msg)
+        hasSignalNow = hasSignal
         val ctx = mutableListOf<String>()
         if (isCrisis) ctx += "NOTE: ${crisisNote()}" else if (isMedical) ctx += "NOTE: ${medicalNote()}"
         ctx += if (steps.isNotEmpty()) "CHECKED STEPS:\n$steps" else "CHECKED STEPS: none match yet. Do not give practical advice. Kindly ask what is happening."
-        if (hazard) ctx += "NOTE: There is fire, smoke, flood, a rising tide or lightning. Use the checked flood or wildfire steps if they are given. Otherwise say honestly that you do not have checked advice for this, and to call 911 as soon as they have any signal. Do not tell them to stay put or to move unless a checked step says so."
+        if (hazard) ctx += "NOTE: There is fire, smoke, flood or a rising tide. Use the checked flood, wildfire or beach steps if they are given. Otherwise say honestly that you do not have checked advice for this, and to call 911 as soon as they have any signal. Do not tell them to stay put or to move unless a checked step says so."
         if (co) ctx += "NOTE: These can be carbon monoxide warning signs (CDC: headache, dizziness, weakness, upset stomach, vomiting, chest pain, confusion; people who are sleeping can die before they have symptoms). Say that reaching 911 is the most important thing. Do not suggest running the engine, heater or generator."
         if (hasSignal) ctx += "NOTE: The person has some signal right now. The most important thing is to call 911 now (call if you can, text if you cannot)."
         val context = ctx.joinToString("\n\n")
@@ -141,20 +151,34 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
         for (attempt in 1..4) {
             var cand = runCatching { complete(prompt, null, if (attempt == 1) 0.3 else 0.6, 140, 100 + attempt) }.getOrNull() ?: break
             cand = cand.replace(Regex("(?i)\\bstep \\d+\\s*[:.)-]\\s*"), "").replace(Regex("(?m)^\\s*(\\d+[.)]|[-*])\\s+"), "").trim()
+            // v4 (dev2 202.3): the model drops the altitude limit even when told 4 times; add the step's own words.
+            if (r("\\bboil").containsMatchIn(cand) && !r("6,?500|3 minutes|three minutes").containsMatchIn(cand))
+                cand = r("\\b(1|one) minute\\b").replaceFirst(cand, "$0 (3 minutes above 6,500 feet)")
             val bad = RULES.filter { (_, test) -> test(cand, med) }.map { it.first }
             if (bad.isEmpty()) { reply = cand; break }
-            val hint = bad.joinToString(" ") { FIX_HINTS[it] ?: "" }
+            val hint = bad.joinToString(" ") { if (it == "advice not in steps") adviceHint() else FIX_HINTS[it] ?: "" }
             prompt = base + cand + "<|im_end|>\n<|im_start|>user\nRewrite your reply. Problem: $hint Keep everything else, 2 to 4 short sentences.<|im_end|>\n<|im_start|>assistant\n"
         }
         val notice = when { isCrisis -> crisisOos?.message; isMedical -> medical?.message; else -> null }
         val shownGuides = use.mapNotNull { guideById[it] }
         if (reply == null) {
-            val first = use.take(1).flatMap { id -> guideById[id]?.steps?.take(2)?.map { it.text } ?: emptyList() }
-            val fb = when {
-                hazard -> "I don't have checked advice for this. If authorities tell you to evacuate, go right away, and call 911 as soon as you have any signal."
-                first.isNotEmpty() -> "Here is what the checked guide says: " + first.joinToString(" ")
+            // v4: no unvetted lines. Hazard: the active hazard guide's own quoted steps; else the top guide's.
+            val hz = use.firstOrNull { it in HAZARD_GUIDES && (it == use.firstOrNull() || hazardNow) }
+            val first = when {
+                hz != null -> guideById[hz]?.steps?.take(2)?.map { it.text } ?: emptyList()
+                hazard -> emptyList()
+                // Water: steps 1 and 3 ("streams can be sources" alone, without "must be treated", misleads; dev2 202.3).
+                else -> use.take(1).flatMap { id ->
+                    val st = guideById[id]?.steps ?: emptyList()
+                    (if (id == "water" && st.size >= 3) listOf(st[0], st[2]) else st.take(2)).map { it.text }
+                }
+            }
+            var fb = when {
+                first.isNotEmpty() -> "I hear you. Here is what the checked guide says: " + first.joinToString(" ")
+                hazard -> "I don't have checked advice for this situation. As soon as you have signal, call 911."
                 else -> "I'm here. Tell me what is happening, in your own words."
             }
+            if (hasSignal && r("\\b(bars?|signal|service|reception)\\b").containsMatchIn(msg) && !fb.contains("911")) fb += " You have some signal: call 911 now (call if you can, text if you cannot)."
             prevReplies += fb
             return Reply(fb, false, notice, shownGuides)
         }
@@ -179,7 +203,7 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
             ex(listOf("stranded-vehicle", "cold-weather"), "stuck in snow on a back road, can i just run the heater all night?") to
                 "Not all night. Before running the engine, make sure the exhaust pipe isn't blocked by snow. Then run it about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide. Is your exhaust pipe clear right now?",
             ex(listOf("water", "heat"), "found a creek, can i drink straight from it? so thirsty") to
-                "Not straight from the creek. Water from outdoor sources must be treated to kill germs first: if it's cloudy, filter it through a clean cloth, then bring it to a rolling boil for 1 minute. Until then, don't ration the water you have: drink what you need today. Do you have a way to boil water?",
+                "Not straight from the creek. Water from outdoor sources must be treated to kill germs first: if it's cloudy, filter it through a clean cloth, then bring it to a rolling boil for 1 minute (3 minutes above 6,500 feet). Until then, don't ration the water you have: drink what you need today. Do you have a way to boil water?",
             ex(listOf("stay-or-move"), "i can see a road way down the hill, should i just walk to it?") to
                 "I don't have checked advice saying it's safe to go for it. What I can tell you is to retrace your steps only if it's safe, and if you can't safely find your way back, stay where you are. Can you still see the way you came in?",
             ex(listOf("stay-or-move", "get-found"), "theres a fast river between me and the trail, should i cross it?") to
@@ -215,17 +239,39 @@ bool ::= "true" | "false""""
     private fun r(p: String) = Regex(p, RegexOption.IGNORE_CASE)
     private fun sentences(s: String) = s.split(Regex("(?<=[.!?])\\s+"))
     private val NEGATION = r("\\b(don't|do not|not|never|isn't|aren't|avoid|can't tell you|no checked|don't have checked|without checked|rather than|instead of)\\b")
-    private fun anySentence(s: String, p: Regex) = sentences(s).any { p.containsMatchIn(it) && !NEGATION.containsMatchIn(it) }
+    private fun anySentence(s: String, p: Regex) = sentences(s).any { p.containsMatchIn(it) && !NEGATION.containsMatchIn(it) && !stepCopy(it) }
+    private fun stem5(w: String) = if (w.length > 5) w.substring(0, 5) else w
+    // v4 (dev2): a sentence that is a near-copy of one ACTIVE step ("if you leave your vehicle, you will become
+    // disoriented quickly") is the step itself, so movement / claim / going rules don't apply to it.
+    private fun stepCopy(sent: String): Boolean {
+        val ws = sent.lowercase().replace("'", "").split(Regex("[^a-z0-9]+")).filter { it.length >= 4 && it !in PLAIN_WORDS }.map { stem5(it) }.toSet()
+        if (ws.size < 2) return false
+        return curSteps.lowercase().replace("'", "").split("\n").any { line ->
+            val lw = line.split(Regex("[^a-z0-9]+")).filter { it.length >= 4 }.map { stem5(it) }.toSet()
+            lw.isNotEmpty() && ws.count { it in lw }.toDouble() / ws.size >= 0.75
+        }
+    }
 
     private fun engineAdvice(s: String): Boolean = sentences(s).any { sent ->
         if (r("\\b(don't|do not|never|not)\\s+(run|keep|leave|start|idle|use|turn)\\b").containsMatchIn(sent)) false
+        // v4 (dev2 203.1): "leave the engine off" / "I don't have checked advice on running the engine".
+        else if (r("\\b(leave|keep|turn|switch|shut)\\b[^.!?]{0,25}\\boff\\b|\\b(engine|it|motor|heater) off\\b|checked advice|only for the cold|only in the cold").containsMatchIn(sent)) false
+        // "Keep it on and ready to call" is about the phone.
+        else if (r("\\b(phone|call|calls|battery|signal)\\b").containsMatchIn(sent) && !r("\\b(engine|motor|heater|car|truck|vehicle|van|suv|idl\\w*)\\b").containsMatchIn(sent)) false
         else if (r("^\\W*before (running|starting|you run|you start|turning on)\\b").containsMatchIn(sent) && !r("\\b(then|and) (run|start|keep)\\b").containsMatchIn(sent)) false
         else r("\\b(run(ning)?|keep|leave|turn(ing)? on|use)\\b[^.!?]{0,25}\\b(engine|heater|motor|car running)\\b|\\b(engine|heater)\\b[^.!?]{0,15}\\b(running|on|run)\\b|\\b(keep|leave|have) (it|the car|the truck|the vehicle|the van|the suv|your car|your truck) (running|on)\\b|\\b(car|truck|van|suv|vehicle|motor) (running|idling)\\b|\\bidl(e|ing)\\b").containsMatchIn(sent)
     }
 
     private fun phoneOff(s: String): Boolean = sentences(s).any { sent ->
-        if (r("\\b(don't|do not|never)\\s+(turn|switch|keep|power)\\s+(it|your phone|the phone)\\s+off\\b").containsMatchIn(sent)) false
+        if (r("\\b(don't|do not|never)\\s+(turn|switch|keep|power)\\s+(it|your phone|the phone)\\s+off\\b|\\b(don't|do not|never)\\b[^.!?]{0,30}\\b(turn (it |your phone |the phone )?off|airplane mode)\\b").containsMatchIn(sent)) false
         else r("\\b(turn(ing)?|switch(ing)?|power(ing)?) (it|your phone|the phone) off\\b|\\b(turn(ing)?|switch(ing)?) off (your|the) phone\\b|\\b(keep|leave) (it|your phone|the phone) off\\b|\\bdon't (text|call|use (it|your phone))\\b|\\bairplane mode\\b").containsMatchIn(sent)
+    }
+
+    // v4 (dev2 205.1, 207.3): the no-signal-bars condition must be in the same sentence as "turn the phone off".
+    private fun phoneOffSentenceNoCond(s: String): Boolean = sentences(s).any { sent ->
+        if (r("\\b(don't|do not|never)\\s+(turn|switch|keep|power)\\s+(it|your phone|the phone)\\s+off\\b|\\b(don't|do not|never)\\b[^.!?]{0,30}\\b(turn (it |your phone |the phone )?off|airplane mode)\\b").containsMatchIn(sent)) false
+        else r("\\b(turn(ing)?|switch(ing)?|power(ing)?) (it|your phone|the phone) off\\b|\\b(turn(ing)?|switch(ing)?|power(ing)?) off (your|the) phone\\b|\\b(keep|leave) (it|your phone|the phone) off\\b|\\bturn it off\\b").containsMatchIn(sent) &&
+            !r("\\bno (signal|bars|service)\\b|\\bno signal bars\\b").containsMatchIn(sent)
     }
 
     private fun words(s: String) = s.lowercase().split(Regex("[^a-z]+")).filter { it.length >= 3 }.toSet()
@@ -237,23 +283,65 @@ bool ::= "true" | "false""""
     private val ADVICE_VERBS = "stay|keep|drink|move|go|walk|head|hike|climb|follow|find|seek|take|breathe|try|wait|look|use|turn|put|get|rest|sit|lie|stand|run|wave|yell|shout|signal|blow|flash|hold|cover|build|eat|boil|filter|ration|light|start|leave|open|close|check|make|avoid|stop|remove|cross|swim|wade|jump|travel|retrace|lay|spread|set|bring|carry|tie|press|apply|wrap|clean|call|text|dial|save|conserve|charge|switch|power|send|mark|note|write|watch|listen|tell|drive|push|pull|dig|wear"
     private val ALWAYS_OK = setOf("call", "text", "dial", "tell", "breathe", "let", "share", "answer", "check", "look", "see", "notice", "think")
     private val SYNONYMS = mapOf("start" to "run", "idle" to "run", "sip" to "drink", "switch" to "turn", "shelter" to "find", "protect" to "shield")
-    private fun adviceVerbs(s: String): List<String> {
-        val verbs = mutableListOf<String>()
-        for (sent in sentences(s)) for (cl in sent.split(Regex(",\\s*|\\s+(?:and|then|or)\\s+"))) {
-            var c = cl.trim().lowercase()
-            c = c.replace(Regex("^(first|next|then|now|also|so|for now|right now|if you can|if it's safe|if possible|please|just)\\s*,?\\s*"), "")
-            if (Regex("^follow (any |the |all )?(directions|instructions|orders)\\b").containsMatchIn(c)) continue
-            c = c.replace(Regex("^(go|switch|put it) (in)?to (airplane|low power)"), "turn on $3")
-            Regex("^(?:don't|do not|never)\\s+(\\w+)").find(c)?.let { verbs += it.groupValues[1]; continue }
-            Regex("^(?:you should|you could|you can|you need to|you must|try to|make sure to|be sure to|it's best to|it's important to)\\s+(\\w+)").find(c)?.let { verbs += it.groupValues[1]; continue }
-            Regex("^($ADVICE_VERBS)\\b").find(c)?.let { verbs += it.groupValues[1] }
+    // v4 (chat round 2): advice is checked against the ACTIVE guides' steps for this turn: the clause's
+    // verb AND its content words must be in those steps (round 1: "any guide" let improvisations pass).
+    private class Clause(val verb: String, val text: String)
+    private fun adviceClauses(s: String): List<Clause> {
+        val out = mutableListOf<Clause>()
+        for (sent in sentences(s)) {
+            if (Regex("\\?\\s*$").containsMatchIn(sent)) continue
+            for (cl in sent.split(Regex(",\\s*|;\\s*|:\\s*|(?<=[a-z]{3})-(?=[a-z]{2,} )|\\s+-\\s+|\\s+(?:and|then|or|but)\\s+"))) {
+                var c = cl.trim().lowercase().replace(Regex("[.!?\"]+$"), "")
+                c = c.replace(Regex("^(first|next|then|now|also|so|for now|right now|if you can|if it's safe|if possible|please|just|instead|until then|meanwhile|in the meantime)\\s*,?\\s*"), "")
+                c = c.replace(Regex("^(go|switch|put it) (in)?to (airplane|low power)"), "turn on $3")
+                c = c.replace(Regex("^(?:i'd|i would) (?:suggest|recommend)(?: that you)?\\s+|^(?:the best thing (?:to do )?is to|it's best to|it's important to|it is important to|it's a good idea to|it helps to)\\s+"), "")
+                Regex("^(?:don't|do not|never)\\s+(\\w+)").find(c)?.let { out += Clause(it.groupValues[1], c); continue }
+                Regex("^(?:you should|you could|you can|you need to|you must|you'll want to|try to|make sure to|make sure you|be sure to)\\s+(?:not\\s+)?(\\w+)").find(c)?.let { out += Clause(it.groupValues[1], c); continue }
+                Regex("^(?:your \\w+|he|she|they|everyone|the \\w+) (?:should|must|needs? to|has to|have to)\\s+(?:not\\s+)?(\\w+)").find(c)?.let { out += Clause(it.groupValues[1], c); continue }
+                Regex("^($ADVICE_VERBS)\\b").find(c)?.let { out += Clause(it.groupValues[1], c) }
+            }
         }
-        return verbs.filter { it !in ALWAYS_OK }
+        return out.filter { it.verb !in ALWAYS_OK }
     }
-    private fun verbInSteps(v0: String): Boolean {
+    private fun verbIn(v0: String, st: String): Boolean {
         val v = SYNONYMS[v0] ?: v0
         val stem = if (v.length > 4) v.substring(0, 4) else v
-        return Regex("\\b${Regex.escape(stem)}").containsMatchIn(allSteps.lowercase())
+        return Regex("\\b${Regex.escape(stem)}").containsMatchIn(st)
+    }
+    private var badClauses: List<String> = emptyList()
+    private fun unsupportedClauses(s: String, steps: String): List<String> {
+        val st = steps.lowercase().replace("'", "")
+        return adviceClauses(s).filter { a ->
+            if (st.isEmpty() || !verbIn(a.verb, st)) return@filter true
+            val ws = a.text.replace("'", "").split(Regex("[^a-z0-9]+")).filter { it.length >= 4 && it != a.verb && it !in PLAIN_WORDS }
+            var sup = 0; var uns = 0
+            for (w0 in ws) {
+                val w = WORD_SYNONYMS[w0] ?: w0
+                val stem = if (w.length > 5) w.substring(0, 5) else w
+                if (Regex("\\b${Regex.escape(stem)}").containsMatchIn(st)) sup++ else uns++
+            }
+            uns >= 2 || (uns == 1 && sup == 0)
+        }.map { it.text }
+    }
+    private fun adviceHint(): String {
+        val q = badClauses.take(3).joinToString(", ") { "\"$it\"" }
+        return "It gave advice that is not in the CHECKED STEPS for this message: $q. Remove that advice. Give only advice that is in the checked steps, in their words, or say you don't have checked advice on that."
+    }
+    private fun claim(s: String, p: Regex) = sentences(s).any { p.containsMatchIn(it) && !r("checked advice|checked step").containsMatchIn(it) && !stepCopy(it) }
+    // "You don't have a map" / "since you have signal": only when the person said so (round 1: 417.2, 419.1, 315.1).
+    private fun inventedAbsence(s: String): Boolean {
+        val u = convUser.lowercase().replace("'", "")
+        for (m in r("(?<!\\bif )\\byou (?:don't|do not|dont) have (?:a |an |any )?(\\w+)|(?<!\\bif )\\byou have no (\\w+)|\\bwith no (signal|bars|service|map)\\b|\\bno signal bars means\\b").findAll(s)) {
+            val n = (m.groupValues[1] + m.groupValues[2] + m.groupValues[3]).lowercase()
+            if (n in setOf("to", "enough", "time", "much")) continue
+            if (n == "checked" || n.isEmpty()) {
+                if (m.value.contains("means") && !Regex("\\bno (signal|bars|service)|\\b(zero|0) bars|\\bno bars|without signal|dont have (any )?(signal|service)|lost (signal|service)|signal (is )?gone").containsMatchIn(u)) return true
+                continue
+            }
+            val stem = Regex.escape(if (n.length > 5) n.substring(0, 5) else n)
+            if (!Regex("\\b(no|dont have|do not have|without|lost|left|forgot|none|zero|0|dead|ran out of)\\b[^.!?]{0,25}\\b$stem|\\b$stem\\w*\\b[^.!?]{0,15}\\b(died|dead|is gone|gone|lost|broke|none|isnt|is not|wont)").containsMatchIn(u)) return true
+        }
+        return r("\\b(since|now that|because) you (have|got|'ve got) (some |a )?(signal|service|bars?|reception)\\b").containsMatchIn(s) && !hasSignalNow
     }
 
     private val TREATMENT = "tourniquet|cpr|splint\\w*|elevat\\w*|bandag\\w*|pressure|wrap\\w*|ice pack|ibuprofen|aspirin|tylenol|acetaminophen|medicine|medication|painkiller\\w*|antiseptic|disinfect\\w*|stitch\\w*|compress\\w*|sling|clean (the|your|it)|tie (it|the|a)|rinse"
@@ -263,29 +351,49 @@ bool ::= "true" | "false""""
         "claims to act" to { s, _ -> r("\\b(i|we)('ll| will| am going to| are going to| can)\\b.{0,20}\\b(call|contact|send|alert|notify|text|reach out to|get help|track)\\b|\\bi('ve| have) (called|contacted|alerted|notified|sent)\\b|\\bi('m| am) (calling|contacting|alerting|sending|notifying|tracking)\\b").containsMatchIn(s) },
         "treatment" to { s, _ -> r("\\b($TREATMENT)\\b").findAll(s).any { !allSteps.lowercase().contains(it.value.lowercase()) } },
         "first aid while hurt" to { s, med -> med && anySentence(s, r("\\b(rest\\w*|hydrat\\w*|cool (place|spot|down|off)|stay cool|shade|drink\\w*|sleep\\w*|lie down|sit down|fluids?)\\b|\\b(keep|hold|put|raise|rest|move|cool|ice|press|clean|sleep|lie|sit|drink|stop|slow)\\b[^.!?]{0,40}\\b(ankle|leg|arm|foot|feet|knee|wrist|head|neck|wound|cut|bleed\\w*|injur\\w*|swell\\w*|it still|still|body|yourself cool|it off)\\b")) },
-        "engine without limits" to { s, _ -> engineAdvice(s) && !(r("10 minutes").containsMatchIn(s) && r("exhaust|tailpipe").containsMatchIn(s) && r("window").containsMatchIn(s) && r("\\bcold\\b").containsMatchIn(s)) },
+        "engine without limits" to { s, _ -> engineAdvice(s) && !(r("10 minutes").containsMatchIn(s) && r("exhaust|tailpipe").containsMatchIn(sentences(s).filterNot { Regex("\\?\\s*$").containsMatchIn(it) }.joinToString(" ")) && r("window").containsMatchIn(s) && r("\\bcold\\b").containsMatchIn(s)) },
         "engine advice in heat" to { s, _ -> hot && engineAdvice(s) },
         "repeats an earlier reply" to { s, _ -> repeats(s) },
         "stay put in fire or flood" to { s, _ -> hazard && r("\\bstay (with|in|inside) (your|the) (vehicle|car|truck|van|suv|pickup)\\b|\\bstay (with|in|inside) it\\b|\\bstay inside\\b|\\bstay where you are\\b|\\bstay put\\b|\\bremain (in|with|where)\\b").containsMatchIn(s) && !r("rapidly moving water|rising inside|on the roof").containsMatchIn(s) },
         "engine with CO signs" to { s, _ -> co && engineAdvice(s) },
         "alarming speculation" to { s, _ -> r("\\b(may|might|could|will)\\b[^.!?]{0,20}\\b(rise|rising|spread|get worse|worsen|come back|flood|collapse)\\b").containsMatchIn(s) },
         "untreated water" to { s, _ -> anySentence(s, r("\\bdrink\\w*\\b[^.!?]{0,40}\\b(stream|creek|river|puddle|lake|pond|wash|spring|swamp|it|that|this water|water here)\\b")) && !r("\\b(treat\\w*|boil\\w*)\\b").containsMatchIn(s) },
-        "rationing" to { s, _ -> anySentence(s, r("\\bration\\w*|\\bsips?\\b|\\bsave (it|your water|the water|the drinking water|your drinking water)\\b|\\bwhen (your |their )?mouths? (is |are |gets? |feels? )?(very |really )?dry|\\bonly when (your )?mouth|\\bwait (until|till) (you're |you are )?thirsty|\\bonly drink\\b|\\bdrink\\w* (water |it )?only (if|when)\\b|\\bshare (it|the (bottle|water))[^.!?]{0,20}carefully|\\bmake (it|the water) last\\b|\\bdrink (it |them )?(all )?(right )?now\\b|\\bdrink (all|everything)\\b")) },
+        "rationing" to { s, _ -> anySentence(s, r("\\bwhen (you're|you are|you feel|you get) thirsty\\b|\\bration\\w*|\\bsips?\\b|\\bsave (it|your water|the water|the drinking water|your drinking water)\\b|\\bwhen (your |their )?mouths? (is |are |gets? |feels? )?(very |really )?dry|\\bonly when (your )?mouth|\\bwait (until|till) (you're |you are )?thirsty|\\bonly drink\\b|\\bdrink\\w* (water |it )?only (if|when)\\b|\\bshare (it|the (bottle|water))[^.!?]{0,20}carefully|\\bmake (it|the water) last\\b|\\bdrink (it |them )?(all )?(right )?now\\b|\\bdrink (all|everything)\\b")) },
         "phone off with signal" to { s, _ -> SIGNAL_RE.containsMatchIn(curMsg) && phoneOff(s) },
-        "phone off without condition" to { s, _ -> phoneOff(s) && !r("no (signal|bars)|no signal bars").containsMatchIn(s) },
+        "phone off without condition" to { s, _ -> (phoneOff(s) && !r("no (signal|bars)|no signal bars").containsMatchIn(s)) || phoneOffSentenceNoCond(s) },
+        // v4 (dev2 judge): boiling without the altitude limit drops a condition of the step.
+        "boil without altitude" to { s, _ -> r("\\bboil").containsMatchIn(s) && r("\\b(1|one) minute").containsMatchIn(s) && !r("6,?500|3 minutes|three minutes").containsMatchIn(s) },
         "movement advice" to { s, _ -> anySentence(s, r("\\b(walk\\w*|hik\\w*|head(ing)?|driv\\w*|paddl\\w*|cross\\w*|climb\\w*|swim\\w*|wad\\w*|go(ing)?|mov\\w*)\\b\\s+(to|toward|towards|down|up|across|over|for|back to|out to|along|around|downstream|upstream|higher)\\b(?!\\s+(airplane|low power|sleep))|\\bleav\\w* (the|your) (car|vehicle|truck|van|suv|shelter|island|kayak)\\b|\\bfollow\\w* (the|that) (river|stream|creek|road|lights?|dog|sound)\\b|\\bstand in the road\\b|\\bflag (it|them|the \\w+) down\\b")) },
         "phone capability claim" to { s, _ -> r("\\b(phone|it|gps)\\b[^.!?]{0,15}\\b(can't|cannot|can not|won't|will not|can|will)\\b[^.!?]{0,10}\\b(send|share|show|track|transmit|find)\\b[^.!?]{0,20}\\b(location|position|where you are)").containsMatchIn(s) },
-        "safety claim" to { s, _ -> sentences(s).any { sent -> !r("checked advice|can't (tell|say)|not (safe|sure it's safe)|isn't safe|no way to know").containsMatchIn(sent) && r("(?<!\\bif )\\b(staying|waiting|being|it's|that's|this is|you're|you are|is) (perfectly |completely |totally )?(safe|safer|the safest)\\b(?! to)").containsMatchIn(sent) } },
-        "entertains going" to { s, _ -> r("\\bif you (do )?(go|walk|leave|head out|decide to (go|walk|leave)|try to (walk|go|reach))\\b|\\bbefore you (go|walk|leave|head out)\\b|\\bon your way\\b").containsMatchIn(s) },
+        "safety claim" to { s, _ -> sentences(s).any { sent -> !r("checked advice|hard-topped|can't (tell|say)|not (safe|sure it's safe)|isn't safe|no way to know").containsMatchIn(sent) && r("(?<!\\bif )\\b(staying|waiting|being|it's|that's|this is|you're|you are|is) (perfectly |completely |totally )?(safe|safer|the safest)\\b(?! to)").containsMatchIn(sent) } },
+        "entertains going" to { s, _ -> claim(s, r("\\bif you (do )?(go|walk|leave|head out|decide to (go|walk|leave)|try to (walk|go|reach))\\b|\\bbefore you (go|walk|leave|head out)\\b|\\bon your way\\b")) },
         "wrong speaker" to { s, _ -> r("\\byou (don't|do not) have (any )?checked advice").containsMatchIn(s) },
+        // v4 (round 1 judge reasons): claims and guesses that no step makes.
+        "danger claim" to { s, _ -> claim(s, r("\\b(is|are|it's|that's|could be|may be|might be|can be|would be|isn't|is not|not)\\s+(very |too |really )?(dangerous|unsafe|risky|safe enough)\\b|\\b(could|may|might|will|would) (make (it|things|this) worse|hurt you|be dangerous)\\b|\\b(won't|will not|doesn't|does not) (warm|help|work|mean)\\b|\\bincreases? (the )?risk\\b|(?<!\\bif )\\byou (can't|cannot|can not) safely\\b|\\b(can't|cannot) (cross|reach|get to|walk|go|climb)\\b[^.!?]{0,20}\\bsafely\\b|\\bno matter how\\b")) },
+        "guessing" to { s, _ -> r("\\b(it|that|this) (sounds like|could be|might be|may be|is probably|is likely)\\b(?! (dangerous|unsafe|risky))|\\bcould mean\\b|\\b(probably|likely) (from|because|means)\\b|\\bit could be from\\b|\\b(don't|do not|doesn't|does not) apply\\b").containsMatchIn(s) },
+        "invents a fact" to { s, _ -> inventedAbsence(s) },
+        // v4 (dev2 208.1, 214.4): the stay-put step has a condition; staying put is never called okay.
+        "stay put without condition" to { s, _ -> !inVehicle && sentences(s).any { r("\\b(stay where you are|stay put|staying (where you are|put|here))\\b").containsMatchIn(it) && !r("\\bif you (can't|cannot|can not)\\b|\\bunless\\b|\\bchanging location\\b").containsMatchIn(it) } },
         "calls it normal" to { s, _ -> r("\\b(is|are|that's|it's|feels?) (completely |totally |perfectly |very )?(normal|natural|expected)\\b").containsMatchIn(s) },
         "too long" to { s, _ -> s.split(Regex("\\s+")).count { it.isNotBlank() } > 100 },
-        "advice not in steps" to { s, _ -> adviceVerbs(s).any { !verbInSteps(it) } },
+        "advice not in steps" to { s, _ -> badClauses = unsupportedClauses(s, curSteps); badClauses.isNotEmpty() },
         "empty" to { s, _ -> s.isBlank() },
     )
 
     companion object {
         private val SIGNAL_RE = Regex("\\b(one|1|a|two|2|some|few) bars?\\b|\\bbar (just )?(popped|appeared|showed)|\\b(have|got|getting) (a |some )?(signal|service|reception)\\b|\\b(signal|service) (is |came |just came )?back\\b|\\b(buzzing|getting) (with )?alerts\\b", RegexOption.IGNORE_CASE)
+        private val HAZARD_GUIDES = setOf("flood", "wildfire", "coast-tide", "lightning", "high-wind")
+        // Words that carry no advice of their own (so they need not appear in a step). Same as chat-v4.ps1.
+        private val PLAIN_WORDS = setOf("this", "that", "these", "those", "with", "your", "yours", "them", "they", "their", "there", "here", "what", "when", "where", "which", "while",
+            "will", "would", "could", "should", "from", "into", "onto", "about", "just", "still", "very", "really", "some", "more", "most", "much", "many", "even", "also",
+            "than", "then", "each", "every", "back", "like", "sure", "best", "right", "okay", "until", "before", "after", "because", "have", "been", "being", "were",
+            "other", "others", "thing", "things", "something", "anything", "possible", "able", "dont", "its", "youre", "please", "help", "yourself", "yourselves",
+            "everyone", "anyone", "someone", "people", "person", "phone", "signal", "call", "text", "time", "times", "little", "long", "first", "once",
+            "least", "well", "good", "away", "only", "around", "close", "area", "place", "spot", "current", "currently", "already", "keep", "stay", "make", "calm",
+            "calmly", "safely", "instead", "both", "again", "directly", "fully", "soon", "need", "want", "tell", "told", "tells", "often", "down", "family", "group")
+        private val WORD_SYNONYMS = mapOf("truck" to "vehicle", "car" to "vehicle", "suv" to "vehicle", "van" to "vehicle", "kids" to "children", "child" to "children",
+            "sun" to "shade", "jacket" to "clothing", "coat" to "clothing", "figure" to "work", "visible" to "see", "tying" to "tie",
+            "toddler" to "children", "baby" to "children", "son" to "children", "daughter" to "children", "untreated" to "treated", "clothes" to "clothing")
         private const val BOOL_GRAMMAR = "root ::= \"{\\\"answer\\\":\" (\"true\" | \"false\") \"}\""
 
         private val FIX_HINTS = mapOf(
@@ -297,7 +405,7 @@ bool ::= "true" | "false""""
             "engine with CO signs" to "They have carbon monoxide warning signs. Do not suggest running the engine, heater or generator; say reaching 911 is the most important thing.",
             "engine advice in heat" to "It gave the engine-for-warmth step, which is only for the cold. It is hot, so leave the engine out.",
             "repeats an earlier reply" to "It repeated an earlier reply. Respond to what they just said, with something new.",
-            "stay put in fire or flood" to "There is fire, smoke, flood, tide or lightning. Do not tell them to stay with the vehicle or stay where they are unless a checked flood or wildfire step says so. Use those checked steps, or say you do not have checked advice for this, and to call 911 as soon as they have any signal.",
+            "stay put in fire or flood" to "There is fire, smoke, flood or a rising tide. Do not tell them to stay with the vehicle or stay where they are unless a checked step says so. Use the checked steps, or say you do not have checked advice for this, and to call 911 as soon as they have any signal.",
             "alarming speculation" to "It guessed that things could get worse. Do not speculate.",
             "untreated water" to "It talked about drinking outdoor water without saying it must be treated (boiled) first.",
             "rationing" to "It suggested rationing or saving water. The checked step says: do not ration your drinking water; drink what you need today.",
@@ -308,9 +416,14 @@ bool ::= "true" | "false""""
             "safety claim" to "It said something is safe. The app cannot know that; do not call anything safe.",
             "entertains going" to "It talked as if they might go or walk somewhere. Do not; give the step that fits (stay with your vehicle, or stay where you are if you cannot safely find your way back).",
             "wrong speaker" to "Say \"I don't have checked advice\" (you, the app), not \"you don't have checked advice\".",
+            "stay put without condition" to "Keep the condition of the step: say \"If you can't safely find your way back, stay where you are.\" Do not say to stay put without it, and do not call staying put okay or safe.",
             "calls it normal" to "It called their symptoms or feelings normal. Do not.",
             "too long" to "It was too long. Use 2 to 4 short sentences.",
             "advice not in steps" to "It gave advice that is not in the checked steps. Use only the checked steps.",
+            "danger claim" to "It claimed something is dangerous, unsafe, or will or will not work. The app cannot judge that. Say you do not have checked advice on it, and give only the checked steps.",
+            "boil without altitude" to "It said to boil water for 1 minute without the limit in the checked step: above 6,500 feet, boil it for 3 minutes.",
+            "guessing" to "It guessed what something means or what is causing it. Do not guess; say only what the checked steps say.",
+            "invents a fact" to "It stated something about their situation they did not say (for example that they have or do not have a map, signal or landmarks). Only use what they told you, or ask.",
             "empty" to "It was empty.",
         )
 
@@ -326,7 +439,7 @@ How to answer:
 - Practical advice must come ONLY from the CHECKED STEPS. Do not add your own do's and don'ts or general survival tips.
 - When you use a step, keep ALL of its conditions and limits (if..., before..., about 10 minutes each hour, a window open a little, must be treated first, only when there are no signal bars). Never shorten a step in a way that drops a condition.
 - Never suggest walking, hiking, driving, paddling, crossing water, or leaving a vehicle or shelter to go somewhere. If they ask about going somewhere, say you don't have checked advice saying it is safe, then give the step that fits (stay with your vehicle; if you can't safely find your way back, stay where you are).
-- If the steps don't cover something (fire, smoke, flood, crossing a river, animals), say honestly that you don't have checked advice on it, and that if they get any signal, 911 can advise them.
+- Use only the CHECKED STEPS given for THIS message. If they don't cover something (for example crossing a river, building something, tents, food), say honestly that you don't have checked advice on it, and that if they get any signal, 911 can advise them.
 - You may end with ONE short new question. Never repeat a question.
 - Never promise or predict anything: not "help is coming", "until help arrives", "you'll be okay", "things will get better", "they will see you".
 - Never say you are calling, contacting or alerting anyone.
@@ -348,6 +461,11 @@ stranded-vehicle: car, truck, van, bus, RV or other vehicle stuck, broken down o
 stay-calm: fear, panic, overwhelmed, racing thoughts, can't think
 flood: flood water, rising water, water coming into the car or over the road
 wildfire: wildfire, smoke, flames, orange glow, evacuation
+lightning: thunder, lightning, thunderstorm
+high-wind: strong wind, gusts, tent blowing or bending, falling trees or branches, power lines down
+coast-tide: beach, ocean, tide, waves, cliffs, coast
+wildlife: bear, mountain lion, snake, coyote, moose or another wild animal nearby
+kids-group: children, older people or a group the person is responsible for
 
 urgent = true ONLY if someone is injured, ill, bleeding, unconscious, not breathing, choking, having chest pain, a stroke, a seizure, an allergic reaction or asthma attack, swallowed something harmful, has heat stroke signs (hot dry skin, confusion, cannot walk straight), has carbon monoxide signs (headache, nausea or dizziness near a generator, heater, stove or engine), or wants to harm or kill themselves. When urgent is true, guide is none.
 Having signal, wanting to call 911, being lost, cold, hot, thirsty, stuck or scared is NOT urgent on its own.
