@@ -8,7 +8,15 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
+      AI TEST BUILD ONLY (0.3.0-ai-test): INTERNET is needed just to reach the AI server running
+      on this same phone at 127.0.0.1 (see res/xml/network_security_config.xml). The app makes no
+      other connections. The shipped app will run the model in-process and drop this permission.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"

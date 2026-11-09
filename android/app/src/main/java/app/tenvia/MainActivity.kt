@@ -15,7 +15,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import app.tenvia.data.ChatEngine
 import app.tenvia.data.Guide
+import app.tenvia.ui.ChatScreen
+import app.tenvia.ui.ChatUiState
 import app.tenvia.data.MatchResult
 import app.tenvia.data.Matcher
 import app.tenvia.data.parseGuideLibrary
@@ -30,6 +33,7 @@ private sealed interface Screen {
     data object Home : Screen
     data class Results(val result: MatchResult) : Screen
     data class GuideView(val guide: Guide, val back: Screen) : Screen
+    data object Chat : Screen
 }
 
 class MainActivity : ComponentActivity() {
@@ -40,6 +44,8 @@ class MainActivity : ComponentActivity() {
         // The whole guide library ships inside the app; nothing is ever downloaded.
         val library = assets.open("guides.json").bufferedReader().use { parseGuideLibrary(it.readText()) }
         val matcher = Matcher(library)
+        val chatEngine = ChatEngine(library)
+        val chatState = ChatUiState()
 
         setContent {
             TenviaTheme {
@@ -58,6 +64,13 @@ class MainActivity : ComponentActivity() {
                             guides = library.guides,
                             onSearch = { screen = Screen.Results(matcher.match(it)) },
                             onOpenGuide = { screen = Screen.GuideView(it, Screen.Home) },
+                            onChat = { chatEngine.reset(); chatState.clear(); screen = Screen.Chat },
+                        )
+                        Screen.Chat -> ChatScreen(
+                            engine = chatEngine,
+                            state = chatState,
+                            onOpenGuide = { screen = Screen.GuideView(it, Screen.Chat) },
+                            onBack = { screen = Screen.Home },
                         )
                         is Screen.Results -> ResultsScreen(
                             result = s.result,
