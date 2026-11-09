@@ -111,6 +111,26 @@ class MatcherTest {
         assertTrue(m.match("smoke all around the road and an orange glow over the ridge").guides.any { it.id == "wildfire" })
     }
 
+    @Test fun round2GuidesMatch() {
+        // Added after chat round 1: situations the model improvised for (NWS, NPS, NOAA steps).
+        val m = Matcher(parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText()))
+        fun ids(t: String) = m.match(t).guides.map { it.id }
+        assertTrue(ids("thunder is getting closer and we are on the ridge").contains("lightning"))
+        assertTrue(ids("the wind is so strong the tent poles are bending").contains("high-wind"))
+        assertTrue(ids("the tide is coming in fast on this beach").contains("coast-tide"))
+        assertTrue(ids("there is a bear about fifty feet away").contains("wildlife"))
+        assertTrue(ids("can I drink the salty water from the bay").contains("water"))
+        assertTrue(ids("I have two kids with me and they are tired").contains("kids-group"))
+        assertTrue(ids("should we leave the car and walk for help").contains("stranded-vehicle"))
+    }
+
+    @Test fun everyStepHasAnOfficialSource() {
+        val lib = parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText())
+        lib.guides.flatMap { it.steps }.forEach { s ->
+            assertTrue("no official source: ${s.text}", Regex("^https://[^/]+\\.(gov|mil)/").containsMatchIn(s.sourceUrl))
+        }
+    }
+
     @Test fun emptyOrUnknownTextMatchesNothing() {
         assertTrue(matcher.match("   ").guides.isEmpty())
         assertTrue(matcher.match("purple elephant").guides.isEmpty())

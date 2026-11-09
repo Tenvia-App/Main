@@ -1,5 +1,5 @@
 {
-    "version":  2,
+    "version":  3,
     "note":  "DRAFT LIBRARY. Every step is paraphrased from an official US government page (source_url), and the supporting quote was checked word for word against that page on 2026-11-07. Not yet reviewed by qualified experts: not for real emergencies. Process: content/README.md.",
     "guides":  [
                    {
@@ -41,6 +41,11 @@
                                          "text":  "If you can\u0027t safely find your way back, stay where you are.",
                                          "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
                                          "quote":  "Stay put"
+                                     },
+                                     {
+                                         "text":  "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life.",
+                                         "source_url":  "https://www.nps.gov/articles/gtgemergencyplan.htm",
+                                         "quote":  "Changing location will make it difficult for authorities to find you. Move only if there is an immediate threat to life"
                                      }
                                  ],
                        "draft":  true
@@ -171,6 +176,11 @@
                                          "text":  "Drink plenty of water, even if you don\u0027t feel thirsty.",
                                          "source_url":  "https://www.weather.gov/rnk/outdoorsheat",
                                          "quote":  "Whether you feel thirsty or not, drink plenty of water"
+                                     },
+                                     {
+                                         "text":  "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults.",
+                                         "source_url":  "https://www.weather.gov/safety/heat-during",
+                                         "quote":  "the temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
                                      }
                                  ],
                        "draft":  true
@@ -186,7 +196,20 @@
                                         "drink",
                                         "dehydrat",
                                         "stream",
-                                        "river"
+                                        "river",
+                                        "salt",
+                                        "salty",
+                                        "seawater",
+                                        "sea water",
+                                        "ocean water",
+                                        "brackish",
+                                        "puddle",
+                                        "pond",
+                                        "lake",
+                                        "eat snow",
+                                        "eating snow",
+                                        "melt snow",
+                                        "unmelted"
                                     ],
                        "steps":  [
                                      {
@@ -218,6 +241,16 @@
                                          "text":  "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
                                          "source_url":  "https://www.cdc.gov/water-emergency/about/index.html",
                                          "quote":  "Bring clear water to a rolling boil for 1 minute (at elevations above 6,500 feet, boil for 3 minutes)."
+                                     },
+                                     {
+                                         "text":  "Do not drink seawater. Drinking seawater can be deadly to humans.",
+                                         "source_url":  "https://oceanservice.noaa.gov/facts/drinksw.html",
+                                         "quote":  "Drinking seawater can be deadly to humans."
+                                     },
+                                     {
+                                         "text":  "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+                                         "source_url":  "https://www.weather.gov/safety/winter-during",
+                                         "quote":  "Melt Snow for Drinking Water: Eating unmelted snow will lower your body temperature."
                                      }
                                  ],
                        "draft":  true
@@ -330,7 +363,11 @@
                                         "broken down",
                                         "snowbank",
                                         "ditch",
-                                        "road"
+                                        "road",
+                                        "leave the car",
+                                        "leave the truck",
+                                        "walk for help",
+                                        "hood"
                                     ],
                        "steps":  [
                                      {
@@ -357,6 +394,16 @@
                                          "text":  "At night, turn on the inside light while the engine is running.",
                                          "source_url":  "https://www.weather.gov/bou/travelsafety",
                                          "quote":  "At night, turn on the dome light when running the engine."
+                                     },
+                                     {
+                                         "text":  "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+                                         "source_url":  "https://www.weather.gov/safety/winter-during",
+                                         "quote":  "If you leave your vehicle, you will become disoriented quickly in wind-driven snow and cold."
+                                     },
+                                     {
+                                         "text":  "After snow stops falling, raise the hood to show you need help.",
+                                         "source_url":  "https://www.weather.gov/safety/winter-during",
+                                         "quote":  "After snow stops falling, raise the hood to indicate you need help."
                                      }
                                  ],
                        "draft":  true
@@ -470,6 +517,286 @@
                                          "text":  "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
                                          "source_url":  "https://www.ready.gov/wildfires",
                                          "quote":  "If trapped, call 9-1-1 and give your location, but be aware that emergency response could be delayed or impossible. Turn on lights to help rescuers find you."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "lightning",
+                       "title":  "Lightning and thunderstorms",
+                       "summary":  "Thunder or lightning nearby while you are outside.",
+                       "keywords":  [
+                                        "lightning",
+                                        "thunder",
+                                        "thunderstorm",
+                                        "thunderstorms",
+                                        "storm overhead"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "There is no safe place outside when thunderstorms are in the area.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-safety-overview",
+                                         "quote":  "There is no safe place outside when thunderstorms are in the area."
+                                     },
+                                     {
+                                         "text":  "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-safety-overview",
+                                         "quote":  "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe."
+                                     },
+                                     {
+                                         "text":  "A tent offers no protection from lightning.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-outdoors",
+                                         "quote":  "Remember, a tent offers NO protection from lighting."
+                                     },
+                                     {
+                                         "text":  "Avoid open fields, the top of a hill or a ridge top.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-outdoors",
+                                         "quote":  "Avoid open fields, the top of a hill or a ridge top."
+                                     },
+                                     {
+                                         "text":  "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-outdoors",
+                                         "quote":  "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees."
+                                     },
+                                     {
+                                         "text":  "If you are in a group, spread out to avoid the current traveling between group members.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-outdoors",
+                                         "quote":  "If you are in a group, spread out to avoid the current traveling between group members."
+                                     },
+                                     {
+                                         "text":  "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-outdoors",
+                                         "quote":  "Stay away from water, wet items, such as ropes, and metal objects, such as fences and poles."
+                                     },
+                                     {
+                                         "text":  "Wait 30 minutes after the last lightning or thunder before going back outside.",
+                                         "source_url":  "https://www.weather.gov/safety/lightning-safety-overview",
+                                         "quote":  "Finally, wait 30 minutes after the last lightning or thunder before going back outside."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "high-wind",
+                       "title":  "Strong wind and falling trees",
+                       "summary":  "High wind, gusts, falling branches or downed power lines.",
+                       "keywords":  [
+                                        "wind",
+                                        "windy",
+                                        "gust",
+                                        "gusts",
+                                        "gusting",
+                                        "blowing",
+                                        "high wind",
+                                        "strong wind",
+                                        "falling tree",
+                                        "tree fell",
+                                        "branches",
+                                        "power line",
+                                        "power lines"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Take shelter in your car if you are not near a sturdy building.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-during",
+                                         "quote":  "Take shelter in your car if you are not near a sturdy building."
+                                     },
+                                     {
+                                         "text":  "If no shelter is available, avoid trees, power lines, and the side of the road.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-during",
+                                         "quote":  "If no shelter is available avoid trees, power lines, and the side of the road."
+                                     },
+                                     {
+                                         "text":  "Power lines that are lying on the ground may be live. Do not go near them.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-during",
+                                         "quote":  "Keep in mind that power lines that are laying on the ground may be live. Do not go near them!"
+                                     },
+                                     {
+                                         "text":  "Try to find a place that will block blowing or falling debris.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-during",
+                                         "quote":  "Try to find a place that will block blowing or falling debris."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "coast-tide",
+                       "title":  "Beach, tides and waves",
+                       "summary":  "On a beach or coast with tides, waves or cliffs.",
+                       "keywords":  [
+                                        "tide",
+                                        "tides",
+                                        "beach",
+                                        "ocean",
+                                        "waves",
+                                        "surf",
+                                        "coast",
+                                        "coastline",
+                                        "shoreline",
+                                        "sea",
+                                        "cliff",
+                                        "cliffs",
+                                        "headland"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Stay farther back from the ocean than you think is necessary.",
+                                         "source_url":  "https://www.weather.gov/safety/sneaker-waves",
+                                         "quote":  "Stay farther back from the ocean than you think is necessary."
+                                     },
+                                     {
+                                         "text":  "Never turn your back on the ocean.",
+                                         "source_url":  "https://www.weather.gov/safety/sneaker-waves",
+                                         "quote":  "Never turn your back on the ocean."
+                                     },
+                                     {
+                                         "text":  "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+                                         "source_url":  "https://www.weather.gov/safety/sneaker-waves",
+                                         "quote":  "Stay off and well clear of large logs and debris fields that are anywhere near the surfline or below the high water marks."
+                                     },
+                                     {
+                                         "text":  "Cold water immersion can be dangerous, even deadly.",
+                                         "source_url":  "https://www.weather.gov/safety/sneaker-waves",
+                                         "quote":  "Cold water immersion can be dangerous, even deadly."
+                                     },
+                                     {
+                                         "text":  "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+                                         "source_url":  "https://www.nps.gov/olym/planyourvisit/tides-and-your-safety.htm",
+                                         "quote":  "Strong winds or storms can significantly elevate tides and create hazardous conditions"
+                                     },
+                                     {
+                                         "text":  "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+                                         "source_url":  "https://www.nps.gov/pore/planyourvisit/safety.htm",
+                                         "quote":  "you should stay several meters away from the base of the cliffs, as well as from the edge of clifftops."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "wildlife",
+                       "title":  "Wild animals nearby",
+                       "summary":  "A bear, mountain lion, snake or other wild animal close by.",
+                       "keywords":  [
+                                        "bear",
+                                        "bears",
+                                        "cougar",
+                                        "mountain lion",
+                                        "puma",
+                                        "wolf",
+                                        "wolves",
+                                        "coyote",
+                                        "coyotes",
+                                        "moose",
+                                        "bison",
+                                        "elk",
+                                        "rattlesnake",
+                                        "rattl",
+                                        "snake",
+                                        "snakes",
+                                        "animal",
+                                        "animals",
+                                        "growl",
+                                        "wildlife",
+                                        "alligator"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+                                         "source_url":  "https://www.nps.gov/yell/planyourvisit/safety.htm",
+                                         "quote":  "If an animal moves closer to you, back away to maintain a safe distance."
+                                     },
+                                     {
+                                         "text":  "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+                                         "source_url":  "https://www.nps.gov/subjects/bears/safety.htm",
+                                         "quote":  "Identify yourself by talking calmly so the bear knows you are a human and not a prey animal."
+                                     },
+                                     {
+                                         "text":  "Bear: do not run or make any sudden movements.",
+                                         "source_url":  "https://www.nps.gov/subjects/bears/safety.htm",
+                                         "quote":  "Do NOT run or make any sudden movements."
+                                     },
+                                     {
+                                         "text":  "Bear: pick up small children immediately.",
+                                         "source_url":  "https://www.nps.gov/subjects/bears/safety.htm",
+                                         "quote":  "Pick up small children immediately."
+                                     },
+                                     {
+                                         "text":  "Bear: do not climb a tree.",
+                                         "source_url":  "https://www.nps.gov/subjects/bears/safety.htm",
+                                         "quote":  "Do NOT climb a tree."
+                                     },
+                                     {
+                                         "text":  "Mountain lion: do not run from it. Stand and face the animal.",
+                                         "source_url":  "https://www.nps.gov/articles/mountain-lion-safety.htm",
+                                         "quote":  "Do not run from a lion. Running may stimulate a mountain lion\u0027s instinct to chase. Instead, stand and face the animal."
+                                     },
+                                     {
+                                         "text":  "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+                                         "source_url":  "https://www.nps.gov/articles/mountain-lion-safety.htm",
+                                         "quote":  "If you have small children with you, pick them up if possible so that they don\u0027t panic and run."
+                                     },
+                                     {
+                                         "text":  "Mountain lion: do all you can to appear larger. Raise your arms.",
+                                         "source_url":  "https://www.nps.gov/articles/mountain-lion-safety.htm",
+                                         "quote":  "Do all you can to appear larger. Raise your arms."
+                                     },
+                                     {
+                                         "text":  "Snake: give it plenty of room to leave the area.",
+                                         "source_url":  "https://www.nps.gov/petr/learn/nature/snakes.htm",
+                                         "quote":  "The most important thing to remember about snakes is to give them plenty of room to leave an area if encountered."
+                                     }
+                                 ],
+                       "draft":  true
+                   },
+                   {
+                       "id":  "kids-group",
+                       "title":  "Children and groups",
+                       "summary":  "Children, older people or a group with you.",
+                       "keywords":  [
+                                        "kid",
+                                        "kids",
+                                        "child",
+                                        "children",
+                                        "son",
+                                        "daughter",
+                                        "toddler",
+                                        "grandkid",
+                                        "grandkids",
+                                        "grandson",
+                                        "granddaughter",
+                                        "scout",
+                                        "scouts",
+                                        "family",
+                                        "group",
+                                        "grandma",
+                                        "grandpa",
+                                        "elderly"
+                                    ],
+                       "steps":  [
+                                     {
+                                         "text":  "Keep children close to you.",
+                                         "source_url":  "https://www.nps.gov/articles/mountain-lion-safety.htm",
+                                         "quote":  "Keep children close to you."
+                                     },
+                                     {
+                                         "text":  "Watch children closely and never let them run ahead of you.",
+                                         "source_url":  "https://www.nps.gov/articles/mountain-lion-safety.htm",
+                                         "quote":  "When hiking with children, watch them closely and never let them run ahead of you."
+                                     },
+                                     {
+                                         "text":  "If you are with others in a stranded vehicle, take turns sleeping.",
+                                         "source_url":  "https://www.weather.gov/bou/travelsafety",
+                                         "quote":  "If accompanied by others, take turns sleeping."
+                                     },
+                                     {
+                                         "text":  "In heat, children, infants and older adults should stay in the coolest available place.",
+                                         "source_url":  "https://www.weather.gov/safety/heat-during",
+                                         "quote":  "should stay in the coolest available place, not necessarily indoors."
+                                     },
+                                     {
+                                         "text":  "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+                                         "source_url":  "https://www.weather.gov/safety/heat-during",
+                                         "quote":  "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute"
                                      }
                                  ],
                        "draft":  true
