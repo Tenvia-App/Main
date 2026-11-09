@@ -173,7 +173,12 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
                     (if (id == "water" && st.size >= 3) listOf(st[0], st[2]) else st.take(2)).map { it.text }
                 }
             }
+            // v5 (sealed 3: 524.3, 533.3): a crisis or medical fallback is the notice's own text, never
+            // another guide's steps (lost-hiker steps to someone in crisis, shade to a low blood sugar).
             var fb = when {
+                isCrisis && crisisOos != null -> "I hear you, and I'm here with you. " + crisisOos.message
+                isMedical && medical != null -> "I hear you. " + medical.message +
+                    (if (hz != null && first.isNotEmpty()) " The checked guide says: " + first.joinToString(" ") else "")
                 first.isNotEmpty() -> "I hear you. Here is what the checked guide says: " + first.joinToString(" ")
                 hazard -> "I don't have checked advice for this situation. As soon as you have signal, call 911."
                 else -> "I'm here. Tell me what is happening, in your own words."

@@ -104,6 +104,18 @@ class MatcherTest {
         assertTrue(m.match("my friend is mumbling and stumbling after the freezing rain").outOfScope.any { it.id == "medical" })
     }
 
+    @Test fun sealed3MedicalMissesAreFlagged() {
+        // Sealed chat test 3: 546 ("bit" is not "bite", "rattlesnake" does not start with "snake") and 533 (low blood sugar).
+        val m = Matcher(parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText()))
+        fun med(t: String) = m.match(t).outOfScope.any { it.id == "medical" }
+        assertTrue(med("I just got bit on the ankle by a rattlesnake"))
+        assertTrue(med("a rattler bit me"))
+        assertTrue(med("he's type 1 diabetic, he has his pump but said he's been running low"))
+        assertTrue(med("now he's sweaty and shaky and acting kind of drunk"))
+        assertTrue(med("my blood sugar is dropping"))
+        assertTrue(!med("it's a bit cold and I'm a bit lost"))
+    }
+
     @Test fun floodAndWildfireGuidesMatch() {
         // Added after sealed chat test 1 (ready.gov steps): flood and wildfire had no checked guide.
         val m = Matcher(parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText()))
