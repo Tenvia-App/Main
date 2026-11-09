@@ -1,0 +1,109 @@
+﻿[
+    {
+        "id":  801,
+        "text":  "I followed the wrong drainage off the ridge above the ski area and now the lift towers are behind me somewhere. I can\u0027t tell which way leads back to the trailhead.",
+        "expect":  "stay-or-move",
+        "about":  "lost, cannot find way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really scary - the lift towers are behind you somewhere.",
+        "rejected":  [
+
+                     ],
+        "seconds":  45.5
+    },
+    {
+        "id":  802,
+        "text":  "On the island\u0027s mangrove boardwalk I took a side spur to look at birds; the planks split at three forks and none look familiar. Do I wait or try one?",
+        "expect":  "stay-or-move",
+        "about":  "lost, cannot find way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really frightening - you took a side spur to look at birds.",
+        "rejected":  [
+
+                     ],
+        "seconds":  22.1
+    },
+    {
+        "id":  803,
+        "text":  "We were checking an old rail line outside town and lost the path where it enters the woods. The farm lights are somewhere over there but I don\u0027t know where to head.",
+        "expect":  "stay-or-move",
+        "about":  "lost, cannot find way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really stressful - you were checking an old rail line outside town.",
+        "rejected":  [
+
+                     ],
+        "seconds":  12.6
+    },
+    {
+        "id":  804,
+        "text":  "Got off the subway during the blackout to find an exit and came up in a service courtyard. Can\u0027t work out which street I\u0027m facing.",
+        "expect":  "stay-or-move",
+        "about":  "lost, cannot find way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really stressful.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really stressful - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really stressful - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really stressful - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - you\u0027re facing."
+                     ],
+        "seconds":  36.9
+    },
+    {
+        "id":  805,
+        "text":  "My hunting group moved on while I was checking a stand and now I can\u0027t match these numbered logging roads to the map. Which way is safest?",
+        "expect":  "stay-or-move",
+        "about":  "lost, cannot find way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really stressful - you can\u0027t match these numbered logging roads to the map.",
+        "rejected":  [
+
+                     ],
+        "seconds":  12.4
+    },
+    {
+        "id":  806,
+        "text":  "I walked down from the beach to look at a tide pool and the dunes all look alike from here; our campground is somewhere behind them. Should I keep searching?",
+        "expect":  "stay-or-move",
+        "about":  "lost, cannot find way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really stressful - the dunes all look alike.",
+        "rejected":  [
+
+                     ],
+        "seconds":  12.1
+    }
+]

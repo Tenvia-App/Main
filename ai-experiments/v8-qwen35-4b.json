@@ -1,0 +1,573 @@
+﻿[
+    {
+        "id":  801,
+        "text":  "I followed the wrong drainage off the ridge above the ski area and now the lift towers are behind me somewhere. I can\u0027t tell which way leads back to the trailhead.",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of direction back to trailhead",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really frightening - the lift towers are behind you somewhere.",
+        "rejected":  [
+
+                     ],
+        "seconds":  127.5
+    },
+    {
+        "id":  802,
+        "text":  "On the island\u0027s mangrove boardwalk I took a side spur to look at birds; the planks split at three forks and none look familiar. Do I wait or try one?",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of the way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really scary - the planks split at three forks and none look familiar.",
+        "rejected":  [
+
+                     ],
+        "seconds":  95.5
+    },
+    {
+        "id":  803,
+        "text":  "We were checking an old rail line outside town and lost the path where it enters the woods. The farm lights are somewhere over there but I don\u0027t know where to head.",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of direction to farm",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really frightening.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - you were checking an old rail line outside town.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really stressful - you were checking an old rail line outside town.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - the farm lights are somewhere.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - you were checking an old rail line outside town.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - you were checking an old rail line outside town.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - you were checking an old rail line outside town."
+                     ],
+        "seconds":  218.8
+    },
+    {
+        "id":  804,
+        "text":  "Got off the subway during the blackout to find an exit and came up in a service courtyard. Can\u0027t work out which street I\u0027m facing.",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of direction",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really frightening.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really stressful - you\u0027re facing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really stressful - you\u0027re facing."
+                     ],
+        "seconds":  235.2
+    },
+    {
+        "id":  805,
+        "text":  "My hunting group moved on while I was checking a stand and now I can\u0027t match these numbered logging roads to the map. Which way is safest?",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of direction",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really stressful - you can\u0027t match these numbered logging roads to the map.",
+        "rejected":  [
+
+                     ],
+        "seconds":  184.7
+    },
+    {
+        "id":  806,
+        "text":  "I walked down from the beach to look at a tide pool and the dunes all look alike from here; our campground is somewhere behind them. Should I keep searching?",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of direction back to camp",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really hard - the dunes all look alike.",
+        "rejected":  [
+
+                     ],
+        "seconds":  139
+    },
+    {
+        "id":  807,
+        "text":  "I\u0027m on a mesa above the highway, my tracks blew away and I don\u0027t know which slope is the one we climbed. I\u0027m scared, I don\u0027t want to die out here—what do I do?",
+        "expect":  "stay-or-move",
+        "about":  "lost, scared, unsure of direction",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really frightening.",
+        "rejected":  [
+                         "[rubric: instruction] That sounds really frightening - you don\u0027t want.",
+                         "[rubric: instruction] That sounds really frightening - you don\u0027t want.",
+                         "[rubric: instruction] That sounds really frightening - you don\u0027t want.",
+                         "[rubric: instruction] That sounds really scary - you don\u0027t want.",
+                         "[rubric: instruction] That sounds really frightening - you don\u0027t want.",
+                         "[rubric: instruction] That sounds really frightening - you don\u0027t want."
+                     ],
+        "seconds":  169.2
+    },
+    {
+        "id":  808,
+        "text":  "The cave tour group went through a passage marked with a blue arrow, but I came out at a junction with only faded symbols. I can\u0027t tell which corridor returns to the entrance.",
+        "expect":  "stay-or-move",
+        "about":  "lost, unsure of the way back",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really frightening - you came out at a junction with only faded symbols.",
+        "rejected":  [
+
+                     ],
+        "seconds":  121.8
+    },
+    {
+        "id":  809,
+        "text":  "The rescue helicopter is making another pass over the river bend, but our raft is tucked under the cottonwoods. How can we make the crew notice this bank?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really hard.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the rescue helicopter is making another pass.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - the rescue helicopter is making another pass.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the rescue helicopter is making another pass.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - the rescue helicopter is making another pass.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - the rescue helicopter is making another pass.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the rescue helicopter is making another pass."
+                     ],
+        "seconds":  268.5
+    },
+    {
+        "id":  810,
+        "text":  "I hear the search party\u0027s dogs on the far side of this quarry berm. What can I do to show them the ladder down to my ledge?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  4,
+        "say":  "That sounds really stressful.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard."
+                     ],
+        "seconds":  149
+    },
+    {
+        "id":  811,
+        "text":  "A coast guard boat is moving between the reef and our little sailboat, but it hasn\u0027t seen us anchored inside the cove. What signal should we use?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really frightening - it hasn\u0027t seen you anchored inside the cove.",
+        "rejected":  [
+
+                     ],
+        "seconds":  101.7
+    },
+    {
+        "id":  812,
+        "text":  "The volunteer search line is close in these orchard rows and I hear them calling, but the storage sheds block the view. How do I answer so they can pinpoint me?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, blocked view, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really hard.",
+        "rejected":  [
+                         "[rubric: claims to act / offers help] That sounds really hard - you hear them calling.",
+                         "[rubric: claims to act / offers help] That sounds really hard - you hear them calling.",
+                         "[rubric: claims to act / offers help] That sounds really hard - you hear them calling.",
+                         "[rubric: claims to act / offers help] That sounds really scary - you hear them calling.",
+                         "[rubric: claims to act / offers help] That sounds really frightening - you hear them calling.",
+                         "[rubric: claims to act / offers help] That sounds really stressful - you hear them calling."
+                     ],
+        "seconds":  85.4
+    },
+    {
+        "id":  813,
+        "text":  "We\u0027re on the roof of the motel after floodwater covered the parking lot. A rescue drone just crossed overhead; how can we make ourselves visible?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really frightening.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - a rescue drone just crossed overhead.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - a rescue drone just crossed overhead.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - a rescue drone just crossed overhead.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - a rescue drone just crossed overhead.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - a rescue drone just crossed overhead.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - a rescue drone just crossed overhead."
+                     ],
+        "seconds":  207.6
+    },
+    {
+        "id":  814,
+        "text":  "Searchers are at the edge of the campground but the tall grass hides our tent. I can see their flashlights—what can I flash back without blinding them?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really hard - the tall grass hides your tent.",
+        "rejected":  [
+
+                     ],
+        "seconds":  103.2
+    },
+    {
+        "id":  815,
+        "text":  "There is a ranger truck somewhere on the other side of this snow-covered pass, and my snowmobile won\u0027t start. How can I signal my exact spot?",
+        "expect":  "get-found",
+        "about":  "stuck vehicle, needs to be found",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really frightening.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your snowmobile won\u0027t start.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your snowmobile won\u0027t start.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your snowmobile won\u0027t start.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - your snowmobile won\u0027t start.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your snowmobile won\u0027t start.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - your snowmobile won\u0027t start."
+                     ],
+        "seconds":  240.5
+    },
+    {
+        "id":  816,
+        "text":  "A search boat keeps circling the wrong side of the marsh island. I\u0027m at the old dock with 6% battery; what can I do to help them find me before my phone dies?",
+        "expect":  "get-found",
+        "about":  "searchers nearby, low battery, wants to be seen",
+        "guide":  "get-found",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really frightening - a search boat keeps circling the wrong side.",
+        "rejected":  [
+
+                     ],
+        "seconds":  107
+    },
+    {
+        "id":  817,
+        "text":  "Cold rain soaked my sleeves on the highway overpass and the wind is whipping through the railing. I\u0027m shivering and can\u0027t get warm.",
+        "expect":  "cold-weather",
+        "about":  "cold, wet, wind, shivering",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really uncomfortable.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the wind is whipping through the railing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the wind is whipping through the railing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the wind is whipping through the railing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - the wind is whipping through the railing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - the wind is whipping through the railing.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - the wind is whipping through the railing."
+                     ],
+        "seconds":  240.7
+    },
+    {
+        "id":  818,
+        "text":  "Our cabin lost heat overnight, and now wet snow is blowing through a cracked window. My socks are damp and my hands keep trembling.",
+        "expect":  "cold-weather",
+        "about":  "cold, wet, shivering",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really uncomfortable - your socks are damp.",
+        "rejected":  [
+
+                     ],
+        "seconds":  104.1
+    },
+    {
+        "id":  819,
+        "text":  "We got splashed crossing the river in a canoe; the wind on this bank is strong and my clothes are soaked. How can I stay warm until pickup?",
+        "expect":  "cold-weather",
+        "about":  "wet, wind, cold, needs warmth",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really uncomfortable - your clothes are soaked.",
+        "rejected":  [
+
+                     ],
+        "seconds":  127
+    },
+    {
+        "id":  820,
+        "text":  "I\u0027m working the night gate at the farm and freezing rain has soaked my coat. The shed is locked and my fingers are starting to shake.",
+        "expect":  "cold-weather",
+        "about":  "cold, wet, shaking, locked out",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  4,
+        "say":  "That sounds really scary - your fingers are starting to shake.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the shed is locked.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the shed is locked.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the shed is locked."
+                     ],
+        "seconds":  216.8
+    },
+    {
+        "id":  821,
+        "text":  "Power has been out in the apartment tower since the ice storm. Our room is cold, and the blanket got wet from a leak—what can we do?",
+        "expect":  "cold-weather",
+        "about":  "cold, wet, no power, leak",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  4,
+        "say":  "That sounds really uncomfortable - the blanket got wet from a leak.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the blanket got wet from a leak.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the blanket got wet from a leak.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - the blanket got wet from a leak."
+                     ],
+        "seconds":  184.3
+    },
+    {
+        "id":  822,
+        "text":  "We stopped hiking when the sleet started, but my little brother\u0027s jacket is damp and he is shivering under the pine trees. Help us warm up.",
+        "expect":  "cold-weather",
+        "about":  "cold, wet, shivering, child exposed",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really scary - your little brother\u0027s jacket is damp.",
+        "rejected":  [
+
+                     ],
+        "seconds":  105.3
+    },
+    {
+        "id":  823,
+        "text":  "The ski lift stopped in the wind and we\u0027re waiting in the open chair. Snow is blowing sideways and my gloves are wet; what should I do to hold heat?",
+        "expect":  "cold-weather",
+        "about":  "cold, wet, wind, need to stay warm",
+        "guide":  "cold-weather",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really uncomfortable.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the ski lift stopped in the wind.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - the ski lift stopped in the wind.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - snow is blowing sideways.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - the ski lift stopped in the wind.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really frightening - the ski lift stopped in the wind.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the ski lift stopped in the wind."
+                     ],
+        "seconds":  279.5
+    },
+    {
+        "id":  824,
+        "text":  "Our pickup is stranded in slush by the county road, heater quit an hour ago and we\u0027re getting cold. Should we stay inside or get out?",
+        "expect":  "cold-weather",
+        "about":  "stranded vehicle, cold weather, stuck",
+        "guide":  "stay-or-move",
+        "urgent":  false,
+        "net":  "",
+        "routed":  false,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really scary.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - your pickup is stranded in slush.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your pickup is stranded in slush.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - your pickup is stranded in slush.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your pickup is stranded in slush.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really hard - your pickup is stranded in slush by the county road.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really scary - your pickup is stranded in slush."
+                     ],
+        "seconds":  307.2
+    },
+    {
+        "id":  825,
+        "text":  "The path across this black-rock desert has no shade for miles, sun is beating down and I\u0027m too hot to keep walking at this pace. What now?",
+        "expect":  "heat",
+        "about":  "exposed to sun, overheating, no shade",
+        "guide":  "heat",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really uncomfortable - the path across this blackrock desert has no shade.",
+        "rejected":  [
+
+                     ],
+        "seconds":  104.8
+    },
+    {
+        "id":  826,
+        "text":  "The power cut at the city shelter and the gym is packed, humid and stuffy. I\u0027m sweating a lot and need a cooler place to sit.",
+        "expect":  "heat",
+        "about":  "overheating, hot and humid environment",
+        "guide":  "heat",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really uncomfortable - you\u0027re sweating a lot and need a cooler place.",
+        "rejected":  [
+
+                     ],
+        "seconds":  109.6
+    },
+    {
+        "id":  827,
+        "text":  "We\u0027re waiting beside the highway in direct afternoon sun, no trees or roof nearby, and my clothes feel like they\u0027re holding all the heat in.",
+        "expect":  "heat",
+        "about":  "exposed to sun, feeling overheated",
+        "guide":  "heat",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really uncomfortable - your clothes feel like they\u0027re holding all the heat.",
+        "rejected":  [
+
+                     ],
+        "seconds":  116
+    },
+    {
+        "id":  828,
+        "text":  "On the farm, the greenhouse door jammed and it\u0027s boiling inside. I\u0027m hot and tired but otherwise okay; how do I cool down safely?",
+        "expect":  "heat",
+        "about":  "overheating, needs to cool down",
+        "guide":  "heat",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really uncomfortable - you\u0027re hot and tired.",
+        "rejected":  [
+
+                     ],
+        "seconds":  109.4
+    },
+    {
+        "id":  829,
+        "text":  "At the beach access lot the shade structure collapsed, and the sand is blazing underfoot. My toddler and I are both getting overheated.",
+        "expect":  "heat",
+        "about":  "overheating, sun exposure, heat stress",
+        "guide":  "heat",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated",
+        "tries":  1,
+        "say":  "That sounds really frightening - the shade structure collapsed.",
+        "rejected":  [
+
+                     ],
+        "seconds":  110
+    },
+    {
+        "id":  830,
+        "text":  "It\u0027s 38 C at this desert rest stop and the only bench is in full sun. We have one bottle left too—where should we move to cool down?",
+        "expect":  "heat",
+        "about":  "heat, sun, no shade, running out of water",
+        "guide":  "heat",
+        "urgent":  false,
+        "net":  "",
+        "routed":  true,
+        "source":  "generated-opener",
+        "tries":  6,
+        "say":  "That sounds really uncomfortable.",
+        "rejected":  [
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the only bench is in full sun.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the only bench is in full sun.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the only bench is in full sun.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the only bench is in full sun.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the only bench is in full sun.",
+                         "[self-check: advice=False promise=False offers=False fits=False] That sounds really uncomfortable - the only bench is in full sun."
+                     ],
+        "seconds":  205.7
+    }
+]

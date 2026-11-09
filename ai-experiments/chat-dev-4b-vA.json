@@ -1,0 +1,186 @@
+[
+    {
+        "id":  1,
+        "kind":  "guide",
+        "expect":  [
+                       "stay-or-move",
+                       "phone-battery",
+                       "get-found"
+                   ],
+        "turns":  [
+                      {
+                          "turn":  1,
+                          "user":  "i took a wrong turn somewhere in the pines and cant find the trail",
+                          "guide":  "stay-or-move",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "stay-or-move",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "You\u0027re lost in the Pines. Stop and take a moment to calm down. Check if you have a map or compass to find your way. If you can\u0027t find your trail, stay put until you can get help. Are you near any visible landmarks?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  30.2,
+                          "route_s":  8,
+                          "gen_s":  22.2,
+                          "check_s":  0,
+                          "tok_per_s":  4.4
+                      },
+                      {
+                          "turn":  2,
+                          "user":  "phone says 12% and its getting colder under the trees",
+                          "guide":  "cold-weather",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "cold-weather,stay-or-move",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "You\u0027re in the Pines and it\u0027s getting colder. Stay dry and cover exposed skin. If you can\u0027t find your way back, stay where you are. Are you near any trees or landmarks you can use to orient yourself?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  35.6,
+                          "route_s":  6.6,
+                          "gen_s":  29,
+                          "check_s":  0,
+                          "tok_per_s":  4.2
+                      },
+                      {
+                          "turn":  3,
+                          "user":  "ok i hear a helicopter now but it sounds kinda far, should i wave or stay put?",
+                          "guide":  "get-found",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "get-found,cold-weather,stay-or-move",
+                          "notice":  "",
+                          "source":  "fallback",
+                          "tries":  3,
+                          "reply":  "I hear you. Here is what the checked guide says: If you have a whistle, blow it often. It helps people find you and saves the energy you\u0027d use yelling. If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick. Find shelter. Try to stay dry and cover all exposed skin. If there\u0027s no shelter, build a lean-to or windbreak to block the wind. Stop. Take a moment to calmly look at your situation. If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+                          "rejected":  [
+                                           "[rules: advice not in steps] You\u0027re hearing a helicopter, but it\u0027s far away. Stay put and don\u0027t wave. Rescuers might not see you if you move. Keep your whistle blowing and stay dry. Are you near any landmarks or open space where rescuers can spot you?",
+                                           "[rules: advice not in steps] You\u0027re hearing a helicopter, but it\u0027s far. Stay put. If you have a mirror, use it to flash toward the helicopter. If not, keep calm and wait. Are you near any open space where you can see or be seen?",
+                                           "[rules: advice not in steps] You heard a helicopter, but it\u0027s far away. Stay put. If you have a mirror, use it to signal. If not, keep calm and wait. Are you near any open space where you can be seen?"
+                                       ],
+                          "seconds":  69.3,
+                          "route_s":  8.2,
+                          "gen_s":  61,
+                          "check_s":  0,
+                          "tok_per_s":  3.9
+                      },
+                      {
+                          "turn":  4,
+                          "user":  "there\u0027s a small clearing maybe 30 feet away. still hear it",
+                          "guide":  "stay-or-move",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "stay-or-move,get-found,cold-weather",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "You\u0027re near a clearing. Stay put and keep hearing it. Use the clearing as shelter. If you have a mirror, flash it to help rescuers see you. Are you close to any trees or landmarks you can use to orient yourself?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  38.7,
+                          "route_s":  6.5,
+                          "gen_s":  32.1,
+                          "check_s":  0,
+                          "tok_per_s":  4.0
+                      }
+                  ]
+    },
+    {
+        "id":  2,
+        "kind":  "guide",
+        "expect":  [
+                       "stay-or-move",
+                       "heat",
+                       "water"
+                   ],
+        "turns":  [
+                      {
+                          "turn":  1,
+                          "user":  "lost outside mojave junction, been walking and cant tell which way the highway is",
+                          "guide":  "stay-or-move",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "stay-or-move",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "You\u0027re lost outside Mojave Junction and can\u0027t tell which way the highway is. Stay put or move? Stop and check your surroundings. Use any map, compass, or landmarks to find your way. Are you near any visible signs or roads?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  26.6,
+                          "route_s":  6.9,
+                          "gen_s":  19.7,
+                          "check_s":  0,
+                          "tok_per_s":  4.6
+                      },
+                      {
+                          "turn":  2,
+                          "user":  "sun is brutal and i have maybe half a bottle left",
+                          "guide":  "heat",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "heat,stay-or-move",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "Sun is brutal and you have maybe half a bottle left. Rest in the shade and stay cool. Use any map or landmarks to find your way. Are you near any visible signs or roads?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  31,
+                          "route_s":  6.3,
+                          "gen_s":  24.7,
+                          "check_s":  0,
+                          "tok_per_s":  4.1
+                      },
+                      {
+                          "turn":  3,
+                          "user":  "i found shade by some rocks, do i stay here or keep looking?",
+                          "guide":  "stay-or-move",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "stay-or-move,get-found,heat",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "You found shade by some rocks. Stay here if it\u0027s safe to rest. Use the shade to stay cool and check your surroundings for signs or landmarks. Are you near any visible roads or trails?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  36.4,
+                          "route_s":  6.8,
+                          "gen_s":  29.5,
+                          "check_s":  0,
+                          "tok_per_s":  3.8
+                      },
+                      {
+                          "turn":  4,
+                          "user":  "mouth is really dry now. no car or buildings in sight",
+                          "guide":  "heat",
+                          "urgent":  false,
+                          "net":  "",
+                          "active":  "heat,stranded-vehicle,stay-or-move",
+                          "notice":  "",
+                          "source":  "generated",
+                          "tries":  1,
+                          "reply":  "Mouth is really dry now. Stay in the shade and drink water slowly. Use landmarks or a map to find your way. Are you near any visible roads or trails?",
+                          "rejected":  [
+
+                                       ],
+                          "seconds":  40.1,
+                          "route_s":  7.3,
+                          "gen_s":  32.8,
+                          "check_s":  0,
+                          "tok_per_s":  3.6
+                      }
+                  ]
+    }
+]
