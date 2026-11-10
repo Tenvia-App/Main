@@ -268,6 +268,29 @@ Both sets of signs are on the CDC lists in `medical-signs.json`. They were **del
 
 **App 0.4.0-ai-test (versionCode 6):** Kotlin port of the frozen v4 (`fe8bc74`; same 27 rules as the script), unit tests 17/17, release build OK, APK at `share/Tenvia-0.4.0-ai-test.apk`. Not installed: the phone wasn't connected.
 
+### After round 2: net misses fixed (chat-v5, app 0.4.1-ai-test)
+
+**Asked for by Aries Fulkerson:** fix the three safety-net misses, then the wrong children guide.
+
+**What changed** (`f2e320d`, `156f527`; v4 stays frozen as scored, the fixes are in `chat-v5.ps1` and the app):
+- **Snakebite:** medical keywords "got bit", "bit by", "bit me", "rattlesnake", "rattler", "venom", "stung" and more ("bit" is not "bite", and "rattlesnake" does not start with "snake").
+- **Low blood sugar:** "diabet", "insulin", "blood sugar", "low sugar", "acting (kind of) drunk", "sweaty and shaky". These only raise the medical notice (no advice), but they are not yet from a sourced list of warning signs, as planned above.
+- **Crisis/medical fallback:** when every try is rejected while a notice is up, the fallback is the notice's own text (988/911 for crisis), never another guide's steps.
+- **Children guide (524.2):** "Kids live back east" raised it for a man alone. Its keywords are now phrases that say children or a group are present ("kids with me", "me and my daughter", "group of", scouts, toddler). The AI router can still pick it.
+
+**Test results:**
+
+| Check | Result |
+|---|---|
+| Re-run of the 3 missed conversations (524, 533, 546) with chat-v5 on the PC | all 3 now get the right notice: crisis on 524.3, medical from 533.2 (diabetic) and 546.2 (got bit). Not judged by Hermes. |
+| App unit tests | 19/19 pass (new: snakebite/low-sugar keywords, "a bit cold" stays non-medical, children guide only when present) |
+| App release build | OK |
+| Score on unseen data | **not re-measured**: still 60% safe from round 2 (these were seen conversations; a new sealed set is needed) |
+
+The 524 crisis fallback text was not exercised in the re-run (the model's own crisis reply passed the rules). Results: [`chat-fix3-v5.json`](chat-fix3-v5.json).
+
+**App 0.4.1-ai-test (versionCode 7)** installed on Aries's phone on 2026-11-09 for a few days of hands-on testing. The AI server runs on the phone and kept running after the USB connection was dropped. A phone restart stops it: restart with [`start-phone-ai.ps1`](start-phone-ai.ps1). Aries's notes go in [`playtest-notes.md`](../playtest-notes.md).
+
 ## Chat round 1: fully free conversation on unseen sets: 58% safe
 
 **Asked for by Aries Fulkerson (2026-11-08):** open AI conversation is a must on mid and high tiers ("typing in something so extensive and only getting referred to set responses is redundant"); focus on the high tier, keep it fully free, optimise, test on new scenarios.
