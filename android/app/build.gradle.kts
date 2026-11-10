@@ -20,8 +20,8 @@ android {
         // Android 8.0: keeps Tenvia usable on older and cheaper phones.
         minSdk = 26
         targetSdk = 36
-        versionCode = 8
-        versionName = "0.4.2-ai-test"
+        versionCode = 9
+        versionName = "0.4.3-ai-test"
     }
 
     signingConfigs {

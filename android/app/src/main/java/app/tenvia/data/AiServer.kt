@@ -51,6 +51,10 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
                 ProcessBuilder(
                     exe.path, "-m", model.path, "--host", "127.0.0.1", "--port", "$port",
                     "-c", "4096", "--parallel", "1", "-t", "4",
+                    // No repacked copy of the weights (2.4 GB of extra memory): with it, Android's
+                    // memory killer closed the app while the model loaded. The model is read from the
+                    // file instead (~0.7 GB extra). Prompt reading is about 2x slower (14 vs 27 tok/s).
+                    "--no-repack",
                 ).apply {
                     environment()["LD_LIBRARY_PATH"] = libDir
                     directory(context.filesDir)

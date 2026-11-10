@@ -70,7 +70,7 @@ fun ChatScreen(engine: ChatEngine, aiServer: AiServer, state: ChatUiState, onOpe
             Text(
                 when (aiUp) {
                     null -> "Starting the on-phone AI. This can take up to a minute..."
-                    true -> "The AI runs on this phone, no internet. The first reply can take 2-3 minutes, later ones about a minute. It can be wrong."
+                    true -> "The AI runs on this phone, no internet. The first reply can take about 5 minutes, later ones 2-3 minutes. It can be wrong."
                     false -> "The on-phone AI couldn't start. ${aiServer.lastProblem} Use the guides instead, or tap Retry."
                 },
                 style = MaterialTheme.typography.bodyMedium, color = Muted,
