@@ -9,7 +9,7 @@ import java.net.URL
  * TEST BUILD: open AI conversation (high tier), ported from ai-experiments/chat-v4.ps1 (chat round 2:
  * advice must match the ACTIVE guides' steps, claim/guess/invented-fact rules, no unvetted fallback lines).
  *
- * The model runs in a llama-server process on THIS phone (started over USB for testing) and is
+ * The model runs in a llama-server process on THIS phone (started by the app, see AiServer) and is
  * reached at 127.0.0.1 only. Per message:
  *  1. Safety nets: AI routing + keyword nets for medical / self-harm (fixed notices stay up).
  *  2. Checked steps of the matched guides go to the model with the message.

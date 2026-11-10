@@ -63,7 +63,7 @@ fun HomeScreen(
         Text("Tenvia", style = MaterialTheme.typography.headlineLarge, color = Amber)
         // TEST BUILD: free AI conversation (needs the on-phone AI server started over USB).
         BigButton("Talk to Tenvia (AI test)") { onChat() }
-        Text("I'm here. Tell me what's happening, in your own words.",
+        Text("Or search the checked guides (no AI): tell me what's happening, in your own words.",
             style = MaterialTheme.typography.bodyLarge)
         OutlinedTextField(
             value = text,

@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import app.tenvia.data.AiServer
 import app.tenvia.data.ChatEngine
 import app.tenvia.data.Guide
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +51,7 @@ class ChatUiState {
 
 /** TEST BUILD: free AI conversation, talking to the AI server running on this phone. */
 @Composable
-fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> Unit, onBack: () -> Unit) {
+fun ChatScreen(engine: ChatEngine, aiServer: AiServer, state: ChatUiState, onOpenGuide: (Guide) -> Unit, onBack: () -> Unit) {
     val lines = state.lines
     var input by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
@@ -58,7 +59,9 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    LaunchedEffect(Unit) { aiUp = withContext(Dispatchers.IO) { engine.isAvailable() } }
+    var startTry by remember { mutableStateOf(0) }
+    // The app starts the on-phone AI itself (about 10-30 seconds the first time).
+    LaunchedEffect(startTry) { aiUp = null; aiUp = withContext(Dispatchers.IO) { aiServer.ensureRunning() } }
     LaunchedEffect(lines.size, busy) { if (lines.isNotEmpty()) listState.animateScrollToItem(lines.size - 1 + if (busy) 1 else 0) }
 
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -66,9 +69,9 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
             Text("AI TEST BUILD: NOT FOR REAL EMERGENCIES", color = Warning, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
             Text(
                 when (aiUp) {
-                    null -> "Checking for the on-phone AI..."
-                    true -> "The AI runs on this phone, no internet. Replies can take up to a minute. It can be wrong."
-                    false -> "The on-phone AI isn't running (it has to be started over USB). Use the guides instead."
+                    null -> "Starting the on-phone AI. This can take up to a minute..."
+                    true -> "The AI runs on this phone, no internet. The first reply can take 2-3 minutes, later ones about a minute. It can be wrong."
+                    false -> "The on-phone AI couldn't start. ${aiServer.lastProblem} Use the guides instead, or tap Retry."
                 },
                 style = MaterialTheme.typography.bodyMedium, color = Muted,
             )
@@ -115,6 +118,9 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
             OutlinedButton(onClick = onBack, modifier = Modifier.weight(1f).heightIn(min = 56.dp), shape = Bubble) {
                 Text("Back", style = MaterialTheme.typography.labelLarge)
             }
+            if (aiUp == false) OutlinedButton(onClick = { startTry++ }, modifier = Modifier.weight(1f).heightIn(min = 56.dp), shape = Bubble) {
+                Text("Retry", style = MaterialTheme.typography.labelLarge)
+            }
             Button(
                 onClick = {
                     val msg = input.trim()
@@ -130,7 +136,7 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
                             state.guides = it.guides
                             lines += ChatLine(false, it.text, (if (it.generated) "" else "Checked guide text. ") + "${secs}s")
                         }.onFailure {
-                            aiUp = false
+                            aiUp = false; startTry++
                             lines += ChatLine(false, "The on-phone AI didn't answer. Use the guides from the home screen.", "${secs}s")
                         }
                         busy = false

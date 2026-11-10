@@ -289,7 +289,9 @@ Both sets of signs are on the CDC lists in `medical-signs.json`. They were **del
 
 The 524 crisis fallback text was not exercised in the re-run (the model's own crisis reply passed the rules). Results: [`chat-fix3-v5.json`](chat-fix3-v5.json).
 
-**App 0.4.1-ai-test (versionCode 7)** installed on Aries's phone on 2026-11-09 for a few days of hands-on testing. The AI server runs on the phone and kept running after the USB connection was dropped. A phone restart stops it: restart with [`start-phone-ai.ps1`](start-phone-ai.ps1). Aries's notes go in [`playtest-notes.md`](../playtest-notes.md).
+**App 0.4.1-ai-test (versionCode 7)** installed on Aries's phone on 2026-11-09 for a few days of hands-on testing. Aries's notes go in [`playtest-notes.md`](../playtest-notes.md).
+
+**App 0.4.2-ai-test (versionCode 8): the app starts the AI itself.** Aries found no AI on the unplugged phone: a llama-server started over `adb shell` lives in adbd's process group (cgroup `/system/uid_0/pid_<adbd>`), and Android kills that group when adbd restarts, which happens on unplug (reproduced with `adb usb`). The earlier check (`adb kill-server`) didn't restart adbd, so it wrongly looked fine. Now the llama.cpp server is bundled in the APK (`libllamaserver.so` + libraries, arm64, ~70 MB APK; binaries in `android/llama-bin/`, not in git) and `AiServer.kt` starts it as the app's own child process when the chat opens (`-c 4096 --parallel 1 -t 4`), and stops it when the app closes. The model is read from `Android/data/app.tenvia/files/models/`, else `/data/local/tmp/tenvia-ai/models/`. Checked on the phone: started by the app in ~6 s, survived an adbd restart (cgroup `/apps/uid_10613/...`), answered "I am lost on a trail and it is getting dark" with a generated reply in 157 s (first reply, cold). Tests 19/19. `start-phone-ai.ps1` is no longer needed.
 
 ## Chat round 1: fully free conversation on unseen sets: 58% safe
 

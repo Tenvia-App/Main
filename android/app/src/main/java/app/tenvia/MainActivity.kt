@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import app.tenvia.data.AiServer
 import app.tenvia.data.ChatEngine
 import app.tenvia.data.Guide
 import app.tenvia.ui.ChatScreen
@@ -37,6 +38,8 @@ private sealed interface Screen {
 }
 
 class MainActivity : ComponentActivity() {
+    private lateinit var aiServer: AiServer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,6 +48,7 @@ class MainActivity : ComponentActivity() {
         val library = assets.open("guides.json").bufferedReader().use { parseGuideLibrary(it.readText()) }
         val matcher = Matcher(library)
         val chatEngine = ChatEngine(library)
+        aiServer = AiServer(applicationContext)
         val chatState = ChatUiState()
 
         setContent {
@@ -68,6 +72,7 @@ class MainActivity : ComponentActivity() {
                         )
                         Screen.Chat -> ChatScreen(
                             engine = chatEngine,
+                            aiServer = aiServer,
                             state = chatState,
                             onOpenGuide = { screen = Screen.GuideView(it, Screen.Chat) },
                             onBack = { screen = Screen.Home },
@@ -84,5 +89,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        // The AI uses a lot of memory: stop it when the app is closed (not on screen rotation).
+        if (isFinishing) aiServer.stop()
+        super.onDestroy()
     }
 }

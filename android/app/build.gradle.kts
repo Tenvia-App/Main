@@ -20,8 +20,8 @@ android {
         // Android 8.0: keeps Tenvia usable on older and cheaper phones.
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.4.1-ai-test"
+        versionCode = 8
+        versionName = "0.4.2-ai-test"
     }
 
     signingConfigs {
@@ -51,6 +51,15 @@ android {
 
     buildFeatures {
         compose = true
+    }
+
+    // AI TEST BUILD: the llama.cpp server is bundled so the app can start the on-phone AI itself
+    // (a server started over USB dies when the cable is unplugged). The binaries are not in git:
+    // they live in android/llama-bin/jniLibs (pulled from the phone). They are extracted on install
+    // so the server can be run as a program.
+    sourceSets["main"].jniLibs.srcDir("../llama-bin/jniLibs")
+    packaging {
+        jniLibs.useLegacyPackaging = true
     }
 }
 

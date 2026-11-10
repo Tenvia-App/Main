@@ -24,3 +24,6 @@ share/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# llama.cpp Android binaries bundled into the AI test build (pulled from the phone, ~260 MB)
+android/llama-bin/
