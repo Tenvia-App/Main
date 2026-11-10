@@ -116,6 +116,19 @@ class MatcherTest {
         assertTrue(!med("it's a bit cold and I'm a bit lost"))
     }
 
+    @Test fun kidsGuideOnlyWhenKidsAreThere() {
+        // Sealed chat test 3 (524.2): "Kids live back east" raised the children guide for a man alone.
+        val m = Matcher(parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText()))
+        fun kids(t: String) = m.match(t).guides.any { it.id == "kids-group" }
+        assertTrue(!kids("My wife passed in the spring. Kids live back east and we don't talk much."))
+        assertTrue(!kids("my son is waiting for me at home"))
+        assertTrue(!kids("my family will be worried"))
+        assertTrue(kids("I have two kids with me and they are tired"))
+        assertTrue(kids("me and my daughter are lost on the trail"))
+        assertTrue(kids("we're a group of 5 scouts"))
+        assertTrue(kids("stuck in the car with my grandkids"))
+    }
+
     @Test fun floodAndWildfireGuidesMatch() {
         // Added after sealed chat test 1 (ready.gov steps): flood and wildfire had no checked guide.
         val m = Matcher(parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText()))
