@@ -1,12 +1,13 @@
-# Tenvia 0.4.3-ai-test: playtest notes
+# Tenvia 0.5.0-ai-test: playtest notes
 
 Installed on 2026-11-09. Write anything you notice here, as roughly as you like. Claude will turn it into a fix list.
 
 ## How to use the AI test
 - Open Tenvia and tap **Talk to Tenvia (AI test)** at the top. (The text box on the home screen is the old guide search, with no AI.)
-- The app starts the AI itself when you open the chat (a few seconds). The first reply takes about 5 minutes, later ones 2-3 minutes (measured: 275 s, then 147 s). Keep the screen on and the app open while it thinks.
-- The AI runs only on the phone. It works with no signal, Wi-Fi off, the phone unplugged, and after a restart.
-- If it says the AI couldn't start, tap **Retry**. The AI stops when you close the app, to save memory and battery.
+- The AI loads and gets ready **in the background** when the phone starts up, after an app update, and when you open Tenvia. Getting ready takes about 6 minutes; the notification "Tenvia AI is ready, offline" tells you when. After that, replies take about 1-2 minutes (measured: 61 s for the first one).
+- If you message it before it's ready, your first reply just waits until it is.
+- The AI runs only on the phone. It works with no signal, Wi-Fi off and the phone unplugged.
+- If it says the AI couldn't start, tap **Retry**. The AI stays loaded in the background (about 1 GB of memory) while the notification is showing.
 - Don't uninstall the app: that deletes the AI model file (2.5 GB), and it would have to be copied back from the PC.
 
 ## What to write down for each problem

@@ -96,6 +96,21 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
     private fun askBool(sys: String, shots: List<Pair<String, String>>, text: String): Boolean =
         runCatching { JSONObject(complete(chat(sys, shots, text), BOOL_GRAMMAR, 0.0, 12)).getBoolean("answer") }.getOrDefault(false)
 
+    /**
+     * Reads the fixed instructions (about 3,000 tokens) before the person sends anything, so the first
+     * reply doesn't wait for them. Measured on a moto g stylus 2025: about 4 minutes of the first
+     * reply was this reading. The server keeps these prefixes cached and reuses them.
+     */
+    fun warmUp() {
+        val prefixes = listOf(
+            chat(HARM_SYS, HARM_SHOTS, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+            chat(HURT_SYS, HURT_SHOTS, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+            chat(ROUTE_SYS, ROUTE_SHOTS, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+            buildPrompt("", "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+        )
+        prefixes.forEach { p -> runCatching { complete(p, null, 0.0, 1) } }
+    }
+
     // ---------------- one turn ----------------
     fun respond(msg: String): Reply {
         curMsg = msg

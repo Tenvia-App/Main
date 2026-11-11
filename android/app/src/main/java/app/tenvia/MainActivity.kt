@@ -15,8 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import app.tenvia.data.AiServer
-import app.tenvia.data.ChatEngine
+import app.tenvia.data.TenviaAi
 import app.tenvia.data.Guide
 import app.tenvia.ui.ChatScreen
 import app.tenvia.ui.ChatUiState
@@ -38,17 +37,19 @@ private sealed interface Screen {
 }
 
 class MainActivity : ComponentActivity() {
-    private lateinit var aiServer: AiServer
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         // The whole guide library ships inside the app; nothing is ever downloaded.
-        val library = assets.open("guides.json").bufferedReader().use { parseGuideLibrary(it.readText()) }
+        TenviaAi.init(this)
+        val library = TenviaAi.library
         val matcher = Matcher(library)
-        val chatEngine = ChatEngine(library)
-        aiServer = AiServer(applicationContext)
+        val chatEngine = TenviaAi.engine
+        // TEST BUILD: load and warm up the on-phone AI in the background right away.
+        AiService.start(this)
+        if (android.os.Build.VERSION.SDK_INT >= 33 && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED)
+            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
         val chatState = ChatUiState()
 
         setContent {
@@ -72,7 +73,6 @@ class MainActivity : ComponentActivity() {
                         )
                         Screen.Chat -> ChatScreen(
                             engine = chatEngine,
-                            aiServer = aiServer,
                             state = chatState,
                             onOpenGuide = { screen = Screen.GuideView(it, Screen.Chat) },
                             onBack = { screen = Screen.Home },
@@ -89,11 +89,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        // The AI uses a lot of memory: stop it when the app is closed (not on screen rotation).
-        if (isFinishing) aiServer.stop()
-        super.onDestroy()
     }
 }

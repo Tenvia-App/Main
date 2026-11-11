@@ -31,7 +31,7 @@
 # Needs llama-server on the phone + `adb forward tcp:8080 tcp:8080`.
 # Usage: powershell -File ai-experiments\chat-v1.ps1 -Convs chat-dev.json -Out chat-dev-4b [-Limit n]
 
-param([string]$Convs = 'chat-dev2.json', [string]$Out = 'chat-dev2', [int]$Limit = 0, [int]$Tries = 4, [switch]$SelfCheck, [switch]$NoThink, [string[]]$Replay)
+param([string]$Url = "http://127.0.0.1:8080", [switch]$Slots, [string]$CallLog = "", [string]$Convs = 'chat-dev2.json', [string]$Out = 'chat-dev2', [int]$Limit = 0, [int]$Tries = 4, [switch]$SelfCheck, [switch]$NoThink, [string[]]$Replay)
 
 $ErrorActionPreference = 'Stop'
 $here = $PSScriptRoot
@@ -155,11 +155,15 @@ $script:lastTimings = $null
 function Ask([string]$prompt, [string]$gbnf, [double]$temp, [int]$n = 80, [int]$seed = 42) {
     $h = @{ prompt = $prompt; n_predict = $n; temperature = $temp; seed = $seed; stop = @('<|im_end|>'); cache_prompt = $true }
     if ($gbnf) { $h.grammar = $gbnf }
+    # Speed test: which kind of call this is; with -Slots, each kind keeps its own cached prompt on the server.
+    $kind = if (-not $gbnf) { 'reply' } elseif ($gbnf -eq $boolGrammar) { if ($prompt.Contains('is a PERSON')) { 'hurt' } else { 'harm' } } else { 'route' }
+    if ($Slots) { $h.id_slot = @{ route = 0; hurt = 1; harm = 2; reply = 3 }[$kind] }
     $body = $h | ConvertTo-Json -Depth 4
     # PS 5.1 decodes the response as Latin-1 (curly quotes became "\u00E2\u20AC\u2122"), so read the raw bytes as UTF-8.
-    $wr = Invoke-WebRequest http://127.0.0.1:8080/completion -Method Post -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType 'application/json; charset=utf-8' -TimeoutSec 300 -UseBasicParsing
+    $wr = Invoke-WebRequest "$Url/completion" -Method Post -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType 'application/json; charset=utf-8' -TimeoutSec 300 -UseBasicParsing
     $r = [Text.Encoding]::UTF8.GetString($wr.RawContentStream.ToArray()) | ConvertFrom-Json
     $script:lastTimings = $r.timings
+    if ($CallLog) { Add-Content -Path $CallLog -Encoding ASCII -Value ("{0}`t{1}`t{2}`t{3}`t{4}" -f $kind, $r.timings.prompt_n, [math]::Round($r.timings.prompt_ms / 1000, 1), $r.timings.predicted_n, [math]::Round($r.timings.predicted_ms / 1000, 1)) }
     # Plain apostrophes and quotes, so the rules match.
     ($r.content -replace '[\u2018\u2019]', "'" -replace '[\u201C\u201D]', '"').Trim()
 }

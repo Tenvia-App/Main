@@ -30,7 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import app.tenvia.data.AiServer
+import app.tenvia.data.TenviaAi
+import app.tenvia.AiService
+import androidx.compose.ui.platform.LocalContext
 import app.tenvia.data.ChatEngine
 import app.tenvia.data.Guide
 import kotlinx.coroutines.Dispatchers
@@ -51,17 +53,22 @@ class ChatUiState {
 
 /** TEST BUILD: free AI conversation, talking to the AI server running on this phone. */
 @Composable
-fun ChatScreen(engine: ChatEngine, aiServer: AiServer, state: ChatUiState, onOpenGuide: (Guide) -> Unit, onBack: () -> Unit) {
+fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> Unit, onBack: () -> Unit) {
     val lines = state.lines
     var input by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
-    var aiUp by remember { mutableStateOf<Boolean?>(null) }
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
+    // The AI is loaded and warmed up by AiService (at phone start-up, app update and app open).
+    val context = LocalContext.current
+    val aiStatus by TenviaAi.status
     var startTry by remember { mutableStateOf(0) }
-    // The app starts the on-phone AI itself (about 10-30 seconds the first time).
-    LaunchedEffect(startTry) { aiUp = null; aiUp = withContext(Dispatchers.IO) { aiServer.ensureRunning() } }
+    LaunchedEffect(startTry) {
+        if (aiStatus == TenviaAi.Status.Off || aiStatus == TenviaAi.Status.Failed || startTry > 0) AiService.start(context)
+    }
+    val aiUp: Boolean? = when (aiStatus) { TenviaAi.Status.Ready, TenviaAi.Status.Warming -> true; TenviaAi.Status.Failed -> false; else -> null }
+    val warming = aiStatus == TenviaAi.Status.Warming
     LaunchedEffect(lines.size, busy) { if (lines.isNotEmpty()) listState.animateScrollToItem(lines.size - 1 + if (busy) 1 else 0) }
 
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -70,8 +77,8 @@ fun ChatScreen(engine: ChatEngine, aiServer: AiServer, state: ChatUiState, onOpe
             Text(
                 when (aiUp) {
                     null -> "Starting the on-phone AI. This can take up to a minute..."
-                    true -> "The AI runs on this phone, no internet. The first reply can take about 5 minutes, later ones 2-3 minutes. It can be wrong."
-                    false -> "The on-phone AI couldn't start. ${aiServer.lastProblem} Use the guides instead, or tap Retry."
+                    true -> if (warming) "The AI is getting ready (a few minutes). You can type now; your first reply comes after it is ready. It can be wrong." else "The AI runs on this phone, no internet. Replies take about 1-2 minutes. It can be wrong."
+                    false -> "The on-phone AI couldn't start. ${TenviaAi.server.lastProblem} Use the guides instead, or tap Retry."
                 },
                 style = MaterialTheme.typography.bodyMedium, color = Muted,
             )
@@ -136,7 +143,7 @@ fun ChatScreen(engine: ChatEngine, aiServer: AiServer, state: ChatUiState, onOpe
                             state.guides = it.guides
                             lines += ChatLine(false, it.text, (if (it.generated) "" else "Checked guide text. ") + "${secs}s")
                         }.onFailure {
-                            aiUp = false; startTry++
+                            startTry++
                             lines += ChatLine(false, "The on-phone AI didn't answer. Use the guides from the home screen.", "${secs}s")
                         }
                         busy = false
