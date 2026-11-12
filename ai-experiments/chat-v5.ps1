@@ -497,7 +497,7 @@ if ($Replay) {
 # ---------------- run ----------------
 $outFile = "$here\$Out.json"
 $results = @()
-if (Test-Path $outFile) { $results = @(Get-Content $outFile -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ } }
+if (Test-Path $outFile) { $results = @(@(Get-Content $outFile -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ }) }
 $doneIds = @($results | ForEach-Object { [int]$_.id })
 $sw0 = [Diagnostics.Stopwatch]::StartNew()
 foreach ($cv in $conversations) {
