@@ -163,6 +163,7 @@ function Ask([string]$prompt, [string]$gbnf, [double]$temp, [int]$n = 80, [int]$
     $wr = Invoke-WebRequest "$Url/completion" -Method Post -Body ([Text.Encoding]::UTF8.GetBytes($body)) -ContentType 'application/json; charset=utf-8' -TimeoutSec 300 -UseBasicParsing
     $r = [Text.Encoding]::UTF8.GetString($wr.RawContentStream.ToArray()) | ConvertFrom-Json
     $script:lastTimings = $r.timings
+    if ($kind -ne 'reply') { $script:callRec += [pscustomobject]@{ kind = $kind; out = "$($r.content)".Trim() } }
     if ($CallLog) { Add-Content -Path $CallLog -Encoding ASCII -Value ("{0}`t{1}`t{2}`t{3}`t{4}" -f $kind, $r.timings.prompt_n, [math]::Round($r.timings.prompt_ms / 1000, 1), $r.timings.predicted_n, [math]::Round($r.timings.predicted_ms / 1000, 1)) }
     # Plain apostrophes and quotes, so the rules match.
     ($r.content -replace '[\u2018\u2019]', "'" -replace '[\u201C\u201D]', '"').Trim()
@@ -510,6 +511,7 @@ foreach ($cv in $conversations) {
         $t++
         $sw = [Diagnostics.Stopwatch]::StartNew()
         # 1. route + nets (per message; flags stay raised)
+        $script:callRec = @(); $tryLog = @()
         $route = Ask (Chat $routeSys $routeShots $msg) $routeGrammar 0 | ConvertFrom-Json
         $net = ''
         if ($msg -match '\p{L}{2,}') {
@@ -587,6 +589,7 @@ foreach ($cv in $conversations) {
                 }
             }
             $bad = @(Test-Rules $cand $steps ($medical -or $crisis))
+            $tryLog += [pscustomobject]@{ cand = $cand; bad = ($bad -join ','); hint = $(if ($bad.Count) { ($bad | ForEach-Object { if ($_ -eq 'advice not in steps') { Get-AdviceHint } else { $fixHints[$_] } }) -join ' ' } else { '' }) }
             if ($bad.Count) {
                 $rejected += "[rules: $($bad -join ',')] $cand"
                 # Repair pass: the next try sees its own reply and exactly what was wrong with it.
@@ -620,7 +623,7 @@ foreach ($cv in $conversations) {
         }
         $sw.Stop()
         $notice = if ($crisis) { 'crisis' } elseif ($medical) { 'medical' } else { '' }
-        $turnRows += [pscustomobject]@{ turn = $t; user = $msg; guide = "$($route.guide)"; urgent = [bool]$route.urgent; net = $net; active = ($use -join ','); notice = $notice;
+        $turnRows += [pscustomobject]@{ turn = $t; user = $msg; guide = "$($route.guide)"; urgent = [bool]$route.urgent; net = $net; active = ($use -join ','); notice = $notice; context = $context; calls = $script:callRec; trylog = $tryLog;
             source = $source; tries = $try; reply = $reply; rejected = $rejected; seconds = [math]::Round($sw.Elapsed.TotalSeconds, 1);
             route_s = [math]::Round($tRoute, 1); gen_s = [math]::Round($tGen, 1); check_s = [math]::Round($tCheck, 1); tok_per_s = $tps }
         # A fallback is never put in the history: the model copied its wording in the next turns.
