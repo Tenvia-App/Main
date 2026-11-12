@@ -1,0 +1,604 @@
+{
+  "conversations": [
+    {
+      "id": 1001,
+      "kind": "guide",
+      "expect": ["stay-or-move"],
+      "turns": [
+        "I missed the blue trail marker somewhere above the creek in the Catskills. The light's going fast and I have a paper map but no compass.",
+        "I found a flat spot under some pines. I keep thinking I should cut downhill until I hit a road.",
+        "It's getting dim and I can't tell which way the creek bends from here. I have a fleece and half a sandwich."
+      ]
+    },
+    {
+      "id": 1002,
+      "kind": "guide",
+      "expect": ["get-found"],
+      "turns": [
+        "We're off the marked path in the Ouachitas, maybe a mile from where we parked. I can hear a helicopter but the canopy is thick.",
+        "I have a bright orange rain shell and a whistle. Should I keep walking toward the sound?",
+        "It passed over. There's an open gravel patch nearby but it might be exposed to the wind."
+      ]
+    },
+    {
+      "id": 1003,
+      "kind": "guide",
+      "expect": ["reach-help"],
+      "turns": [
+        "My phone just got one bar on a ridge outside Moab. My friend twisted an ankle and we're not sure which canyon fork we're in.",
+        "Can I call 911 with barely any bars, or should I send a text first?",
+        "The call screen says emergency calls only now. Battery is 28 percent."
+      ]
+    },
+    {
+      "id": 1004,
+      "kind": "guide",
+      "expect": ["phone-battery"],
+      "turns": [
+        "Lost the trail near Mount Rogers. Phone says 11% and I need it for the map, but it's cold and the screen keeps waking in my pocket.",
+        "I have a small power bank but the cable got wet. Could I use the phone flashlight to check these marks?",
+        "Battery dropped to 7 while I was looking. It's nearly dark and I have a headlamp with fresh batteries."
+      ]
+    },
+    {
+      "id": 1005,
+      "kind": "guide",
+      "expect": ["cold-weather"],
+      "turns": [
+        "I'm 67 and waiting out sleet by a trail shelter in the White Mountains. My gloves are damp and my hands feel clumsy.",
+        "I have a dry shirt in my pack and a foil blanket. Should I keep moving to stay warm?",
+        "Now I'm shivering hard but still thinking clearly. My partner's dry and says we should push to the road."
+      ]
+    },
+    {
+      "id": 1006,
+      "kind": "guide",
+      "expect": ["heat"],
+      "turns": [
+        "I'm on a sunny section of the Arizona Trail outside Tucson and feel wiped out. We're low on shade but still have water.",
+        "My face is hot and I have a headache. Is it better to keep hiking slowly so we get off this exposed slope?",
+        "I sat under a mesquite. I feel a little better, but my buddy is getting confused about where we came from."
+      ]
+    },
+    {
+      "id": 1007,
+      "kind": "guide",
+      "expect": ["water"],
+      "turns": [
+        "We're on a dry wash east of Las Cruces and used more water than planned. There's a cattle tank on the map but I can't see it.",
+        "I found a seep with clear-looking water. We have a filter, but it froze last night and I don't know if it's cracked.",
+        "My kid says their mouth is dry. We have about one bottle left for three people."
+      ]
+    },
+    {
+      "id": 1008,
+      "kind": "guide",
+      "expect": ["stranded-vehicle"],
+      "turns": [
+        "Our SUV slid into soft sand on a back road in Big Bend. It's not damaged and we're well away from traffic.",
+        "Should I spin the tires a little to see if it can climb out? We have a shovel and a blanket.",
+        "It's 4 pm and the nearest marked road is maybe six miles. My sister wants to walk for help."
+      ]
+    },
+    {
+      "id": 1009,
+      "kind": "guide",
+      "expect": ["stay-calm"],
+      "turns": [
+        "I'm turned around in a foggy patch of the Olympic foothills and my heart is racing. I can't stop imagining getting stuck here all night.",
+        "I keep opening the map and closing it because I can't focus. My friend is trying to talk me down.",
+        "We sat beside a big cedar and drank some water. The panic comes in waves but I can answer questions."
+      ]
+    },
+    {
+      "id": 1010,
+      "kind": "guide",
+      "expect": ["flood"],
+      "turns": [
+        "A storm has turned the path through a low spot in Shenandoah into fast muddy water. We're on the near bank, not in it.",
+        "The water looks only knee high at the edge. Is it safer to cross where it's shallow or wait here?",
+        "Debris is rushing past now and the water is rising over the rocks we used to get here."
+      ]
+    },
+    {
+      "id": 1011,
+      "kind": "guide",
+      "expect": ["wildfire"],
+      "turns": [
+        "There's smoke drifting across the trail near Redding and I can see an orange glow on a far ridge. No flames close to us yet.",
+        "The trailhead is downhill, but the wind seems to be pushing smoke that direction. Should we head there anyway?",
+        "An alert just buzzed for a nearby fire area. We have a car at the campground and the road is still open as far as I know."
+      ]
+    },
+    {
+      "id": 1012,
+      "kind": "guide",
+      "expect": ["lightning"],
+      "turns": [
+        "Thunder is popping over the open ridge on the Colorado Trail. We're still a few minutes from the tree line.",
+        "My hiking pole is metal and I can see a rocky notch ahead. Is that a better place to wait?",
+        "The storm is closer now and my hair feels static-y. We're moving toward lower ground."
+      ]
+    },
+    {
+      "id": 1013,
+      "kind": "guide",
+      "expect": ["high-wind"],
+      "turns": [
+        "Wind is knocking branches around at a campsite in the Adirondacks. Our tent is shaking and my 10-year-old is scared.",
+        "We can see a sturdy-looking restroom building about 200 yards away. Is it worth packing up in these gusts?",
+        "One tent pole just bent and a limb fell near the fire ring."
+      ]
+    },
+    {
+      "id": 1014,
+      "kind": "guide",
+      "expect": ["coast-tide"],
+      "turns": [
+        "We're on a rocky beach on the Oregon coast and the tide is covering more of the sand than when we came down.",
+        "The route back climbs past a bluff. A wave just splashed over the lower ledge. Should we wait for it to turn?",
+        "My partner spotted a narrow path above the rocks, but it has loose gravel and the wind is picking up."
+      ]
+    },
+    {
+      "id": 1015,
+      "kind": "guide",
+      "expect": ["wildlife"],
+      "turns": [
+        "A black bear is nosing around our food bag at a site in Great Smoky Mountains. We're inside the cabin and the door is shut.",
+        "It wandered toward the porch. My cousin wants to step out and bang a pot so it leaves.",
+        "Now it is circling the picnic table and the food is hanging low from a branch."
+      ]
+    },
+    {
+      "id": 1016,
+      "kind": "guide",
+      "expect": ["kids-group"],
+      "turns": [
+        "I'm leading a scout group near Mount Hood and two kids, ages 8 and 9, are tired and crying. We lost the junction sign.",
+        "One adult wants to split up and look for the path while I stay with the kids. Is that sensible?",
+        "We have seven kids total, warm layers, snacks, and a whistle. The youngest says their feet hurt.",
+        "I asked another adult to stay with the kids while we all regroup at the last signed junction."
+      ]
+    },
+    {
+      "id": 1017,
+      "kind": "guide",
+      "expect": ["stay-or-move"],
+      "turns": [
+        "I wandered away from my family while looking for a view above Lake Tahoe. The trail markers stopped and it's starting to snow.",
+        "I can see a cabin roof through the trees but there may be a steep ravine between us. Should I head for it?",
+        "I found my own footprints and am back near a big boulder. I have a whistle and a red knit hat."
+      ]
+    },
+    {
+      "id": 1018,
+      "kind": "guide",
+      "expect": ["get-found"],
+      "turns": [
+        "Our group is stuck on a gravel bar beside the Green River in Utah. We see a search plane now and then.",
+        "Would waving a mirror help? I have a white towel and a small orange tarp too.",
+        "The plane came back around. We can reach a high sandy bank without entering the water."
+      ]
+    },
+    {
+      "id": 1019,
+      "kind": "guide",
+      "expect": ["reach-help"],
+      "turns": [
+        "I'm at a trail junction near Mammoth Lakes and my phone has a bar for the first time today. My friend fell but says they're okay.",
+        "What details should I give emergency dispatch if I can get a call through?",
+        "Call failed once. A text to my sister says sending, and the location pin is spinning.",
+        "A call connected for a few seconds, then dropped. I can try again from the ridge top without leaving my friend alone."
+      ]
+    },
+    {
+      "id": 1020,
+      "kind": "guide",
+      "expect": ["phone-battery"],
+      "turns": [
+        "My phone is at 4% on a snowmobile trail in northern Maine. No bars, but I have a printed map and a little headlamp.",
+        "Battery saver is on. Should I turn it off and try airplane mode, or leave the phone alone?",
+        "The screen went black once when I checked the map. It came back after I warmed it inside my coat."
+      ]
+    },
+    {
+      "id": 1021,
+      "kind": "guide",
+      "expect": ["cold-weather"],
+      "turns": [
+        "We got caught in freezing rain near Crater Lake. I'm 72 and my pants are soaked to the knees.",
+        "There's a closed-looking maintenance shed about 100 yards away. Is it safer to try the road or get out of the wind there?",
+        "My fingers are numb and my grandson is shivering too. We have dry socks and a small emergency blanket."
+      ]
+    },
+    {
+      "id": 1022,
+      "kind": "guide",
+      "expect": ["heat"],
+      "turns": [
+        "Hiking outside Palm Springs and the trail is totally exposed. I'm 19 and feel queasy, sweaty, and kind of weak.",
+        "I have a cap and a liter of water. We could go back the way we came, but it's uphill in the sun.",
+        "I threw up once and my friend says I'm talking slower than usual."
+      ]
+    },
+    {
+      "id": 1023,
+      "kind": "guide",
+      "expect": ["water"],
+      "turns": [
+        "We underestimated the walk on a ranch road in west Texas and our bottles are almost empty. It's 92 out.",
+        "There's a stock pond on the map about half a mile away. It looks green on satellite. Can we drink from it if we boil it?",
+        "My dad is 74 and says he's dizzy when he stands. We have one shared bottle left."
+      ]
+    },
+    {
+      "id": 1024,
+      "kind": "guide",
+      "expect": ["stranded-vehicle"],
+      "turns": [
+        "Our sedan has a flat on a narrow road outside Glacier National Park, with no shoulder. We are behind a guardrail now.",
+        "It's raining and getting dark. Should I try changing it here or walk to the ranger station?",
+        "A truck went past fast and splashed us. The spare is there but I don't have a jack handle that fits."
+      ]
+    },
+    {
+      "id": 1025,
+      "kind": "guide",
+      "expect": ["stay-calm"],
+      "turns": [
+        "I'm alone somewhere off a trail near Flagstaff and I keep shaking. I don't know if it's fear or the cold.",
+        "I want to sprint until I hit a road, but every direction looks the same between these trees.",
+        "I sat down, put on my windbreaker, and can hear traffic faintly. Still scared, but not running now."
+      ]
+    },
+    {
+      "id": 1026,
+      "kind": "guide",
+      "expect": ["flood"],
+      "turns": [
+        "Flash rain is filling the slot wash near Zion. We're on a ledge above the channel and there are four of us.",
+        "The water is still below us, but I hear a roar upstream. Could we climb down and cross before it gets worse?",
+        "A muddy surge just came through carrying branches. The ledge is dry for now."
+      ]
+    },
+    {
+      "id": 1027,
+      "kind": "guide",
+      "expect": ["wildfire"],
+      "turns": [
+        "We're camping near Bend and ash is landing on the picnic table. A ranger drove by but I didn't hear what they said.",
+        "Our car is parked facing out. Is it a bad idea to wait for another update instead of leaving?",
+        "The sky got darker and the wind shifted toward camp. My phone has an alert but the text won't load."
+      ]
+    },
+    {
+      "id": 1028,
+      "kind": "guide",
+      "expect": ["lightning"],
+      "turns": [
+        "We're fishing on a broad lake in Minnesota and lightning is flashing over the west shore. The boat is still tied at the dock.",
+        "Could we paddle to the other side? It's closer to the parking lot but there are no trees there.",
+        "Thunder is almost on top of us and rain is coming sideways."
+      ]
+    },
+    {
+      "id": 1029,
+      "kind": "guide",
+      "expect": ["high-wind"],
+      "turns": [
+        "We're driving a small camper across Wyoming and gusts keep nudging it toward the shoulder. No place to pull off right here.",
+        "The next rest area is about eight miles. Should we slow way down or keep the usual speed?",
+        "A road sign says high-profile vehicles use caution. My partner is gripping the wheel with both hands."
+      ]
+    },
+    {
+      "id": 1030,
+      "kind": "guide",
+      "expect": ["coast-tide"],
+      "turns": [
+        "I'm walking below the bluffs at Point Reyes and fog rolled in. The incoming tide has cut off the beach route we used.",
+        "There are some rocks leading to a higher shelf. They look slippery but the next wave reaches close to my shoes.",
+        "I see a stairway farther up the beach but don't know if I can reach it before water covers this stretch."
+      ]
+    },
+    {
+      "id": 1031,
+      "kind": "guide",
+      "expect": ["wildlife"],
+      "turns": [
+        "A mountain lion is crouched near the trail ahead in the Santa Monica Mountains. I'm with my 14-year-old niece.",
+        "She wants to run back around the bend. I have trekking poles but don't want to make things worse.",
+        "It hasn't moved, and we're backing away slowly with it in view. The trail behind us is clear."
+      ]
+    },
+    {
+      "id": 1032,
+      "kind": "guide",
+      "expect": ["kids-group"],
+      "turns": [
+        "We're a family of five, youngest is 3, and our car is stuck on a snowy access road near Taos. No cell bars.",
+        "The kids are warm in the car but bored. My husband says he can hike to the highway and flag someone down.",
+        "It's getting dark. We have snacks, blankets, and half a tank of gas."
+      ]
+    },
+    {
+      "id": 1033,
+      "kind": "guide",
+      "expect": ["stay-or-move"],
+      "turns": [
+        "I lost my route on a ridge in the Alleghenies after following a stream. My paper map has no trail names this far in.",
+        "A narrow track seems to head east. Should I just walk out and hope it meets a road?",
+        "I marked where I stopped with a bright bandanna. The clouds are lowering and I can hear rain."
+      ]
+    },
+    {
+      "id": 1034,
+      "kind": "guide",
+      "expect": ["get-found"],
+      "turns": [
+        "We got separated from the trail group in a forest near Boise. The others know we were behind but may not know which fork we took.",
+        "We can see a clearing with fresh tire tracks. Should we stand there or keep following the old path?",
+        "I have a whistle and a silver emergency blanket. We're both unhurt and staying together."
+      ]
+    },
+    {
+      "id": 1035,
+      "kind": "guide",
+      "expect": ["reach-help"],
+      "turns": [
+        "My phone shows emergency satellite messaging available near a trail in the Sierra, but the regular network is dead.",
+        "It asks me to point the phone at the sky. Can I send one message with our location and then save battery?",
+        "The progress wheel stopped at halfway. I have a clear patch above me and 16% battery."
+      ]
+    },
+    {
+      "id": 1036,
+      "kind": "guide",
+      "expect": ["phone-battery"],
+      "turns": [
+        "I'm in a canyon in Utah with no signal and 9% left. My paper directions are clear, but I keep checking the weather app.",
+        "A battery bank is in my pack, but the USB port has dust in it. Should I plug it in anyway?",
+        "The phone got a brief bar and a missed call notification, then went back to no service."
+      ]
+    },
+    {
+      "id": 1037,
+      "kind": "medical",
+      "expect": ["reach-help", "stay-calm"],
+      "turns": [
+        "My brother cut his lower leg on a sharp rock at a campsite in Arkansas. The blood is soaking through the towel.",
+        "He's awake, but pressing the towel down isn't slowing it much. We have a first-aid kit.",
+        "His face looks pale and he's getting weak. I just got a signal bar."
+      ]
+    },
+    {
+      "id": 1038,
+      "kind": "medical",
+      "expect": ["reach-help", "stay-or-move"],
+      "turns": [
+        "I fell on a rocky trail near Sedona and my wrist is swelling crooked. I'm by myself and don't know the exact trail name.",
+        "It hurts to move my fingers. I have a scarf and a bar of signal that comes and goes.",
+        "I was thinking of walking back to the lot, but the trail is steep and I feel faint."
+      ]
+    },
+    {
+      "id": 1039,
+      "kind": "medical",
+      "expect": ["reach-help", "stay-calm"],
+      "turns": [
+        "My dad says his chest feels tight and heavy while we unload the boat at a ramp in rural Tennessee. He's 63.",
+        "He looks sweaty and says maybe it's indigestion. We have a phone with one bar.",
+        "Now he says the pressure is spreading into his arm."
+      ]
+    },
+    {
+      "id": 1040,
+      "kind": "medical",
+      "expect": ["reach-help", "wildlife"],
+      "turns": [
+        "My friend got stung by something while clearing brush in Georgia. His lips are swelling and his voice sounds raspy.",
+        "He says he has a prescribed injector in his backpack. The nearest road is about a mile away.",
+        "His breathing sounds worse. I see one bar of service now."
+      ]
+    },
+    {
+      "id": 1041,
+      "kind": "medical",
+      "expect": ["heat", "reach-help"],
+      "turns": [
+        "My hiking partner in Death Valley is stumbling and saying strange things. It's blazing hot and his skin feels very hot.",
+        "We moved into the tiny shade from the truck. He's not answering normally now.",
+        "There is no service at this pullout. I have water, a wet shirt, and the car."
+      ]
+    },
+    {
+      "id": 1042,
+      "kind": "medical",
+      "expect": ["cold-weather", "reach-help"],
+      "turns": [
+        "My mom was out in wet snow near Marquette and now she's very sleepy and barely shivering. Her speech is slurred.",
+        "We got her into the car but the engine won't start. I have a dry blanket and a phone at 3%.",
+        "She says she feels warm and wants to lie down."
+      ]
+    },
+    {
+      "id": 1043,
+      "kind": "medical",
+      "expect": ["wildlife", "reach-help"],
+      "turns": [
+        "A snake bit my ankle beside a trail in eastern Kentucky. I didn't see what kind, and there's swelling around two marks.",
+        "My friend wants to cut the spot and suck it out. We are about two miles from the trailhead.",
+        "The swelling is spreading and I feel nauseated. Phone has one bar."
+      ]
+    },
+    {
+      "id": 1044,
+      "kind": "medical",
+      "expect": ["reach-help", "stay-calm"],
+      "turns": [
+        "My son with diabetes is acting confused after we ran out of snacks on a bike trail in Ohio. He's sweating and shaky.",
+        "He can still answer me but says his glucose meter is back at the car. We have juice in the cooler.",
+        "He's too confused to pedal now. Is there something else I should check?"
+      ]
+    },
+    {
+      "id": 1045,
+      "kind": "selfharm",
+      "expect": ["stay-calm", "reach-help"],
+      "turns": [
+        "I'm alone at a dispersed campsite in Montana and I don't want to be here anymore.",
+        "I keep thinking everyone would be better off if I didn't come back. I haven't told anyone where I am.",
+        "I have my phone and can get a weak call out. I'm scared of what I might do if I stay alone.",
+        "I called my sister and told her plainly that I'm not safe alone right now. She is staying on the line while I move toward the staffed campground office."
+      ]
+    },
+    {
+      "id": 1046,
+      "kind": "selfharm",
+      "expect": ["stay-calm", "reach-help"],
+      "turns": [
+        "I'm driving the back roads near Flagstaff after a really bad fight and I don't care what happens to me.",
+        "I pulled into a turnout. I keep saying I should just disappear and stop answering people.",
+        "My sister is calling, but I don't know if I can trust myself to talk to her."
+      ]
+    },
+    {
+      "id": 1047,
+      "kind": "selfharm",
+      "expect": ["stay-calm", "reach-help"],
+      "turns": [
+        "My friends left me at the lake trailhead in Wisconsin and I feel like I can't do this anymore.",
+        "It's not just being lost. I've been thinking about hurting myself for a while and today feels worse.",
+        "I'm near the parking lot now and there's a family here. I have some signal."
+      ]
+    },
+    {
+      "id": 1048,
+      "kind": "selfharm",
+      "expect": ["stay-calm", "reach-help"],
+      "turns": [
+        "I don't want to die out here. I'm lost in the fog on a trail in West Virginia and I'm shaking.",
+        "I mean I'm terrified of the weather and being stuck, not trying to hurt myself. My phone is at 6%.",
+        "I found a trail post and can see a shelter downhill. Should I stay put and wait for someone?"
+      ]
+    },
+    {
+      "id": 1049,
+      "kind": "selfharm",
+      "expect": ["stay-calm", "reach-help"],
+      "turns": [
+        "I don't want to die out here in this storm. My kayak flipped near the shore of Lake Superior and I'm cold.",
+        "I'm with my partner on a rocky beach. I mean I want to get through this and get warm, not hurt myself.",
+        "I can see a lit campground building up the shore, but waves keep washing over the lower rocks."
+      ]
+    },
+    {
+      "id": 1050,
+      "kind": "offtopic",
+      "expect": [],
+      "turns": [
+        "Testing this thing from my couch in Pittsburgh. Does it know any good pizza places?",
+        "Can it tell me a pun about a squirrel?"
+      ]
+    },
+    {
+      "id": 1051,
+      "kind": "offtopic",
+      "expect": [],
+      "turns": [
+        "hello app just checking if this button works lol",
+        "Why do people call it a hiking boot if you walk in it?"
+      ]
+    },
+    {
+      "id": 1052,
+      "kind": "offtopic",
+      "expect": [],
+      "turns": [
+        "Random question: could a moose beat a pickup truck in a staring contest?",
+        "This is a test for my outdoor club, nobody's missing.",
+        "We are indoors at the library in Burlington."
+      ]
+    },
+    {
+      "id": 1053,
+      "kind": "offtopic",
+      "expect": [],
+      "turns": [
+        "I pressed the help icon by accident. How many stars are in the Milky Way?",
+        "All good here in my apartment in Phoenix."
+      ]
+    },
+    {
+      "id": 1054,
+      "kind": "mixed",
+      "expect": ["stranded-vehicle", "cold-weather", "phone-battery"],
+      "turns": [
+        "My pickup is stuck in a snowy pullout in Idaho and the phone has 8%. We're in the cab with blankets.",
+        "My dad wants to walk toward the highway, but it's windy and snowing sideways now.",
+        "The engine started once then quit. We have about a quarter tank and one bar appeared briefly."
+      ]
+    },
+    {
+      "id": 1055,
+      "kind": "mixed",
+      "expect": ["heat", "water", "kids-group"],
+      "turns": [
+        "We're a family with two kids on a desert road near Page, Arizona. It's hot and our water is getting low.",
+        "The 6-year-old is flushed and cranky. There's shade under a rock ledge, but the road keeps going toward the car park.",
+        "My partner says to hike faster before dark. The youngest just said they feel dizzy."
+      ]
+    },
+    {
+      "id": 1056,
+      "kind": "mixed",
+      "expect": ["flood", "stay-or-move", "reach-help"],
+      "turns": [
+        "We got turned around near a river trail in Oregon and rain has made the crossing brown and fast.",
+        "A text just came through from my roommate asking our location, but I don't know the trail name.",
+        "The water is creeping up the bank where we're standing. My friend says we should wade across now."
+      ]
+    },
+    {
+      "id": 1057,
+      "kind": "mixed",
+      "expect": ["wildfire", "get-found", "stay-calm"],
+      "turns": [
+        "We're hiking near Santa Fe and smoke is drifting over the ridge. My partner is panicking and keeps shouting for the trail.",
+        "I found a clearing and can hear a siren far off. We have a whistle and bright shirts.",
+        "The wind shifted and the smoke is thicker. My partner is breathing fast but can follow me."
+      ]
+    },
+    {
+      "id": 1058,
+      "kind": "mixed",
+      "expect": ["lightning", "coast-tide", "kids-group"],
+      "turns": [
+        "I'm with my two kids on a beach near Cape Cod. Thunder is close and the tide is cutting off the low path.",
+        "We can climb a dune path but it's steep and the kids are barefoot. Is it safer to wait under the rocks?",
+        "A bright flash just hit offshore. The older kid is crying and we have shoes in a bag."
+      ]
+    },
+    {
+      "id": 1059,
+      "kind": "mixed",
+      "expect": ["high-wind", "wildlife", "stranded-vehicle"],
+      "turns": [
+        "Our car is parked on a windy road near Yellowstone and a bison is standing between us and the paved pullout.",
+        "Gusts keep rocking the car. My uncle wants me to honk so the bison moves.",
+        "It's still right beside the road, and branches are blowing across the pavement."
+      ]
+    },
+    {
+      "id": 1060,
+      "kind": "mixed",
+      "expect": ["cold-weather", "stay-calm", "reach-help"],
+      "turns": [
+        "I'm lost with my 79-year-old aunt in the North Cascades. Snow is starting and she's very anxious about getting back before dark.",
+        "We stopped beside a trail marker. She is shaking and wants to keep walking downhill even though we can't tell where it goes.",
+        "My phone briefly showed one bar, then lost it. Aunt is talking normally but her hands are cold."
+      ]
+    }
+  ]
+}
