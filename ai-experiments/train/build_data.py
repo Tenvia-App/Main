@@ -56,13 +56,23 @@ def judge_items(convs):
     return items
 
 
-def judgein():
+def judged_ids():
+    return {str(j["id"]) for f in glob.glob(os.path.join(HERE, "judge-out-*.json")) for j in json.load(open(f, encoding="utf-8-sig"))}
+
+
+def judgein(only_new=False):
     items = judge_items(load_runs())
-    for old in glob.glob(os.path.join(HERE, "judge-in-*.json")):
-        os.remove(old)
+    first = 1
+    if only_new:  # keep the old files; write only replies with no verdict yet, numbered after the last judge-out file
+        done = judged_ids()
+        items = [i for i in items if i["id"] not in done]
+        first = max([int(os.path.basename(f)[10:12]) for f in glob.glob(os.path.join(HERE, "judge-out-*.json"))] + [0]) + 1
+    else:
+        for old in glob.glob(os.path.join(HERE, "judge-in-*.json")):
+            os.remove(old)
     for n in range(0, len(items), 60):
-        json.dump(items[n:n + 60], open(os.path.join(HERE, f"judge-in-{n // 60 + 1:02d}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("replies to judge", len(items), "files", (len(items) + 59) // 60)
+        json.dump(items[n:n + 60], open(os.path.join(HERE, f"judge-in-{n // 60 + first:02d}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("replies to judge", len(items), "files", [f"judge-in-{n // 60 + first:02d}.json" for n in range(0, len(items), 60)])
 
 
 def build(require_judge=True):
@@ -117,6 +127,6 @@ def build(require_judge=True):
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "build"
     if mode == "judgein":
-        judgein()
+        judgein(only_new="--new" in sys.argv)
     else:
         build(require_judge="--nojudge" not in sys.argv)

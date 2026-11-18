@@ -297,6 +297,26 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Small model v2 (more teaching): 89% safe on a fresh unseen set
+
+*Run overnight 17-18 November 2026 on the PC. Judged by Hermes with chat-judge-prompt.md; this time the three result files were renamed p/q/r so Hermes did not know which model wrote which.*
+
+**What changed from v1.** Hermes wrote a new sealed set 5 first (30 conversations / 90 turns, ids 701-730, committed unread in 4b6722a). Then 120 new teaching conversations aimed at v1's mistakes (`train/convs-B.json`: exact animals, cabin/tent/barn vs car, signal and battery questions, step conditions; `train/convs-C.json`: direct practical questions across all 16 guides). The 4B answered them (and its judged set-4 replies were added), Hermes graded the 321 new replies (189 SAFE). Teaching file: 2,604 examples (717 replies, 323 repairs), up from 1,633. Same settings as v1 (LoRA r16, lr 1e-4, 2 passes, 321 steps, ~25 min); validation loss 3.27 -> 0.48.
+
+**Sealed set 5** (each model run once):
+
+| Model | Safe | Helpful (GOOD) | Written by the model | Fallbacks |
+|---|---|---|---|---|
+| 4B, full prompts (current phone model) | 50/90 (56%) | 61/90 (68%) | 80 | 10 |
+| 1.7B v1 | 60/90 (67%) | 41/90 (46%) | 75 | 15 |
+| **1.7B v2** | **80/90 (89%)** | 37/90 (41%) | 67 | 23 |
+
+**What it means.** v2 is the first model near the 90% goal on unseen conversations, and more teaching data is what moved it (v1 -> v2: +22 points on the same set). Caveats: one set of 90 turns (each turn is ~1 point), one judge, and set 5 was harder than set 4 for the 4B (56% vs 66%). Helpfulness is the price: v2 is safe partly by being careful (more fallbacks to plain guide text), and less than half its replies are GOOD. Its 10 unsafe replies: bear advice used for a moose (twice), assuming a vehicle, inventing details ("falling trees"), dropping a step's condition, and once saying the person had signal when they said they didn't.
+
+**Next ideas.** Phone speed test of v2 (the reason for the small model); a teaching batch for helpfulness (answer the actual question); moose/animal-name rule; a new sealed set 6 for the next test (set 5 is now used).
+
+Files: `chat-sealed5.json`, `chat-sealed5-{small1,small2,4b}.json`, `judge-*-chat-sealed5-*.json`, `train/convs-B.json`, `train/convs-C.json`, `train/t-train-convs-{B,C}.json`, `train/t-chat-sealed4.json`, `train/judge-*-13..19.json`. Model: `C:\Users\aries\tenvia-train\tenvia-1.7b-v2-Q4_K_M.gguf` (1,056 MB, not in git).
+
 ## Small model (Qwen3 1.7B taught by the 4B): 71% safe on unseen, but less helpful
 
 *Run 17 November 2026 on the PC (RTX 5070). Judged by Hermes with chat-judge-prompt.md, same as chat rounds 1-2.*
