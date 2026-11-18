@@ -21,12 +21,16 @@ ap.add_argument("--batch", type=int, default=4)
 ap.add_argument("--accum", type=int, default=4)
 ap.add_argument("--maxlen", type=int, default=2048)
 args = ap.parse_args()
+PAUSE = os.path.join(os.path.dirname(os.path.abspath(args.out)), "PAUSE")
 
 tok = AutoTokenizer.from_pretrained(args.base)
 model = AutoModelForCausalLM.from_pretrained(args.base, torch_dtype=torch.bfloat16, device_map={"": 0})
 model.gradient_checkpointing_enable()
 model = get_peft_model(model, LoraConfig(r=args.rank, lora_alpha=2 * args.rank, lora_dropout=0.05, task_type="CAUSAL_LM",
                                          target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]))
+for p in model.parameters():  # LoRA weights and optimizer in float32: bf16 AdamW collapsed run 1 (loss stuck at ln(vocab) = 11.93)
+    if p.requires_grad:
+        p.data = p.data.float()
 model.print_trainable_parameters()
 
 
@@ -70,7 +74,8 @@ def evaluate():
     model.eval(); tot = 0; cnt = 0
     with torch.no_grad():
         for ids, att, lab in batches(val, args.batch, False):
-            tot += model(input_ids=ids, attention_mask=att, labels=lab).loss.item(); cnt += 1
+            with torch.autocast("cuda", dtype=torch.bfloat16):
+                tot += model(input_ids=ids, attention_mask=att, labels=lab).loss.item(); cnt += 1
     model.train()
     return tot / max(cnt, 1)
 
@@ -82,20 +87,30 @@ print("optimizer steps", steps_total, "val loss before", round(evaluate(), 3))
 model.train(); step = 0; t0 = time.time(); done = False
 while not done:
     for i, (ids, att, lab) in enumerate(batches(train, args.batch, True)):
-        loss = model(input_ids=ids, attention_mask=att, labels=lab).loss / args.accum
+        with torch.autocast("cuda", dtype=torch.bfloat16):
+            loss = model(input_ids=ids, attention_mask=att, labels=lab).loss / args.accum
+        if not torch.isfinite(loss) or (step >= 20 and loss.item() * args.accum > 6):
+            raise SystemExit(f"STOPPED: training went unstable at step {step} (loss {loss.item() * args.accum}); last good adapter in {args.out}-lora")
         loss.backward()
         if (i + 1) % args.accum == 0:
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             opt.step(); sched.step(); opt.zero_grad(); step += 1
+            if os.path.exists(PAUSE):  # pause-training.ps1 creates this file; delete it to carry on
+                print(f"PAUSED at step {step}", flush=True); torch.cuda.empty_cache()
+                while os.path.exists(PAUSE):
+                    time.sleep(5)
+                print(f"RESUMED at step {step}", flush=True)
             if step % 10 == 0:
                 print(f"step {step}/{steps_total} loss {loss.item() * args.accum:.3f} {int(time.time() - t0)}s", flush=True)
             if step % 50 == 0:
                 print("  val loss", round(evaluate(), 3), flush=True)
+                model.save_pretrained(args.out + "-lora")  # adapter checkpoint (small)
             if step >= steps_total:
                 done = True
                 break
 print("val loss after", round(evaluate(), 3))
-model = model.merge_and_unload()
+model.save_pretrained(args.out + "-lora")
+model = model.merge_and_unload().to(torch.bfloat16)
 model.save_pretrained(args.out, safe_serialization=True)
 tok.save_pretrained(args.out)
 print("saved", args.out)

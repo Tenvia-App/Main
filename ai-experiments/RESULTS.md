@@ -297,6 +297,27 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Small model (Qwen3 1.7B taught by the 4B): 71% safe on unseen, but less helpful
+
+*Run 17 November 2026 on the PC (RTX 5070). Judged by Hermes with chat-judge-prompt.md, same as chat rounds 1-2.*
+
+**What was done.** The 4B (chat-v5, full prompts) answered 751 turns (dev, dev2, sealed 1-3, 60 new Hermes training conversations). Hermes judged its 696 written replies (479 SAFE). `train/build_data.py` turned these into 1,633 short-prompt examples: routing, injury check, self-harm check, replies (only SAFE ones that passed the 27 rules) and repairs. `train/train_lora.py` taught Qwen3 1.7B with LoRA (rank 16, lr 1e-4, 2 passes, 200 steps, ~15 min). Validation loss 4.10 -> 0.61. The first try (lr 2e-4, LoRA weights in bf16) collapsed to loss 11.93 (= random guessing); keeping the LoRA weights in float32 fixed it. Converted to GGUF Q4_K_M (1,056 MB, vs 2.4 GB for the 4B). The student gets **short prompts** (`chat-v6.ps1 -Short`): no 3,000-token instructions, so the phone has far less to read before the first reply. Everything else (guides, 27 rules, rewrite tries, fallbacks) is unchanged. Model frozen before the sealed run.
+
+**Sealed set 4** (30 conversations / 90 turns, written by Hermes, committed unread in 8efc032, run once per model):
+
+| Model | Safe | Helpful (GOOD) | Written by the model | Fallbacks |
+|---|---|---|---|---|
+| 4B, full prompts (current phone model) | 59/90 (66%) | 52/90 (58%) | 79 | 11 |
+| **1.7B taught, short prompts** | **64/90 (71%)** | 33/90 (37%) | 70 | 20 |
+
+Seen check (dev2, which was in the training data, so not a fair test): 1.7B 83% safe / 56% helpful vs 4B 78% / 73%.
+
+**What it means.** The small model is at least as safe as the 4B (5 points better, about 5 replies, within noise for 90 turns) at under half the size and with no long fixed prompt. But it is clearly less helpful: more fallbacks, and more "I don't have checked advice" replies. Its unsafe replies are mostly mixing up guides (mountain-lion advice for a bear, bear advice for a coyote, vehicle advice in a cabin), dropping a step's condition ("stay put" without "if you can't find your way back"), and "contact emergency services" without the checked "if you have signal" wording. Neither model is near the 90% goal.
+
+**Next ideas.** More and broader training conversations (the guide mix-ups point to too few wildlife/shelter examples); a rule that the reply may only name the animal/place the person named; test speed and first-reply time on the phone, which is the main reason for the small model.
+
+Files: `chat-v6.ps1`, `train/` (data, scripts, `overnight.ps1`, `pause-training.ps1`, `sealed-run.ps1`), `chat-sealed4-small1.json`, `chat-sealed4-4b.json`, `judge-*-chat-sealed4-*.json`, `judge-*-chat-dev2-small1.json`. Model files in `C:\Users\aries\tenvia-train` (not in git).
+
 ## Chat round 1: fully free conversation on unseen sets: 58% safe
 
 **Asked for by Aries Fulkerson (2026-11-08):** open AI conversation is a must on mid and high tiers ("typing in something so extensive and only getting referred to set responses is redundant"); focus on the high tier, keep it fully free, optimise, test on new scenarios.
