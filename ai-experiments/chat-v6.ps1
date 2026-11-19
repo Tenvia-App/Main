@@ -301,6 +301,11 @@ $rules = [ordered]@{
     # through). A clause passes when its verb AND its content words are in this turn's steps.
     'advice not in steps' = { param($s, $steps, $med) $script:badClauses = @(Get-UnsupportedClauses $s $steps); $script:badClauses.Count -gt 0 }
     'empty' = { param($s, $steps, $med) [string]::IsNullOrWhiteSpace($s) }
+    # v6 (small model on set 5, judge reasons): stock lines used where they don't fit.
+    'stay put not in steps' = { param($s, $steps, $med) $s -match '(?i)\b(stay where you are|stay put)\b' -and $steps -notmatch '(?i)stay where you are' }
+    'vehicle not mentioned' = { param($s, $steps, $med) $s -match '(?i)(?<!\bif )\b(your|the) (vehicle|car)\b' -and "$($script:convUser)" -notmatch '(?i)\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\b' }
+    '911 without signal' = { param($s, $steps, $med) $s -match '(?i)\b(911|988|emergency services)\b' -and -not $script:hasSignalNow -and $s -notmatch '(?i)\bsignal\b|\bas soon as\b|\bwhen you (can|have|get)\b|\bif you (can|have|get)\b|\bany way\b|\bif there is\b|\?' }
+    'claims signal' = { param($s, $steps, $med) $s -match '(?i)(?<!\b(if|when|once|until|soon as|whether) )\byou (now )?have (signal|service|bars?|a bar)\b(?! (yet|again))' -and -not $script:hasSignalNow }
 }
 # What the model is told when a rule rejects its reply (repair pass).
 $fixHints = @{
@@ -332,6 +337,10 @@ $fixHints = @{
     'too long' = 'It was too long. Use 2 to 4 short sentences.'
     'advice not in steps' = 'It gave advice that is not in the checked steps. Use only the checked steps.'
     'empty' = 'It was empty.'
+    'stay put not in steps' = 'It said to stay where they are, but that step is not in the checked steps for this message. Leave it out.'
+    'vehicle not mentioned' = 'It talked about a vehicle or car, but the person never mentioned one. Leave vehicle advice out.'
+    '911 without signal' = 'Keep the condition: "As soon as you have signal, call 911 (call if you can, text if you cannot)." Do not tell them to call without it.'
+    'claims signal' = 'It said they have signal, but they did not say so. Do not.'
 }
 $adviceVerbs = 'stay|keep|drink|move|go|walk|head|hike|climb|follow|find|seek|take|breathe|try|wait|look|use|turn|put|get|rest|sit|lie|stand|run|wave|yell|shout|signal|blow|flash|hold|cover|build|eat|boil|filter|ration|light|start|leave|open|close|check|make|avoid|stop|remove|cross|swim|wade|jump|travel|retrace|lay|spread|set|bring|carry|tie|press|apply|wrap|clean|call|text|dial|save|conserve|charge|switch|power|send|mark|note|write|watch|listen|tell|drive|push|pull|dig|wear|put'
 $alwaysOk = 'call|text|dial|tell|breathe|let|share|answer|check|look|see|notice|think'

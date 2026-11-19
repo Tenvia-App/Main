@@ -297,6 +297,31 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Small model v3-v5 (aiming for 80% safe / 70% helpful): v5 = 89% safe, 56% helpful on set 5
+
+*Run overnight 18-19 November 2026 on the PC. Sealed set 6 (ids 801-830) was written by Hermes and committed unread first (a91d0c7); it is still unused. All scores below are on set 5, which is now a tuning set (seen), so they are optimistic.*
+
+**What was tried.**
+- **Hermes rewrites** (`train/rewrite-prompt.md`): for every teacher reply that wasn't SAFE + GOOD, and every fallback, Hermes wrote a better reply from the same checked steps. The 27 rules re-checked them (`chat-v6.ps1 -Replay`), then Hermes judged them in a separate pass. ~90% of the rule-passing rewrites were judged SAFE + GOOD.
+- **v3:** teach only on SAFE + GOOD replies (teacher + rewrites).
+- **v4:** keep SAFE teacher replies, prefer a GOOD rewrite over a WEAK one, and drop stock lines used out of place (`build_data.py misfit`: "stay where you are" without the lost guide, a car nobody mentioned, 911 without "if you have signal").
+- **Four new rules in chat-v6** (from the judge's reasons on set 5): stay put not in steps, vehicle not mentioned, 911 without signal, claims signal. Checked on set 5's judged replies: they catch mostly UNSAFE replies (24 of 29 hits).
+- **v5 (learning from its own mistakes):** v4 answered all 388 earlier conversations; Hermes graded its 1,028 replies, rewrote the 603 misses, and the good rewrites were added. 3,855 examples, 477 steps, validation loss 0.32.
+
+| Model (set 5, 90 turns) | Safe | Helpful (GOOD) |
+|---|---|---|
+| 4B (current phone model) | 56% | 68% |
+| v2 | 89% (regraded: 90%) | 41% (regraded: 51%) |
+| v2 + new rules | 90% | 38% |
+| v3 | 76% | 48% |
+| v4 | 69% | 47% |
+| v4 + new rules | 76% | 58% |
+| **v5 + new rules** | **89%** | **56%** |
+
+**What it means.** v5 meets the safety aim (80%) and is the most helpful small model so far, but helpfulness is 56%, short of 70%. Regrading the same replies moved helpfulness by up to 10 points (safety by 1), so treat helpfulness numbers as +/-10. On the seen training conversations v5 was 88% safe / 66% helpful. Its weak replies mostly answer or decline the question but miss the step that matters most for the whole situation (heat, shelter, battery, the text option when calls fail).
+
+**Where it stopped.** A second round of learning from mistakes was under way: v5 answered all earlier conversations (`train/q-*.json`), Hermes graded them (1,048 replies, 88% safe / 66% helpful) and had rewritten 300 of the 556 misses (`rw-out-23..27`, with a new instruction to always add the most relevant step) when Aries stopped the run. Next: finish the rewrites (rw-in-28..32), rule-check and judge them, teach v6, check on set 5, then run the best model once on sealed set 6. The four new rules are in chat-v6 only, not yet in the app.
+
 ## Small model v2 (more teaching): 89% safe on a fresh unseen set
 
 *Run overnight 17-18 November 2026 on the PC. Judged by Hermes with chat-judge-prompt.md; this time the three result files were renamed p/q/r so Hermes did not know which model wrote which.*
