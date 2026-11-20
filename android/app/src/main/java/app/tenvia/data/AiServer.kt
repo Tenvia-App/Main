@@ -98,7 +98,7 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
 
     companion object {
         /** The small taught model (ai-experiments/train): Qwen3 1.7B + LoRA, short prompts. */
-        const val MODEL = "tenvia-1.7b-v5-Q4_K_M.gguf"
+        const val MODEL = "tenvia-1.7b-v6-Q4_K_M.gguf"
         /** True for a small taught model: ChatEngine then uses the short prompts it learned. */
         val SMALL = MODEL.startsWith("tenvia-")
     }

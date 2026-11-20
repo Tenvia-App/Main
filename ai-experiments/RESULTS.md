@@ -297,6 +297,25 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Small model v6 and app 0.6.0-ai-test: 83% safe / 48% helpful on unseen sealed set 6
+
+*Run overnight 19-20 November 2026 (aim: 90% safe / 90% helpful). Judged blind by Hermes.*
+
+**v6.** Second round of learning from its own mistakes: v5 answered all 388 earlier conversations, Hermes graded its 1,048 replies, rewrote the 556 misses (new instruction: after answering or declining, always add the 1-2 checked steps that matter most for the whole situation), the rules re-checked them and Hermes judged them. 5,009 examples, 622 steps (~1 h 40 min; the GPU memory was full, ~10 s/step), validation loss 0.33.
+
+**Set 5 (tuning set, seen):** v6 81/90 safe (90%), 52/90 helpful (58%); v5 was 89% / 56%. v6 picked.
+
+**Sealed set 6** (30 conversations / 90 turns, committed unread in a91d0c7; each model run once):
+
+| Model | Safe | Helpful (GOOD) | Written by the model | Fallbacks |
+|---|---|---|---|---|
+| 4B, full prompts (current phone model) | 56/90 (62%) | 55/90 (61%) | 79 | 11 |
+| **1.7B v6, short prompts + 4 new rules** | **75/90 (83%)** | 43/90 (48%) | 79 | 11 |
+
+**What it means.** On conversations nobody had seen, the small model is 21 points safer than the 4B, at under half the size and with far shorter prompts, but 13 points less helpful. The 90/90 aim was not reached; set 5 (90/58) overstated it because it was used for tuning. Most of v6's 15 unsafe replies use the lost-hiker line "If you can't safely find your way back, stay where you are" where it doesn't fit: a drifting kayak, a car in flowing floodwater, an exposed spot in lightning. The next fix is a rule (and teaching data) for that line in water, flood, fire and lightning situations; set 6 is now used, so a set 7 is needed for the next test.
+
+**App 0.6.0-ai-test (versionCode 12).** `ChatEngine` has a short mode for the small model: the same short prompts it learned (word for word from `train/build_data.py`), no examples, Qwen3's empty think block, and the 4 new rules. `AiServer.MODEL` = `tenvia-1.7b-v6-Q4_K_M.gguf`. The model now rides inside the APK (`android/llama-bin/assets/models`, stored uncompressed; not in git) and is copied out to the app's folder on first start, so testers only install one file. APK: `share/Tenvia-0.6.0-ai-test.apk`, 1.18 GB. Checked on the PC: unit tests pass, and `ChatEngineLiveTest` ran the app's engine against v6 (CPU llama-server): 3 of 3 replies written by the model, on the checked steps. **Not yet checked on a phone** (none connected): first-start copy time, memory and reply speed are unmeasured.
+
 ## Small model v3-v5 (aiming for 80% safe / 70% helpful): v5 = 89% safe, 56% helpful on set 5
 
 *Run overnight 18-19 November 2026 on the PC. Sealed set 6 (ids 801-830) was written by Hermes and committed unread first (a91d0c7); it is still unused. All scores below are on set 5, which is now a tuning set (seen), so they are optimistic.*
