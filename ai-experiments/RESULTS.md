@@ -297,6 +297,44 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Pipeline v7 and app 0.7.0-ai-test: 97% safe / 68% helpful on unseen sealed set 7
+
+*Run 20 November 2026 (aim: 90% safe / 90% helpful). Judged blind by Hermes (neutral file names, mixed order).*
+
+**Pipeline v7 (`chat-v7.ps1`, ported to `ChatEngine`).** Most of v6's misses on set 6 came from the wrong checked steps being shown, not from the model. v7 changes which guides are shown and adds fixed touch-ups (word rules, not AI):
+- hazard guides (flood, wildfire, lightning, high wind, coast/tide) come first; "stay where you are" is only shown to someone who said they are lost, with no hazard or storm;
+- moving water, a boat or kayak, fast water, "over the banks" or a covered footbridge count as water danger (adds Reach help and Get found; no drinking-water guide unless they ask about drinking);
+- the stranded-vehicle guide, and any backup step about "your car", only when the person has a vehicle ("my/our/the car", not "a family in a car");
+- "emergency services" becomes 911; "stay where you are" always gets "Move only if there is an immediate threat to life"; a flood-crossing question always gets "Do not walk, swim or drive through flood water";
+- new rules: *talks about steps* ("please read the checked steps") and *false comfort* ("you're not alone", "you're not in danger", "you won't die");
+- off-topic questions (recipes, laptops) get a fixed polite line instead of a model reply;
+- the app put the checked steps before the notes in the prompt; now notes first, as in training.
+
+With the same v6 model, v7 took set 6 from 75 to 88 safe and set 5 from 81 to 82.
+
+**Small model v7.** v6 with pipeline v7 answered all 448 teaching conversations (60 new ones from Hermes for moving water, sea caves, lightning, wildlife near a car or tent, heat); Hermes graded 1,247 replies (~91% safe, 64% helpful), rewrote 772 misses, and graded the rewrites (~96% / 89%). 8,318 examples, 1,035 steps (~1 h 40 min), validation loss 0.319 (v6: 0.327).
+
+**Sets 5 + 6 (180 turns, used for tuning), final rules (v7b):**
+
+| Model | Safe | Helpful | Backup replies |
+|---|---|---|---|
+| v7 | 171 (95%) | 114 (63%) | 25 |
+| v6 | 171 (95%) | 112 (62%) | 47 |
+
+v7 alone (before the false-comfort rule) was 163 safe: it had learned "you're not alone" from crisis teaching data (56 times; v6's data had it 41 times).
+
+**Sealed set 7** (30 conversations / 90 turns, written by Hermes and committed unread in `cb559dd`; pipeline frozen in `a56d9fa` before the run; each model run once):
+
+| Model | Safe | Helpful (GOOD) | Backup replies |
+|---|---|---|---|
+| 4B, full prompts, old pipeline v5 | 50/90 (56%) | 52/90 (58%) | 12 |
+| 1.7B v7, pipeline v7b | 85/90 (94%) | 57/90 (63%) | 16 |
+| **1.7B v6, pipeline v7b** | **87/90 (97%)** | **61/90 (68%)** | 27 |
+
+**What it means.** Safety is past 90% on conversations nobody had seen (set 6 was 83%), and the gain came from the pipeline, not the new training: v7 and v6 are within a few replies of each other, and v6 was slightly ahead on set 7, so **the app keeps v6**. Helpfulness is up 20 points from set 6 (48% → 68%) but still far from 90%. The remaining unsafe replies: "stay with your vehicle" when the vehicle is 300 feet away (both models), and wildlife advice when the person asked about traffic or a creek. Set 7 is now used; a set 8 is needed for the next test.
+
+**App 0.7.0-ai-test (versionCode 13):** pipeline v7b in `ChatEngine` and `guides.json` (notices say 911), model still `tenvia-1.7b-v6-Q4_K_M.gguf` inside the APK. `share/Tenvia-0.7.0-ai-test.apk`, 1.18 GB. Unit tests pass (19); the live engine test was not run and it is **not yet checked on a phone**.
+
 ## Small model v6 and app 0.6.0-ai-test: 83% safe / 48% helpful on unseen sealed set 6
 
 *Run overnight 19-20 November 2026 (aim: 90% safe / 90% helpful). Judged blind by Hermes.*
