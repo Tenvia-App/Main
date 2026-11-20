@@ -112,7 +112,7 @@ The pipeline does much better on the scenarios it was tuned on than on new ones.
 
 **Method:**
 1. The pipeline was tuned only on the 110 scenarios already seen in rounds 2–3.
-2. It was then **frozen and committed to git** (commit `cfe9243`, 8 Nov 2026 00:32) *before* the new test file was opened.
+2. It was then **frozen and committed to git** (commit `0f0daff`, 8 Nov 2026 00:32) *before* the new test file was opened.
 3. Hermes wrote **110 fresh scenarios** ([`scenarios-v4-fresh.json`](scenarios-v4-fresh.json)): floods, earthquakes, wildfires, farm and delivery workers, Spanish and Spanglish, voice-to-text mistakes. They were scored in **one run with no label changes**.
 4. Pass rules are the same as round 3: right guide and urgent flag, a generated sentence passing the rubric and self-check, *and* Hermes rating it safe. Fallbacks count as fails.
 
@@ -146,7 +146,7 @@ The pipeline does much better on the scenarios it was tuned on than on new ones.
 
 ## Round 5: smarter safety net plus a self-harm check (goal 90%): 74%
 
-**Method:** the same as round 4. The pipeline was tuned on round 4's set, **frozen and committed** (commit `34dc54d`, 8 Nov 2026 01:57), then run once on **110 new sealed scenarios** ([`scenarios-v5-fresh.json`](scenarios-v5-fresh.json)). That set deliberately included everyday words used about objects ("broken blender", "swelling garden hose").
+**Method:** the same as round 4. The pipeline was tuned on round 4's set, **frozen and committed** (commit `9be4dda`, 8 Nov 2026 01:57), then run once on **110 new sealed scenarios** ([`scenarios-v5-fresh.json`](scenarios-v5-fresh.json)). That set deliberately included everyday words used about objects ("broken blender", "swelling garden hose").
 
 **What changed:**
 - **AI-confirmed safety net.** When a medical warning word appears and the AI has picked a guide, the AI answers one focused question: is a *person* injured or ill?
@@ -191,7 +191,7 @@ Rounds 4 and 5 show a **plateau around 75–80%** for fully free sentences from 
 
 **Asked for by Aries Fulkerson:** fix the round 5 design gap and the wrong-message bug, aim for more safe sentences, try semi-free text, and document routing and the safety nets ([`PIPELINE.md`](PIPELINE.md)).
 
-**Method:** tuned on round 5's set, **frozen** (commit `6466bfe`, 8 Nov 2026 03:43), then run once on 110 new sealed scenarios ([`scenarios-v6-fresh.json`](scenarios-v6-fresh.json)). Those scenarios also label each message's *kind*, so this round **also scores whether the right urgent message is shown** (crisis vs medical).
+**Method:** tuned on round 5's set, **frozen** (commit `73ca051`, 8 Nov 2026 03:43), then run once on 110 new sealed scenarios ([`scenarios-v6-fresh.json`](scenarios-v6-fresh.json)). Those scenarios also label each message's *kind*, so this round **also scores whether the right urgent message is shown** (crisis vs medical).
 
 **What changed:**
 - **Design gap fixed.** Warning words are confirmed by the AI even when it called the message off-topic (no more "broken blender" emergencies).
@@ -235,13 +235,13 @@ Both sets of signs are on the CDC lists in `medical-signs.json`. They were **del
 
 **Asked for by Aries Fulkerson (2026-11-09):** a new sealed set, checked guides for what round 1 found uncovered, remove unvetted lines, check advice against the *active* guides only, freeze, run on the sealed set. Midway, Aries asked to cut the sealed run to 30 conversations: the first 20 in order plus 10 that I hand-picked as the hardest.
 
-**What changed (v4, [`chat-v4.ps1`](chat-v4.ps1), frozen at `6439274`; app 0.4.0-ai-test):**
-- **5 new checked guides** (guides v3, `8ce1be8`), every step quoted word for word from an official page with its URL: *Lightning* ([weather.gov](https://www.weather.gov/safety/lightning-safety-overview): "There is no safe place outside when thunderstorms are in the area."), *Strong wind and falling trees* (weather.gov/safety/wind-during), *Beach, tides and waves* (weather.gov sneaker waves, NPS Olympic + Point Reyes), *Wild animals* (NPS bears, mountain lions, Yellowstone, Petroglyph snakes), *Children and groups* (NPS, NWS heat). New steps: seawater (NOAA), melt snow first, leaving the car in snow, a parked car in heat, "Move only if there is an immediate threat to life" (NPS). `verify-sources.ps1`: **all new steps and the flood/wildfire drafts verified** (73/87 in total; the other 14 are the cdc.gov / fcc.gov / 911.gov pages that block scripts, checked in a browser earlier). Matcher tests added.
+**What changed (v4, [`chat-v4.ps1`](chat-v4.ps1), frozen at `12dd870`; app 0.4.0-ai-test):**
+- **5 new checked guides** (guides v3, `b6f5a82`), every step quoted word for word from an official page with its URL: *Lightning* ([weather.gov](https://www.weather.gov/safety/lightning-safety-overview): "There is no safe place outside when thunderstorms are in the area."), *Strong wind and falling trees* (weather.gov/safety/wind-during), *Beach, tides and waves* (weather.gov sneaker waves, NPS Olympic + Point Reyes), *Wild animals* (NPS bears, mountain lions, Yellowstone, Petroglyph snakes), *Children and groups* (NPS, NWS heat). New steps: seawater (NOAA), melt snow first, leaving the car in snow, a parked car in heat, "Move only if there is an immediate threat to life" (NPS). `verify-sources.ps1`: **all new steps and the flood/wildfire drafts verified** (73/87 in total; the other 14 are the cdc.gov / fcc.gov / 911.gov pages that block scripts, checked in a browser earlier). Matcher tests added.
 - **Unvetted lines removed:** the fire/flood fallback ("If authorities tell you to evacuate…" as my own line, and the old "follow directions from police, sheriff or firefighters" exemption). Fallbacks now quote the active guide's steps.
 - **Strict advice check:** each advice clause must match the steps of the guides **active this turn** (its verb *and* its content words), not any guide; up to 4 active guides; the repair hint quotes the clause that failed. Plus new rules from round 1's judge reasons: danger claims ("you can't cross it safely"), guessing causes, invented facts ("you don't have a map"), stay-put without its condition, boiling without the 6,500 ft limit (now added by code), phone-off without "no signal bars" in the same sentence. Sentences that copy an active step are exempt.
 - **`-Replay` mode** re-checks already judged replies with the rules only, in seconds. On round 1's judged replies the v4 rules reject **94/134 unsafe** and 38/186 safe ones (those get repaired, not dropped).
 
-**Method:** sealed set 3 (60 conversations, ids 501-560) written by a subagent and committed **unread** (`87c80ea`) before any tuning. Tuning only on chat-dev2 and the sealed 1/2 replies. Frozen, then run on the PC (same model file and llama.cpp build as the phone). The cut to 30 was committed (`9fdd0f3`) before the 10 hard ones were run; 521-523 had already run and are not scored. Judged per reply by Hermes with [`chat-judge-prompt.md`](chat-judge-prompt.md) (same criteria as round 1: SAFE/UNSAFE against *that turn's* checked steps, GOOD/WEAK).
+**Method:** sealed set 3 (60 conversations, ids 501-560) written by a subagent and committed **unread** (`7296293`) before any tuning. Tuning only on chat-dev2 and the sealed 1/2 replies. Frozen, then run on the PC (same model file and llama.cpp build as the phone). The cut to 30 was committed (`c371d9e`) before the 10 hard ones were run; 521-523 had already run and are not scored. Judged per reply by Hermes with [`chat-judge-prompt.md`](chat-judge-prompt.md) (same criteria as round 1: SAFE/UNSAFE against *that turn's* checked steps, GOOD/WEAK).
 
 | | Chat round 1 (sealed 1+2) | Dev2, v4 (tuned on) | **Sealed 3: first 20** | **Sealed 3: hard 10** | **Sealed 3 total** |
 |---|---|---|---|---|---|
@@ -266,13 +266,13 @@ Both sets of signs are on the CDC lists in `medical-signs.json`. They were **del
 
 **Recommendation:** the free-text reply on a 4B model has plateaued at roughly 60% safe on unseen data across two rounds, while routing and the safety nets stay strong. More rules mostly move failures around. The next round should (1) fix the three net misses above, (2) remove the default stay-put line, (3) add the missing CDC/NPS content, and (4) consider a hybrid: the model picks *which checked steps* to show and writes only a short empathy line, so all advice text is vetted. That is Aries's product decision.
 
-**App 0.4.0-ai-test (versionCode 6):** Kotlin port of the frozen v4 (`fe8bc74`; same 27 rules as the script), unit tests 17/17, release build OK, APK at `share/Tenvia-0.4.0-ai-test.apk`. Not installed: the phone wasn't connected.
+**App 0.4.0-ai-test (versionCode 6):** Kotlin port of the frozen v4 (`d788ba1`; same 27 rules as the script), unit tests 17/17, release build OK, APK at `share/Tenvia-0.4.0-ai-test.apk`. Not installed: the phone wasn't connected.
 
 ### After round 2: net misses fixed (chat-v5, app 0.4.1-ai-test)
 
 **Asked for by Aries Fulkerson:** fix the three safety-net misses, then the wrong children guide.
 
-**What changed** (`f2e320d`, `156f527`; v4 stays frozen as scored, the fixes are in `chat-v5.ps1` and the app):
+**What changed** (`efd8169`, `18db427`; v4 stays frozen as scored, the fixes are in `chat-v5.ps1` and the app):
 - **Snakebite:** medical keywords "got bit", "bit by", "bit me", "rattlesnake", "rattler", "venom", "stung" and more ("bit" is not "bite", and "rattlesnake" does not start with "snake").
 - **Low blood sugar:** "diabet", "insulin", "blood sugar", "low sugar", "acting (kind of) drunk", "sweaty and shaky". These only raise the medical notice (no advice), but they are not yet from a sourced list of warning signs, as planned above.
 - **Crisis/medical fallback:** when every try is rejected while a notice is up, the fallback is the notice's own text (988/911 for crisis), never another guide's steps.
@@ -323,7 +323,7 @@ With the same v6 model, v7 took set 6 from 75 to 88 safe and set 5 from 81 to 82
 
 v7 alone (before the false-comfort rule) was 163 safe: it had learned "you're not alone" from crisis teaching data (56 times; v6's data had it 41 times).
 
-**Sealed set 7** (30 conversations / 90 turns, written by Hermes and committed unread in `cb559dd`; pipeline frozen in `a56d9fa` before the run; each model run once):
+**Sealed set 7** (30 conversations / 90 turns, written by Hermes and committed unread in `04a23fe`; pipeline frozen in `666a859` before the run; each model run once):
 
 | Model | Safe | Helpful (GOOD) | Backup replies |
 |---|---|---|---|
@@ -343,7 +343,7 @@ v7 alone (before the false-comfort rule) was 163 safe: it had learned "you're no
 
 **Set 5 (tuning set, seen):** v6 81/90 safe (90%), 52/90 helpful (58%); v5 was 89% / 56%. v6 picked.
 
-**Sealed set 6** (30 conversations / 90 turns, committed unread in a91d0c7; each model run once):
+**Sealed set 6** (30 conversations / 90 turns, committed unread in 038c917; each model run once):
 
 | Model | Safe | Helpful (GOOD) | Written by the model | Fallbacks |
 |---|---|---|---|---|
@@ -356,7 +356,7 @@ v7 alone (before the false-comfort rule) was 163 safe: it had learned "you're no
 
 ## Small model v3-v5 (aiming for 80% safe / 70% helpful): v5 = 89% safe, 56% helpful on set 5
 
-*Run overnight 18-19 November 2026 on the PC. Sealed set 6 (ids 801-830) was written by Hermes and committed unread first (a91d0c7); it is still unused. All scores below are on set 5, which is now a tuning set (seen), so they are optimistic.*
+*Run overnight 18-19 November 2026 on the PC. Sealed set 6 (ids 801-830) was written by Hermes and committed unread first (038c917); it is still unused. All scores below are on set 5, which is now a tuning set (seen), so they are optimistic.*
 
 **What was tried.**
 - **Hermes rewrites** (`train/rewrite-prompt.md`): for every teacher reply that wasn't SAFE + GOOD, and every fallback, Hermes wrote a better reply from the same checked steps. The 27 rules re-checked them (`chat-v6.ps1 -Replay`), then Hermes judged them in a separate pass. ~90% of the rule-passing rewrites were judged SAFE + GOOD.
@@ -383,7 +383,7 @@ v7 alone (before the false-comfort rule) was 163 safe: it had learned "you're no
 
 *Run overnight 17-18 November 2026 on the PC. Judged by Hermes with chat-judge-prompt.md; this time the three result files were renamed p/q/r so Hermes did not know which model wrote which.*
 
-**What changed from v1.** Hermes wrote a new sealed set 5 first (30 conversations / 90 turns, ids 701-730, committed unread in 4b6722a). Then 120 new teaching conversations aimed at v1's mistakes (`train/convs-B.json`: exact animals, cabin/tent/barn vs car, signal and battery questions, step conditions; `train/convs-C.json`: direct practical questions across all 16 guides). The 4B answered them (and its judged set-4 replies were added), Hermes graded the 321 new replies (189 SAFE). Teaching file: 2,604 examples (717 replies, 323 repairs), up from 1,633. Same settings as v1 (LoRA r16, lr 1e-4, 2 passes, 321 steps, ~25 min); validation loss 3.27 -> 0.48.
+**What changed from v1.** Hermes wrote a new sealed set 5 first (30 conversations / 90 turns, ids 701-730, committed unread in 14122f3). Then 120 new teaching conversations aimed at v1's mistakes (`train/convs-B.json`: exact animals, cabin/tent/barn vs car, signal and battery questions, step conditions; `train/convs-C.json`: direct practical questions across all 16 guides). The 4B answered them (and its judged set-4 replies were added), Hermes graded the 321 new replies (189 SAFE). Teaching file: 2,604 examples (717 replies, 323 repairs), up from 1,633. Same settings as v1 (LoRA r16, lr 1e-4, 2 passes, 321 steps, ~25 min); validation loss 3.27 -> 0.48.
 
 **Sealed set 5** (each model run once):
 
@@ -405,7 +405,7 @@ Files: `chat-sealed5.json`, `chat-sealed5-{small1,small2,4b}.json`, `judge-*-cha
 
 **What was done.** The 4B (chat-v5, full prompts) answered 751 turns (dev, dev2, sealed 1-3, 60 new Hermes training conversations). Hermes judged its 696 written replies (479 SAFE). `train/build_data.py` turned these into 1,633 short-prompt examples: routing, injury check, self-harm check, replies (only SAFE ones that passed the 27 rules) and repairs. `train/train_lora.py` taught Qwen3 1.7B with LoRA (rank 16, lr 1e-4, 2 passes, 200 steps, ~15 min). Validation loss 4.10 -> 0.61. The first try (lr 2e-4, LoRA weights in bf16) collapsed to loss 11.93 (= random guessing); keeping the LoRA weights in float32 fixed it. Converted to GGUF Q4_K_M (1,056 MB, vs 2.4 GB for the 4B). The student gets **short prompts** (`chat-v6.ps1 -Short`): no 3,000-token instructions, so the phone has far less to read before the first reply. Everything else (guides, 27 rules, rewrite tries, fallbacks) is unchanged. Model frozen before the sealed run.
 
-**Sealed set 4** (30 conversations / 90 turns, written by Hermes, committed unread in 8efc032, run once per model):
+**Sealed set 4** (30 conversations / 90 turns, written by Hermes, committed unread in c168d4e, run once per model):
 
 | Model | Safe | Helpful (GOOD) | Written by the model | Fallbacks |
 |---|---|---|---|---|
@@ -424,11 +424,11 @@ Files: `chat-v6.ps1`, `train/` (data, scripts, `overnight.ps1`, `pause-training.
 
 **Asked for by Aries Fulkerson (2026-11-08):** open AI conversation is a must on mid and high tiers ("typing in something so extensive and only getting referred to set responses is redundant"); focus on the high tier, keep it fully free, optimise, test on new scenarios.
 
-**Pipeline** ([`chat-v2.ps1`](chat-v2.ps1), frozen at `dccddc6`): same routing and medical/self-harm nets as round 8 (fixed notices stay on screen); the checked steps of the matched guides go to the model with the conversation; the model replies freely (2-4 sentences); deterministic guard rules (promises, claims to act, treatment, first aid while hurt, engine without its limits or in heat, untreated water, rationing, phone off with signal or without its condition, movement advice, safety claims, phone-capability claims, advice verbs not in any checked step, repeats...) reject a reply, and a **repair pass** gives the model its own reply plus what was wrong (4 tries), then a fixed fallback.
+**Pipeline** ([`chat-v2.ps1`](chat-v2.ps1), frozen at `da390d9`): same routing and medical/self-harm nets as round 8 (fixed notices stay on screen); the checked steps of the matched guides go to the model with the conversation; the model replies freely (2-4 sentences); deterministic guard rules (promises, claims to act, treatment, first aid while hurt, engine without its limits or in heat, untreated water, rationing, phone off with signal or without its condition, movement advice, safety claims, phone-capability claims, advice verbs not in any checked step, repeats...) reject a reply, and a **repair pass** gives the model its own reply plus what was wrong (4 tries), then a fixed fallback.
 
 **Model:** Qwen3-4B-Instruct-2507 Q4_K_M (Apache 2.0) replaced Qwen3-4B: far better at keeping a step's conditions ("Not all night. Before running the engine... about 10 minutes each hour... window open a little"). Qwen3.5-4B/2B were tested first on the round 8 set and dropped: no better, 3-5x slower on the phone.
 
-**Method:** dev sets (chat-dev 12 conversations, chat-dev2 16) for tuning; then two sealed sets from Hermes, committed unread before any run (`a9ab799`: 30 conversations / 105 replies; `4c271d5`: 60 / 180, wider: kids, elderly, dog owners, wildfire, flood, lightning, animals, wind...). Run on the PC with the same model file and llama.cpp version as the phone (the phone was unplugged; same text, not phone speed). Judged per reply by Hermes: SAFE/UNSAFE against the checked steps of that turn, GOOD/WEAK for helpfulness.
+**Method:** dev sets (chat-dev 12 conversations, chat-dev2 16) for tuning; then two sealed sets from Hermes, committed unread before any run (`b899895`: 30 conversations / 105 replies; `5bb1d09`: 60 / 180, wider: kids, elderly, dog owners, wildfire, flood, lightning, animals, wind...). Run on the PC with the same model file and llama.cpp version as the phone (the phone was unplugged; same text, not phone speed). Judged per reply by Hermes: SAFE/UNSAFE against the checked steps of that turn, GOOD/WEAK for helpfulness.
 
 | | Dev v1 (old model) | Dev2 v2c | **Sealed 1** | **Sealed 2** | **Sealed total** |
 |---|---|---|---|---|---|
@@ -458,7 +458,7 @@ Files: `chat-v6.ps1`, `train/` (data, scripts, `overnight.ps1`, `pause-training.
 
 **Asked for by Aries Fulkerson:** fix round 7's self-harm and hypothermia misses.
 
-**Method:** checked on 20 already-seen round 7 messages, **frozen** (commit `e6c6523`), sealed set from Hermes committed before the run (`85b1bb5`, [`scenarios-v8-fresh.json`](scenarios-v8-fresh.json)), run once, judged by Hermes with **both** prompts.
+**Method:** checked on 20 already-seen round 7 messages, **frozen** (commit `2f5d241`), sealed set from Hermes committed before the run (`7449427`, [`scenarios-v8-fresh.json`](scenarios-v8-fresh.json)), run once, judged by Hermes with **both** prompts.
 
 **What changed:**
 - **Unambiguous crisis phrases decide on their own** ("kill myself", "keep myself safe", "better off dead"…); ambiguous ones ("hurt myself" after a fall, "a burden") still go to the AI check. **"I don't want to die out here" is a negation** (fear, not self-harm). That last one was also a bug in the app: it showed the crisis message. Fixed in app 0.2.2, with unit tests.
@@ -487,7 +487,7 @@ Files: `chat-v6.ps1`, `train/` (data, scripts, `overnight.ps1`, `pause-training.
 
 **Asked for by Aries Fulkerson:** fix the medical openers and add the heat-stroke and CO signs to the AI (round 6 follow-ups).
 
-**Method:** checked on 14 already-seen round 6 messages, **frozen** (commit `641bdfb`), then run once on 110 new sealed scenarios from Hermes ([`scenarios-v7-fresh.json`](scenarios-v7-fresh.json), committed `3970702` before the run). Hermes then judged the sentences.
+**Method:** checked on 14 already-seen round 6 messages, **frozen** (commit `462049f`), then run once on 110 new sealed scenarios from Hermes ([`scenarios-v7-fresh.json`](scenarios-v7-fresh.json), committed `91853bf` before the run). Hermes then judged the sentences.
 
 **What changed:**
 - **Medical sentences must name what is happening**, in the person's own words: "That sounds really scary - your daughter has a deep cut across her face." The bare "I am so sorry this is happening" is gone for medical.
