@@ -29,6 +29,7 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
     private fun findModel(): File? {
         val dirs = listOfNotNull(
             context.getExternalFilesDir(null)?.let { File(it, "models") },
+            File(context.filesDir, "models"),
             File("/data/local/tmp/tenvia-ai/models"),
         )
         return dirs.map { File(it, MODEL) }.firstOrNull { f ->
@@ -36,18 +37,33 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
         } ?: copyBundledModel()
     }
 
+    /** Why the last model copy failed, shown on the chat screen (0.7.0 on the phone only said "isn't on this phone"). */
+    private var copyProblem = ""
+
     /**
      * Tester builds carry the model inside the app (assets/models, stored uncompressed). The AI program
      * needs a real file, so it is copied out once (about 1 GB, under a minute) to the app's own folder.
+     * If the shared app folder can't be written (an old folder made over USB), the internal one is tried.
      */
-    private fun copyBundledModel(): File? = runCatching {
-        val dir = File(context.getExternalFilesDir(null) ?: context.filesDir, "models").apply { mkdirs() }
-        val out = File(dir, MODEL)
-        val tmp = File(dir, "$MODEL.part")
-        context.assets.open("models/$MODEL").use { input -> tmp.outputStream().use { input.copyTo(it, 1 shl 20) } }
-        if (!tmp.renameTo(out)) error("rename failed")
-        out
-    }.getOrNull()
+    private fun copyBundledModel(): File? {
+        val problems = mutableListOf<String>()
+        for (base in listOfNotNull(context.getExternalFilesDir(null), context.filesDir)) {
+            val got = runCatching {
+                val dir = File(base, "models").apply { mkdirs() }
+                val out = File(dir, MODEL)
+                val tmp = File(dir, "$MODEL.part")
+                context.assets.open("models/$MODEL").use { input -> tmp.outputStream().use { input.copyTo(it, 1 shl 20) } }
+                if (!tmp.renameTo(out)) error("could not rename the copied file")
+                out
+            }
+            got.getOrNull()?.let { copyProblem = ""; return it }
+            val e = got.exceptionOrNull()
+            problems += "${base.path}: ${e?.javaClass?.simpleName}: ${e?.message}"
+            runCatching { File(File(base, "models"), "$MODEL.part").delete() }
+        }
+        copyProblem = problems.joinToString("; ")
+        return null
+    }
 
     /** Blocking (call off the main thread). Returns true once the server answers. */
     @Synchronized
@@ -55,7 +71,7 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
         if (isUp()) return true
         val running = process?.let { runCatching { it.exitValue(); false }.getOrDefault(true) } ?: false
         if (!running) {
-            val model = findModel() ?: run { lastProblem = "The AI model file isn't on this phone."; return false }
+            val model = findModel() ?: run { lastProblem = "The AI model file isn't on this phone." + (if (copyProblem.isNotEmpty()) " Copy failed: $copyProblem" else ""); return false }
             val libDir = context.applicationInfo.nativeLibraryDir
             val exe = File(libDir, "libllamaserver.so")
             if (!exe.exists()) { lastProblem = "The AI program isn't included in this build."; return false }
