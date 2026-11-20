@@ -30,7 +30,7 @@ REWRITE = "Rewrite your reply. Problem: {hint} Keep everything else, 2 to 4 shor
 def load_runs():
     """t-*.json: the 4B teacher's runs. p-*.json: the small model's own runs (ids get "p"; v5 runs q-*.json get "q")."""
     convs = []
-    for pat, pre in (("t-*.json", ""), ("p-*.json", "p"), ("q-*.json", "q")):
+    for pat, pre in (("t-*.json", ""), ("p-*.json", "p"), ("q-*.json", "q"), ("r-*.json", "r")):
         for f in sorted(glob.glob(os.path.join(HERE, pat))):
             data = json.load(open(f, encoding="utf-8-sig"))
             if isinstance(data, dict):
