@@ -143,7 +143,7 @@ class ChatEngine(
         val hz = active.filter { it in ORDER_FIRST }
         var rest = active.filter { it !in ORDER_FIRST }
         if (hazard || storm || !LOST_RE.containsMatchIn(convUser)) rest = rest.filter { it != "stay-or-move" }
-        if (!VEHICLE_RE.containsMatchIn(convUser)) rest = rest.filter { it != "stranded-vehicle" }
+        if (!OWN_VEHICLE_RE.containsMatchIn(convUser)) rest = rest.filter { it != "stranded-vehicle" }
         var extra = emptyList<String>()
         if (waterDanger) { extra = listOf("reach-help", "get-found").filter { it !in hz }; rest = rest.filter { it !in extra } }
         return (hz + extra + rest).take(4)
@@ -241,13 +241,16 @@ class ChatEngine(
         if (reply == null) {
             // v4: no unvetted lines. Hazard: the active hazard guide's own quoted steps; else the top guide's.
             val hz = use.firstOrNull { it in HAZARD_GUIDES && (it == use.firstOrNull() || hazardNow) }
+            // v7b: no "your car/vehicle" step unless the person has one (sealed 5: 705.3).
+            val noCar = !OWN_VEHICLE_RE.containsMatchIn(convUser)
+            fun ok(t: String) = !(noCar && CAR_STEP_RE.containsMatchIn(t))
             val first = when {
-                hz != null -> guideById[hz]?.steps?.take(2)?.map { it.text } ?: emptyList()
+                hz != null -> guideById[hz]?.steps?.map { it.text }?.filter(::ok)?.take(2) ?: emptyList()
                 hazard -> emptyList()
                 // Water: steps 1 and 3 ("streams can be sources" alone, without "must be treated", misleads; dev2 202.3).
                 else -> use.take(1).flatMap { id ->
                     val st = guideById[id]?.steps ?: emptyList()
-                    (if (id == "water" && st.size >= 3) listOf(st[0], st[2]) else st.take(2)).map { it.text }
+                    (if (id == "water" && st.size >= 3) listOf(st[0], st[2]) else st).map { it.text }.filter(::ok).take(2)
                 }
             }
             // v5 (sealed 3: 524.3, 533.3): a crisis or medical fallback is the notice's own text, never
@@ -463,6 +466,7 @@ bool ::= "true" | "false""""
         "advice not in steps" to { s, _ -> badClauses = unsupportedClauses(s, curSteps); badClauses.isNotEmpty() },
         "empty" to { s, _ -> s.isBlank() },
         // chat-v6 (small model on set 5, judge reasons): stock lines used where they don't fit.
+        "false comfort" to { s, _ -> PROMISE_RE.containsMatchIn(s) },
         "talks about steps" to { s, _ -> r("\\bchecked steps?\\b|\\bplease read the\\b|\\bnone (of (them|these|the steps) )?apply\\b").containsMatchIn(s) },
         "stay put not in steps" to { s, _ -> r("\\b(stay where you are|stay put)\\b").containsMatchIn(s) && !r("stay where you are").containsMatchIn(curSteps) },
         "vehicle not mentioned" to { s, _ -> r("(?<!\\bif )\\b(your|the) (vehicle|car)\\b").containsMatchIn(s) && !r("\\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\\b").containsMatchIn(convUser) },
@@ -474,6 +478,9 @@ bool ::= "true" | "false""""
         private val SIGNAL_RE = Regex("\\b(one|1|a|two|2|some|few) bars?\\b|\\bbar (just )?(popped|appeared|showed)|\\b(have|got|getting) (a |some )?(signal|service|reception)\\b|\\b(signal|service) (is |came |just came )?back\\b|\\b(buzzing|getting) (with )?alerts\\b", RegexOption.IGNORE_CASE)
         private val HAZARD_GUIDES = setOf("flood", "wildfire", "coast-tide", "lightning", "high-wind")
         private val ORDER_FIRST = setOf("flood", "wildfire", "lightning", "high-wind", "coast-tide")
+        private val OWN_VEHICLE_RE = Regex("\\b(my|our|the|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(engine|dashboard|windshield|flat tire|broke down|broken down)\\b", RegexOption.IGNORE_CASE)
+        private val PROMISE_RE = Regex("\\byou('re| are) not (alone|in danger)\\b|\\byou (will not|won't|will never) (die|freeze|get lost|be hurt)\\b|\\byou('re| are) (going to be|gonna be) (ok|okay|fine|alright|safe)\\b|\\byou('ll| will) be (ok|okay|fine|alright|safe)\\b|\\byou('re| are) safe (now|here)\\b|\\bnot in danger right now\\b", RegexOption.IGNORE_CASE)
+        private val CAR_STEP_RE = Regex("\\b(your|the) (car|vehicle)\\b", RegexOption.IGNORE_CASE)
         private val VEHICLE_RE = Regex("\\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\\b", RegexOption.IGNORE_CASE)
         private val CROSS_RE = Regex("\\b(cross\\w*|wade|wading|walk (through|across|over)|drive (through|across|over)|ford\\w*|go through)\\b", RegexOption.IGNORE_CASE)
         private val OFF_TOPIC = listOf(
@@ -484,7 +491,7 @@ bool ::= "true" | "false""""
         private const val NO_STEPS = "CHECKED STEPS: none match yet. Do not give practical advice. Kindly ask what is happening."
         private val I = RegexOption.IGNORE_CASE
         private val LOST_RE = Regex("\\b(lost|trail|path|turned around|which way|what direction|wrong way|don'?t know where|where am i|off course|way back|disoriented|can'?t find (the|my|our) (way|car|camp|group))\\b", I)
-        private val WATER_DANGER_RE = Regex("\\b(kayak\\w*|canoe\\w*|raft\\w*|paddl\\w*|boat\\w*|drift\\w*|current|swept|carried (away|off|out)|capsiz\\w*|flowing|rushing|moving water|water (is )?(over|across|on|covering) the road|(creek|river|stream|wash) (is )?(rising|up|high|overflow\\w*))\\b", I)
+        private val WATER_DANGER_RE = Regex("\\b(kayak\\w*|canoe\\w*|raft\\w*|paddl\\w*|boat\\w*|drift\\w*|current|swept|carried (away|off|out)|capsiz\\w*|flowing|rushing|moving water|water (is )?(over|across|on|covering) the road|(creek|river|stream|wash) (is )?(rising|up|high|overflow\\w*)|(fast|quick)[- ]moving|moving (fast|quickly)|over (the|its|their) banks|(bridge|footbridge|crossing|road|trail|path|ford) (is |was )?(covered|under ?water|flooded|washed out))\\b", I)
         private val STORM_RE = Regex("\\b(lightning|thunder\\w*)\\b", I)
         private val HAZARD_RE = Regex("\\b(fire|wildfire|smoke|flames?|burning|evacuat\\w*|flood\\w*|water (is )?(rising|coming in|up to)|rising water|tornado|tide (is )?(coming|rising|up)\\w*|tide coming|high tide|incoming tide)\\b", I)
         private val DRINK_RE = Regex("\\b(drink\\w*|thirst\\w*|dehydrat\\w*|bottle|canteen|ration\\w*|sip\\w*|filter\\w*|purif\\w*|treat\\w*|boil\\w*|safe to drink|out of water|running out|last of (my|our) water)\\b", I)
@@ -530,6 +537,7 @@ bool ::= "true" | "false""""
             "guessing" to "It guessed what something means or what is causing it. Do not guess; say only what the checked steps say.",
             "invents a fact" to "It stated something about their situation they did not say (for example that they have or do not have a map, signal or landmarks). Only use what they told you, or ask.",
             "empty" to "It was empty.",
+            "false comfort" to "It made a promise nobody can know is true (like \"you are not alone\", \"you are not in danger\" or \"you will not die\"). Leave promises out; say what to do instead.",
             "talks about steps" to "It talked about the checked steps or the notice instead of giving advice. Just give the advice that fits, in your own words.",
             "stay put not in steps" to "It said to stay where they are, but that step is not in the checked steps for this message. Leave it out.",
             "vehicle not mentioned" to "It talked about a vehicle or car, but the person never mentioned one. Leave vehicle advice out.",

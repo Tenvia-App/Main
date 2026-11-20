@@ -8,6 +8,10 @@
 #   - fixed touch-ups: "emergency services" -> 911; "stay where you are" gets step 5's immediate-threat exception;
 #     a flood-crossing question gets the flood step instead of "I don't have checked advice on crossing";
 #   - new rule 'talks about steps' ("please read the checked steps; none apply");
+#   - v7b: rule 'false comfort' ("you're not alone", "you won't die", "you're not in danger"; sealed 5/6 v7 model);
+#     a vehicle counts only when it is the person's ("my/our/the car", not "a family in a car"): the
+#     stranded-vehicle guide and any fallback step about "your car/vehicle" need one (705.3, 809.3);
+#     fast water / over the banks / a covered footbridge count as water danger (703: a flooding creek got stay-put).
 #   - off-topic: no guide raised in the whole conversation, no notice, no hazard and the router says none ->
 #     a fixed line, no model reply (sealed 5/6: recipes, laptops, language apps were answered or sent to 911).
 # Open conversation v6: -Short uses the SHORT prompts the trained small model (Qwen3 1.7B + LoRA, train/) learned
@@ -124,13 +128,15 @@ function Find-Keyword([string]$text, [string[]]$keywords) {
     $null
 }
 $lostPattern = "(?i)\b(lost|trail|path|turned around|which way|what direction|wrong way|don'?t know where|where am i|off course|way back|disoriented|can'?t find (the|my|our) (way|car|camp|group))\b"
-$waterDangerPattern = '(?i)\b(kayak\w*|canoe\w*|raft\w*|paddl\w*|boat\w*|drift\w*|current|swept|carried (away|off|out)|capsiz\w*|flowing|rushing|moving water|water (is )?(over|across|on|covering) the road|(creek|river|stream|wash) (is )?(rising|up|high|overflow\w*))\b'
+$waterDangerPattern = '(?i)\b(kayak\w*|canoe\w*|raft\w*|paddl\w*|boat\w*|drift\w*|current|swept|carried (away|off|out)|capsiz\w*|flowing|rushing|moving water|water (is )?(over|across|on|covering) the road|(creek|river|stream|wash) (is )?(rising|up|high|overflow\w*)|(fast|quick)[- ]moving|moving (fast|quickly)|over (the|its|their) banks|(bridge|footbridge|crossing|road|trail|path|ford) (is |was )?(covered|under ?water|flooded|washed out))\b'
 $stormPattern = '(?i)\b(lightning|thunder\w*)\b'
 $drinkPattern = '(?i)\b(drink\w*|thirst\w*|dehydrat\w*|bottle|canteen|ration\w*|sip\w*|filter\w*|purif\w*|treat\w*|boil\w*|safe to drink|out of water|running out|last of (my|our) water)\b'
 $offTopicLines = @(
     "I can only help with emergencies and staying safe outdoors, so I can't help with that. If anything is wrong or you feel unsafe, tell me what is happening.",
     "That's outside what I can help with too, sorry. I'm only set up for emergencies, like being lost, stranded, hurt or caught in bad weather.",
     "I can't help with that one either. If something changes and you need help staying safe, I'm right here.")
+$ownVehiclePattern = '(?i)\b(my|our|the|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\b|\b(engine|dashboard|windshield|flat tire|broke down|broken down)\b'
+$promisePattern = '(?i)\byou(''re| are) not (alone|in danger)\b|\byou (will not|won''t|will never) (die|freeze|get lost|be hurt)\b|\byou(''re| are) (going to be|gonna be) (ok|okay|fine|alright|safe)\b|\byou(''ll| will) be (ok|okay|fine|alright|safe)\b|\byou(''re| are) safe (now|here)\b|\bnot in danger right now\b'
 $vehiclePattern = '(?i)\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\b'
 $crossPattern = '(?i)\b(cross\w*|wade|wading|walk (through|across|over)|drive (through|across|over)|ford\w*|go through)\b'
 $hazardGuides = @('flood', 'wildfire', 'lightning', 'high-wind', 'coast-tide')
@@ -140,7 +146,7 @@ function Select-Guides($active) {
     $hz = @($all | Where-Object { $_ -in $hazardGuides })
     $rest = @($all | Where-Object { $_ -notin $hazardGuides })
     if ($script:hazard -or $script:storm -or -not ($script:convUser -match $lostPattern)) { $rest = @($rest | Where-Object { $_ -ne 'stay-or-move' }) }
-    if (-not ($script:convUser -match $vehiclePattern)) { $rest = @($rest | Where-Object { $_ -ne 'stranded-vehicle' }) }
+    if (-not ($script:convUser -match $ownVehiclePattern)) { $rest = @($rest | Where-Object { $_ -ne 'stranded-vehicle' }) }
     $extra = @()
     if ($script:waterDanger) { $extra = @('reach-help', 'get-found' | Where-Object { $_ -notin $hz }) ; $rest = @($rest | Where-Object { $_ -notin $extra }) }
     @(@($hz) + @($extra) + @($rest) | Select-Object -First 4)
@@ -345,6 +351,7 @@ $rules = [ordered]@{
     'advice not in steps' = { param($s, $steps, $med) $script:badClauses = @(Get-UnsupportedClauses $s $steps); $script:badClauses.Count -gt 0 }
     'empty' = { param($s, $steps, $med) [string]::IsNullOrWhiteSpace($s) }
     # v6 (small model on set 5, judge reasons): stock lines used where they don't fit.
+    'false comfort' = { param($s, $steps, $med) $s -match $promisePattern }
     'talks about steps' = { param($s, $steps, $med) $s -match '(?i)\bchecked steps?\b|\bplease read the\b|\bnone (of (them|these|the steps) )?apply\b' }
     'stay put not in steps' = { param($s, $steps, $med) $s -match '(?i)\b(stay where you are|stay put)\b' -and $steps -notmatch '(?i)stay where you are' }
     'vehicle not mentioned' = { param($s, $steps, $med) $s -match '(?i)(?<!\bif )\b(your|the) (vehicle|car)\b' -and "$($script:convUser)" -notmatch '(?i)\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\b' }
@@ -381,6 +388,7 @@ $fixHints = @{
     'too long' = 'It was too long. Use 2 to 4 short sentences.'
     'advice not in steps' = 'It gave advice that is not in the checked steps. Use only the checked steps.'
     'empty' = 'It was empty.'
+    'false comfort' = 'It made a promise nobody can know is true (like "you are not alone", "you are not in danger" or "you will not die"). Leave promises out; say what to do instead.'
     'talks about steps' = 'It talked about the checked steps or the notice instead of giving advice. Just give the advice that fits, in your own words.'
     'stay put not in steps' = 'It said to stay where they are, but that step is not in the checked steps for this message. Leave it out.'
     'vehicle not mentioned' = 'It talked about a vehicle or car, but the person never mentioned one. Leave vehicle advice out.'
@@ -688,11 +696,13 @@ foreach ($cv in $conversations) {
         if ($source -eq 'fallback') {
             # Grounded fallback: the top checked steps, word for word.
             # Water: steps 1 and 3 ("streams can be sources" alone, without "must be treated", misleads; dev2 202.3).
-            $first = @($use | Select-Object -First 1 | ForEach-Object { $st = @($guideById[$_].steps); if ($_ -eq 'water') { $st = @($st[0], $st[2]) }; $st | Select-Object -First 2 | ForEach-Object { $_.text } })
+            $noCar = -not ($script:convUser -match $ownVehiclePattern)
+            $carStep = '(?i)\b(your|the) (car|vehicle)\b'
+            $first = @($use | Select-Object -First 1 | ForEach-Object { $st = @($guideById[$_].steps); if ($_ -eq 'water') { $st = @($st[0], $st[2]) }; $st | Where-Object { -not ($noCar -and $_.text -match $carStep) } | Select-Object -First 2 | ForEach-Object { $_.text } })
             # Fire / flood: the guides' steps ("stay with your vehicle") can be wrong there (dev2 210.1).
             # v4: no unvetted lines. Hazard: the active hazard guide's own quoted steps; else the top guide's.
             $hz = @($use | Where-Object { $_ -in 'flood', 'wildfire', 'coast-tide', 'lightning', 'high-wind' } | Where-Object { $_ -eq $use[0] -or $hazardNow } | Select-Object -First 1)
-            if ($hz.Count) { $first = @($guideById[$hz[0]].steps | Select-Object -First 2 | ForEach-Object { $_.text }) }
+            if ($hz.Count) { $first = @($guideById[$hz[0]].steps | Where-Object { -not ($noCar -and $_.text -match $carStep) } | Select-Object -First 2 | ForEach-Object { $_.text }) }
             elseif ($script:hazard) { $first = @() }
             $reply = if ($crisis) { "I hear you, and I'm here with you. " + $crisisText }
             elseif ($medical) { "I hear you. " + $medicalText + $(if ($hz.Count -and $first.Count) { " The checked guide says: " + ($first -join ' ') } else { '' }) }
