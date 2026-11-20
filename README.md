@@ -2,9 +2,9 @@
 
 **Hold on, there's a way through.** Tenvia is a free, fully offline Android app that helps people through dangerous situations when there's no signal: lost, stranded, or waiting for rescue. It's free like 911: no ads, accounts, limits or tracking, and no internet permission at all.
 
-Created by **Aries Fulkerson**. See [NOTICE.md](NOTICE.md). All rights reserved until an open-source licence is chosen.
+Created by **Aries Fulkerson**. Open source under the [Apache License 2.0](LICENSE); see [NOTICE.md](NOTICE.md).
 
-> ⚠ **Prototype. Not for real emergencies.** Nothing here has been reviewed by medical or rescue experts yet.
+> ⚠ **Prototype test software. Not for real emergencies: if you are in danger, call 911.** Nothing here has been reviewed by medical or rescue experts yet, and the AI can be wrong. Provided as is, with no warranty and no liability. Read the full [DISCLAIMER.md](DISCLAIMER.md).
 
 ## What's here
 
