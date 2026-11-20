@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17231e">
+  <meta name="description" content="Tenvia is a free emergency preparedness app in development, with a home-trained AI model designed for offline use.">
+  <title>Tenvia — Offline emergency preparedness</title>
+  <link rel="icon" href="tenvia-icon.png">
+  <link rel="apple-touch-icon" href="tenvia-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="wrap header">
+    <a class="brand" href="./"><img src="tenvia-emblem.png" alt="" width="32" height="27">Tenvia</a>
+    <nav aria-label="Main navigation"><a href="#preview">Preview</a><a href="#model">AI progress</a><a href="#faq">FAQ</a></nav>
+  </header>
+  <p class="test-banner" role="note"><strong>Test software, not for real emergencies.</strong> If you are in danger, call 911. <a href="https://github.com/Tenvia-App/Main/blob/main/DISCLAIMER.md">Read the disclaimer</a></p>
+  <main>
+    <section class="hero" id="about" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Offline emergency preparedness</p>
+          <h1 id="hero-title">When the signal drops.</h1>
+          <p class="hero-lead">Tenvia is a free emergency preparedness and survival app in development. It’s built around a simple idea: keep practical guidance on your phone for when you’re offline.</p>
+          <a class="button" href="#preview">Try the interactive preview</a>
+        </div>
+        <div class="hero-mark"><img src="tenvia-emblem.png" alt="Tenvia emblem showing a hiker on a trail between two trees" width="141" height="119"></div>
+      </div>
+    </section>
+
+    <section class="wrap section teaser" id="teaser" aria-labelledby="teaser-title">
+      <div class="section-heading">
+        <p class="eyebrow">15-second teaser</p>
+        <h2 id="teaser-title">Past the last signal</h2>
+        <p>A phone loses cell service, then opens a saved route note and pins it to a field plan in the Tenvia simulation.</p>
+      </div>
+      <video controls playsinline preload="none" poster="tenvia-canyon.webp" width="1280" height="720" aria-label="Past the last signal, Tenvia teaser">
+        <source src="Tenvia-Widescreen-Teaser.mp4" type="video/mp4">
+        <a href="Tenvia-Widescreen-Teaser.mp4">Download the Tenvia teaser</a>
+      </video>
+    </section>
+
+    <section class="wrap preview section" id="preview" aria-labelledby="preview-title">
+      <div class="section-heading">
+        <p class="eyebrow">App concept</p>
+        <h2 id="preview-title">A look at Tenvia in the field</h2>
+        <p>Pick a scenario, ask follow-up questions, and pin sample notes to a field plan. This preview uses scripted replies and fictional notes.</p>
+      </div>
+      <div class="demo">
+        <form class="scenario-list" aria-label="Choose a scenario">
+          <fieldset>
+            <legend>Choose a scenario</legend>
+            <label><input type="radio" name="scenario" value="outage" checked><span>Power outage <small>At home</small></span></label>
+            <label><input type="radio" name="scenario" value="trail"><span>Beyond cell coverage <small>On the trail</small></span></label>
+            <label><input type="radio" name="scenario" value="plan"><span>Making a household plan <small>Before you need it</small></span></label>
+          </fieldset>
+        </form>
+        <div class="demo-screen">
+          <div class="demo-top">
+            <span class="brand"><img src="tenvia-emblem.png" alt="" width="25" height="21">Tenvia</span>
+            <span class="demo-indicator">Offline simulation</span>
+          </div>
+          <div class="demo-content">
+            <div class="demo-thread" id="demo-thread" role="log" aria-label="Preview conversation" tabindex="0">
+              <p class="demo-prompt">“Where’s my plan if the power goes out?”</p>
+              <div class="demo-reply"><h3>Home outage plan</h3><p>Ask about contacts, supplies, or the utility information you saved.</p></div>
+            </div>
+            <div class="demo-actions" id="demo-actions" hidden>
+              <h3>Ask a follow-up</h3>
+              <div class="demo-questions" id="demo-questions"></div>
+            </div>
+            <noscript><p>Enable JavaScript to try the interactive scenarios.</p></noscript>
+          </div>
+          <details class="field-plan" id="field-plan" hidden>
+            <summary>Sample field plan <span id="field-plan-count">0 notes</span></summary>
+            <p id="field-plan-empty">Pin a note from any scenario to add it here.</p>
+            <ul id="field-plan-items" class="field-plan-items"></ul>
+            <button class="demo-button" id="field-plan-download" type="button" disabled>Download plan (.txt)</button>
+          </details>
+          <p class="visually-hidden" id="demo-status" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="model-area" id="model" aria-labelledby="model-title">
+      <div class="wrap section model">
+        <div class="section-heading">
+          <p class="eyebrow">AI development</p>
+          <h2 id="model-title">Training Tenvia’s AI at home</h2>
+          <p>I’m training an AI model at home to handle Tenvia’s offline preparedness and survival guidance tasks.</p>
+          <p class="model-note">Latest blind test: 90 replies to 30 new conversations the AI had never seen, graded without knowing which model wrote them (20 November 2026). Scores may change as training and testing continue. <a href="https://github.com/Tenvia-App/Main/blob/main/ai-experiments/RESULTS.md">See every test round</a>.</p>
+        </div>
+        <div class="model-results">
+          <h3>Latest blind test</h3>
+          <dl class="model-scores">
+            <div><dt>Safe</dt><dd>97<span>%</span></dd></div>
+            <div><dt>Helpful</dt><dd>68<span>%</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section checklist-section" id="checklist" aria-labelledby="checklist-title">
+      <div class="section-heading">
+        <p class="eyebrow">Preparedness starter</p>
+        <h2 id="checklist-title">Make a plan you can find</h2>
+        <p>Start with three things you can do ahead of time. Your progress stays in this browser when local storage is available.</p>
+      </div>
+      <div class="checklist">
+        <div class="checklist-top">
+          <span id="checklist-count" aria-live="polite">0 of 3 complete</span>
+          <progress id="checklist-progress" aria-label="Checklist progress" max="3" value="0">0 of 3</progress>
+        </div>
+        <label><input type="checkbox" data-check="contacts"><span>Write down your household’s key contacts.</span></label>
+        <label><input type="checkbox" data-check="meet"><span>Agree on a meeting place with your household.</span></label>
+        <label><input type="checkbox" data-check="copy"><span>Save a copy of your plan somewhere you can open offline.</span></label>
+      </div>
+    </section>
+
+    <section class="wrap section faq" id="faq" aria-labelledby="faq-title">
+      <div class="section-heading"><p class="eyebrow">FAQ</p><h2 id="faq-title">About the project</h2></div>
+      <div>
+        <details><summary>Can I download Tenvia yet?</summary><p>A test build for Android is available on <a href="https://github.com/Tenvia-App/Main/releases/tag/v0.7.0-ai-test">GitHub</a> (about 1.2 GB, including the on-phone AI). It is test software for trying the app, not for real emergencies. Install it at your own risk.</p></details>
+        <details><summary>Will I need an internet connection?</summary><p>No. Tenvia works fully offline, including its AI, which runs on your phone. The current test build asks for internet permission only so the app can talk to the AI running on the same phone; it makes no other connections. The finished app is planned to drop that permission.</p></details>
+        <details><summary>Is Tenvia open source?</summary><p>Yes. The code, the guide content and every AI test result are public on <a href="https://github.com/Tenvia-App/Main">GitHub</a> under the Apache License 2.0.</p></details>
+        <details><summary>Will Tenvia be free?</summary><p>Yes. The goal is to make basic preparedness guidance accessible without a subscription.</p></details>
+        <details><summary>Can Tenvia contact emergency services?</summary><p>No. Tenvia is a preparedness and guidance app. For immediate help, call 911 (or your local emergency number) directly. In the US, call or text 988 for a mental-health crisis.</p></details>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer"><a class="brand" href="./"><img src="tenvia-emblem.png" alt="" width="28" height="24">Tenvia</a><span>In development · <a href="https://github.com/Tenvia-App/Main">GitHub</a> · <a href="https://github.com/Tenvia-App/Main/blob/main/LICENSE">Apache 2.0</a> · <a href="https://github.com/Tenvia-App/Main/blob/main/DISCLAIMER.md">Disclaimer</a></span></footer>
+  <script src="preview.js" defer></script></body>
+</html>

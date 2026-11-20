@@ -1,0 +1,128 @@
+:root {
+  color-scheme: dark;
+  --green: #17231e;
+  --gold: #d4a14a;
+  --ground: #101a16;
+  --text: #f5f1e7;
+  --muted: #bec8bd;
+  --line: #3c4a40;
+  --heading: "Iowan Old Style", Georgia, serif;
+  font-family: system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ground); color: var(--text); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+img { display: block; max-width: 100%; object-fit: contain; }
+.wrap { width: min(100% - 3rem, 72rem); margin-inline: auto; }
+.header, .footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.header { min-height: 4.8rem; }
+.brand { display: inline-flex; align-items: center; gap: .65rem; font-size: 1.35rem; font-weight: 720; letter-spacing: -.04em; }
+nav { display: flex; gap: clamp(.85rem, 4vw, 2.5rem); }
+nav a { display: inline-grid; min-height: 44px; place-items: center; color: var(--muted); }
+nav a:hover { color: var(--gold); }
+.hero {
+  position: relative;
+  background-color: var(--green);
+  background-image: linear-gradient(90deg, #0f1814f5 2%, #0f1814bf 37%, #0f18141a 76%), linear-gradient(0deg, #101a16 0%, transparent 27%), url("tenvia-canyon.webp");
+  background-size: cover;
+  background-position: center, center, center 53%;
+  border-top: 1px solid #ffffff14;
+}
+.hero-inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .85fr); align-items: center; gap: 4%; min-height: clamp(31rem, 52vw, 44rem); padding-block: 4rem 5rem; }
+.eyebrow { margin: 0 0 1rem; color: var(--gold); font-size: .875rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+h1, h2 { margin: 0; font-family: var(--heading); font-weight: 400; letter-spacing: -.055em; }
+h1 { max-width: 10ch; font-size: clamp(4rem, 8.6vw, 8.2rem); line-height: .87; text-wrap: balance; }
+h2 { max-width: 19ch; font-size: clamp(2.65rem, 5vw, 4.5rem); line-height: .99; text-wrap: balance; }
+h3 { margin: 0; font-size: 1.15rem; }
+.hero-lead { max-width: 33rem; margin: 1.5rem 0 1.85rem; color: #e0e6dc; font-size: clamp(1.05rem, 1.6vw, 1.23rem); line-height: 1.6; }
+.button { display: inline-flex; align-items: center; min-height: 3.25rem; padding: .7rem 1.25rem; border-radius: .45rem; color: var(--green); background: var(--gold); font-weight: 750; }
+.button:hover { background: #efbf69; }
+.hero-mark { display: grid; place-items: center; justify-self: center; width: clamp(8rem, 20vw, 16rem); aspect-ratio: 1; border-radius: 24%; border: 1px solid #d4a14a87; background: #17231ef0; box-shadow: 0 1.5rem 4rem #070e09a6, 0 0 5rem #e9b46f22; }
+.hero-mark img { width: 72%; height: auto; }
+.section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.section-heading p:not(.eyebrow) { max-width: 35rem; margin: 1rem 0 0; color: var(--muted); font-size: 1.05rem; line-height: 1.65; }
+.teaser { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.25fr); align-items: center; gap: clamp(1.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
+.teaser video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: .85rem; background: var(--green); }
+.preview > .section-heading { margin-bottom: 2.25rem; }
+.preview h2 { max-width: none; }
+.demo { display: grid; grid-template-columns: minmax(14rem, .8fr) minmax(0, 1.7fr); border: 1px solid var(--line); border-radius: 1rem; overflow: hidden; background: var(--green); }
+.scenario-list { padding: clamp(1rem, 3vw, 2.15rem); border-right: 1px solid var(--line); }
+.scenario-list fieldset { border: 0; padding: 0; margin: 0; min-inline-size: 0; }
+.scenario-list legend { padding: 0; margin-bottom: .9rem; font-weight: 700; }
+.scenario-list label { display: flex; align-items: start; gap: .7rem; padding: .95rem; margin-bottom: .45rem; border: 1px solid transparent; border-radius: .55rem; cursor: pointer; }
+.scenario-list label:last-child { margin-bottom: 0; }
+.scenario-list label:hover { border-color: var(--line); }
+.scenario-list label:has(input:checked) { border-color: #d4a14a85; background: #2a3022; }
+input[type="checkbox"], input[type="radio"] { width: 1.15rem; height: 1.15rem; flex: 0 0 auto; margin: .16rem 0 0; accent-color: var(--gold); cursor: pointer; }
+.scenario-list small { display: block; margin-top: .2rem; color: var(--muted); font-size: .875rem; }
+.demo-screen { min-width: 0; background: #0f1915; }
+.demo-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem clamp(1rem, 4vw, 2.5rem); border-bottom: 1px solid var(--line); }
+.demo-top .brand { font-size: 1.05rem; }
+.demo-indicator { font-size: .875rem; color: var(--gold); }
+.demo-content { padding: clamp(1rem, 4vw, 2.5rem); }
+.demo-thread { display: grid; align-content: start; gap: .8rem; max-height: 24rem; overflow: auto; overscroll-behavior: contain; scrollbar-color: var(--line) transparent; padding-block: .2rem; padding-inline: .2rem .5rem; }
+.demo-thread:focus-visible { outline-offset: 0; }
+.demo-prompt { width: fit-content; max-width: 100%; margin: 0 0 1.35rem auto; padding: .7rem 1rem; border-radius: .8rem .8rem .15rem .8rem; background: #26382d; }
+.demo-thread .demo-prompt { margin-bottom: 0; }
+.demo-reply { width: min(100%, 36rem); padding: .9rem 1rem; border: 1px solid var(--line); border-radius: .8rem .8rem .8rem .15rem; background: var(--green); }
+.demo-reply p, .field-plan > p { margin: .45rem 0 0; color: var(--muted); line-height: 1.55; }
+.demo-reply button { margin-top: .75rem; }
+.demo-actions { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 1rem; }
+.demo-actions h3 { margin-bottom: .7rem; font-size: 1rem; }
+.demo-questions { display: flex; flex-wrap: wrap; gap: .55rem; }
+.demo-button { appearance: none; min-height: 2.75rem; padding: .45rem .72rem; border: 1px solid #d4a14a7d; border-radius: .45rem; background: transparent; color: var(--gold); font: inherit; font-size: .875rem; font-weight: 700; cursor: pointer; }
+.demo-button:hover:not(:disabled), .demo-button[aria-pressed="true"] { background: var(--gold); color: var(--ground); }
+.demo-button:disabled { border-color: var(--line); color: var(--muted); cursor: default; }
+.field-plan { border-top: 1px solid var(--line); padding: 0 clamp(1rem, 4vw, 2.5rem) 1rem; }
+.field-plan:not([open]) { padding-bottom: 0; }
+.field-plan summary span { float: right; color: var(--gold); font-size: .875rem; }
+.field-plan-items { display: grid; gap: .5rem; padding: 0; margin: .75rem 0; list-style: none; }
+.field-plan-items li { display: flex; align-items: center; justify-content: space-between; gap: .65rem; padding: .65rem; border: 1px solid var(--line); border-radius: .45rem; }
+.field-plan-label small { display: block; margin-top: .2rem; color: var(--muted); font-size: .875rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.model-area { border-block: 1px solid var(--line); background: linear-gradient(125deg, #202e25, var(--green) 73%); }
+.model, .checklist-section, .faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5.5rem); align-items: start; }
+.model-results { align-self: center; }
+.model-results h3 { margin-bottom: .85rem; }
+.model-scores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 0; }
+.model-scores div { padding: clamp(.85rem, 3vw, 1.65rem); border: 1px solid var(--line); border-top-color: var(--gold); border-radius: .65rem; background: #111b16; }
+.model-scores dt { color: var(--muted); font-weight: 650; }
+.model-scores dd { margin: .2rem 0 0; color: var(--gold); font-family: var(--heading); font-size: clamp(2.8rem, 7vw, 6rem); line-height: .95; letter-spacing: -.06em; }
+.model-scores dd span { font-size: .56em; }
+.checklist { padding: 1rem clamp(.85rem, 2.5vw, 1.5rem); border: 1px solid var(--line); border-radius: .85rem; background: var(--green); }
+.checklist-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .35rem 0 .95rem; font-weight: 700; }
+progress { width: min(42%, 9rem); height: .6rem; accent-color: var(--gold); }
+.checklist label { display: flex; align-items: start; gap: .8rem; padding: .9rem 0; border-top: 1px solid var(--line); cursor: pointer; line-height: 1.5; }
+.checklist label:has(input:checked) { color: var(--muted); }
+.faq, .footer { border-top: 1px solid var(--line); }
+details { border-bottom: 1px solid var(--line); }
+details:first-child { border-top: 1px solid var(--line); }
+summary { cursor: pointer; min-height: 3.5rem; padding-block: 1rem; font-weight: 650; }
+summary::marker { color: var(--gold); }
+details p { margin: 0; padding: 0 0 1.1rem; color: var(--muted); line-height: 1.65; }
+.footer { padding-block: 1.5rem 2rem; color: var(--muted); }
+.footer .brand { color: var(--text); }
+@media (max-width: 760px) {
+  .wrap { width: min(100% - 2rem, 34rem); }
+  .header { min-height: 4.35rem; gap: .8rem; }
+  .header .brand { font-size: 1.14rem; gap: .35rem; }
+  .header .brand img { width: 24px; }
+  nav { gap: clamp(.55rem, 3vw, .95rem); font-size: .875rem; }
+  .hero { background-image: linear-gradient(90deg, #101914e8, #1019144d), linear-gradient(0deg, #101a16 0%, #101a1622 45%), url("tenvia-canyon.webp"); background-position: center, center, 63% 50%; }
+  .hero-inner { grid-template-columns: 1fr; min-height: 0; padding-block: 2.75rem 3rem; gap: 1.6rem; }
+  h1 { font-size: clamp(3.4rem, 13vw, 5.9rem); }
+  .hero-mark { grid-row: 1; width: 5.5rem; justify-self: start; }
+  .hero-lead { margin-block: 1.1rem 1.4rem; }
+  .model, .checklist-section, .faq, .demo, .teaser { grid-template-columns: 1fr; }
+  .scenario-list { border-right: 0; border-bottom: 1px solid var(--line); }
+  .scenario-list label { padding: .65rem .7rem; }
+  .model-scores dd { font-size: clamp(2.9rem, 11vw, 5rem); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Added for GitHub Pages: test-only banner and visible text links */
+.test-banner { margin: 0; padding: .75rem 1.5rem; border-block: 1px solid #d4a14a66; background: #2a2216; color: var(--text); font-size: .95rem; line-height: 1.5; text-align: center; }
+.test-banner strong { color: var(--gold); }
+.test-banner a, .model-note a, .faq p a, .footer span a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
