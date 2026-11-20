@@ -10,8 +10,8 @@ import java.net.URL
  * child process of the app, reachable at 127.0.0.1:8080 only. Started by the app itself, so it works
  * with the phone unplugged and after a restart (a server started over USB died with the cable).
  *
- * The model file is not in the app. It is looked for in the app's own folder
- * (Android/data/app.tenvia/files/models) and then in /data/local/tmp/tenvia-ai/models.
+ * The model file is looked for in the app's own folder (Android/data/app.tenvia/files/models) and
+ * then in /data/local/tmp/tenvia-ai/models; tester builds also carry it inside the app (assets/models).
  */
 class AiServer(private val context: Context, private val port: Int = 8080) {
 
@@ -33,8 +33,21 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
         )
         return dirs.map { File(it, MODEL) }.firstOrNull { f ->
             f.isFile && runCatching { f.inputStream().use { it.read() } >= 0 }.getOrDefault(false)
-        }
+        } ?: copyBundledModel()
     }
+
+    /**
+     * Tester builds carry the model inside the app (assets/models, stored uncompressed). The AI program
+     * needs a real file, so it is copied out once (about 1 GB, under a minute) to the app's own folder.
+     */
+    private fun copyBundledModel(): File? = runCatching {
+        val dir = File(context.getExternalFilesDir(null) ?: context.filesDir, "models").apply { mkdirs() }
+        val out = File(dir, MODEL)
+        val tmp = File(dir, "$MODEL.part")
+        context.assets.open("models/$MODEL").use { input -> tmp.outputStream().use { input.copyTo(it, 1 shl 20) } }
+        if (!tmp.renameTo(out)) error("rename failed")
+        out
+    }.getOrNull()
 
     /** Blocking (call off the main thread). Returns true once the server answers. */
     @Synchronized
@@ -84,6 +97,9 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
     }
 
     companion object {
-        const val MODEL = "Qwen3-4B-Instruct-2507-Q4_K_M.gguf"
+        /** The small taught model (ai-experiments/train): Qwen3 1.7B + LoRA, short prompts. */
+        const val MODEL = "tenvia-1.7b-v5-Q4_K_M.gguf"
+        /** True for a small taught model: ChatEngine then uses the short prompts it learned. */
+        val SMALL = MODEL.startsWith("tenvia-")
     }
 }

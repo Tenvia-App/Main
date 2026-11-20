@@ -27,7 +27,7 @@ object TenviaAi {
         val app = context.applicationContext
         library = app.assets.open("guides.json").bufferedReader().use { parseGuideLibrary(it.readText()) }
         server = AiServer(app)
-        engine = ChatEngine(library)
+        engine = ChatEngine(library, short = AiServer.SMALL)
     }
 
     /** Blocking (call off the main thread). Safe to call again: does nothing when the AI is ready. */

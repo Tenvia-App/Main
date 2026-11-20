@@ -20,8 +20,8 @@ android {
         // Android 8.0: keeps Tenvia usable on older and cheaper phones.
         minSdk = 26
         targetSdk = 36
-        versionCode = 11
-        versionName = "0.5.0-ai-test"
+        versionCode = 12
+        versionName = "0.6.0-ai-test"
     }
 
     signingConfigs {
@@ -58,6 +58,12 @@ android {
     // they live in android/llama-bin/jniLibs (pulled from the phone). They are extracted on install
     // so the server can be run as a program.
     sourceSets["main"].jniLibs.srcDir("../llama-bin/jniLibs")
+    // Tester build: the small model file (~1 GB) rides inside the app, uncompressed, from
+    // android/llama-bin/assets/models (not in git). AiServer copies it out on first start.
+    sourceSets["main"].assets.srcDir("../llama-bin/assets")
+    androidResources {
+        noCompress += "gguf"
+    }
     packaging {
         jniLibs.useLegacyPackaging = true
     }

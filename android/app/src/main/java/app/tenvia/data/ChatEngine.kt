@@ -16,7 +16,12 @@ import java.net.URL
  *  3. Free reply, then deterministic guard rules; a rejected reply gets a repair pass (4 tries),
  *     then a fixed fallback.
  */
-class ChatEngine(private val library: GuideLibrary, private val baseUrl: String = "http://127.0.0.1:8080") {
+class ChatEngine(
+    private val library: GuideLibrary,
+    private val baseUrl: String = "http://127.0.0.1:8080",
+    /** Small taught model (Qwen3 1.7B + LoRA): it learned SHORT prompts (ai-experiments/chat-v6.ps1 -Short). */
+    private val short: Boolean = false,
+) {
 
     data class Reply(val text: String, val generated: Boolean, val notice: String?, val guides: List<Guide>)
 
@@ -86,10 +91,21 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
             .replace(Regex("[‘’]"), "'").replace(Regex("[“”]"), "\"").trim()
     }
 
+    // Short mode: the prompts the small model was taught on, word for word (train/build_data.py), no
+    // examples, and Qwen3's empty think block (as tested with chat-v6.ps1 -Short).
+    private val think = if (short) "<think>\n\n</think>\n\n" else ""
+    private val routeSys get() = if (short) "Sort this message for Tenvia, an offline emergency app. Reply as JSON with about, guide and urgent. Guides: " + library.guides.joinToString(", ") { it.id } + ", none." else ROUTE_SYS
+    private val hurtSys get() = if (short) "Is a person injured, ill or having a medical problem right now? Reply {\"answer\":true} or {\"answer\":false}." else HURT_SYS
+    private val harmSys get() = if (short) "May this person be thinking about suicide or harming themselves? Reply {\"answer\":true} or {\"answer\":false}." else HARM_SYS
+    private val routeShots get() = if (short) emptyList() else ROUTE_SHOTS
+    private val hurtShots get() = if (short) emptyList() else HURT_SHOTS
+    private val harmShots get() = if (short) emptyList() else HARM_SHOTS
+    private val chatSys get() = if (short) "You are Tenvia, a calm helper in an offline emergency app. You cannot contact anyone. Use only the CHECKED STEPS given for this message and keep their conditions. If they don't cover something, say so honestly. No first aid. 2 to 4 short sentences." else CHAT_SYS
+
     private fun chat(sys: String, shots: List<Pair<String, String>>, user: String): String {
         val sb = StringBuilder("<|im_start|>system\n$sys<|im_end|>\n")
         shots.forEach { sb.append("<|im_start|>user\n${it.first}<|im_end|>\n<|im_start|>assistant\n${it.second}<|im_end|>\n") }
-        sb.append("<|im_start|>user\n$user<|im_end|>\n<|im_start|>assistant\n")
+        sb.append("<|im_start|>user\n$user<|im_end|>\n<|im_start|>assistant\n$think")
         return sb.toString()
     }
 
@@ -103,9 +119,9 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
      */
     fun warmUp() {
         val prefixes = listOf(
-            chat(HARM_SYS, HARM_SHOTS, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
-            chat(HURT_SYS, HURT_SHOTS, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
-            chat(ROUTE_SYS, ROUTE_SHOTS, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+            chat(harmSys, harmShots, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+            chat(hurtSys, hurtShots, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
+            chat(routeSys, routeShots, "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
             buildPrompt("", "").substringBeforeLast("<|im_start|>user") + "<|im_start|>user\n",
         )
         prefixes.forEach { p -> runCatching { complete(p, null, 0.0, 1) } }
@@ -116,7 +132,7 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
         curMsg = msg
         convUser += " $msg"
         // 1. routing + safety nets
-        val route = runCatching { JSONObject(complete(chat(ROUTE_SYS, ROUTE_SHOTS, msg), routeGrammar(), 0.0, 80)) }.getOrNull()
+        val route = runCatching { JSONObject(complete(chat(routeSys, routeShots, msg), routeGrammar(), 0.0, 80)) }.getOrNull()
         val rGuide = route?.optString("guide") ?: "none"
         val rUrgent = route?.optBoolean("urgent") ?: false
         if (Regex("\\p{L}{2,}").containsMatchIn(msg)) {
@@ -125,11 +141,11 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
             val med = findKeyword(msg, medKeywords)
             var thisMed = false
             if (med != null) {
-                thisMed = (rGuide == "none" && rUrgent) || askBool(HURT_SYS, HURT_SHOTS, msg)
+                thisMed = (rGuide == "none" && rUrgent) || askBool(hurtSys, hurtShots, msg)
             }
             val runHarm = if (thisMed) ck != null else ck != null || rGuide == "none" || rGuide == "stay-calm"
             if (decisive != null) { isCrisis = true; thisMed = false }
-            else if (runHarm && askBool(HARM_SYS, HARM_SHOTS, msg)) { isCrisis = true; thisMed = false }
+            else if (runHarm && askBool(harmSys, harmShots, msg)) { isCrisis = true; thisMed = false }
             if (thisMed) isMedical = true
             library.guides.filter { g -> findKeyword(msg, g.keywords.map { it.lowercase() }) != null }.forEach { g ->
                 if (g.id !in active) active.add(0, g.id)
@@ -172,7 +188,7 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
             val bad = RULES.filter { (_, test) -> test(cand, med) }.map { it.first }
             if (bad.isEmpty()) { reply = cand; break }
             val hint = bad.joinToString(" ") { if (it == "advice not in steps") adviceHint() else FIX_HINTS[it] ?: "" }
-            prompt = base + cand + "<|im_end|>\n<|im_start|>user\nRewrite your reply. Problem: $hint Keep everything else, 2 to 4 short sentences.<|im_end|>\n<|im_start|>assistant\n"
+            prompt = base + cand + "<|im_end|>\n<|im_start|>user\nRewrite your reply. Problem: $hint Keep everything else, 2 to 4 short sentences.<|im_end|>\n<|im_start|>assistant\n$think"
         }
         val notice = when { isCrisis -> crisisOos?.message; isMedical -> medical?.message; else -> null }
         val shownGuides = use.mapNotNull { guideById[it] }
@@ -234,11 +250,13 @@ class ChatEngine(private val library: GuideLibrary, private val baseUrl: String 
     }
 
     private fun buildPrompt(context: String, msg: String): String {
-        val sb = StringBuilder("<|im_start|>system\n$CHAT_SYS<|im_end|>\n")
-        examples.forEach { sb.append("<|im_start|>user\n${it.first}<|im_end|>\n<|im_start|>assistant\n${it.second}<|im_end|>\n") }
-        sb.append("<|im_start|>user\n(New conversation with a different person starts now.)<|im_end|>\n<|im_start|>assistant\nUnderstood.<|im_end|>\n")
+        val sb = StringBuilder("<|im_start|>system\n$chatSys<|im_end|>\n")
+        if (!short) {
+            examples.forEach { sb.append("<|im_start|>user\n${it.first}<|im_end|>\n<|im_start|>assistant\n${it.second}<|im_end|>\n") }
+            sb.append("<|im_start|>user\n(New conversation with a different person starts now.)<|im_end|>\n<|im_start|>assistant\nUnderstood.<|im_end|>\n")
+        }
         history.takeLast(5).forEach { sb.append("<|im_start|>user\n${it.first}<|im_end|>\n<|im_start|>assistant\n${it.second}<|im_end|>\n") }
-        sb.append("<|im_start|>user\n$context\n\nPerson: $msg<|im_end|>\n<|im_start|>assistant\n")
+        sb.append("<|im_start|>user\n$context\n\nPerson: $msg<|im_end|>\n<|im_start|>assistant\n$think")
         return sb.toString()
     }
 
@@ -398,6 +416,11 @@ bool ::= "true" | "false""""
         "too long" to { s, _ -> s.split(Regex("\\s+")).count { it.isNotBlank() } > 100 },
         "advice not in steps" to { s, _ -> badClauses = unsupportedClauses(s, curSteps); badClauses.isNotEmpty() },
         "empty" to { s, _ -> s.isBlank() },
+        // chat-v6 (small model on set 5, judge reasons): stock lines used where they don't fit.
+        "stay put not in steps" to { s, _ -> r("\\b(stay where you are|stay put)\\b").containsMatchIn(s) && !r("stay where you are").containsMatchIn(curSteps) },
+        "vehicle not mentioned" to { s, _ -> r("(?<!\\bif )\\b(your|the) (vehicle|car)\\b").containsMatchIn(s) && !r("\\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\\b").containsMatchIn(convUser) },
+        "911 without signal" to { s, _ -> r("\\b(911|988|emergency services)\\b").containsMatchIn(s) && !hasSignalNow && !r("\\bsignal\\b|\\bas soon as\\b|\\bwhen you (can|have|get)\\b|\\bif you (can|have|get)\\b|\\bany way\\b|\\bif there is\\b|\\?").containsMatchIn(s) },
+        "claims signal" to { s, _ -> r("(?<!\\b(if|when|once|until|soon as|whether) )\\byou (now )?have (signal|service|bars?|a bar)\\b(?! (yet|again))").containsMatchIn(s) && !hasSignalNow },
     )
 
     companion object {
@@ -445,6 +468,10 @@ bool ::= "true" | "false""""
             "guessing" to "It guessed what something means or what is causing it. Do not guess; say only what the checked steps say.",
             "invents a fact" to "It stated something about their situation they did not say (for example that they have or do not have a map, signal or landmarks). Only use what they told you, or ask.",
             "empty" to "It was empty.",
+            "stay put not in steps" to "It said to stay where they are, but that step is not in the checked steps for this message. Leave it out.",
+            "vehicle not mentioned" to "It talked about a vehicle or car, but the person never mentioned one. Leave vehicle advice out.",
+            "911 without signal" to "Keep the condition: \"As soon as you have signal, call 911 (call if you can, text if you cannot).\" Do not tell them to call without it.",
+            "claims signal" to "It said they have signal, but they did not say so. Do not.",
         )
 
         private val CRISIS_TRIGGERS = listOf("trapped", "no way out", "no solution", "unbearable", "cant take", "cant go on", "gave away", "giving away", "give away",
