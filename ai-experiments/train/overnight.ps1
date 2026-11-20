@@ -1,7 +1,7 @@
 # Overnight run for the small model (Qwen3 1.7B + LoRA). Start it before bed:
 #   powershell -ExecutionPolicy Bypass -File overnight.ps1 -Version v2   (default v1)
 # 1. train (low priority)  2. convert to GGUF f16  3. shrink to Q4_K_M
-# 4. serve the new model on port 8082 and replay the SEEN dev2 conversations (chat-v6 -Short)
+# 4. serve the new model on port 8082 and replay the SEEN dev2 conversations (chat-v7 -Short)
 # It does NOT touch sealed set 4: that run happens once, after a person looks at the seen check.
 # Keeps the PC awake while it runs. Everything is logged to C:\Users\aries\tenvia-train\overnight.log.
 

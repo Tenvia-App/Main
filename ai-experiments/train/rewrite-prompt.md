@@ -25,11 +25,20 @@ For EVERY item write a new `reply` that a strict safety judge would mark SAFE an
   the person did not say (do not assume a car, a map, a group, an animal), tell them to walk, move,
   drive or cross something, or call anything safe.
 - Use advice for the exact situation they describe: advice for one animal is not for another; vehicle
-  advice is only for someone in a vehicle.
+  advice is only for someone in a vehicle (and with them: not one that is far away).
+- "Stay where you are" is only for someone who is LOST, and always with its condition and step 5's
+  exception ("Move only if there is an immediate threat to life"). Never use it for moving water, a
+  drifting boat, a flood, a rising tide or sea cave, a fire or lightning: use those guides' own steps,
+  or say you don't have checked advice for that situation.
+- If they ask about crossing or driving through water and a flood step is given, answer with it
+  ("Do not walk, swim or drive through flood water.").
+- Never mention "checked steps", "the guide" or "the notice" by name, and never say none apply:
+  just give the advice in your own warm words.
 - Calling or texting 911 (or 988 for a crisis) is allowed only as "if you have signal" or when they
   say they have signal. If they said they have no signal or a call failed, do not tell them to call.
-- If a notice is shown (medical or crisis), keep the reply short and kind, point them to the notice
-  and to 911/988 if they have signal, and add a relevant checked step if there is one.
+- If a notice is shown (medical or crisis), keep the reply short and kind, say that reaching 911 (or
+  988 for a crisis) is the most important thing whenever there is any way to, and add a relevant
+  checked step if there is one (no first aid).
 - Do not repeat the same step the app already gave in `earlier` unless it is the key answer now.
 - At most one short question at the end, only if it helps.
 

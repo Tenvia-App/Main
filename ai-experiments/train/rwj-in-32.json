@@ -1,0 +1,1387 @@
+[
+ {
+  "id": "r1029.3",
+  "earlier": [
+   "PERSON: We're driving a small camper across Wyoming and gusts keep nudging it toward the shoulder. No place to pull off right here.",
+   "APP: I don't have checked advice on pulling off the shoulder. Stay with your vehicle and try not to panic. If no shelter is available, avoid trees, power lines, and the side of the road. Try to find a place that will block blowing or falling debris.",
+   "PERSON: The next rest area is about eight miles. Should we slow way down or keep the usual speed?",
+   "APP: I don't have checked advice on slowing down or keeping the usual speed. Stay with your vehicle and try not to panic."
+  ],
+  "message": "A road sign says high-profile vehicles use caution. My partner is gripping the wheel with both hands.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "I don't have checked advice on the sign or your partner's grip on the wheel. Stay with your vehicle and try not to panic. If no shelter is available, avoid trees, power lines, and the side of the road."
+ },
+ {
+  "id": "r1030.2",
+  "earlier": [
+   "PERSON: I'm walking below the bluffs at Point Reyes and fog rolled in. The incoming tide has cut off the beach route we used.",
+   "APP: Stay farther back from the ocean than you think is necessary. Never turn your back on the ocean. Stay several meters away from the base of cliffs, and from the edge of clifftops. If you have any signal, call 911 right away."
+  ],
+  "message": "There are some rocks leading to a higher shelf. They look slippery but the next wave reaches close to my shoes.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops."
+  ],
+  "reply": "I can't advise climbing those slippery rocks. Stay farther back from the ocean than you think is necessary, never turn your back on it, and stay several meters away from the base of cliffs and the edge of clifftops."
+ },
+ {
+  "id": "r1031.3",
+  "earlier": [
+   "PERSON: A mountain lion is crouched near the trail ahead in the Santa Monica Mountains. I'm with my 14-year-old niece.",
+   "APP: Do not run from the mountain lion. Stand and face the animal. Do all you can to appear larger—raise your arms.",
+   "PERSON: She wants to run back around the bend. I have trekking poles but don't want to make things worse.",
+   "APP: I don't have checked advice on whether it's safe for your niece to run back. Do not run from the mountain lion; stand and face it, and do all you can to appear larger—raise your arms."
+  ],
+  "message": "It hasn't moved, and we're backing away slowly with it in view. The trail behind us is clear.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I hear that you're keeping the mountain lion in view. Do not run from it; stand and face it. Do all you can to appear larger and raise your arms."
+ },
+ {
+  "id": "r1032.3",
+  "earlier": [
+   "PERSON: We're a family of five, youngest is 3, and our car is stuck on a snowy access road near Taos. No cell bars.",
+   "APP: Stay with your vehicle and try not to panic. Keep children close to you and watch them closely; never let them run ahead of you. If you have signal, call 911 and tell them where you are, as exactly as you can, and what the emergency is. Be ready to tell them the phone number you're calling from.",
+   "PERSON: The kids are warm in the car but bored. My husband says he can hike to the highway and flag someone down.",
+   "APP: I don't have checked advice on hiking to the highway or flagging someone down. Stay with your vehicle and try not to panic. Keep children close to you and watch them closely; never let them run ahead of you."
+  ],
+  "message": "It's getting dark. We have snacks, blankets, and half a tank of gas.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "As it gets dark, stay with your vehicle and try not to panic; in snow and wind, leaving your vehicle can make you disoriented quickly. Before running the engine, make sure the exhaust pipe isn't blocked; in the cold, run it about 10 minutes each hour for warmth, with a window open a little. At night, turn on the inside light while the engine is running."
+ },
+ {
+  "id": "r1033.3",
+  "earlier": [
+   "PERSON: I lost my route on a ridge in the Alleghenies after following a stream. My paper map has no trail names this far in.",
+   "APP: If you can't safely find your way back, stay where you are. If you have a map, compass, or can see landmarks, use them to try to work out where you are. If it's safe, retrace your steps to get back to the route you planned. Move only if there is an immediate threat to life.",
+   "PERSON: A narrow track seems to head east. Should I just walk out and hope it meets a road?",
+   "APP: I don't have checked advice on walking out and hoping it meets a road. If you can't safely find your way back, stay where you are. If you have a map, compass, or can see landmarks, use them to try to work out where you are. Move only if there is an immediate threat to life."
+  ],
+  "message": "I marked where I stopped with a bright bandanna. The clouds are lowering and I can hear rain.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "I'm glad you marked where you stopped; I don't have checked advice on using a bandanna that way. If you can't safely find your way back, stay where you are; changing location will make it hard for searchers to find you, and move only if there is an immediate threat to life. Find shelter, try to stay dry and cover all exposed skin."
+ },
+ {
+  "id": "r1034.1",
+  "earlier": [],
+  "message": "We got separated from the trail group in a forest near Boise. The others know we were behind but may not know which fork we took.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "Being separated from your group sounds unsettling. Stop and take a moment to calmly look at your situation; if you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are. If you can't safely find your way back, stay where you are; changing location will make it hard for searchers to find you, and move only if there is an immediate threat to life."
+ },
+ {
+  "id": "r1034.2",
+  "earlier": [
+   "PERSON: We got separated from the trail group in a forest near Boise. The others know we were behind but may not know which fork we took.",
+   "APP: If you can't safely find your way back, stay where you are. If you have a map, compass, or can see landmarks, use them to try to work out where you are. If you can't safely find your way back, stay where you are. Move only if there is an immediate threat to life."
+  ],
+  "message": "We can see a clearing with fresh tire tracks. Should we stand there or keep following the old path?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I don't have checked advice about the tire tracks or which route to take. Stop and take a moment to calmly look at your situation; use a map, compass or GPS, or visible landmarks, to try to work out where you are. If you can't safely find your way back, stay where you are; changing location makes it hard for searchers to find you, and move only if there is an immediate threat to life."
+ },
+ {
+  "id": "r1035.1",
+  "earlier": [],
+  "message": "My phone shows emergency satellite messaging available near a trail in the Sierra, but the regular network is dead.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I don't have checked advice about emergency satellite messaging. As soon as you have signal, call 911; call if you can, text if you can't. Be ready to tell them where you are as exactly as you can and what the emergency is."
+ },
+ {
+  "id": "r1035.2",
+  "earlier": [
+   "PERSON: My phone shows emergency satellite messaging available near a trail in the Sierra, but the regular network is dead.",
+   "APP: As soon as you have signal, call 911. Be ready to tell them where you are, as exactly as you can, and what the emergency is. If you can, call if you have signal; text if you can't."
+  ],
+  "message": "It asks me to point the phone at the sky. Can I send one message with our location and then save battery?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I don't have checked advice on whether that satellite message will send or whether one message is enough. Use your phone as little as possible to save battery. If you have signal, call 911; call if you can, text if you can't."
+ },
+ {
+  "id": "r1037.1",
+  "earlier": [],
+  "message": "My brother cut his lower leg on a sharp rock at a campsite in Arkansas. The blood is soaking through the towel.",
+  "notice_shown": "medical",
+  "checked_steps": [],
+  "reply": "That sounds frightening; I don't have checked advice for bleeding or first aid. If you have signal, reaching 911 is most important."
+ },
+ {
+  "id": "r1037.2",
+  "earlier": [
+   "PERSON: My brother cut his lower leg on a sharp rock at a campsite in Arkansas. The blood is soaking through the towel.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "He's awake, but pressing the towel down isn't slowing it much. We have a first-aid kit.",
+  "notice_shown": "medical",
+  "checked_steps": [],
+  "reply": "I'm sorry pressing the towel isn't slowing the bleeding. I don't have checked first-aid advice; if you have signal, reaching 911 is most important."
+ },
+ {
+  "id": "r1037.3",
+  "earlier": [
+   "PERSON: My brother cut his lower leg on a sharp rock at a campsite in Arkansas. The blood is soaking through the towel.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now.",
+   "PERSON: He's awake, but pressing the towel down isn't slowing it much. We have a first-aid kit.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "His face looks pale and he's getting weak. I just got a signal bar.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "That sounds frightening, and I'm glad you have a signal bar. Call 911 now; be ready to tell them where you are as exactly as you can, your phone number, and what the emergency is. Don't hang up until the call-taker tells you to."
+ },
+ {
+  "id": "r1038.1",
+  "earlier": [],
+  "message": "I fell on a rocky trail near Sedona and my wrist is swelling crooked. I'm by myself and don't know the exact trail name.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "That sounds frightening; I don't have checked medical advice for your wrist. If you have signal, reaching 911 is most important. Stop and take a moment to calmly look at your situation; if you can't safely find your way back, stay where you are, and move only if there is an immediate threat to life."
+ },
+ {
+  "id": "r1038.2",
+  "earlier": [
+   "PERSON: I fell on a rocky trail near Sedona and my wrist is swelling crooked. I'm by myself and don't know the exact trail name.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "It hurts to move my fingers. I have a scarf and a bar of signal that comes and goes.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I'm sorry your fingers hurt; I don't have checked medical advice for that. If you have signal, reaching 911 is most important. Be ready to tell them where you are as exactly as you can; if you can't safely find your way back, stay where you are, and move only if there is an immediate threat to life."
+ },
+ {
+  "id": "r1039.1",
+  "earlier": [],
+  "message": "My dad says his chest feels tight and heavy while we unload the boat at a ramp in rural Tennessee. He's 63.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it."
+  ],
+  "reply": "That sounds concerning; I don't have checked advice for chest tightness. As soon as you have signal, call 911; be ready to tell them where you are as exactly as you can and what the emergency is."
+ },
+ {
+  "id": "r1039.2",
+  "earlier": [
+   "PERSON: My dad says his chest feels tight and heavy while we unload the boat at a ramp in rural Tennessee. He's 63.",
+   "APP: I don't have checked advice for this situation. As soon as you have signal, call 911."
+  ],
+  "message": "He looks sweaty and says maybe it's indigestion. We have a phone with one bar.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "I can't tell whether it's indigestion; chest tightness and sweating sound concerning. With a bar of signal, call 911 and tell them where you are as exactly as you can and what the emergency is. Don't hang up until the call-taker tells you to."
+ },
+ {
+  "id": "r1040.1",
+  "earlier": [],
+  "message": "My friend got stung by something while clearing brush in Georgia. His lips are swelling and his voice sounds raspy.",
+  "notice_shown": "medical",
+  "checked_steps": [],
+  "reply": "That sounds frightening; I don't have checked medical advice for these symptoms. If you have signal, reaching 911 is most important."
+ },
+ {
+  "id": "r1041.1",
+  "earlier": [],
+  "message": "My hiking partner in Death Valley is stumbling and saying strange things. It's blazing hot and his skin feels very hot.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "That sounds urgent. If you have signal, reaching 911 is most important. Have your partner rest in the shade, avoid hard activity during the hottest part of the day if possible, and drink plenty of water even if they don't feel thirsty."
+ },
+ {
+  "id": "r1041.2",
+  "earlier": [
+   "PERSON: My hiking partner in Death Valley is stumbling and saying strange things. It's blazing hot and his skin feels very hot.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "We moved into the tiny shade from the truck. He's not answering normally now.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "I'm sorry he's not answering normally; if you have signal, reaching 911 is most important. Stay with your vehicle and try not to panic. Avoid hard activity during the hottest part of the day if you can."
+ },
+ {
+  "id": "r1041.3",
+  "earlier": [
+   "PERSON: My hiking partner in Death Valley is stumbling and saying strange things. It's blazing hot and his skin feels very hot.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now.",
+   "PERSON: We moved into the tiny shade from the truck. He's not answering normally now.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "There is no service at this pullout. I have water, a wet shirt, and the car.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "I'm sorry there's no service; I don't have checked advice about the wet shirt for these symptoms. As soon as you have signal, call 911; reaching them is most important. Stay with your vehicle and try not to panic."
+ },
+ {
+  "id": "r1042.1",
+  "earlier": [],
+  "message": "My mom was out in wet snow near Marquette and now she's very sleepy and barely shivering. Her speech is slurred.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I'm sorry your mom is going through this; I don't have checked medical advice for those symptoms. If you have signal, reaching 911 is most important. Find shelter, try to stay dry and cover all exposed skin; if you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow."
+ },
+ {
+  "id": "r1042.2",
+  "earlier": [
+   "PERSON: My mom was out in wet snow near Marquette and now she's very sleepy and barely shivering. Her speech is slurred.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "We got her into the car but the engine won't start. I have a dry blanket and a phone at 3%.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I'm sorry the engine won't start. If you have signal, reaching 911 is most important. Stay with your vehicle and try not to panic; find shelter, try to stay dry and cover all exposed skin."
+ },
+ {
+  "id": "r1043.1",
+  "earlier": [],
+  "message": "A snake bit my ankle beside a trail in eastern Kentucky. I didn't see what kind, and there's swelling around two marks.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I'm sorry this happened; I don't have checked first-aid advice for a snakebite. If you have signal, reaching 911 is most important. Stop and take a moment to calmly look at your situation."
+ },
+ {
+  "id": "r1043.2",
+  "earlier": [
+   "PERSON: A snake bit my ankle beside a trail in eastern Kentucky. I didn't see what kind, and there's swelling around two marks.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now."
+  ],
+  "message": "My friend wants to cut the spot and suck it out. We are about two miles from the trailhead.",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I hear your concern about your friend's suggestion; I don't have checked advice about snakebite care. If you have signal, reach 911 for the bite; if you need crisis support, reach 988 if you have signal. Stop and take a moment to calmly look at the situation."
+ },
+ {
+  "id": "r1043.3",
+  "earlier": [
+   "PERSON: A snake bit my ankle beside a trail in eastern Kentucky. I didn't see what kind, and there's swelling around two marks.",
+   "APP: I hear you. Tenvia can't guide medical problems yet. If there is any way to reach 911, do that now.",
+   "PERSON: My friend wants to cut the spot and suck it out. We are about two miles from the trailhead.",
+   "APP: I hear you, and I'm here with you. I am so sorry you are carrying this. You matter. Please reach out to someone now: call or text 988 in the US, or 911."
+  ],
+  "message": "The swelling is spreading and I feel nauseated. Phone has one bar.",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I'm sorry the swelling is spreading and you're nauseated; I don't have checked medical advice for these symptoms. With a bar of signal, reach 911 now; if you need crisis support, reach 988 if you have signal. Stop and take a moment to calmly look at your situation."
+ },
+ {
+  "id": "r1044.1",
+  "earlier": [],
+  "message": "My son with diabetes is acting confused after we ran out of snacks on a bike trail in Ohio. He's sweating and shaky.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "That sounds frightening; I don't have checked advice for diabetes or confusion. If you have signal, reaching 911 is most important. Stop and take a moment to calmly look at the situation."
+ },
+ {
+  "id": "r1045.4",
+  "earlier": [
+   "PERSON: I'm alone at a dispersed campsite in Montana and I don't want to be here anymore.",
+   "APP: I'm sorry you're feeling this way. Please know that you matter and that you're not alone. If you have any signal, please call or text 988 right away. Are you safe right now?",
+   "PERSON: I keep thinking everyone would be better off if I didn't come back. I haven't told anyone where I am.",
+   "APP: I hear you, and I'm here with you. I am so sorry you are carrying this. You matter. Please reach out to someone now: call or text 988 in the US, or 911.",
+   "PERSON: I have my phone and can get a weak call out. I'm scared of what I might do if I stay alone.",
+   "APP: I'm so sorry you're scared and feeling this way. Please know that you matter, and you're not alone. As soon as you have signal, call 911 or text 988. If you can, tell them where you are and what the emergency is. Stay calm and think through your situation."
+  ],
+  "message": "I called my sister and told her plainly that I'm not safe alone right now. She is staying on the line while I move toward the staffed campground office.",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "I'm glad you told your sister and that she's staying on the line. If you have signal, reaching 988 is most important; call 911 as soon as you have signal, and tell them where you are as exactly as you can and what the emergency is. If you're waiting for help, rest, save your energy and wait patiently."
+ },
+ {
+  "id": "r1046.3",
+  "earlier": [
+   "PERSON: I'm driving the back roads near Flagstaff after a really bad fight and I don't care what happens to me.",
+   "APP: I'm sorry you're carrying this. You matter, and I'm glad you told me. Please reach out to 988 or 911 as soon as you have any signal. Are you safe right now?",
+   "PERSON: I pulled into a turnout. I keep saying I should just disappear and stop answering people.",
+   "APP: I'm so sorry you're carrying this. You matter, and I'm glad you told me. Please reach out to 988 or 911 as soon as you have any signal. If you're feeling unsafe, please know that you're not alone."
+  ],
+  "message": "My sister is calling, but I don't know if I can trust myself to talk to her.",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "I'm sorry it's hard to trust yourself to talk to your sister. If you have signal, call or text 988, or call 911; reaching help is most important. If you reach 911, be ready to tell them where you are as exactly as you can and what the emergency is, and don't hang up until the call-taker tells you to."
+ },
+ {
+  "id": "r1048.1",
+  "earlier": [],
+  "message": "I don't want to die out here. I'm lost in the fog on a trail in West Virginia and I'm shaking.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I'm sorry you're scared and shaking. Find shelter, try to stay dry and cover all exposed skin; if you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. If you can't safely find your way back, stay where you are; move only if there is an immediate threat to life."
+ },
+ {
+  "id": "r1048.3",
+  "earlier": [
+   "PERSON: I don't want to die out here. I'm lost in the fog on a trail in West Virginia and I'm shaking.",
+   "APP: I'm sorry you're shaking and feeling scared. If you can't safely find your way back, stay where you are. If you have a map, compass, or can see landmarks, use them to try to work out where you are. If you can't safely find your way back, stay where you are. Move only if there is an immediate threat to life.",
+   "PERSON: I mean I'm terrified of the weather and being stuck, not trying to hurt myself. My phone is at 6%.",
+   "APP: I'm sorry you're terrified and scared. Stay calm and think through your situation. If you can't safely find your way back, stay where you are. Find shelter, try to stay dry and cover all exposed skin. Move only if there is an immediate threat to life."
+  ],
+  "message": "I found a trail post and can see a shelter downhill. Should I stay put and wait for someone?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice about whether it's safe to reach that shelter downhill. If you're waiting for help, rest, save your energy and wait patiently. If you can't safely find your way back, stay where you are; changing location makes it hard for searchers to find you, and move only if there is an immediate threat to life."
+ },
+ {
+  "id": "r1049.1",
+  "earlier": [],
+  "message": "I don't want to die out here in this storm. My kayak flipped near the shore of Lake Superior and I'm cold.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I'm sorry you're cold and scared. As soon as you have signal, call 911 and tell them where you are as exactly as you can and what the emergency is. If you have a whistle, blow it often; find shelter, try to stay dry and cover all exposed skin."
+ },
+ {
+  "id": "r1049.2",
+  "earlier": [
+   "PERSON: I don't want to die out here in this storm. My kayak flipped near the shore of Lake Superior and I'm cold.",
+   "APP: I'm sorry you're cold and scared. Find shelter, try to stay dry and cover all exposed skin. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Keep your feet as dry as you can."
+  ],
+  "message": "I'm with my partner on a rocky beach. I mean I want to get through this and get warm, not hurt myself.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "Thanks for clarifying; I'm glad your partner is with you. Stay farther back from the ocean than you think is necessary, never turn your back on it, and stay several meters away from the base of cliffs and the edge of clifftops. If you have signal, call 911; find shelter, try to stay dry and cover all exposed skin, and keep your feet as dry as you can."
+ },
+ {
+  "id": "r1050.1",
+  "earlier": [],
+  "message": "Testing this thing from my couch in Pittsburgh. Does it know any good pizza places?",
+  "notice_shown": "none",
+  "checked_steps": [],
+  "reply": "I can't recommend pizza places; Tenvia is for emergencies and outdoor safety. If something is wrong or you feel unsafe, tell me what's happening."
+ },
+ {
+  "id": "r1050.2",
+  "earlier": [
+   "PERSON: Testing this thing from my couch in Pittsburgh. Does it know any good pizza places?",
+   "APP: I can only help with emergencies and staying safe outdoors, so I can't help with that. If anything is wrong or you feel unsafe, tell me what is happening."
+  ],
+  "message": "Can it tell me a pun about a squirrel?",
+  "notice_shown": "none",
+  "checked_steps": [],
+  "reply": "I can't help with a squirrel pun; I'm set up for emergencies and outdoor safety. If something is happening, tell me what's going on."
+ },
+ {
+  "id": "r1051.1",
+  "earlier": [],
+  "message": "hello app just checking if this button works lol",
+  "notice_shown": "none",
+  "checked_steps": [],
+  "reply": "I got your message, so the button worked. If you need help with an emergency, tell me what's happening."
+ },
+ {
+  "id": "r1051.2",
+  "earlier": [
+   "PERSON: hello app just checking if this button works lol",
+   "APP: I can only help with emergencies and staying safe outdoors, so I can't help with that. If anything is wrong or you feel unsafe, tell me what is happening."
+  ],
+  "message": "Why do people call it a hiking boot if you walk in it?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "Maybe because a 'hiking boot' sounds sturdier than a 'walking boot'—but I don't know the real reason. I don't have checked advice on the name."
+ },
+ {
+  "id": "r1052.1",
+  "earlier": [],
+  "message": "Random question: could a moose beat a pickup truck in a staring contest?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "The moose might win on patience, but the pickup has the better poker face. I don't have checked advice on moose staring contests."
+ },
+ {
+  "id": "r1052.2",
+  "earlier": [
+   "PERSON: Random question: could a moose beat a pickup truck in a staring contest?",
+   "APP: I don't have checked advice on whether a moose could beat a pickup truck in a staring contest. If you're in an area with moose, never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "This is a test for my outdoor club, nobody's missing.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "Understood—thanks for clarifying that nobody is missing. I don't have checked advice about the club test, but there's no emergency guidance I can add here."
+ },
+ {
+  "id": "r1052.3",
+  "earlier": [
+   "PERSON: Random question: could a moose beat a pickup truck in a staring contest?",
+   "APP: I don't have checked advice on whether a moose could beat a pickup truck in a staring contest. If you're in an area with moose, never approach wildlife; if an animal moves closer to you, back away to keep a safe distance.",
+   "PERSON: This is a test for my outdoor club, nobody's missing.",
+   "APP: I'm sorry the test feels stressful. If you're in an area with moose, never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "We are indoors at the library in Burlington.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "Got it—you're indoors at the library in Burlington. I don't have checked advice needed for that situation."
+ },
+ {
+  "id": "r1053.1",
+  "earlier": [],
+  "message": "I pressed the help icon by accident. How many stars are in the Milky Way?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "No problem about the accidental tap. I don't have checked advice on how many stars are in the Milky Way."
+ },
+ {
+  "id": "r1053.2",
+  "earlier": [
+   "PERSON: I pressed the help icon by accident. How many stars are in the Milky Way?",
+   "APP: I don't have checked advice on how many stars are in the Milky Way. The help icon is for emergency contact, not for astronomy questions. If you have signal, call 911."
+  ],
+  "message": "All good here in my apartment in Phoenix.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "I'm glad everything is okay at your apartment. I don't have checked advice on astronomy."
+ },
+ {
+  "id": "r1058.1",
+  "earlier": [],
+  "message": "I'm with my two kids on a beach near Cape Cod. Thunder is close and the tide is cutting off the low path.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options. Keep your children close and stay farther back from the ocean than you think is necessary."
+ },
+ {
+  "id": "r1058.2",
+  "earlier": [
+   "PERSON: I'm with my two kids on a beach near Cape Cod. Thunder is close and the tide is cutting off the low path.",
+   "APP: There is no safe place outside when thunderstorms are in the area. Stay away from water, wet items such as ropes, and metal objects such as fences and poles. Wait 30 minutes after the last lightning or thunder before going back outside."
+  ],
+  "message": "We can climb a dune path but it's steep and the kids are barefoot. Is it safer to wait under the rocks?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice on whether the steep dune path or the rocks are safer. There is no safe place outside during thunderstorms; substantial buildings and hard-topped vehicles are safe options. Keep the children close to you."
+ },
+ {
+  "id": "r1058.3",
+  "earlier": [
+   "PERSON: I'm with my two kids on a beach near Cape Cod. Thunder is close and the tide is cutting off the low path.",
+   "APP: There is no safe place outside when thunderstorms are in the area. Stay away from water, wet items such as ropes, and metal objects such as fences and poles. Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "PERSON: We can climb a dune path but it's steep and the kids are barefoot. Is it safer to wait under the rocks?",
+   "APP: I don't have checked advice on whether the dune path is safer or whether to wait under the rocks. There is no safe place outside when thunderstorms are in the area. Stay away from water, wet items such as ropes, and metal objects such as fences and poles."
+  ],
+  "message": "A bright flash just hit offshore. The older kid is crying and we have shoes in a bag.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "Keep the children close and watch them closely. There is no safe place outside during thunderstorms; substantial buildings and hard-topped vehicles are safe options, and wait 30 minutes after the last lightning or thunder before going back outside."
+ },
+ {
+  "id": "r1059.2",
+  "earlier": [
+   "PERSON: Our car is parked on a windy road near Yellowstone and a bison is standing between us and the paved pullout.",
+   "APP: I don't have checked advice on dealing with a bison. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "Gusts keep rocking the car. My uncle wants me to honk so the bison moves.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on honking at a bison. Take shelter in your car if you are not near a sturdy building, and try to find a place that will block blowing or falling debris."
+ },
+ {
+  "id": "r1060.1",
+  "earlier": [],
+  "message": "I'm lost with my 79-year-old aunt in the North Cascades. Snow is starting and she's very anxious about getting back before dark.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "Take a moment to calmly look at your situation. If you can't safely find your way back, stay where you are; changing location can make it hard for searchers to find you, so move only if there is an immediate threat to life. Find shelter, try to stay dry and cover all exposed skin."
+ },
+ {
+  "id": "r1060.2",
+  "earlier": [
+   "PERSON: I'm lost with my 79-year-old aunt in the North Cascades. Snow is starting and she's very anxious about getting back before dark.",
+   "APP: Stay calm and think through your situation. If you can't safely find your way back, stay where you are. If you have a map, compass, or can see landmarks, use them to try to work out where you are. If you can't safely find your way back, stay where you are. Move only if there is an immediate threat to life."
+  ],
+  "message": "We stopped beside a trail marker. She is shaking and wants to keep walking downhill even though we can't tell where it goes.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "If you can't safely find your way back, stay where you are; changing location makes it hard for searchers to find you, so move only if there is an immediate threat to life. Find shelter, try to stay dry and cover all exposed skin. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow."
+ },
+ {
+  "id": "r1101.1",
+  "earlier": [],
+  "message": "I'm on a trail near Glacier and a grizzly is maybe 30 feet away by the brush. No cubs that I can see.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "That is very close. Talk calmly so the bear knows you are human, and do not run or make sudden movements."
+ },
+ {
+  "id": "r1101.2",
+  "earlier": [
+   "PERSON: I'm on a trail near Glacier and a grizzly is maybe 30 feet away by the brush. No cubs that I can see.",
+   "APP: Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "It looked at me and huffed, I'm frozen. My pack has food in it.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I don't have checked advice on what to do when it is watching you or about the food in your pack. For a bear, talk calmly so it knows you are human, and don't run or make sudden movements."
+ },
+ {
+  "id": "r1101.3",
+  "earlier": [
+   "PERSON: I'm on a trail near Glacier and a grizzly is maybe 30 feet away by the brush. No cubs that I can see.",
+   "APP: Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "PERSON: It looked at me and huffed, I'm frozen. My pack has food in it.",
+   "APP: I don't have checked advice on what to do if the bear is watching you. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "Now it's moving across the trail, not toward me. Should I wait here or back away?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life."
+  ],
+  "reply": "I don't have checked advice on whether to wait or back away when a bear moves across the trail. Don't run or make sudden movements, and talk calmly so the bear knows you are human."
+ },
+ {
+  "id": "r1102.2",
+  "earlier": [
+   "PERSON: Black bear just walked into our campsite near Shenandoah. It's nosing the cooler, maybe 20 yards away.",
+   "APP: Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance. Bear: talk calmly so the bear knows you are a human and not a prey animal."
+  ],
+  "message": "We are inside the tent. The cooler is outside and the food is in it.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice on whether to stay in the tent or what to do about the cooler. Don't run or make sudden movements; talk calmly so the bear knows you are human."
+ },
+ {
+  "id": "r1103.2",
+  "earlier": [
+   "PERSON: Mountain lion following me on a trail outside Boulder. I can see it behind me every time I look.",
+   "APP: Do not run from the mountain lion. Stand and face the animal. Do all you can to appear larger—raise your arms."
+  ],
+  "message": "I'm alone and there's a bend ahead. I have a trekking pole.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stop. Take a moment to calmly look at your situation.",
+   "If you have a map, compass or GPS, or can see landmarks, use them to try to work out where you are.",
+   "If it's safe, retrace your steps to get back to the route you planned.",
+   "If you can't safely find your way back, stay where you are.",
+   "Changing location will make it hard for searchers to find you. Move only if there is an immediate threat to life.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice about the bend or trekking pole. Don't run from the mountain lion; stand and face it, and do all you can to appear larger by raising your arms."
+ },
+ {
+  "id": "r1105.1",
+  "earlier": [],
+  "message": "I think a rattlesnake bit my ankle near Tucson. I saw it but didn't get a good look at the markings.",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "reply": "I'm sorry this happened. Reaching 911 is most important whenever there is any way to do so. Stay calm and think through your situation."
+ },
+ {
+  "id": "r1106.3",
+  "earlier": [
+   "PERSON: A moose cow is standing between me and the parking lot near Grand Teton. There's a calf beside her.",
+   "APP: Never approach wildlife. If the moose moves closer to you, back away to keep a safe distance.",
+   "PERSON: She's pinning her ears and stepping toward me. I have a bike but it's not between us.",
+   "APP: She's pinning her ears and stepping toward you. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "I was going to sprint for the lot, bad idea?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice about sprinting away from a moose. If an animal moves closer to you, back away to keep a safe distance; never approach wildlife."
+ },
+ {
+  "id": "r1107.2",
+  "earlier": [
+   "PERSON: Big bull elk is bugling and coming down the campground road in Estes Park. I'm about 25 yards away.",
+   "APP: I don't have checked advice on what to do with a big bull elk. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "I ducked behind a picnic table but it's not much cover. My kids are with me.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice for an elk approaching you. Never approach wildlife; if it moves closer to you, back away to keep a safe distance. Keep your children close and watch them closely; never let them run ahead."
+ },
+ {
+  "id": "r1107.3",
+  "earlier": [
+   "PERSON: Big bull elk is bugling and coming down the campground road in Estes Park. I'm about 25 yards away.",
+   "APP: I don't have checked advice on what to do with a big bull elk. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance.",
+   "PERSON: I ducked behind a picnic table but it's not much cover. My kids are with me.",
+   "APP: I don't have checked advice on ducking behind a picnic table. Keep children close to you and watch them closely; never let them run ahead of you."
+  ],
+  "message": "It stopped and is staring at us.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute."
+  ],
+  "reply": "I don't have checked advice on what to do when an elk stops and stares. Never approach wildlife; if it moves closer, back away to keep a safe distance. Keep the children close and watch them closely; never let them run ahead."
+ },
+ {
+  "id": "r1109.1",
+  "earlier": [],
+  "message": "Three loose dogs have surrounded me near a rural road in West Virginia. No people around.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice for loose dogs or for this situation. I can't tell you what to do based on the guidance available here."
+ },
+ {
+  "id": "r1109.2",
+  "earlier": [
+   "PERSON: Three loose dogs have surrounded me near a rural road in West Virginia. No people around.",
+   "APP: I don't have checked advice on what to do with the dogs. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "One keeps coming close and barking. I have a walking stick but don't want to hit them.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice for a loose dog approaching or for using a walking stick. I can't tell you that hitting or not hitting it is safe."
+ },
+ {
+  "id": "r1109.3",
+  "earlier": [
+   "PERSON: Three loose dogs have surrounded me near a rural road in West Virginia. No people around.",
+   "APP: I don't have checked advice on what to do with the dogs. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance.",
+   "PERSON: One keeps coming close and barking. I have a walking stick but don't want to hit them.",
+   "APP: I don't have checked advice on using a walking stick to avoid the dog. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "There's a gate in a fence about 20 feet away, can I make a run for it?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice on whether to run to the gate. I can't tell you that a run or the gate would be safe."
+ },
+ {
+  "id": "r1110.2",
+  "earlier": [
+   "PERSON: A bison is walking along the boardwalk at Yellowstone and now it's between me and the marked exit.",
+   "APP: I don't have checked advice on moving around a bison. Never approach wildlife; if it moves closer to you, back away to keep a safe distance."
+  ],
+  "message": "I'm on the boardwalk, no car or building right here. It's maybe 35 feet away.",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "I don't have checked advice for getting past a bison on the boardwalk. Never approach wildlife; if an animal moves closer to you, back away to keep a safe distance."
+ }
+]
