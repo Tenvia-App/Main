@@ -29,4 +29,30 @@ class ChatEngineLiveTest {
         }
         println("generated $generated of ${turns.size}")
     }
+
+    /** Runs a conversation file (same format as ai-experiments/chat-sealed*.json) and writes the replies as
+     *  JSON, to compare the app with the test pipeline: set TENVIA_LIVE_CONVS and TENVIA_LIVE_OUT. */
+    @Test
+    fun conversationFile() {
+        val convs = System.getenv("TENVIA_LIVE_CONVS") ?: return
+        val url = System.getenv("TENVIA_LIVE_URL") ?: "http://127.0.0.1:8083"
+        val lib = parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText())
+        val engine = ChatEngine(lib, url, short = true)
+        assumeTrue("no AI server at $url", engine.isAvailable())
+        val list = org.json.JSONObject(java.io.File(convs).readText(Charsets.UTF_8)).getJSONArray("conversations")
+        val out = org.json.JSONArray()
+        for (i in 0 until list.length()) {
+            val c = list.getJSONObject(i)
+            engine.reset()
+            val turns = org.json.JSONArray()
+            val ts = c.getJSONArray("turns")
+            for (k in 0 until ts.length()) {
+                val r = engine.respond(ts.getString(k))
+                turns.put(org.json.JSONObject().put("user", ts.getString(k)).put("reply", r.text).put("generated", r.generated)
+                    .put("notice", r.notice ?: "").put("guides", org.json.JSONArray(r.guides.map { it.id })))
+            }
+            out.put(org.json.JSONObject().put("id", c.get("id")).put("turns", turns))
+        }
+        java.io.File(System.getenv("TENVIA_LIVE_OUT") ?: "build/live-out.json").writeText(out.toString(1), Charsets.UTF_8)
+    }
 }
