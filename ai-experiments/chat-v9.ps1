@@ -143,8 +143,8 @@ function Find-Keyword([string]$text, [string[]]$keywords) {
     }
     $null
 }
-$lostPattern = "(?i)\b(lost|off (the )?(trail|path)|lost the (trail|path)|blazes? (stopped|ended|disappeared|ran out)|can'?t (see|find) (the )?(trail|path|blazes?|markers?|route)|missed (a|the) (turn|fork|junction)|which fork|turned around|which way|what direction|wrong way|don'?t know where|where am i|off course|way back|disoriented|can'?t find (the|my|our) (way|car|camp|group))\b"
-$waterDangerPattern = '(?i)\b(kayak\w*|canoe\w*|raft\w*|paddl\w*|boat\w*|drift\w*|current|swept|carried (away|off|out)|capsiz\w*|flowing|rushing|moving water|water (is )?(over|across|on|covering) the road|(creek|river|stream|wash) (is )?(rising|up|high|overflow\w*)|(fast|quick)[- ]moving|moving (fast|quickly)|over (the|its|their) banks|(bridge|footbridge|crossing|road|trail|path|ford) (is |was )?(covered|under ?water|flooded|washed out))\b'
+$lostPattern = "(?i)\b(lost|off (the )?(trail|path)|lost the (trail|path)|blazes? (stopped|ended|disappeared|ran out)|can'?t (see|find) (the )?(trail|path|blazes?|markers?|route)|missed (a|the) (turn|fork|junction)|which fork|separated|turned around|which way|what direction|wrong way|don'?t know where|where am i|off course|way back|disoriented|can'?t find (the|my|our) (way|car|camp|group))\b"
+$waterDangerPattern = '(?i)\b(kayak\w*|canoe\w*|raft\w*|paddl\w*|boat\w*|drift(ing|ed|s)? (away|off|out|toward|towards|downstream|from)|adrift|current|swept|carried (away|off|out)|capsiz\w*|flowing|rushing|moving water|water (is )?(over|across|on|covering) the road|(water|creek|river|it) (is )?(flowing|running|rushing) (across|over)|across the road|(creek|river|stream|wash) (is )?(rising|up|high|overflow\w*)|(fast|quick)[- ]moving|moving (fast|quickly)|over (the|its|their) banks|(bridge|footbridge|crossing|road|trail|path|ford) (is |was )?(covered|under ?water|flooded|washed out))\b'
 $stormPattern = '(?i)\b(lightning|thunder\w*)\b'
 $drinkPattern = '(?i)\b(drink\w*|thirst\w*|dehydrat\w*|bottle|canteen|ration\w*|sip\w*|filter\w*|purif\w*|treat\w*|boil\w*|safe to drink|out of water|running out|last of (my|our) water)\b'
 $offTopicLines = @(
@@ -248,6 +248,9 @@ function Get-RankedSteps($use, [string]$msg, [bool]$noCar, [bool]$med) {
             # Fire, flood, moving water, tide: only hazard, reach-help and get-found steps (sets 5-7: a windbreak
             # during a wildfire, "tie cloth to your car" in floodwater).
             if ($script:hazard -and $id -notin $hazardGuides -and $id -notin 'reach-help', 'get-found') { continue }
+            # v9n: drinking-water steps only when the conversation is about drinking (a flooding campground
+            # got "don't ration your drinking water").
+            if ($id -eq 'water' -and $cv -notmatch $drinkPattern) { continue }
             if ($script:waterDanger -and $t -match '^(If no shelter is available, avoid trees|Try to find a place that will block|Take shelter in your car)') { continue }
             # v9e: count distinct word GROUPS, not words, so long steps with many group words (map, compass,
             # GPS, landmarks) don't win over the one that fits ("rest in the shade" for someone very hot).
@@ -309,7 +312,7 @@ $intentTable = @(
     @('(?i)\b(hot|heat|sun|desert|9\d ?(f|degrees)|1\d\d ?(f|degrees)|overheat\w*|sweat\w*|no shade)\b', @('Rest in the shade', 'Avoid hard activity', 'If you have a wide-brimmed hat', 'In heat, children')),
     @('(?i)\b(battery|batt|charge|\d+ ?%|percent|phone (is )?dying|dying phone)\b', @('Use your phone as little', 'Turn on low power mode', 'If you have no signal bars, turning', 'Dim your screen')),
     @('(?i)\b(one|1|a) bar\b|\bbar (just )?(popped|appeared|showed|came)|\bcalls? (aren''t|are not|won''t|didn''t|don''t) (going through|connect\w*)|\bcall(s)? (keep )?(drop|fail)\w*', @('Call if you can, text if you can', 'As soon as you have signal, call 911', 'Be ready to tell them where you are')),
-    @('(?i)\b(walk|hike|head|go|leave|start walking|push on|jog|run)\b[^.?!]{0,40}\b(for help|toward|towards|to the|out|road|highway|town|store|house|light)\b', @('Stay with your vehicle', 'In snow and wind, if you leave', 'If you can''t safely find your way back', 'Changing location will make it hard')),
+    @('(?i)\b(walk|hike|head|go|leave|start walking|push on|jog|run)\b[^.?!]{0,40}\b(for help|toward|towards|to the|out|road|highway|town|store|house|light)\b|\b(leave|leaving|abandon) (the |our |my )?(car|truck|van|suv|vehicle)\b|\bleave and\b|\bflag (down )?(a|the|it)\b|\bfollow (the|those|these|that|this)\b|\bkeep moving\b', @('Stay with your vehicle', 'In snow and wind, if you leave', 'If you can''t safely find your way back', 'Changing location will make it hard')),
     @('(?i)\b(kid|kids|child|children|son|daughter|toddler|boy|girl|sister|brother|\d+ ?yo|\d+ year old)\b[^.?!]{0,60}\b(alone|run\w*|wander\w*|ahead|go off|by (him|her)self|leave|left)\b|\b(alone|run|wander)\w*\b[^.?!]{0,40}\b(kid|kids|child|son|daughter|sister|brother)\b', @('Watch children closely', 'Keep children close')),
     @('(?i)\b(kid|kids|child|children|son|daughter|toddler|baby|infant|grandkid\w*)\b', @('Keep children close', 'Watch children closely')),
     @('(?i)\bbears?\b(?! spray)', @('Bear: do not run', 'Bear: talk calmly', 'Bear: pick up small children', 'Never approach wildlife')),
@@ -386,6 +389,7 @@ function Select-Guides($active) {
     if (($script:convUser -match $petPattern) -and -not ($script:convUser -match $wildPattern)) { $rest = @($rest | Where-Object { $_ -ne 'wildlife' }) }
     $extra = @()
     if ($script:waterDanger) { $extra = @('reach-help', 'get-found' | Where-Object { $_ -notin $hz }) ; $rest = @($rest | Where-Object { $_ -notin $extra }) }
+    $script:guidePool = @(@($hz) + @($extra) + @($rest))
     @(@($hz) + @($extra) + @($rest) | Select-Object -First 4)
 }
 function Update-Flags([string]$msg) {
@@ -843,7 +847,7 @@ foreach ($cv in $conversations) {
         $t++
         $sw = [Diagnostics.Stopwatch]::StartNew()
         # 1. route + nets (per message; flags stay raised)
-        $script:callRec = @(); $tryLog = @(); $script:added = ''; $script:salvaged = $false
+        $script:callRec = @(); $tryLog = @(); $script:added = ''; $script:salvaged = $false; $script:trimmed = $false
         $route = Ask (Chat $routeSys $routeShots $msg) $routeGrammar 0 | ConvertFrom-Json
         $net = ''
         if ($msg -match '\p{L}{2,}') {
@@ -946,14 +950,46 @@ foreach ($cv in $conversations) {
                 continue
             }
             if (-not $SelfCheck) {
-                # v9: add the most relevant step when the reply has none of the top 2 (fixed text).
-                $rank = @(Get-RankedSteps $use $msg (-not (Test-HasVehicle)) ($medical -or $crisis) | Where-Object { $_.text -notmatch '^Streams, rivers' })
-                $top = @($rank | Select-Object -First 2)
-                $onlyDecline = ($cand -match "^I (don't|do not) have (any )?checked advice[^.!?]*[.!?]?$") -or -not @(@($use | ForEach-Object { @(Get-Steps $_) }) | Where-Object { Test-HasStep $cand $_.text }).Count
-                if ($top.Count -and $top[0].score -ge $(if ($onlyDecline) { -50 } else { 3 }) -and @($cand -split '(?<=[.!?])' + [char]92 + 's+' | Where-Object { $_ }).Count -le $(if ($top[0].score -ge 10) { 5 } else { 3 }) -and -not @($top | Where-Object { Test-HasStep $cand $_.text }).Count) {
-                    $plus = ($cand.TrimEnd() + ' ' + $top[0].text).Trim()
-                    if ($onlyDecline -and $top.Count -gt 1) { $plus += ' ' + $top[1].text }
-                    if (-not @(Test-Rules $plus $steps ($medical -or $crisis)).Count) { $cand = $plus; $script:added = $top[0].text }
+                # v9k: add the most relevant steps the reply lacks (fixed text). Steps may come from any guide
+                # raised for this conversation (not only the 4 in the prompt); that guide is then shown too.
+                $rank = @(Get-RankedSteps $script:guidePool $msg (-not (Test-HasVehicle)) ($medical -or $crisis) | Where-Object { $_.text -notmatch '^Streams, rivers' })
+                $sents = @($cand -split '(?<=[.!?])\s+' | Where-Object { $_.Trim() })
+                # v9m: drop step sentences that do not fit at all (the whistle step for someone asking about the
+                # engine, power lines in a snowstorm); both judges called these weak. The decline and other text stay.
+                $scoreOf = @{}; foreach ($r in $rank) { if (-not $scoreOf.ContainsKey($r.text)) { $scoreOf[$r.text] = $r.score } }
+                $allShown = @(@($script:guidePool | ForEach-Object { @($guideById[$_].steps) }) | ForEach-Object { $_.text })
+                $keepS = @()
+                foreach ($snt in $sents) {
+                    $match = @($allShown | Where-Object { Test-HasStep $snt $_ } | Select-Object -First 1)
+                    $sc = if ($match.Count) { if ($scoreOf.ContainsKey($match[0])) { $scoreOf[$match[0]] } else { -99 } } else { 99 }
+                    if ($sc -lt 1 -and $sents.Count -ge 2 -and $snt -notmatch '911|988|flood water') { continue }
+                    $keepS += $snt
+                }
+                if ($keepS.Count -and $keepS.Count -lt $sents.Count) {
+                    $trim = ($keepS -join ' ')
+                    if (-not @(Test-Rules $trim $steps ($medical -or $crisis)).Count) { $cand = $trim; $sents = $keepS; $script:trimmed = $true }
+                }
+                $hasAny = @(@($script:guidePool | ForEach-Object { @(Get-Steps $_) }) | Where-Object { Test-HasStep $cand $_.text }).Count -gt 0
+                $want = @($rank | Where-Object { $_.score -ge $(if ($hasAny) { 3 } else { -50 }) } | Select-Object -First 2 | Where-Object { -not (Test-HasStep $cand $_.text) })
+                $room = if ($sents.Count -le 2) { 2 } elseif ($sents.Count -le 3 -or ($want.Count -and $want[0].score -ge 10 -and $sents.Count -le 5)) { 1 } else { 0 }
+                $plus = $cand.TrimEnd(); $addIds = @(); $addTxt = @()
+                foreach ($w in @($want | Select-Object -First $room)) { $plus += ' ' + $w.text; $addIds += $w.id; $addTxt += $w.text }
+                # v9r: the two engine steps only go together (the engine rule needs the exhaust check AND the 10-minute limit).
+                $eng = @($rank | Where-Object { $_.text -match '^(Before running the engine|In the cold, run the engine)' })
+                if (($addTxt -match 'engine').Count -and $eng.Count -eq 2) {
+                    foreach ($e2 in $eng) { if (-not (Test-HasStep $plus $e2.text)) { $plus += ' ' + $e2.text; $addIds += $e2.id; $addTxt += $e2.text } }
+                }
+                if ($addTxt.Count) {
+                    $steps2 = $steps + "`n" + ((@($addIds | Where-Object { $_ -notin $use } | Select-Object -Unique | ForEach-Object { @(Get-Steps $_) | ForEach-Object { $_.text } })) -join "`n")
+                    if (-not @(Test-Rules $plus $steps2 ($medical -or $crisis)).Count) {
+                        $cand = $plus; $script:added = ($addTxt -join ' | ')
+                        foreach ($gid in $addIds) { if ($gid -notin $use) { $use = @($use) + $gid } }
+                    }
+                }
+                if ($cand -match "^I (don't|do not) have (any )?checked advice (on|about|for) ([^.!?]+)[.!?]\s+(.+)$") {
+                    $topicS = @(Get-Stems $Matches[4] | Where-Object { $_ -notin 'safe', 'whet', 'whether', 'situa', 'there', 'thing', 'what' }); $restT = $Matches[5]
+                    $contra = @(@($script:guidePool | ForEach-Object { @(Get-Steps $_) }) | Where-Object { (Test-HasStep $restT $_.text) -and @(@(Get-Stems $_.text) | Where-Object { $topicS -contains $_ }).Count })
+                    if ($contra.Count -and -not @(Test-Rules $restT $steps ($medical -or $crisis)).Count) { $cand = $restT; $script:trimmed = $true }
                 }
                 # v9e: a medical or crisis reply always ends with the notice's way to get help.
                 if ($crisis -and $cand -notmatch '988') { $cand = $cand.TrimEnd() + ' As soon as you have any signal, please call or text 988 in the US, or 911.' }
@@ -972,11 +1008,12 @@ foreach ($cv in $conversations) {
             # Water: steps 1 and 3 ("streams can be sources" alone, without "must be treated", misleads; dev2 202.3).
             $noCar = -not (Test-HasVehicle)
             $carStep = '(?i)\b(your|the) (car|vehicle)\b'
-            $rank = @(Get-RankedSteps $use $msg $noCar ($medical -or $crisis))
+            $rank = @(Get-RankedSteps $script:guidePool $msg $noCar ($medical -or $crisis))
             $hz = @($use | Where-Object { $_ -in $hazardGuides } | Where-Object { $_ -eq $use[0] -or $hazardNow } | Select-Object -First 1)
             # Hazard: only the hazard guides' own steps (other guides' steps can be wrong there, dev2 210.1).
             if ($script:hazard -and -not $hz.Count) { $rank = @($rank | Where-Object { $_.id -in $hazardGuides -or $_.id -in 'reach-help', 'get-found' }) }
             $first = @($rank | Select-Object -First 2 | ForEach-Object { $_.text })
+            foreach ($gid in @($rank | Select-Object -First 2 | ForEach-Object { $_.id })) { if ($gid -notin $use) { $use = @($use) + $gid } }
             # Water: "streams can be sources" alone, without "must be treated", misleads (dev2 202.3).
             if (($first -match '^Streams, rivers').Count -and -not ($first -match 'must be treated').Count) { $first = @($first | Where-Object { $_ -notmatch '^Streams, rivers' }) + @(@(Get-Steps 'water')[2].text) }
             $reply = if ($crisis) { "I hear you, and I'm here with you. " + $crisisText + $(if ($first.Count -and @($use | Where-Object { $_ -ne 'stay-calm' }).Count) { " For where you are, the checked guide says: " + ($first -join ' ') } else { '' }) }
@@ -989,7 +1026,7 @@ foreach ($cv in $conversations) {
         $sw.Stop()
         $notice = if ($crisis) { 'crisis' } elseif ($medical) { 'medical' } else { '' }
         $shown = @($use | ForEach-Object { @(Get-Steps $_) | ForEach-Object { $_.text } })
-        $turnRows += [pscustomobject]@{ turn = $t; user = $msg; steps = $shown; added = $script:added; salvaged = $script:salvaged; guide = "$($route.guide)"; urgent = [bool]$route.urgent; net = $net; active = ($use -join ','); notice = $notice; context = $context; calls = $script:callRec; trylog = $tryLog;
+        $turnRows += [pscustomobject]@{ turn = $t; user = $msg; steps = $shown; added = $script:added; salvaged = $script:salvaged; trimmed = $script:trimmed; guide = "$($route.guide)"; urgent = [bool]$route.urgent; net = $net; active = ($use -join ','); notice = $notice; context = $context; calls = $script:callRec; trylog = $tryLog;
             source = $source; tries = $try; reply = $reply; rejected = $rejected; seconds = [math]::Round($sw.Elapsed.TotalSeconds, 1);
             route_s = [math]::Round($tRoute, 1); gen_s = [math]::Round($tGen, 1); check_s = [math]::Round($tCheck, 1); tok_per_s = $tps }
         # A fallback is never put in the history: the model copied its wording in the next turns.
