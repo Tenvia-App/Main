@@ -12,6 +12,7 @@ foreach ($c in $r) {
     $prev = @()
     foreach ($t in $c.turns) {
         $steps = @(); foreach ($id in ("$($t.active)" -split ',' | Where-Object { $_ })) { $steps += @($gb[$id].steps | ForEach-Object { $_.text }) }
+        if ($t.PSObject.Properties['steps'] -and @($t.steps).Count) { $steps = @($t.steps) }  # v9+: the steps actually shown
         $items += [ordered]@{ id = "$($c.id).$($t.turn)"; earlier = @($prev); message = $t.user; notice_shown = $(if ($t.notice) { $t.notice } else { 'none' }); checked_steps = @($steps); reply = $t.reply }
         $prev += "PERSON: $($t.user)"; $prev += "APP: $($t.reply)"
     }
