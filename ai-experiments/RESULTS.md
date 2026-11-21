@@ -297,7 +297,36 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
-## Pipeline v8 (not tested on unseen data yet)
+## Pipelines v9-v12 (night of 20-21 Nov 2026): best 91% safe / 61% helpful on unseen sealed set 9
+
+Goal for the night: 90% safe and 90% helpful. **Safety reached 91% on unseen conversations; helpfulness did not get close (61%).**
+
+What changed (all fixed word rules, no new training; model still `tenvia-1.7b-v6-Q4_K_M.gguf`, `-Short`):
+
+- **v9** ([`chat-v9.ps1`](chat-v9.ps1)), tuned on used sets 5-7: steps are ranked by how well they fit the conversation (word groups plus a situation table, latest message first); a passed reply that lacks the most relevant step gets it added word for word, and step sentences that don't fit are trimmed; a rejected reply keeps its good sentences ("salvage") instead of falling back; medical and crisis replies always end with 911 / 988; tornado, dust-storm, bear, mountain-lion and snake steps only when the conversation names one; off-topic detection for "I'm at home" and generic-word questions; fixes to the lost, moving-water and vehicle-away patterns.
+- **v10** (dropped): starts a reply with "I don't have checked advice on that exact question" when the person asked something the reply doesn't answer. +2 on sets 5-7, -3 on a fresh practice set: no real gain.
+- **v11** (dropped): changed how steps are added (decline sentences don't count as carrying a step; add one step at a time when two together break a rule). Slightly lower on the practice set.
+- **v12** ([`chat-v12.ps1`](chat-v12.ps1)) = v9 + four narrow safety fixes found on a fresh practice set (set 10, 40 conversations written by Hermes, used for tuning): "it's between us and the car" counts as the car being out of reach (a bear); the crisis fallback's 988 line keeps "as soon as you have any signal"; "if you leave your vehicle you will become disoriented" keeps its "in snow and wind" condition (and is dropped when nobody mentioned snow); new rule against "keep your battery low" (not a checked step).
+
+| Pipeline | Sealed set 8 (unseen) safe / helpful | Practice set 10 | Sealed set 9 (unseen, run once) safe / helpful |
+|---|---|---|---|
+| v8 | 90% / 41% | | |
+| v9 | 89% / 49% | 92% / 74% | 87% / 53% |
+| **v12** | | 91% / 70% | **91% / 61%** |
+
+Sets 8 and 9 (30 conversations each, 90 replies) are kept outside this repo; nobody tuning read them, and the judge (Hermes, same judging prompt) saw neutral file names, not version names.
+
+**How sure is this?** Not very, about the size of the differences:
+
+- The local AI server's replies depend slightly on which requests it handled just before (prompt-cache reuse), and PowerShell's rule table reorders when a rule is added, which changes rewrite hints. On 8 used conversations, v9 and v12 gave the same reply in only 14 of 24 turns although v12's fixes fired in none of them. Swings of about ±5 points on 120 replies come from that alone, so v12's lead over v9 on set 9 (+4 safe, +8 helpful) is partly chance. v12 is kept because it was best on the blind test and its fixes are each a clear rule.
+- Scores on sets 5-7 (72-74% helpful) are inflated: judgments are cached per reply and those sets were used for tuning. Unseen sets score 49-61%.
+- The judge marks the app's own lightning step "Substantial buildings and hard-topped vehicles are safe options" (a weather.gov quote) as unsafe, 4 times on sets 5-7, and is inconsistent about other checked steps ("move only if there is an immediate threat to life", "retrace your steps"). Judging rule, not the app; not changed tonight.
+
+**App:** `ChatEngine.kt` now has v12 (v9 ranking, adding, trimming, salvage, off-topic, patterns, plus the four v12 fixes). Unit tests pass; the live test against the dev server gave the same replies as the PowerShell pipeline in 22 of 24 turns (the rest differ in the model's first draft). `ChatEngineLiveTest.conversationFile` can now run any conversation file (`TENVIA_LIVE_CONVS`, `TENVIA_LIVE_OUT`). No new APK built yet, not checked on a phone.
+
+**Why helpfulness is stuck around 50-60% on unseen conversations:** the most common judge reasons are that the reply doesn't answer the person's direct question ("should we paddle toward the horn?"), or gives checked steps that are true but not the most relevant ones. Word rules can pick and add steps, but they can't make the 1.7B model reason about the question; that likely needs better teaching data (replies that answer the question first) or a larger model.
+
+## Pipeline v8 (tested on sealed set 8 in the section above)
 
 Rule fixes for the three unsafe replies v6 + v7b gave on sealed set 7, in [`chat-v8.ps1`](chat-v8.ps1) and the app's `ChatEngine.kt` (v7 stays frozen as tested):
 
@@ -308,7 +337,7 @@ Rule fixes for the three unsafe replies v6 + v7b gave on sealed set 7, in [`chat
 - **Guides:** tornado (outdoors / in a vehicle) and dust-storm (driving) steps added to the wind guide from weather.gov, quotes verified with `content/verify-sources.ps1` (7/7).
 - **Sealed set 8** (30 conversations, ids 1001-1030, same mix as sets 6-7) was written by a subagent and is kept **outside this public repo** so it stays unseen; nobody tuning the app has read it.
 
-Next: run v8 once on sealed set 8 and judge it blind.
+Result: see "Pipelines v9-v12" above (v8 on sealed set 8: 90% safe, 41% helpful).
 
 ## Pipeline v7 and app 0.7.0-ai-test: 97% safe / 68% helpful on unseen sealed set 7
 

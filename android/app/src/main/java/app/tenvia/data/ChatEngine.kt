@@ -223,6 +223,15 @@ class ChatEngine(
             if (r("\\bavoid trees\\b").containsMatchIn(it) && !r("no shelter").containsMatchIn(it) && r("If no shelter is available, avoid trees").containsMatchIn(steps))
                 "If no shelter is available, avoid trees, power lines, and the side of the road." else it
         }
+        // v12: "if you leave your vehicle you will become disoriented" keeps its snow-and-wind condition, and is
+        // dropped when the person never mentioned snow (set 10: 1234.2, 1216.3).
+        if (r("In snow and wind, if you leave your vehicle").containsMatchIn(steps)) {
+            cand = sentences(cand).mapNotNull {
+                if (r("disoriented").containsMatchIn(it) && !r("snow").containsMatchIn(it)) {
+                    if (r("\\bsnow").containsMatchIn(convUser)) "In snow and wind, if you leave your vehicle you will become disoriented quickly." else null
+                } else it
+            }.joinToString(" ")
+        }
         if (r("\\brun(ning)? the engine\\b").containsMatchIn(cand) && !r("exhaust").containsMatchIn(cand) && r("exhaust pipe").containsMatchIn(steps))
             cand = "Before running the engine, make sure the exhaust pipe isn't blocked. $cand"
         if ("flood" in use && CROSS_RE.containsMatchIn(msg) && !Regex("through flood water", I).containsMatchIn(cand)) {
@@ -341,7 +350,8 @@ class ChatEngine(
                 first = first.filterNot { it.startsWith("Streams, rivers", true) } + listOfNotNull(getSteps("water").getOrNull(2))
             // A crisis or medical fallback keeps the notice's own text first (sealed 3: 524.3, 533.3).
             var fb = when {
-                isCrisis && crisisOos != null -> "I hear you, and I'm here with you. " + crisisOos.message +
+                // v12: the notice's 988 line keeps the signal condition (set 10: 1232.2).
+                isCrisis && crisisOos != null -> "I hear you, and I'm here with you. " + crisisOos.message + " If you have no signal right now, do it as soon as you have any." +
                     (if (first.isNotEmpty() && use.any { it != "stay-calm" }) " For where you are, the checked guide says: " + first.joinToString(" ") else "")
                 isMedical && medical != null -> "I hear you. " + medical.message +
                     (if (first.isNotEmpty()) " The checked guide also says: " + first.joinToString(" ") else "")
@@ -661,6 +671,8 @@ bool ::= "true" | "false""""
         "claims signal" to { s, _ -> r("(?<!\\b(if|when|once|until|soon as|whether) )\\byou (now )?have (signal|service|bars?|a bar)\\b(?! (yet|again))").containsMatchIn(s) && !hasSignalNow },
         // v9
         "shade but none" to { s, _ -> r("\\b(rest|stay|sit|get) in (the )?shade\\b").containsMatchIn(s) && r("\\b(no|not much|little|isn't any|there's no|without|zero) shade\\b").containsMatchIn(convUser) },
+        // v12: not a checked step, and it passed the advice check (set 10: 1206.2).
+        "battery low" to { s, _ -> r("\\b(keep|leave|let)\\b[^.!?]{0,20}\\bbattery\\b[^.!?]{0,10}\\blow\\b").containsMatchIn(s) },
         "tornado condition" to { s, _ -> sentences(s).any { r("\\b(ditch|ravine|low spot|low-lying)\\b").containsMatchIn(it) && !r("tornado").containsMatchIn(it) } },
     )
 
@@ -670,7 +682,7 @@ bool ::= "true" | "false""""
         private val ORDER_FIRST = setOf("flood", "wildfire", "lightning", "high-wind", "coast-tide")
         private val OWN_VEHICLE_RE = Regex("\\b(i'?m|i am|we'?re|we are|stuck|sitting|stranded|trapped) in (a|an) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(my|our|the|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(engine|dashboard|windshield|flat tire|broke down|broken down)\\b", RegexOption.IGNORE_CASE)
         private val PROMISE_RE = Regex("\\byou('re| are) not (alone|in danger)\\b|\\byou (will not|won't|will never) (die|freeze|get lost|be hurt)\\b|\\byou('re| are) (going to be|gonna be) (ok|okay|fine|alright|safe)\\b|\\byou('ll| will) be (ok|okay|fine|alright|safe)\\b|\\byou('re| are) safe (now|here)\\b|\\bnot in danger right now\\b", RegexOption.IGNORE_CASE)
-        private val VEHICLE_AWAY_RE = Regex("\\b(car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b[^.?!]{0,30}\\b(away|back|behind (us|me)|on the other side|across|back at|at the (trailhead|trail head|parking)|in the (parking )?lot)\\b|\\b(run|walk|hike|head|go|get|make it|race|sprint|hurry|back|way) (back )?(for|to|toward|towards) (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b|\\bhear (the|our|my|his|her|their) (car|truck|engine)\\b|\\b(far|away) from (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\b(can'?t|cannot|couldn'?t) find (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\bwhere (we|i|they) parked\\b", RegexOption.IGNORE_CASE)
+        private val VEHICLE_AWAY_RE = Regex("\\b(car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b[^.?!]{0,30}\\b(away|back|behind (us|me)|on the other side|across|back at|at the (trailhead|trail head|parking)|in the (parking )?lot)\\b|\\b(run|walk|hike|head|go|get|make it|race|sprint|hurry|back|way) (back )?(for|to|toward|towards) (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b|\\bhear (the|our|my|his|her|their) (car|truck|engine)\\b|\\b(far|away) from (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\b(can'?t|cannot|couldn'?t) find (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\bwhere (we|i|they) parked\\b|\\bbetween (me|us|him|her|them) and (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b", RegexOption.IGNORE_CASE)
         private val IN_VEHICLE_RE = Regex("\\b(in|inside|made it to|made it back to|back in|reached|got to|got back to|sitting in) (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b", RegexOption.IGNORE_CASE)
         private val PET_RE = Regex("\\b(dog|dogs|puppy|pup|horse|horses|cat|cats|cow|cows|cattle|livestock|bark\\w*|pet)\\b", RegexOption.IGNORE_CASE)
         private val WILD_RE = Regex("\\b(bears?|cougars?|mountain lions?|pumas?|wol(f|ves)|coyotes?|moose|bison|elk|rattl\\w*|snakes?|alligators?|wild ?life|wild (dog|dogs|animal|animals)|growl\\w*)\\b", RegexOption.IGNORE_CASE)
@@ -740,6 +752,7 @@ bool ::= "true" | "false""""
             "911 without signal" to "Keep the condition: \"As soon as you have signal, call 911 (call if you can, text if you cannot).\" Do not tell them to call without it.",
             "claims signal" to "It said they have signal, but they did not say so. Do not.",
             "shade but none" to "They said there is no shade, so do not tell them to rest in the shade.",
+            "battery low" to "It said to keep the battery low, which is not a checked step. To save battery, use the checked phone-battery steps (low power mode, dim the screen, use the phone as little as possible).",
             "tornado condition" to "It said to get into a ditch or low spot without saying this is only if a tornado is coming. Keep the tornado condition or leave it out.",
         )
 
