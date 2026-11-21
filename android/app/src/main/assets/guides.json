@@ -608,7 +608,14 @@
                                         "tree fell",
                                         "branches",
                                         "power line",
-                                        "power lines"
+                                        "power lines",
+                                        "tornado",
+                                        "twister",
+                                        "funnel cloud",
+                                        "dust storm",
+                                        "haboob",
+                                        "wall of dust",
+                                        "blowing dust"
                                     ],
                        "steps":  [
                                      {
@@ -630,6 +637,41 @@
                                          "text":  "Try to find a place that will block blowing or falling debris.",
                                          "source_url":  "https://www.weather.gov/safety/wind-during",
                                          "quote":  "Try to find a place that will block blowing or falling debris."
+                                     },
+                                     {
+                                         "text":  "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+                                         "source_url":  "https://www.weather.gov/safety/tornado-during",
+                                         "quote":  "Seek shelter inside a sturdy building immediately if a tornado is approaching."
+                                     },
+                                     {
+                                         "text":  "Tornado: a tent or mobile home is not safe.",
+                                         "source_url":  "https://www.weather.gov/safety/tornado-during",
+                                         "quote":  "Neither is a mobile home or tent."
+                                     },
+                                     {
+                                         "text":  "Tornado: being in a vehicle is not safe.",
+                                         "source_url":  "https://www.weather.gov/safety/tornado-during",
+                                         "quote":  "Being in a vehicle during a tornado is not safe."
+                                     },
+                                     {
+                                         "text":  "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+                                         "source_url":  "https://www.weather.gov/safety/tornado-during",
+                                         "quote":  "If you are unable to make it to a safe shelter, either get down in your car and cover your head"
+                                     },
+                                     {
+                                         "text":  "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-dust-storm",
+                                         "quote":  "pull your vehicle off the pavement as far as possible"
+                                     },
+                                     {
+                                         "text":  "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-dust-storm",
+                                         "quote":  "stop, turn off lights, set the emergency brake"
+                                     },
+                                     {
+                                         "text":  "Dust storm: never stop on the part of the road where cars drive.",
+                                         "source_url":  "https://www.weather.gov/safety/wind-dust-storm",
+                                         "quote":  "Never stop on the traveled portion of the roadway."
                                      }
                                  ],
                        "draft":  true

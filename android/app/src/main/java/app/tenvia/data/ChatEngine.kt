@@ -143,10 +143,20 @@ class ChatEngine(
         val hz = active.filter { it in ORDER_FIRST }
         var rest = active.filter { it !in ORDER_FIRST }
         if (hazard || storm || !LOST_RE.containsMatchIn(convUser)) rest = rest.filter { it != "stay-or-move" }
-        if (!OWN_VEHICLE_RE.containsMatchIn(convUser)) rest = rest.filter { it != "stranded-vehicle" }
+        if (!hasVehicle()) rest = rest.filter { it != "stranded-vehicle" }
+        // v8: a dog, horse or other pet is not wildlife (sealed 7: 913.2).
+        if (PET_RE.containsMatchIn(convUser) && !WILD_RE.containsMatchIn(convUser)) rest = rest.filter { it != "wildlife" }
         var extra = emptyList<String>()
         if (waterDanger) { extra = listOf("reach-help", "get-found").filter { it !in hz }; rest = rest.filter { it !in extra } }
         return (hz + extra + rest).take(4)
+    }
+
+    /** v8: the person has a vehicle with them, not one they are away from ("the car is 300 feet away",
+     *  "she can hear our car"; sealed 7: 910.2, 917.2), unless their latest message says they are in it. */
+    private fun hasVehicle(): Boolean {
+        if (!OWN_VEHICLE_RE.containsMatchIn(convUser)) return false
+        if (VEHICLE_AWAY_RE.containsMatchIn(convUser) && !IN_VEHICLE_RE.containsMatchIn(curMsg)) return false
+        return true
     }
 
     /** Fixed touch-ups on a candidate reply (word rules, not AI), before the rules check it. */
@@ -242,7 +252,7 @@ class ChatEngine(
             // v4: no unvetted lines. Hazard: the active hazard guide's own quoted steps; else the top guide's.
             val hz = use.firstOrNull { it in HAZARD_GUIDES && (it == use.firstOrNull() || hazardNow) }
             // v7b: no "your car/vehicle" step unless the person has one (sealed 5: 705.3).
-            val noCar = !OWN_VEHICLE_RE.containsMatchIn(convUser)
+            val noCar = !hasVehicle()
             fun ok(t: String) = !(noCar && CAR_STEP_RE.containsMatchIn(t))
             val first = when {
                 hz != null -> guideById[hz]?.steps?.map { it.text }?.filter(::ok)?.take(2) ?: emptyList()
@@ -470,6 +480,7 @@ bool ::= "true" | "false""""
         "talks about steps" to { s, _ -> r("\\bchecked steps?\\b|\\bplease read the\\b|\\bnone (of (them|these|the steps) )?apply\\b").containsMatchIn(s) },
         "stay put not in steps" to { s, _ -> r("\\b(stay where you are|stay put)\\b").containsMatchIn(s) && !r("stay where you are").containsMatchIn(curSteps) },
         "vehicle not mentioned" to { s, _ -> r("(?<!\\bif )\\b(your|the) (vehicle|car)\\b").containsMatchIn(s) && !r("\\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\\b").containsMatchIn(convUser) },
+        "vehicle away" to { s, _ -> r("\\b(stay|remain|wait|shelter) (with|in|inside|near|by) (your|the) (car|vehicle|truck)\\b").containsMatchIn(s) && VEHICLE_AWAY_RE.containsMatchIn(convUser) && !hasVehicle() },
         "911 without signal" to { s, _ -> r("\\b(911|988|emergency services)\\b").containsMatchIn(s) && !hasSignalNow && !r("\\bsignal\\b|\\bas soon as\\b|\\bwhen you (can|have|get)\\b|\\bif you (can|have|get)\\b|\\bany way\\b|\\bif there is\\b|\\?").containsMatchIn(s) },
         "claims signal" to { s, _ -> r("(?<!\\b(if|when|once|until|soon as|whether) )\\byou (now )?have (signal|service|bars?|a bar)\\b(?! (yet|again))").containsMatchIn(s) && !hasSignalNow },
     )
@@ -478,9 +489,13 @@ bool ::= "true" | "false""""
         private val SIGNAL_RE = Regex("\\b(one|1|a|two|2|some|few) bars?\\b|\\bbar (just )?(popped|appeared|showed)|\\b(have|got|getting) (a |some )?(signal|service|reception)\\b|\\b(signal|service) (is |came |just came )?back\\b|\\b(buzzing|getting) (with )?alerts\\b", RegexOption.IGNORE_CASE)
         private val HAZARD_GUIDES = setOf("flood", "wildfire", "coast-tide", "lightning", "high-wind")
         private val ORDER_FIRST = setOf("flood", "wildfire", "lightning", "high-wind", "coast-tide")
-        private val OWN_VEHICLE_RE = Regex("\\b(my|our|the|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(engine|dashboard|windshield|flat tire|broke down|broken down)\\b", RegexOption.IGNORE_CASE)
+        private val OWN_VEHICLE_RE = Regex("\\b(i'?m|i am|we'?re|we are|stuck|sitting|stranded|trapped) in (a|an) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(my|our|the|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(engine|dashboard|windshield|flat tire|broke down|broken down)\\b", RegexOption.IGNORE_CASE)
         private val PROMISE_RE = Regex("\\byou('re| are) not (alone|in danger)\\b|\\byou (will not|won't|will never) (die|freeze|get lost|be hurt)\\b|\\byou('re| are) (going to be|gonna be) (ok|okay|fine|alright|safe)\\b|\\byou('ll| will) be (ok|okay|fine|alright|safe)\\b|\\byou('re| are) safe (now|here)\\b|\\bnot in danger right now\\b", RegexOption.IGNORE_CASE)
-        private val CAR_STEP_RE = Regex("\\b(your|the) (car|vehicle)\\b", RegexOption.IGNORE_CASE)
+        private val VEHICLE_AWAY_RE = Regex("\\b(car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b[^.?!]{0,30}\\b(away|back at|at the (trailhead|trail head|parking)|in the (parking )?lot)\\b|\\b(run|walk|hike|head|go|get|make it|race|sprint|hurry|back|way) (back )?(for|to|toward|towards) (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b|\\bhear (the|our|my|his|her|their) (car|truck|engine)\\b|\\b(far|away) from (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\b(can'?t|cannot|couldn'?t) find (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\bwhere (we|i|they) parked\\b", RegexOption.IGNORE_CASE)
+        private val IN_VEHICLE_RE = Regex("\\b(in|inside|made it to|made it back to|back in|reached|got to|got back to|sitting in) (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b", RegexOption.IGNORE_CASE)
+        private val PET_RE = Regex("\\b(dog|dogs|puppy|pup|horse|horses|cat|cats|cow|cows|cattle|livestock|bark\\w*|pet)\\b", RegexOption.IGNORE_CASE)
+        private val WILD_RE = Regex("\\b(bears?|cougars?|mountain lions?|pumas?|wol(f|ves)|coyotes?|moose|bison|elk|rattl\\w*|snakes?|alligators?|wild ?life|wild (dog|dogs|animal|animals)|growl\\w*)\\b", RegexOption.IGNORE_CASE)
+        private val CAR_STEP_RE =Regex("\\b(your|the) (car|vehicle)\\b", RegexOption.IGNORE_CASE)
         private val VEHICLE_RE = Regex("\\b(car|cars|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup|engine|tires?|dashboard|windshield)\\b", RegexOption.IGNORE_CASE)
         private val CROSS_RE = Regex("\\b(cross\\w*|wade|wading|walk (through|across|over)|drive (through|across|over)|ford\\w*|go through)\\b", RegexOption.IGNORE_CASE)
         private val OFF_TOPIC = listOf(
@@ -541,6 +556,7 @@ bool ::= "true" | "false""""
             "talks about steps" to "It talked about the checked steps or the notice instead of giving advice. Just give the advice that fits, in your own words.",
             "stay put not in steps" to "It said to stay where they are, but that step is not in the checked steps for this message. Leave it out.",
             "vehicle not mentioned" to "It talked about a vehicle or car, but the person never mentioned one. Leave vehicle advice out.",
+            "vehicle away" to "It told them to stay with or in a vehicle, but the vehicle is away from them. Do not tell them to go to it or stay with it.",
             "911 without signal" to "Keep the condition: \"As soon as you have signal, call 911 (call if you can, text if you cannot).\" Do not tell them to call without it.",
             "claims signal" to "It said they have signal, but they did not say so. Do not.",
         )

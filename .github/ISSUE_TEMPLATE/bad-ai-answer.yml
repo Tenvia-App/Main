@@ -1,0 +1,55 @@
+name: Bad AI answer
+description: The AI chat said something unsafe, wrong or unhelpful.
+title: "Bad AI answer: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing Tenvia. **This report is public: don't include your real location, phone number, names or other personal details.**
+        If you are in danger right now, stop and call 911 (or text or call 988 for a mental-health crisis in the US).
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown on the release you installed, for example 0.7.0-ai-test.
+      placeholder: 0.7.0-ai-test
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What was wrong?
+      multiple: true
+      options:
+        - Unsafe (it could get someone hurt)
+        - Wrong or made-up details
+        - Didn't help with what I asked
+        - Wrong topic or guide
+        - Too slow or no answer
+        - Crash or error message
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: conversation
+    attributes:
+      label: The conversation
+      description: Copy each message you sent and each reply, in order. Screenshots are fine too (drag them in).
+      placeholder: |
+        Me: ...
+        Tenvia: ...
+        Me: ...
+        Tenvia: ...
+    validations:
+      required: true
+  - type: textarea
+    id: better
+    attributes:
+      label: What would a good answer have said?
+      description: Optional. Even a rough idea helps.
+  - type: input
+    id: phone
+    attributes:
+      label: Phone model
+      description: Optional, for example "moto g stylus 2025".

@@ -24,6 +24,8 @@ The app's guides live in [`android/app/src/main/assets/guides.json`](../android/
 
 ## Known gaps for expert review
 
-- The vehicle guide comes from a winter-storm source; hot-weather vehicle guidance is still missing.
+- The vehicle guide comes from a winter-storm source; hot-weather vehicle guidance is still missing (the Death Valley safety page, checked 2026-11-20, has no breakdown advice; still looking for an official source).
+- Tornado (outdoors or in a vehicle) and dust-storm (driving) steps were added to the wind guide on 2026-11-20 from weather.gov, labelled "Tornado:" and "Dust storm:" like the animal steps. Its first step ("Take shelter in your car") is general wind advice; during a tornado a vehicle is not safe, so an expert should check that the two read clearly together.
+- No official on-foot dust-storm advice was found (weather.gov covers driving only).
 - "Stay put" in the Lost guide has a very short supporting quote; an expert should confirm the context.
 - The guides cover the US only (for example the 911 number); other countries come later.

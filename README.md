@@ -1,8 +1,10 @@
 # Tenvia
 
-**Hold on, there's a way through.** Tenvia is a free, fully offline Android app that helps people through dangerous situations when there's no signal: lost, stranded, or waiting for rescue. It's free like 911: no ads, accounts, limits or tracking, and no internet permission at all.
+**Hold on, there's a way through.** Tenvia is a free, fully offline Android app that helps people through dangerous situations when there's no signal: lost, stranded, or waiting for rescue. It's free like 911: no ads, accounts, limits or tracking. Test builds ask for internet permission only to reach the AI running on the same phone; the finished app is planned to have none.
 
 Website: **https://tenvia-app.github.io/Main/**
+
+**Try the test app:** [how to install it](INSTALL.md) · [report a bad AI answer](https://github.com/Tenvia-App/Main/issues/new?template=bad-ai-answer.yml)
 
 Created by **Aries Fulkerson**. Open source under the [Apache License 2.0](LICENSE); see [NOTICE.md](NOTICE.md).
 
@@ -12,6 +14,8 @@ Created by **Aries Fulkerson**. Open source under the [Apache License 2.0](LICEN
 
 | Folder / file | What it is |
 |---|---|
+| [INSTALL.md](INSTALL.md) | How to install and test the Android test app |
+| [PLAY-STORE.md](PLAY-STORE.md) | Plan, listing text and checklist for Google Play (not submitted yet) |
 | [REQUIREMENTS.md](REQUIREMENTS.md) | Principles, scope, architecture, milestones |
 | [android/](android/) | The app: Kotlin and Jetpack Compose, minSdk 26, no internet permission. It contains the guide library, the keyword matcher and the medical and self-harm warning-word safety net, with unit tests |
 | [content/](content/) | How guide content is made. Every step comes from an official US government page with a verified quote |

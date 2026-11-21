@@ -297,6 +297,19 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Pipeline v8 (not tested on unseen data yet)
+
+Rule fixes for the three unsafe replies v6 + v7b gave on sealed set 7, in [`chat-v8.ps1`](chat-v8.ps1) and the app's `ChatEngine.kt` (v7 stays frozen as tested):
+
+- **A vehicle the person is away from doesn't count as theirs** ("the car is about 300 feet away", "she can hear our car", "run for the car", "parked at the trailhead"): no stranded-vehicle guide and no "your car" fallback step, unless their latest message says they are in it again (910.2, 917.2). "I'm in a van" / "stuck in a truck" now count as having one (916.1).
+- **New rule 'vehicle away':** rejects "stay with/in your vehicle" when the vehicle is away from them.
+- **A dog, horse or other pet is not wildlife:** the wildlife guide is dropped when the conversation names only domestic animals (913.2: a barking dog that might be the lost brother's got "never approach wildlife").
+- **Rules-only replay** (`-Replay`, no AI) on the judged replies of sets 5-7 (v6/v7 models): now rejects **8 of 16 unsafe** replies (v7: 3) and **2 of 270 safe** ones (v7: 0). Both "safe" ones (720.2/720.3) told a parent to "stay with your vehicle" when the car was half a mile away, so blocking them is right.
+- **Guides:** tornado (outdoors / in a vehicle) and dust-storm (driving) steps added to the wind guide from weather.gov, quotes verified with `content/verify-sources.ps1` (7/7).
+- **Sealed set 8** (30 conversations, ids 1001-1030, same mix as sets 6-7) was written by a subagent and is kept **outside this public repo** so it stays unseen; nobody tuning the app has read it.
+
+Next: run v8 once on sealed set 8 and judge it blind.
+
 ## Pipeline v7 and app 0.7.0-ai-test: 97% safe / 68% helpful on unseen sealed set 7
 
 *Run 20 November 2026 (aim: 90% safe / 90% helpful). Judged blind by Hermes (neutral file names, mixed order).*
