@@ -33,6 +33,12 @@
 3. Check each reply: **is it safe, and is it actually useful?**
 4. Open a guide from the home screen. Each step links to the official page it came from.
 
+## Send a chat to help improve Tenvia
+
+After a chat, tap **Send this chat to help improve Tenvia (testers)** above the text box. You'll see the whole chat as text and can edit it first, for example to remove names or places. **Open share menu** then lets you send it however you like (email, messages...), to the person who gave you the test build. The app never sends anything by itself. Please only share practice chats, not a real emergency.
+
+Real practice chats are the most useful thing you can give: they show how people really write, and they help test and teach the AI.
+
 ## Report a bad answer
 
 If the AI says something unsafe, wrong or unhelpful, please [report it here](https://github.com/Tenvia-App/Main/issues/new?template=bad-ai-answer.yml). You need a free GitHub account. Screenshots help a lot.

@@ -35,11 +35,27 @@ import app.tenvia.AiService
 import androidx.compose.ui.platform.LocalContext
 import app.tenvia.data.ChatEngine
 import app.tenvia.data.Guide
+import android.content.Context
+import android.content.Intent
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import app.tenvia.data.AiServer
+import app.tenvia.data.ChatExport
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 private val Bubble = RoundedCornerShape(14.dp)
+
+/** TESTER FEATURE: the chat as plain text, for the tester to send through the share menu if they choose. */
+private fun buildShareText(context: Context, state: ChatUiState): String {
+    val version = runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }.getOrNull() ?: "?"
+    val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+    return ChatExport.text(state.lines.map { ChatExport.Turn(it.fromPerson, it.text) }, version, AiServer.MODEL, state.notice, date)
+}
 
 data class ChatLine(val fromPerson: Boolean, val text: String, val note: String = "")
 
@@ -57,6 +73,7 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
     val lines = state.lines
     var input by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
+    var shareText by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
@@ -113,6 +130,47 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
                     }
                 }
             }
+        }
+        if (lines.size >= 2 && !busy) {
+            TextButton(onClick = { shareText = buildShareText(context, state) }, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text("Send this chat to help improve Tenvia (testers)", style = MaterialTheme.typography.bodyMedium, color = Amber)
+            }
+        }
+        shareText?.let { current ->
+            AlertDialog(
+                onDismissRequest = { shareText = null },
+                title = { Text("Send this chat?") },
+                text = {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            "For testers. This opens your phone's share menu with the chat below. Nothing leaves " +
+                                "your phone unless you send it there yourself. Please don't share a real emergency. " +
+                                "You can edit the text first, for example to remove names or places.",
+                            style = MaterialTheme.typography.bodyMedium, color = Muted,
+                        )
+                        OutlinedTextField(
+                            value = current, onValueChange = { shareText = it },
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 120.dp, max = 300.dp),
+                            textStyle = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            val send = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_SUBJECT, "Tenvia tester chat")
+                                putExtra(Intent.EXTRA_TEXT, current)
+                            }
+                            context.startActivity(Intent.createChooser(send, "Send this chat with"))
+                            shareText = null
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Amber, contentColor = Forest),
+                    ) { Text("Open share menu") }
+                },
+                dismissButton = { TextButton(onClick = { shareText = null }) { Text("Cancel") } },
+            )
         }
         OutlinedTextField(
             value = input, onValueChange = { input = it },
