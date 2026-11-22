@@ -8,14 +8,36 @@
 - About **2.5 GB of free space**: the download is about 1.2 GB, and the app copies its AI model out once on first start.
 - Wi-Fi for the download. After that, nothing needs a connection.
 
-## Install
+## Install, step by step
 
-1. On your phone, open the [releases page](https://github.com/Tenvia-App/Main/releases), find the newest version at the top, and tap the **`.apk`** file under **Assets** to download it.
-2. Open the downloaded file. Android will warn that the app comes from an unknown source. That's normal for apps that aren't on the Play Store yet.
-3. If asked, allow your browser or Files app to **Install unknown apps**, then go back and tap **Install**.
-4. Open **Tenvia** (the gold path-and-walker icon). Allow notifications if asked: the app shows one while it gets the AI ready.
+The exact wording of the screens below differs a little between phones. Plan about 10 minutes, mostly for the download.
 
-**Updating:** install the new `.apk` over the old one; you don't need to uninstall first.
+**Step 1. Connect to Wi-Fi.** The download is about 1.2 GB.
+
+**Step 2. Open the download page on your phone.** Go to the [releases page](https://github.com/Tenvia-App/Main/releases). The newest version is at the top.
+
+**Step 3. Download the app.** Under **Assets** for the newest version, tap the file ending in **`.apk`** (for example `Tenvia-0.8.1-ai-test.apk`).
+- Chrome may say *"File might be harmful"* or *"Download anyway?"*. Tap **Download anyway**. Chrome says this about every app that isn't from the Play Store.
+- Wait for the download to finish.
+
+**Step 4. Open the file.** Tap **Open** in the download message, or open your **Files** app, go to **Downloads** and tap the Tenvia `.apk` file.
+
+**Step 5. Allow the install (first time only).** Android may say *"For your security, your phone isn't allowed to install unknown apps from this source."*
+1. Tap **Settings**.
+2. Turn on **Allow from this source**.
+3. Tap the back arrow. You return to the install screen.
+
+**Step 6. Tap Install.**
+- If **Google Play Protect** says it doesn't recognize the app, tap **More details**, then **Install anyway**. It says this because Tenvia isn't on the Play Store yet.
+- If it offers to **scan the app**, you can let it scan.
+
+**Step 7. Open Tenvia.** Look for the gold icon with a walking person between two hills. Allow notifications if asked: the app shows one while it gets the AI ready.
+
+**Step 8. Wait for the AI the first time.** The first start copies the AI onto the phone and warms it up. This can take **several minutes**. The guides work right away.
+
+**Step 9 (optional). Turn the "unknown apps" switch back off.** Go to **Settings → Apps → Special app access → Install unknown apps**, pick the app you used (Chrome or Files) and turn it off.
+
+**Updating later:** download the newest `.apk` and install it over the old one. You don't need to uninstall first.
 
 ## First start
 
