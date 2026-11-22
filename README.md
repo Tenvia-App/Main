@@ -15,6 +15,7 @@ Created by **Aries Fulkerson**. Open source under the [Apache License 2.0](LICEN
 | Folder / file | What it is |
 |---|---|
 | [INSTALL.md](INSTALL.md) | How to install and test the Android test app |
+| [TESTING.md](TESTING.md) | For testers: what to try, how to send a chat (Android or iPhone), what to report |
 | [PLAY-STORE.md](PLAY-STORE.md) | Plan, listing text and checklist for Google Play (not submitted yet) |
 | [REQUIREMENTS.md](REQUIREMENTS.md) | Principles, scope, architecture, milestones |
 | [android/](android/) | The app: Kotlin and Jetpack Compose, minSdk 26, no internet permission. It contains the guide library, the keyword matcher and the medical and self-harm warning-word safety net, with unit tests |
