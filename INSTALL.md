@@ -35,7 +35,7 @@
 
 ## Send a chat to help improve Tenvia
 
-After a chat, tap **Send this chat to help improve Tenvia (testers)** above the text box. You'll see the whole chat as text and can edit it first, for example to remove names or places. **Open share menu** then lets you send it however you like (email, messages...), to the person who gave you the test build. The app never sends anything by itself. Please only share practice chats, not a real emergency.
+After a chat, tap **Send this chat to help improve Tenvia (testers)** above the text box. You'll see the whole chat as text and can edit it first, for example to remove names or places. **Open share menu** then lets you send it. Pick your email app: the address **tenvia.testchats@gmail.com** is filled in for you. The app never sends anything by itself. Please only share practice chats, not a real emergency.
 
 Real practice chats are the most useful thing you can give: they show how people really write, and they help test and teach the AI.
 

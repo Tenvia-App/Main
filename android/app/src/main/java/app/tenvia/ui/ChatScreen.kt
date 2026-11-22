@@ -50,6 +50,9 @@ import kotlinx.coroutines.withContext
 
 private val Bubble = RoundedCornerShape(14.dp)
 
+/** Where testers send chats (filled into the email's To line). Public Tenvia test address. */
+const val TESTER_CHAT_EMAIL = "tenvia.testchats@gmail.com"
+
 /** TESTER FEATURE: the chat as plain text, for the tester to send through the share menu if they choose. */
 private fun buildShareText(context: Context, state: ChatUiState): String {
     val version = runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }.getOrNull() ?: "?"
@@ -143,7 +146,8 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
                 text = {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(
-                            "For testers. This opens your phone's share menu with the chat below. Nothing leaves " +
+                            "For testers. This opens your phone's share menu with the chat below. Pick your email app to send it " +
+                                "to $TESTER_CHAT_EMAIL. Nothing leaves " +
                                 "your phone unless you send it there yourself. Please don't share a real emergency. " +
                                 "You can edit the text first, for example to remove names or places.",
                             style = MaterialTheme.typography.bodyMedium, color = Muted,
@@ -160,6 +164,7 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
                         onClick = {
                             val send = Intent(Intent.ACTION_SEND).apply {
                                 type = "text/plain"
+                                putExtra(Intent.EXTRA_EMAIL, arrayOf(TESTER_CHAT_EMAIL))
                                 putExtra(Intent.EXTRA_SUBJECT, "Tenvia tester chat")
                                 putExtra(Intent.EXTRA_TEXT, current)
                             }
