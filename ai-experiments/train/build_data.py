@@ -28,9 +28,10 @@ REWRITE = "Rewrite your reply. Problem: {hint} Keep everything else, 2 to 4 shor
 
 
 def load_runs():
-    """t-*.json: the 4B teacher's runs. p-*.json: the small model's own runs (ids get "p"; v5 runs q-*.json get "q")."""
+    """t-*.json: the 4B teacher's runs. p-*.json: the small model's own runs (ids get "p"; v5 runs q-*.json get "q";
+    v6 + pipeline v7 runs r-*.json get "r"; v6 + pipeline v12 on the direct-question sets convs-E/F, u-*.json, get "u")."""
     convs = []
-    for pat, pre in (("t-*.json", ""), ("p-*.json", "p"), ("q-*.json", "q"), ("r-*.json", "r")):
+    for pat, pre in (("t-*.json", ""), ("p-*.json", "p"), ("q-*.json", "q"), ("r-*.json", "r"), ("u-*.json", "u"), ("v-*.json", "v")):
         for f in sorted(glob.glob(os.path.join(HERE, pat))):
             data = json.load(open(f, encoding="utf-8-sig"))
             if isinstance(data, dict):
@@ -190,7 +191,7 @@ def judgein(only_new=False):
     print("replies to judge", len(items), "files", [f"judge-in-{n // 60 + first:02d}.json" for n in range(0, len(items), 60)])
 
 
-def build(require_judge=True, need_good=False, prefer_rw=False, filter_misfits=False):
+def build(require_judge=True, need_good=False, prefer_rw=False, filter_misfits=False, q_weight=1):
     verdict = verdicts()
     rw, rwv, rulefail = rewrites(), verdicts("rwj-out-*.json"), set()
     rp = os.path.join(HERE, "rw-check-replay.json")
@@ -203,7 +204,7 @@ def build(require_judge=True, need_good=False, prefer_rw=False, filter_misfits=F
             if "context" not in t:
                 continue
             msg = t["user"]
-            for call in ([] if str(c["id"])[:1] in "pq" else as_list(t.get("calls"))):  # sorting/checks: teacher only
+            for call in ([] if str(c["id"])[:1] in "pquv" else as_list(t.get("calls"))):  # sorting/checks: teacher only
                 sysm = {"route": ROUTE_SYS, "hurt": HURT_SYS, "harm": HARM_SYS}[call["kind"]]
                 out.append({"task": call["kind"], "messages": [{"role": "system", "content": sysm}, {"role": "user", "content": msg}, {"role": "assistant", "content": call["out"]}]})
                 n[call["kind"]] += 1
@@ -220,7 +221,7 @@ def build(require_judge=True, need_good=False, prefer_rw=False, filter_misfits=F
             good_rw = tid in rw and tid not in rulefail and is_ok(rwv.get(tid)) and not bad_fit(rw[tid])
             if t["source"] != "generated":
                 if good_rw:
-                    out.append({"task": "rewrite", "messages": base + [{"role": "assistant", "content": rw[tid]}]}); n["rewrite"] += 1
+                    out.append({"task": "rewrite", "q": tid[:1] == "u" or tid[:2] == "v2", "messages": base + [{"role": "assistant", "content": rw[tid]}]}); n["rewrite"] += 1
                 else:
                     n["fallback_skipped"] += 1
                 continue
@@ -233,12 +234,12 @@ def build(require_judge=True, need_good=False, prefer_rw=False, filter_misfits=F
             if teacher_ok and bad_fit(t["reply"]):
                 teacher_ok = False; n["misfit_skipped"] = n.get("misfit_skipped", 0) + 1
             if good_rw and (not teacher_ok or (prefer_rw and not is_ok(v, True))):  # prefer the rewrite over a WEAK teacher reply
-                out.append({"task": "rewrite", "messages": base + [{"role": "assistant", "content": rw[tid]}]}); n["rewrite"] += 1
+                out.append({"task": "rewrite", "q": tid[:1] == "u" or tid[:2] == "v2", "messages": base + [{"role": "assistant", "content": rw[tid]}]}); n["rewrite"] += 1
                 continue
             if not teacher_ok:
                 n["unsafe_skipped" if not is_ok(v, False) else "weak_skipped"] += 1
                 continue
-            out.append({"task": "reply", "messages": base + [{"role": "assistant", "content": t["reply"]}]})
+            out.append({"task": "reply", "q": tid[:1] == "u" or tid[:2] == "v2", "messages": base + [{"role": "assistant", "content": t["reply"]}]})
             n["reply"] += 1
             tries = as_list(t.get("trylog"))
             if len(tries) >= 2 and tries[-2].get("bad") and not tries[-1].get("bad"):
@@ -247,6 +248,11 @@ def build(require_judge=True, need_good=False, prefer_rw=False, filter_misfits=F
                     {"role": "user", "content": REWRITE.format(hint=tries[-2]["hint"])},
                     {"role": "assistant", "content": t["reply"]}]})
                 n["repair"] += 1
+    if q_weight > 1:  # v8: repeat the direct-question replies (u- runs) so answering the question first sticks
+        extra = [ex for ex in out if ex.get("q")] * (q_weight - 1)
+        out += extra; n["q_repeats"] = len(extra)
+    for ex in out:
+        ex.pop("q", None)
     random.Random(7).shuffle(out)
     with open(os.path.join(HERE, "train.jsonl"), "w", encoding="utf-8") as f:
         for ex in out:
@@ -267,4 +273,5 @@ if __name__ == "__main__":
     else:
         # v3: --good   v4: --prefer-rw --filter (SAFE teacher replies kept, GOOD rewrites preferred, stock lines out of place dropped)
         build(require_judge="--nojudge" not in sys.argv, need_good="--good" in sys.argv,
-              prefer_rw="--prefer-rw" in sys.argv, filter_misfits="--filter" in sys.argv)
+              prefer_rw="--prefer-rw" in sys.argv, filter_misfits="--filter" in sys.argv,
+              q_weight=int(next((a.split("=")[1] for a in sys.argv if a.startswith("--qweight=")), "1")))

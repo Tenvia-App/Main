@@ -1,0 +1,1567 @@
+[
+ {
+  "id": "v2048.3",
+  "earlier": [
+   "PERSON: I'm camping near Mount Mansfield, Vermont, and thunder is rumbling while I am on a ridge. Should I continue toward the summit?",
+   "APP: There is no safe place outside when thunderstorms are in the area. Stay away from tall, isolated trees or other tall objects, and avoid open fields, the top of a hill or a ridge top. Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "PERSON: I descended to a lower area but there are several isolated trees nearby. Should I shelter beneath one of them?",
+   "APP: Stay away from tall, isolated trees or other tall objects. Avoid open fields, the top of a hill or a ridge top. If you are in a group, spread out to avoid the current traveling between group members. Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe."
+  ],
+  "message": "The storm is still overhead, and I found a low depression away from the trees and water. What position should I take while I wait?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "Stay away from water, wet items such as ropes, and metal objects such as fences and poles. Avoid open fields, the top of a hill or a ridge top. Wait 30 minutes after the last lightning or thunder before going back outside. Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees."
+ },
+ {
+  "id": "v2049.1",
+  "earlier": [],
+  "message": "I'm at a campsite near Flagstaff, Arizona, and my father fell and cut his forehead badly. Should I press a clean cloth on it?",
+  "notice_shown": "medical",
+  "checked_steps": [],
+  "reply": "I don't have checked advice on using a clean cloth. If you have signal, please call 911."
+ },
+ {
+  "id": "v2049.2",
+  "earlier": [
+   "PERSON: I'm at a campsite near Flagstaff, Arizona, and my father fell and cut his forehead badly. Should I press a clean cloth on it?",
+   "APP: I don't have checked advice on using a clean cloth. If you have signal, please call 911."
+  ],
+  "message": "The bleeding slowed but he seems confused, and our phone has no signal. What should I do while we seek medical help?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "If you have signal, please call 911. Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best. Tell them the phone number you're calling from."
+ },
+ {
+  "id": "v2049.3",
+  "earlier": [
+   "PERSON: I'm at a campsite near Flagstaff, Arizona, and my father fell and cut his forehead badly. Should I press a clean cloth on it?",
+   "APP: I don't have checked advice on using a clean cloth. If you have signal, please call 911.",
+   "PERSON: The bleeding slowed but he seems confused, and our phone has no signal. What should I do while we seek medical help?",
+   "APP: If you have signal, please call 911. Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best. Tell them the phone number you're calling from."
+  ],
+  "message": "It is getting dark and he is drowsy, but I can keep him still and warm. Should I keep watching his breathing and avoid giving him food or drink?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "I don't have checked advice on avoiding food or drink. If you have signal, please call 911. Be ready to tell them where you are, as exactly as you can. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+ },
+ {
+  "id": "v2050.1",
+  "earlier": [],
+  "message": "I'm on a family hike near Great Smoky Mountains, Tennessee, and my nine-year-old was stung and now has trouble breathing. Should I use the epinephrine auto-injector we carry?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you."
+  ],
+  "reply": "I don't have checked advice on using the epinephrine auto-injector. If you have signal, call 911 right away. Pay attention to emergency alerts and notifications for information and instructions. If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you."
+ },
+ {
+  "id": "v2050.2",
+  "earlier": [
+   "PERSON: I'm on a family hike near Great Smoky Mountains, Tennessee, and my nine-year-old was stung and now has trouble breathing. Should I use the epinephrine auto-injector we carry?",
+   "APP: I don't have checked advice on using the epinephrine auto-injector. If you have signal, call 911 right away. Pay attention to emergency alerts and notifications for information and instructions. If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you."
+  ],
+  "message": "I used the injector and my child is still wheezing; my spouse is trying an emergency call with one bar. What should I do while we wait for help?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "If you have signal, call 911 right away. As soon as you have signal, call 911. Be ready to tell them where you are, as exactly as you can. Tell them the phone number you're calling from. Tell them what the emergency is."
+ },
+ {
+  "id": "v2050.3",
+  "earlier": [
+   "PERSON: I'm on a family hike near Great Smoky Mountains, Tennessee, and my nine-year-old was stung and now has trouble breathing. Should I use the epinephrine auto-injector we carry?",
+   "APP: I don't have checked advice on using the epinephrine auto-injector. If you have signal, call 911 right away. Pay attention to emergency alerts and notifications for information and instructions. If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "PERSON: I used the injector and my child is still wheezing; my spouse is trying an emergency call with one bar. What should I do while we wait for help?",
+   "APP: If you have signal, call 911 right away. As soon as you have signal, call 911. Be ready to tell them where you are, as exactly as you can. Tell them the phone number you're calling from. Tell them what the emergency is."
+  ],
+  "message": "We are away from the trailhead and my child is pale, but another adult is with us. Should we keep the child still and be ready to tell responders when the symptoms began?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "I don't have checked advice on keeping the child still or telling responders when the symptoms began. If you have signal, call 911 right away. Be ready to tell them where you are, as exactly as you can. Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best."
+ },
+ {
+  "id": "v2051.1",
+  "earlier": [],
+  "message": "I'm driving near Rapid City, South Dakota, and my passenger suddenly has chest pain and is sweating. Should I stop somewhere safe and call emergency services?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "As soon as you have signal, call 911. If you can, text 911 if you can't make a call. If you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Rest in the shade."
+ },
+ {
+  "id": "v2051.2",
+  "earlier": [
+   "PERSON: I'm driving near Rapid City, South Dakota, and my passenger suddenly has chest pain and is sweating. Should I stop somewhere safe and call emergency services?",
+   "APP: As soon as you have signal, call 911. If you can, text 911 if you can't make a call. If you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Rest in the shade."
+  ],
+  "message": "We are stopped in a parking area and his pain is worsening; he takes a prescription heart medicine. Should I give him an extra dose?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "I don't have checked advice on giving him an extra dose. As soon as you have signal, call 911. If you can, text 911 if you can't make a call. Be ready to tell them where you are, as exactly as you can."
+ },
+ {
+  "id": "v2051.3",
+  "earlier": [
+   "PERSON: I'm driving near Rapid City, South Dakota, and my passenger suddenly has chest pain and is sweating. Should I stop somewhere safe and call emergency services?",
+   "APP: As soon as you have signal, call 911. If you can, text 911 if you can't make a call. If you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Rest in the shade.",
+   "PERSON: We are stopped in a parking area and his pain is worsening; he takes a prescription heart medicine. Should I give him an extra dose?",
+   "APP: I don't have checked advice on giving him an extra dose. As soon as you have signal, call 911. If you can, text 911 if you can't make a call. Be ready to tell them where you are, as exactly as you can."
+  ],
+  "message": "The call dropped and my passenger is pale but conscious. What should I do while trying to reach emergency help again?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "As soon as you have signal, call 911. If you can, text 911 if you can't make a call. Be ready to tell them where you are, as exactly as you can. Tell them the phone number you're calling from. Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best."
+ },
+ {
+  "id": "v2052.1",
+  "earlier": [],
+  "message": "I'm camping near Lake Placid, New York, and my friend is shivering uncontrollably after falling into cold water. Should I get them out of wet clothes?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "Find shelter, try to stay dry and cover all exposed skin, and if you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+ },
+ {
+  "id": "v2052.2",
+  "earlier": [
+   "PERSON: I'm camping near Lake Placid, New York, and my friend is shivering uncontrollably after falling into cold water. Should I get them out of wet clothes?",
+   "APP: Find shelter, try to stay dry and cover all exposed skin, and if you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+  ],
+  "message": "We are under a tarp and I have dry layers, but my friend is confused and moving slowly. What should I do to warm them safely and get medical help?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "I don't have checked advice on warming them safely. As soon as you have signal, call 911. Be ready to tell them where you are, as exactly as you can, and what the emergency is. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+ },
+ {
+  "id": "v2052.3",
+  "earlier": [
+   "PERSON: I'm camping near Lake Placid, New York, and my friend is shivering uncontrollably after falling into cold water. Should I get them out of wet clothes?",
+   "APP: Find shelter, try to stay dry and cover all exposed skin, and if you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "PERSON: We are under a tarp and I have dry layers, but my friend is confused and moving slowly. What should I do to warm them safely and get medical help?",
+   "APP: I don't have checked advice on warming them safely. As soon as you have signal, call 911. Be ready to tell them where you are, as exactly as you can, and what the emergency is. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+  ],
+  "message": "The friend is now lying still and has stopped shivering, and our phone has no signal. Should I treat this as an emergency and keep them insulated while seeking help?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "I don't have checked advice on treating this as an emergency or keeping them insulated. As soon as you have signal, call 911. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet. Find shelter. Try to stay dry and cover all exposed skin. As soon as you have any signal, please call or text 988 in the US, or 911."
+ },
+ {
+  "id": "v2053.1",
+  "earlier": [],
+  "message": "I'm camping near the Columbia River in Washington with my two children, and floodwater is coming into the low campsite in freezing rain. Should we stay in the tent?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on whether to stay in the tent in freezing rain. If you have signal, call 911 right away. Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water."
+ },
+ {
+  "id": "v2053.2",
+  "earlier": [
+   "PERSON: I'm camping near the Columbia River in Washington with my two children, and floodwater is coming into the low campsite in freezing rain. Should we stay in the tent?",
+   "APP: I don't have checked advice on whether to stay in the tent in freezing rain. If you have signal, call 911 right away. Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water."
+  ],
+  "message": "The water is rising and the younger child is wet, but the campground has a higher shelter building. Should I carry both children there now?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on carrying both children to the higher shelter building. If you have signal, call 911 right away. Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water."
+ },
+ {
+  "id": "v2053.3",
+  "earlier": [
+   "PERSON: I'm camping near the Columbia River in Washington with my two children, and floodwater is coming into the low campsite in freezing rain. Should we stay in the tent?",
+   "APP: I don't have checked advice on whether to stay in the tent in freezing rain. If you have signal, call 911 right away. Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water.",
+   "PERSON: The water is rising and the younger child is wet, but the campground has a higher shelter building. Should I carry both children there now?",
+   "APP: I don't have checked advice on carrying both children to the higher shelter building. If you have signal, call 911 right away. Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water."
+  ],
+  "message": "We reached the shelter, but the children are cold and the power is out. What should I do first to warm them safely and keep away from rising water?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on warming the children safely. Do not walk, swim or drive through flood water."
+ },
+ {
+  "id": "v2054.1",
+  "earlier": [],
+  "message": "I'm driving near Bakersfield, California, with my aunt during a heat wave, and wildfire smoke is crossing the road. Should I keep driving through the smoke?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "I don't have checked advice on whether to keep driving through smoke. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions."
+ },
+ {
+  "id": "v2054.2",
+  "earlier": [
+   "PERSON: I'm driving near Bakersfield, California, with my aunt during a heat wave, and wildfire smoke is crossing the road. Should I keep driving through the smoke?",
+   "APP: I don't have checked advice on whether to keep driving through smoke. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions."
+  ],
+  "message": "We pulled over in a clear shaded area, but the car is hot and we have one bottle of water. What should I do to cool us and use the water safely?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "Rest in the shade, and if you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Drink plenty of water, even if you don't feel thirsty. The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults. If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you."
+ },
+ {
+  "id": "v2054.3",
+  "earlier": [
+   "PERSON: I'm driving near Bakersfield, California, with my aunt during a heat wave, and wildfire smoke is crossing the road. Should I keep driving through the smoke?",
+   "APP: I don't have checked advice on whether to keep driving through smoke. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions.",
+   "PERSON: We pulled over in a clear shaded area, but the car is hot and we have one bottle of water. What should I do to cool us and use the water safely?",
+   "APP: Rest in the shade, and if you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Drink plenty of water, even if you don't feel thirsty. The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults. If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you."
+  ],
+  "message": "My aunt is confused and coughing while the smoke shifts closer. What should I do first to move us away and get urgent help?",
+  "notice_shown": "medical",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "I don't have checked advice on moving your aunt away from the smoke or giving first aid. If authorities tell you to evacuate, go right away. As soon as you have signal, call 911. Pay attention to emergency alerts and notifications for information and instructions."
+ },
+ {
+  "id": "v2055.1",
+  "earlier": [],
+  "message": "I'm on a beach near Galveston, Texas, when thunder starts and the tide is rising. Should I stay by the water to watch the storm?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "There is no safe place outside when thunderstorms are in the area. Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Stay several meters away from the base of cliffs, and from the edge of clifftops. Stay off and well clear of large logs and debris near the surf line or below the high water marks."
+ },
+ {
+  "id": "v2055.2",
+  "earlier": [
+   "PERSON: I'm on a beach near Galveston, Texas, when thunder starts and the tide is rising. Should I stay by the water to watch the storm?",
+   "APP: There is no safe place outside when thunderstorms are in the area. Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Stay several meters away from the base of cliffs, and from the edge of clifftops. Stay off and well clear of large logs and debris near the surf line or below the high water marks."
+  ],
+  "message": "Waves are covering the path behind me and my friend is carrying a metal fishing rod. Should we move away from the water and get off the exposed beach?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "Stay farther back from the ocean than you think is necessary, and stay off and well clear of large logs and debris near the surf line or below the high water marks. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Stay away from water, wet items such as ropes, and metal objects such as fences and poles."
+ },
+ {
+  "id": "v2055.3",
+  "earlier": [
+   "PERSON: I'm on a beach near Galveston, Texas, when thunder starts and the tide is rising. Should I stay by the water to watch the storm?",
+   "APP: There is no safe place outside when thunderstorms are in the area. Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Stay several meters away from the base of cliffs, and from the edge of clifftops. Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "PERSON: Waves are covering the path behind me and my friend is carrying a metal fishing rod. Should we move away from the water and get off the exposed beach?",
+   "APP: Stay farther back from the ocean than you think is necessary, and stay off and well clear of large logs and debris near the surf line or below the high water marks. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Stay away from water, wet items such as ropes, and metal objects such as fences and poles."
+  ],
+  "message": "We reached a concrete public building, but lightning is still close and water is gathering outside. Should we remain indoors away from windows and the flooding?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "There is no safe place outside when thunderstorms are in the area. If you are told to remain indoors, do so away from windows and the flooding. Stay off and well clear of large logs and debris near the surf line or below the high water marks. Wait 30 minutes after the last lightning or thunder before going back outside."
+ },
+ {
+  "id": "v2056.1",
+  "earlier": [],
+  "message": "I'm driving near Duluth, Minnesota, in a snowstorm with strong gusts, and my car slid off the road. Should I walk toward the lights I see far away?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on walking toward distant lights. Stay with your vehicle and try not to panic. In snow and wind, if you leave your vehicle you will become disoriented quickly. If no shelter is available, avoid trees, power lines, and the side of the road."
+ },
+ {
+  "id": "v2056.2",
+  "earlier": [
+   "PERSON: I'm driving near Duluth, Minnesota, in a snowstorm with strong gusts, and my car slid off the road. Should I walk toward the lights I see far away?",
+   "APP: I don't have checked advice on walking toward distant lights. Stay with your vehicle and try not to panic. In snow and wind, if you leave your vehicle you will become disoriented quickly. If no shelter is available, avoid trees, power lines, and the side of the road."
+  ],
+  "message": "The car is not damaged and my partner is shivering; blowing snow is reducing visibility. Should we stay in the vehicle and use blankets?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "Stay with your vehicle and try not to panic. If no shelter is available, avoid trees, power lines, and the side of the road. If there's no shelter, build a lean-to or windbreak to block the wind. Take shelter in your car if you are not near a sturdy building."
+ },
+ {
+  "id": "v2056.3",
+  "earlier": [
+   "PERSON: I'm driving near Duluth, Minnesota, in a snowstorm with strong gusts, and my car slid off the road. Should I walk toward the lights I see far away?",
+   "APP: I don't have checked advice on walking toward distant lights. Stay with your vehicle and try not to panic. In snow and wind, if you leave your vehicle you will become disoriented quickly. If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "PERSON: The car is not damaged and my partner is shivering; blowing snow is reducing visibility. Should we stay in the vehicle and use blankets?",
+   "APP: Stay with your vehicle and try not to panic. If no shelter is available, avoid trees, power lines, and the side of the road. If there's no shelter, build a lean-to or windbreak to block the wind. Take shelter in your car if you are not near a sturdy building."
+  ],
+  "message": "Snow may be covering the exhaust and the engine is cold. How can we stay warm while avoiding carbon monoxide danger?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help."
+  ],
+  "reply": "Before running the engine, make sure the exhaust pipe isn't blocked. In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide. Make your car easy to see by tying brightly colored cloth to a mirror, door handle or antenna. Stay with your vehicle and try not to panic."
+ },
+ {
+  "id": "v2057.1",
+  "earlier": [],
+  "message": "I'm alone at a campsite near Eugene, Oregon, and I feel hopeless and keep thinking I do not want to go on. My phone has 30% battery; should I move away from the hunting knife in my pack?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal."
+  ],
+  "reply": "I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have any signal, please call or text 988 right away. Stay calm and think through your situation. If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal."
+ },
+ {
+  "id": "v2057.2",
+  "earlier": [
+   "PERSON: I'm alone at a campsite near Eugene, Oregon, and I feel hopeless and keep thinking I do not want to go on. My phone has 30% battery; should I move away from the hunting knife in my pack?",
+   "APP: I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have any signal, please call or text 988 right away. Stay calm and think through your situation. If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal."
+  ],
+  "message": "I put the knife outside the tent and my sister is at the next campsite, but I still feel unsafe with myself. Should I go sit with her now?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal."
+  ],
+  "reply": "I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have any signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently."
+ },
+ {
+  "id": "v2057.3",
+  "earlier": [
+   "PERSON: I'm alone at a campsite near Eugene, Oregon, and I feel hopeless and keep thinking I do not want to go on. My phone has 30% battery; should I move away from the hunting knife in my pack?",
+   "APP: I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have any signal, please call or text 988 right away. Stay calm and think through your situation. If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+   "PERSON: I put the knife outside the tent and my sister is at the next campsite, but I still feel unsafe with myself. Should I go sit with her now?",
+   "APP: I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have any signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "message": "My sister is beside me and knows I might hurt myself, though the nearest town is far away. What should I do right now to stay safe and get urgent help?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal."
+  ],
+  "reply": "I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have any signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently. Stay calm and think through your situation."
+ },
+ {
+  "id": "v2058.1",
+  "earlier": [],
+  "message": "I'm in my parked car near a trailhead outside Boise, Idaho, and I feel like there is no reason to keep going. I have pills in the glove box; should I hand them to my brother who is with me?",
+  "notice_shown": "crisis",
+  "checked_steps": [],
+  "reply": "I don't have checked advice on handing the pills to your brother. I'm sorry you're feeling this way. If you have signal, please call or text 988 right away."
+ },
+ {
+  "id": "v2058.2",
+  "earlier": [
+   "PERSON: I'm in my parked car near a trailhead outside Boise, Idaho, and I feel like there is no reason to keep going. I have pills in the glove box; should I hand them to my brother who is with me?",
+   "APP: I don't have checked advice on handing the pills to your brother. I'm sorry you're feeling this way. If you have signal, please call or text 988 right away."
+  ],
+  "message": "My brother has the pills and is staying with me, but I still fear I may act on these thoughts. Should we go to a staffed public place and seek urgent help?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "reply": "I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you're waiting for help, rest, save your energy and wait patiently. As soon as you have signal, call 911. As soon as you have any signal, please call or text 988 in the US, or 911."
+ },
+ {
+  "id": "v2058.3",
+  "earlier": [
+   "PERSON: I'm in my parked car near a trailhead outside Boise, Idaho, and I feel like there is no reason to keep going. I have pills in the glove box; should I hand them to my brother who is with me?",
+   "APP: I don't have checked advice on handing the pills to your brother. I'm sorry you're feeling this way. If you have signal, please call or text 988 right away.",
+   "PERSON: My brother has the pills and is staying with me, but I still fear I may act on these thoughts. Should we go to a staffed public place and seek urgent help?",
+   "APP: I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you're waiting for help, rest, save your energy and wait patiently. As soon as you have signal, call 911. As soon as you have any signal, please call or text 988 in the US, or 911."
+  ],
+  "message": "We are at a ranger station and my phone has signal, but I am ashamed to explain. What should I say to ask for immediate support?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "reply": "I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you're ready, tell them where you are, as exactly as you can, and what the emergency is. As soon as you have signal, call 911. As soon as you have any signal, please call or text 988 in the US, or 911."
+ },
+ {
+  "id": "v2059.1",
+  "earlier": [],
+  "message": "I'm camping near Bend, Oregon, and my group has oats, dried apples, and a small stove. Can you suggest a simple breakfast recipe?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute."
+  ],
+  "reply": "I don't have checked advice on a specific breakfast recipe. Keep children close to you and watch them closely and never let them run ahead of you."
+ },
+ {
+  "id": "v2059.2",
+  "earlier": [
+   "PERSON: I'm camping near Bend, Oregon, and my group has oats, dried apples, and a small stove. Can you suggest a simple breakfast recipe?",
+   "APP: I don't have checked advice on a specific breakfast recipe. Keep children close to you and watch them closely and never let them run ahead of you."
+  ],
+  "message": "We also found cinnamon and powdered milk, and rain has started outside the tent. How much water should I add for a thick oatmeal?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute."
+  ],
+  "reply": "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+ },
+ {
+  "id": "v2059.3",
+  "earlier": [
+   "PERSON: I'm camping near Bend, Oregon, and my group has oats, dried apples, and a small stove. Can you suggest a simple breakfast recipe?",
+   "APP: I don't have checked advice on a specific breakfast recipe. Keep children close to you and watch them closely and never let them run ahead of you.",
+   "PERSON: We also found cinnamon and powdered milk, and rain has started outside the tent. How much water should I add for a thick oatmeal?",
+   "APP: If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+  ],
+  "message": "My niece wants to cook for everyone tomorrow and we have one small pot. Which topping combination would taste best?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute."
+  ],
+  "reply": "I don't have checked advice on a specific topping combination. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow."
+ },
+ {
+  "id": "v2060.1",
+  "earlier": [],
+  "message": "I'm at a campground near Madison, Wisconsin, and my son has homework on fractions while we wait out rain. Can you explain how to add one-half and one-third?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on adding fractions. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Keep your feet as dry as you can. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+ },
+ {
+  "id": "v2060.2",
+  "earlier": [
+   "PERSON: I'm at a campground near Madison, Wisconsin, and my son has homework on fractions while we wait out rain. Can you explain how to add one-half and one-third?",
+   "APP: I don't have checked advice on adding fractions. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Keep your feet as dry as you can. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+  ],
+  "message": "He understands the common denominator now, and his worksheet asks about three-quarters minus one-eighth. Can you show the result simply?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on simplifying three-quarters minus one-eighth. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Keep your feet as dry as you can. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+ },
+ {
+  "id": "v2060.3",
+  "earlier": [
+   "PERSON: I'm at a campground near Madison, Wisconsin, and my son has homework on fractions while we wait out rain. Can you explain how to add one-half and one-third?",
+   "APP: I don't have checked advice on adding fractions. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Keep your feet as dry as you can. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "PERSON: He understands the common denominator now, and his worksheet asks about three-quarters minus one-eighth. Can you show the result simply?",
+   "APP: I don't have checked advice on simplifying three-quarters minus one-eighth. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Keep your feet as dry as you can. Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet."
+  ],
+  "message": "We have a pencil and a paper map for a game, and my daughter wants a puzzle too. What is an easy fraction puzzle I can give her?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can."
+  ],
+  "reply": "I don't have checked advice on a fraction puzzle. If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow. Find shelter. Try to stay dry and cover all exposed skin."
+ },
+ {
+  "id": "v2061.1",
+  "earlier": [],
+  "message": "I'm at a family campsite on Cape Lookout, North Carolina, and the tide is washing across the sandy track to the ferry dock. Should we drive our golf cart through the shallow water?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Stay off and well clear of large logs and debris near the surf line or below the high water marks."
+ },
+ {
+  "id": "v2061.2",
+  "earlier": [
+   "PERSON: I'm at a family campsite on Cape Lookout, North Carolina, and the tide is washing across the sandy track to the ferry dock. Should we drive our golf cart through the shallow water?",
+   "APP: Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Stay off and well clear of large logs and debris near the surf line or below the high water marks."
+  ],
+  "message": "The water is deeper now and my two kids are with me; a dune rises beside the campsite. Should we move up the dune and wait there?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Keep children close to you and watch them closely; never let them run ahead of you. Stay several meters away from the base of cliffs, and from the edge of clifftops. Stay off and well clear of large logs and debris near the surf line or below the high water marks."
+ },
+ {
+  "id": "v2061.3",
+  "earlier": [
+   "PERSON: I'm at a family campsite on Cape Lookout, North Carolina, and the tide is washing across the sandy track to the ferry dock. Should we drive our golf cart through the shallow water?",
+   "APP: Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "PERSON: The water is deeper now and my two kids are with me; a dune rises beside the campsite. Should we move up the dune and wait there?",
+   "APP: Stay farther back from the ocean than you think is necessary, and never turn your back on the ocean. Keep children close to you and watch them closely; never let them run ahead of you. Stay several meters away from the base of cliffs, and from the edge of clifftops. Stay off and well clear of large logs and debris near the surf line or below the high water marks."
+  ],
+  "message": "Our cart is stranded and it is getting dark, but I can see a staffed lighthouse compound in the distance. How do I find out whether that path is safe and alert someone?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay farther back from the ocean than you think is necessary.",
+   "Never turn your back on the ocean.",
+   "Stay off and well clear of large logs and debris near the surf line or below the high water marks.",
+   "Cold water immersion can be dangerous, even deadly.",
+   "Strong winds or storms can significantly raise tides and create hazardous conditions.",
+   "Stay several meters away from the base of cliffs, and from the edge of clifftops.",
+   "Find shelter. Try to stay dry and cover all exposed skin.",
+   "If there's no shelter, build a lean-to or windbreak to block the wind.",
+   "If you have a wind- or waterproof jacket, wear it to keep out wind, rain and wet snow.",
+   "Wool or synthetic clothing is better than cotton. Cotton soaks up water and won't keep you warm when it's wet.",
+   "Keep your feet as dry as you can.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "I don't have checked advice on whether the lighthouse staffed compound path is safe. Strong winds or storms can significantly raise tides and create hazardous conditions. Find shelter. Try to stay dry and cover all exposed skin."
+ },
+ {
+  "id": "v2062.1",
+  "earlier": [],
+  "message": "My van overheated on a rural road outside Lincoln, Nebraska, and steam is coming from under the hood. Should I open the radiator cap now?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "Stay with your vehicle and try not to panic. If you have signal, call 911. If you have a wide-brimmed hat, wear it to shield your face and neck from the sun."
+ },
+ {
+  "id": "v2062.2",
+  "earlier": [
+   "PERSON: My van overheated on a rural road outside Lincoln, Nebraska, and steam is coming from under the hood. Should I open the radiator cap now?",
+   "APP: Stay with your vehicle and try not to panic. If you have signal, call 911. If you have a wide-brimmed hat, wear it to shield your face and neck from the sun."
+  ],
+  "message": "I pulled well off the pavement, but my phone has no bars and there is a toddler in the van. Which nearby service station is open right now?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "I don't have checked advice on which service station is open. Stay with your vehicle and try not to panic. If you have signal, call 911. Watch children closely and never let them run ahead of you."
+ },
+ {
+  "id": "v2062.3",
+  "earlier": [
+   "PERSON: My van overheated on a rural road outside Lincoln, Nebraska, and steam is coming from under the hood. Should I open the radiator cap now?",
+   "APP: Stay with your vehicle and try not to panic. If you have signal, call 911. If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "PERSON: I pulled well off the pavement, but my phone has no bars and there is a toddler in the van. Which nearby service station is open right now?",
+   "APP: I don't have checked advice on which service station is open. Stay with your vehicle and try not to panic. If you have signal, call 911. Watch children closely and never let them run ahead of you."
+  ],
+  "message": "The child is getting fussy in the hot cabin and the engine will not restart. Should I stay beside the van or walk with the child toward the farm I can see?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "Stay with your vehicle and try not to panic.",
+   "Before running the engine, make sure the exhaust pipe isn't blocked.",
+   "In the cold, run the engine about 10 minutes each hour for warmth, with a window open a little to keep out carbon monoxide.",
+   "Make your car easy to see: tie brightly colored cloth to a mirror, door handle or antenna.",
+   "At night, turn on the inside light while the engine is running.",
+   "In snow and wind, if you leave your vehicle you will become disoriented quickly.",
+   "After snow stops falling, raise the hood to show you need help.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults."
+  ],
+  "reply": "Stay with your vehicle and try not to panic. Watch children closely and never let them run ahead of you. If you are with others in a stranded vehicle, take turns sleeping. In heat, children, infants and older adults should stay in the coolest available place."
+ },
+ {
+  "id": "v2063.1",
+  "earlier": [],
+  "message": "I'm on a summer kayak trip in the Okefenokee Swamp, Georgia, and my water jug is almost empty. Can I drink water straight from the swamp?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "If you get signal, call 911 and tell them where you are and what the emergency is. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. If you have a mirror, flash it toward planes or helicopters flying nearby."
+ },
+ {
+  "id": "v2063.2",
+  "earlier": [
+   "PERSON: I'm on a summer kayak trip in the Okefenokee Swamp, Georgia, and my water jug is almost empty. Can I drink water straight from the swamp?",
+   "APP: If you get signal, call 911 and tell them where you are and what the emergency is. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. If you have a mirror, flash it toward planes or helicopters flying nearby."
+  ],
+  "message": "I found a shaded bank and my partner says there may be alligators nearby; we have a small filter. What should I do first to stay hydrated without approaching wildlife?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "If you get signal, call 911 and tell them where you are and what the emergency is. Rest in the shade, and if you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Drink plenty of water, even if you don't feel thirsty. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling."
+ },
+ {
+  "id": "v2063.3",
+  "earlier": [
+   "PERSON: I'm on a summer kayak trip in the Okefenokee Swamp, Georgia, and my water jug is almost empty. Can I drink water straight from the swamp?",
+   "APP: If you get signal, call 911 and tell them where you are and what the emergency is. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "PERSON: I found a shaded bank and my partner says there may be alligators nearby; we have a small filter. What should I do first to stay hydrated without approaching wildlife?",
+   "APP: If you get signal, call 911 and tell them where you are and what the emergency is. Rest in the shade, and if you have a wide-brimmed hat, wear it to shield your face and neck from the sun. Drink plenty of water, even if you don't feel thirsty. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling."
+  ],
+  "message": "The heat index is climbing and our map shows a spring farther along the channel. How far away is that spring from our current location?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Rest in the shade.",
+   "If you have a wide-brimmed hat, wear it to shield your face and neck from the sun.",
+   "Avoid hard activity during the hottest part of the day if you can.",
+   "Drink plenty of water, even if you don't feel thirsty.",
+   "The temperature inside a parked vehicle can rapidly rise to a dangerous level for children, pets and even adults.",
+   "Never approach wildlife. If an animal moves closer to you, back away to keep a safe distance.",
+   "Bear: talk calmly so the bear knows you are a human and not a prey animal.",
+   "Bear: do not run or make any sudden movements.",
+   "Bear: pick up small children immediately.",
+   "Bear: do not climb a tree.",
+   "Mountain lion: do not run from it. Stand and face the animal.",
+   "Mountain lion: if you have small children with you, pick them up if possible so that they do not panic and run.",
+   "Mountain lion: do all you can to appear larger. Raise your arms.",
+   "Snake: give it plenty of room to leave the area."
+  ],
+  "reply": "If you get signal, call 911 and tell them where you are, as exactly as you can. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. Tell them the phone number you're calling from."
+ },
+ {
+  "id": "v2064.1",
+  "earlier": [],
+  "message": "I'm a fisherman on the Ohio River near Marietta, Ohio, and my phone is down to 8 percent. Should I keep the screen on to watch the map?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "Use your phone as little as possible to save battery. Turn on low power mode, or airplane mode, to save energy. Keep any calls short and share only vital information. If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal. Dim your screen and turn off apps you don't need."
+ },
+ {
+  "id": "v2064.2",
+  "earlier": [
+   "PERSON: I'm a fisherman on the Ohio River near Marietta, Ohio, and my phone is down to 8 percent. Should I keep the screen on to watch the map?",
+   "APP: Use your phone as little as possible to save battery. Turn on low power mode, or airplane mode, to save energy. Keep any calls short and share only vital information. If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal. Dim your screen and turn off apps you don't need."
+  ],
+  "message": "A squall is pushing my small boat toward the bank, and I have no signal. What should I do first to keep the phone usable and get help?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "As soon as you have signal, call 911. If you have a whistle, blow it often; it helps people find you and saves the energy you'd use yelling. If you have a mirror, flash it toward planes or helicopters flying nearby."
+ },
+ {
+  "id": "v2064.3",
+  "earlier": [
+   "PERSON: I'm a fisherman on the Ohio River near Marietta, Ohio, and my phone is down to 8 percent. Should I keep the screen on to watch the map?",
+   "APP: Use your phone as little as possible to save battery. Turn on low power mode, or airplane mode, to save energy. Keep any calls short and share only vital information. If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal. Dim your screen and turn off apps you don't need.",
+   "PERSON: A squall is pushing my small boat toward the bank, and I have no signal. What should I do first to keep the phone usable and get help?",
+   "APP: As soon as you have signal, call 911. If you have a whistle, blow it often; it helps people find you and saves the energy you'd use yelling. If you have a mirror, flash it toward planes or helicopters flying nearby."
+  ],
+  "message": "I have reached a public landing, but two boat ramps are marked on shore and I do not know which one is open. Which landing should I head for?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Use your phone as little as possible to save battery.",
+   "Turn on low power mode, or airplane mode, to save energy.",
+   "Dim your screen and turn off apps you don't need.",
+   "Keep any calls short and share only vital information.",
+   "If you have no signal bars, turning the phone off stops it draining the battery while it searches for signal.",
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "reply": "I don't have checked advice on which landing to head for. If you have a whistle, blow it often; it helps people find you and saves the energy you'd use yelling. Lay out brightly colored clothing in an open clearing where searchers can see it."
+ },
+ {
+  "id": "v2065.1",
+  "earlier": [],
+  "message": "I'm at a youth soccer field outside Des Moines, Iowa, and fast water is running across the only exit after a downpour. Should I let the kids wade across to the parking lot?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it."
+  ],
+  "reply": "If you have signal, call 911 right away. If you have a whistle, blow it often; it helps people find you and saves the energy you'd use yelling. Tell them the phone number you're calling from."
+ },
+ {
+  "id": "v2065.2",
+  "earlier": [
+   "PERSON: I'm at a youth soccer field outside Des Moines, Iowa, and fast water is running across the only exit after a downpour. Should I let the kids wade across to the parking lot?",
+   "APP: If you have signal, call 911 right away. If you have a whistle, blow it often; it helps people find you and saves the energy you'd use yelling. Tell them the phone number you're calling from."
+  ],
+  "message": "The water is rising and our group of six is together on the field's raised bleachers. What should we do first, move toward the school or stay on the bleachers?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute."
+  ],
+  "reply": "Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water."
+ },
+ {
+  "id": "v2065.3",
+  "earlier": [
+   "PERSON: I'm at a youth soccer field outside Des Moines, Iowa, and fast water is running across the only exit after a downpour. Should I let the kids wade across to the parking lot?",
+   "APP: If you have signal, call 911 right away. If you have a whistle, blow it often; it helps people find you and saves the energy you'd use yelling. Tell them the phone number you're calling from.",
+   "PERSON: The water is rising and our group of six is together on the field's raised bleachers. What should we do first, move toward the school or stay on the bleachers?",
+   "APP: Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water."
+  ],
+  "message": "The school doors are locked and water is reaching the lowest bleacher step. Will the county rescue crew get here before the field is covered?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute."
+  ],
+  "reply": "I don't know whether the county rescue crew will arrive before the field is covered. Do not walk, swim or drive through flood water. Stay off bridges over fast-moving water. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling."
+ },
+ {
+  "id": "v2066.1",
+  "earlier": [],
+  "message": "I'm walking a rail trail near the New Jersey Pine Barrens, and I see flames through the trees ahead. Should I keep walking toward the trailhead?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you."
+  ],
+  "reply": "I don't have checked advice on whether to keep walking toward the trailhead in this situation. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions."
+ },
+ {
+  "id": "v2066.2",
+  "earlier": [
+   "PERSON: I'm walking a rail trail near the New Jersey Pine Barrens, and I see flames through the trees ahead. Should I keep walking toward the trailhead?",
+   "APP: I don't have checked advice on whether to keep walking toward the trailhead in this situation. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions."
+  ],
+  "message": "Smoke is blowing across the path and my friend has a bright orange vest; there is a gravel service road behind us. Which direction should we take first to get away from the fire?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions. If no shelter is available, avoid trees, power lines, and the side of the road."
+ },
+ {
+  "id": "v2066.3",
+  "earlier": [
+   "PERSON: I'm walking a rail trail near the New Jersey Pine Barrens, and I see flames through the trees ahead. Should I keep walking toward the trailhead?",
+   "APP: I don't have checked advice on whether to keep walking toward the trailhead in this situation. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions.",
+   "PERSON: Smoke is blowing across the path and my friend has a bright orange vest; there is a gravel service road behind us. Which direction should we take first to get away from the fire?",
+   "APP: If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions. If no shelter is available, avoid trees, power lines, and the side of the road."
+  ],
+  "message": "We are on the road but there is no cell signal and the smoke is thicker. Is the bridge on County Route 539 open right now?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "If authorities tell you to evacuate, go right away.",
+   "Pay attention to emergency alerts and notifications for information and instructions.",
+   "If you are trapped, call 911 and give your location. Help may be delayed. Turn on lights to help rescuers find you.",
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to."
+  ],
+  "reply": "I don't have checked advice on whether the bridge on County Route 539 is open. If authorities tell you to evacuate, go right away. Pay attention to emergency alerts and notifications for information and instructions."
+ },
+ {
+  "id": "v2067.1",
+  "earlier": [],
+  "message": "I'm setting up a tent at a county fairground outside Cedar Rapids, Iowa, and thunder is getting louder. Should I stay inside the tent during lightning?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside."
+  ],
+  "reply": "There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options, while rain shelters, small sheds, and open vehicles are not. Stay away from tall, isolated trees or other tall objects, and avoid open fields, the top of a hill or a ridge top. Wait 30 minutes after the last lightning or thunder before going back outside."
+ },
+ {
+  "id": "v2067.2",
+  "earlier": [
+   "PERSON: I'm setting up a tent at a county fairground outside Cedar Rapids, Iowa, and thunder is getting louder. Should I stay inside the tent during lightning?",
+   "APP: There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options, while rain shelters, small sheds, and open vehicles are not. Stay away from tall, isolated trees or other tall objects, and avoid open fields, the top of a hill or a ridge top. Wait 30 minutes after the last lightning or thunder before going back outside."
+  ],
+  "message": "The fair staff are moving people, but my family is split between the parking lot and a metal grandstand. What should I do first to reunite us safely?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside."
+  ],
+  "reply": "I don't have checked advice on reunifying your family. There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options, while rain shelters, small sheds, and open vehicles are not. Stay away from water, wet items such as ropes, and metal objects such as fences and poles."
+ },
+ {
+  "id": "v2067.3",
+  "earlier": [
+   "PERSON: I'm setting up a tent at a county fairground outside Cedar Rapids, Iowa, and thunder is getting louder. Should I stay inside the tent during lightning?",
+   "APP: There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options, while rain shelters, small sheds, and open vehicles are not. Stay away from tall, isolated trees or other tall objects, and avoid open fields, the top of a hill or a ridge top. Wait 30 minutes after the last lightning or thunder before going back outside.",
+   "PERSON: The fair staff are moving people, but my family is split between the parking lot and a metal grandstand. What should I do first to reunite us safely?",
+   "APP: I don't have checked advice on reunifying your family. There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options, while rain shelters, small sheds, and open vehicles are not. Stay away from water, wet items such as ropes, and metal objects such as fences and poles."
+  ],
+  "message": "We have reached a concrete ticket building with no windows in the room, and lightning is still flashing. How long should we wait inside after the last thunder?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "There is no safe place outside when thunderstorms are in the area.",
+   "Substantial buildings and hard-topped vehicles are safe options. Rain shelters, small sheds, and open vehicles are not safe.",
+   "A tent offers no protection from lightning.",
+   "Avoid open fields, the top of a hill or a ridge top.",
+   "Stay away from tall, isolated trees or other tall objects. If you are in a forest, stay near a lower stand of trees.",
+   "If you are in a group, spread out to avoid the current traveling between group members.",
+   "Stay away from water, wet items such as ropes, and metal objects such as fences and poles.",
+   "Wait 30 minutes after the last lightning or thunder before going back outside."
+  ],
+  "reply": "Wait 30 minutes after the last lightning or thunder before going back outside. There is no safe place outside when thunderstorms are in the area; substantial buildings and hard-topped vehicles are safe options, while rain shelters, small sheds, and open vehicles are not. Stay away from water, wet items such as ropes, and metal objects such as fences and poles."
+ },
+ {
+  "id": "v2068.1",
+  "earlier": [],
+  "message": "I'm driving through the Sandhills of Nebraska, and gusts are pushing my empty horse trailer sideways. Should I keep driving at normal speed?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive."
+  ],
+  "reply": "I don't have checked advice on whether to keep driving at normal speed in this situation. If no shelter is available, avoid trees, power lines, and the side of the road. Try to find a place that will block blowing or falling debris. Power lines that are lying on the ground may be live. Do not go near them."
+ },
+ {
+  "id": "v2068.2",
+  "earlier": [
+   "PERSON: I'm driving through the Sandhills of Nebraska, and gusts are pushing my empty horse trailer sideways. Should I keep driving at normal speed?",
+   "APP: I don't have checked advice on whether to keep driving at normal speed in this situation. If no shelter is available, avoid trees, power lines, and the side of the road. Try to find a place that will block blowing or falling debris. Power lines that are lying on the ground may be live. Do not go near them."
+  ],
+  "message": "I pulled into a low roadside turnout, but tumbleweeds and dust are blowing hard and my hands are shaking. What should I do first to stay safe and calm?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Take shelter in your car if you are not near a sturdy building.",
+   "If no shelter is available, avoid trees, power lines, and the side of the road.",
+   "Power lines that are lying on the ground may be live. Do not go near them.",
+   "Try to find a place that will block blowing or falling debris.",
+   "Tornado: if a tornado is coming, get inside a sturdy building right away.",
+   "Tornado: a tent or mobile home is not safe.",
+   "Tornado: being in a vehicle is not safe.",
+   "Tornado: if you can't reach a safe shelter, either get down in your car and cover your head, or leave the car and get into a low spot such as a ditch or ravine.",
+   "Dust storm while driving: pull your vehicle off the pavement as far as you can.",
+   "Dust storm while driving: then stop, turn off your lights, set the emergency brake and take your foot off the brake.",
+   "Dust storm: never stop on the part of the road where cars drive.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "reply": "Stay calm and think through your situation. If you're waiting for help, rest, save your energy and wait patiently. If no shelter is available, avoid trees, power lines, and the side of the road. Try to find a place that will block blowing or falling debris."
+ }
+]

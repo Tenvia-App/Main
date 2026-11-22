@@ -303,7 +303,9 @@ class ChatEngine(
         val onlyWeak = use.all { it in WEAK_GUIDES } && (rGuide == "none" || rGuide in WEAK_GUIDES)
         val offTopic = !isMedical && !isCrisis && !hazard && onlyWeak &&
             ((active.isEmpty() && !rUrgent && !EMERGENCY_WORDS.containsMatchIn(convUser)) || SAFE_RE.containsMatchIn(convUser) ||
-                (use.isNotEmpty() && !rUrgent && rGuide == "none" && !EMERGENCY_WORDS.containsMatchIn(convUser)))
+                (use.isNotEmpty() && !rUrgent && rGuide == "none" && !EMERGENCY_WORDS.containsMatchIn(convUser))) ||
+            // v13: once the conversation was off-topic, a router or keyword guide alone doesn't end that.
+            (offCount > 0 && !isMedical && !isCrisis && !hazard && !rUrgent && !EMERGENCY_WORDS.containsMatchIn(convUser))
         if (offTopic) {
             var line = OFF_TOPIC[minOf(offCount, OFF_TOPIC.size - 1)]
             offCount++
@@ -765,7 +767,7 @@ bool ::= "true" | "false""""
         private val SNAKE_RE = Regex("""\b(snakes?|rattl\w*)\b""", RegexOption.IGNORE_CASE)
         private val WEAK_GUIDES = setOf("reach-help", "stay-calm")
         private val SAFE_RE = Regex("""\b(no emergency|not an emergency|not in (any )?danger|not stranded|nothing (is )?wrong|at home|from (my|the) (couch|desk|office|home|kitchen)|on (my|the) couch|just curious|unrelated|random question|off topic|for (school|college|class|work))\b""", RegexOption.IGNORE_CASE)
-        private val EMERGENCY_WORDS = Regex("""\b(help me|emergency|lost|stuck|stranded|hurt|injur\w*|bleed\w*|scared|afraid|trapped|danger\w*|alone|dark|night|cold|hot|freez\w*|storm|wind\w*|rain\w*|snow\w*|fire|smoke|flood\w*|trail|blazes?|woods|forest|mountains?|hik\w*|camp\w*|tent|car|truck|van|road|bars?|signal|service|battery|lake|river|creek|beach|tide|bears?|animal|kids?|child\w*|water|wilderness|park|canyon|desert|cliff)\b""", RegexOption.IGNORE_CASE)
+        private val EMERGENCY_WORDS = Regex("""\b(help me(?!\s+(pick|choose|name|decide|plan|write|think|come up))|emergency|lost|stuck|stranded|hurt|injur\w*|bleed\w*|scared|afraid|trapped|danger\w*|alone|dark|night|cold|hot|freez\w*|storm|wind\w*|rain\w*|snow\w*|fire|smoke|flood\w*|trail|blazes?|woods|forest|mountains?|hik\w*|camp\w*|tent|car|truck|van|road|bars?|signal|service|battery|lake|river|creek|beach|tide|bears?|animal|kids?|child\w*|water|wilderness|park|canyon|desert|cliff)\b""", RegexOption.IGNORE_CASE)
         private val OFF_TOPIC_TAIL = listOf(
             "I'm only set up for emergencies, like being lost, stranded, hurt or caught in bad weather, so I'd just be guessing.",
             "That's outside what I can help with, sorry: I only have checked guidance for emergencies.",

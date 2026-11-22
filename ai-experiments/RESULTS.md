@@ -297,6 +297,33 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Teaching round "answer the question first" (night of 21-22 Nov 2026): best 97% safe / 74% helpful on unseen sealed set 11, with the old v6 model
+
+Aim: 90% safe / 90% helpful. **Not reached. New teaching did not help on unseen conversations; one new word rule (v13) did.**
+
+**New teaching data.** Hermes wrote 120 conversations where every turn ends with a direct question ([`train/convs-E.json`](train/convs-E.json), [`train/convs-F.json`](train/convs-F.json), ids 2001-2120, prompt [`train/convs-q-prompt.md`](train/convs-q-prompt.md)): a third answered yes/no by a checked step, a third not covered by any step, the rest either/or choices where the obvious answer is wrong. v6 + pipeline v12 answered them (`train/u-convs-*.json`; Hermes: 90% safe / 62% helpful). Hermes rewrote the misses with a new instruction, *the first sentence answers the question* ([`train/rewrite-prompt-q.md`](train/rewrite-prompt-q.md)); the rules re-checked them and Hermes judged them. `build_data.py build --prefer-rw --filter --qweight=3` repeats the new direct-question examples 3 times.
+
+- **v8:** 9,294 examples (v7's 8,318 + the new ones), 1,157 steps, validation loss 0.246 (v7: 0.319).
+- **v9:** v8 answered all 360 teaching conversations A-F with pipeline v13 (`train/v-convs-*.json`; Hermes graded 993 replies, 87% safe / 58% helpful), Hermes rewrote 549 misses, 331 rewrites passed the rules and were judged SAFE + GOOD. 10,917 examples, 1,360 steps, validation loss 0.22.
+
+**Pipeline v13** ([`chat-v13.ps1`](chat-v13.ps1), also in the app's `ChatEngine.kt`) = v12 + an off-topic fix found on practice set 10: once a conversation is off-topic (a baked potato, naming a kitten), it stays off-topic until a real emergency word appears, even if the router or a keyword raises a guide for one message ("poke holes" -> get found, a kitten -> wildlife); and "help me pick / choose / name..." no longer counts as an emergency word. Before, these replies declined the question and then added whistle and 911 steps (8 WEAK replies on set 10).
+
+| Model + pipeline | Practice set 10 (tuning) safe / helpful | Sealed set 11 (unseen, 90 replies) safe / helpful |
+|---|---|---|
+| v6 + v12 | 91-92% / 69-70% | |
+| v8 + v12 | 94% / 71% | |
+| v8 + v13 | 94% / 74-75% (2 runs) | 98% (88) / 63% (57) |
+| v9 + v13 | 94-95% / 67-68% (2 runs) | |
+| **v6 + v13** | | **97% (87) / 74% (67)** |
+
+Sealed set 11 (30 conversations, ids 1301-1330, written by Hermes, kept outside this repo) was run once with the model picked on the practice set (v8), then once with v6 for comparison; only the totals were read. Judged blind (neutral file names).
+
+**What it means.** The question-first teaching looked slightly better on the practice set but was **11 points less helpful** than the old v6 model on the unseen set (one set, 90 replies, so about ±5-10 points, but the direction matches v9 being worse than v8 on the practice set, and v8 doing worse than v6 on the very conversations it was taught on: 85% / 54% vs 90% / 62%). Teaching the 1.7B model more on its own graded mistakes has stopped paying off since v6 (v7, v8, v9 all no better). **The app keeps the v6 model**; v6 + v13 is the best unseen result so far (set 9 with v12 was 91% / 61%, set 7 with v7b 97% / 68%; different sets, so roughly comparable). Helpfulness misses are still mostly "doesn't answer the either/or question" and "true steps but not the most relevant one".
+
+**Next ideas.** A larger model (the 4B answers questions better but was much less safe), or a fixed answer-first step: when the person asks "should I / can I X" and a checked step says not to X, start the reply with "No" + that step (a word rule, measurable on a practice set). Sets 8, 9, 11 are now used; a new sealed set is needed for the next blind test.
+
+Files: models `tenvia-1.7b-v8/v9-Q4_K_M.gguf` in `C:\Users\aries\tenvia-train` (not in git; teaching files `train-v7.jsonl`, `train-v8.jsonl` there); judgments `train/judge-out-77..99.json`, rewrites `train/rw-out-46..58.json`, their grades `train/rwj-out-37..46.json`; practice runs in `night/` (not in git).
+
 ## Pipelines v9-v12 (night of 20-21 Nov 2026): best 91% safe / 61% helpful on unseen sealed set 9
 
 Goal for the night: 90% safe and 90% helpful. **Safety reached 91% on unseen conversations; helpfulness did not get close (61%).**

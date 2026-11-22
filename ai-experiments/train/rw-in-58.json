@@ -1,0 +1,185 @@
+[
+ {
+  "id": "v2117.3",
+  "earlier": [
+   "PERSON: I'm waiting alone in the ferry terminal at Anacortes, Washington, after the last sailing was canceled, and I feel hopeless and keep thinking I do not want to be alive. Should I tell the ticket agent and stay near them?",
+   "APP: I'm so sorry you're carrying this. You matter, and I'm glad you told me. If you have signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently.",
+   "PERSON: I told the agent, and a deckhand is sitting with me while the terminal is closing. Should I ask them to find an open staffed place where I can stay with someone?",
+   "APP: I'm glad you told the agent and that you matter. If you have signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling."
+  ],
+  "message": "We are in a locked office with the agent and deckhand, but my phone has no service. What should I say to ask them for immediate support?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "old_reply": "I hear you, and I'm here with you. I am so sorry you are carrying this. You matter. Please reach out to someone now: call or text 988 in the US, or 911. If you have no signal right now, do it as soon as you have any. For where you are, the checked guide says: Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best. If you're waiting for help, rest, save your energy and wait patiently.",
+  "problem": "The app could not write a reply that passed its rules, so it showed plain guide text."
+ },
+ {
+  "id": "v2118.2",
+  "earlier": [
+   "PERSON: I'm sheltering in a roadside cafe outside Pensacola, Florida, after a storm closed the bike path, and I feel hopeless and keep thinking I do not want to go on. A worker let me inside; should I tell them I'm afraid to be alone?",
+   "APP: I'm sorry you're feeling hopeless and afraid. You matter, and it's okay to ask for help. If you have any signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently. Stay calm and think through your situation."
+  ],
+  "message": "The worker and a cook are sitting nearby, but the cafe will close soon and rain is still flooding outside. Should I ask them to stay with me and contact emergency help?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "old_reply": "If you have signal, call or text 988 right away. Do not walk, swim or drive through flood water. Turn around, don't drown. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+  "problem": "It suggests 988 and warns about floodwater but does not address asking the workers to stay and contact help."
+ },
+ {
+  "id": "v2118.3",
+  "earlier": [
+   "PERSON: I'm sheltering in a roadside cafe outside Pensacola, Florida, after a storm closed the bike path, and I feel hopeless and keep thinking I do not want to go on. A worker let me inside; should I tell them I'm afraid to be alone?",
+   "APP: I'm sorry you're feeling hopeless and afraid. You matter, and it's okay to ask for help. If you have any signal, please call or text 988 right away. If you're waiting for help, rest, save your energy and wait patiently. Stay calm and think through your situation.",
+   "PERSON: The worker and a cook are sitting nearby, but the cafe will close soon and rain is still flooding outside. Should I ask them to stay with me and contact emergency help?",
+   "APP: If you have signal, call or text 988 right away. Do not walk, swim or drive through flood water. Turn around, don't drown. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling."
+  ],
+  "message": "They agreed to stay and we are in the lit kitchen, but my phone has no signal. What can I tell them to do so I can get immediate support?",
+  "notice_shown": "crisis",
+  "checked_steps": [
+   "Do not walk, swim or drive through flood water. Turn around, don't drown.",
+   "Just six inches of moving water can knock you down, and one foot of moving water can sweep a vehicle away.",
+   "Stay off bridges over fast-moving water.",
+   "If your car is trapped in rapidly moving water, stay inside it. If water is rising inside the car, get on the roof.",
+   "Evacuate right away if you are told to.",
+   "As soon as you have signal, call 911.",
+   "Call if you can, text if you can't. Some areas accept texts to 911, but a voice call is best.",
+   "Be ready to tell them where you are, as exactly as you can.",
+   "Tell them the phone number you're calling from.",
+   "Tell them what the emergency is.",
+   "Don't hang up until the call-taker tells you to.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it.",
+   "Stay calm and think through your situation.",
+   "If you're waiting for help, rest, save your energy and wait patiently."
+  ],
+  "old_reply": "I'm sorry you're feeling hopeless and afraid. You matter, and it's okay to ask for help. If you have signal, call or text 988 right away. As soon as you have signal, call 911. Be ready to tell them where you are, as exactly as you can.",
+  "problem": "It gives conditional emergency-call steps but no immediate support option despite the stated lack of signal and nearby workers."
+ },
+ {
+  "id": "v2119.1",
+  "earlier": [],
+  "message": "I'm camping near Custer, South Dakota, and my friends are naming constellations around the fire. Which constellation is easiest to spot in the northern sky?",
+  "notice_shown": "none",
+  "checked_steps": [],
+  "old_reply": "I don't have checked advice on which constellation is easiest to spot in the northern sky. If you get any signal, 911 can help you with emergencies.",
+  "problem": "It cannot answer the constellation question and redirects to emergency services despite no emergency being described."
+ },
+ {
+  "id": "v2119.2",
+  "earlier": [
+   "PERSON: I'm camping near Custer, South Dakota, and my friends are naming constellations around the fire. Which constellation is easiest to spot in the northern sky?",
+   "APP: I don't have checked advice on which constellation is easiest to spot in the northern sky. If you get any signal, 911 can help you with emergencies."
+  ],
+  "message": "We found the Big Dipper and a red star above the treeline; what is the Greek story behind that star?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it."
+  ],
+  "old_reply": "If you get any signal, 911 can help you with emergencies. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+  "problem": "It gives unrelated emergency signaling steps instead of answering or briefly declining the mythology question."
+ },
+ {
+  "id": "v2119.3",
+  "earlier": [
+   "PERSON: I'm camping near Custer, South Dakota, and my friends are naming constellations around the fire. Which constellation is easiest to spot in the northern sky?",
+   "APP: I don't have checked advice on which constellation is easiest to spot in the northern sky. If you get any signal, 911 can help you with emergencies.",
+   "PERSON: We found the Big Dipper and a red star above the treeline; what is the Greek story behind that star?",
+   "APP: If you get any signal, 911 can help you with emergencies. If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling. If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick."
+  ],
+  "message": "Clouds are coming in and our group wants a word game instead. Can you give us a clever astronomy-themed riddle?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Keep children close to you.",
+   "Watch children closely and never let them run ahead of you.",
+   "If you are with others in a stranded vehicle, take turns sleeping.",
+   "In heat, children, infants and older adults should stay in the coolest available place.",
+   "Never leave a child unattended in a vehicle, even with the windows down, even for just a minute.",
+   "If you have a whistle, blow it often. It helps people find you and saves the energy you'd use yelling.",
+   "If you have a flashlight, flash SOS: three quick flashes, three slow, then three quick.",
+   "If you have a mirror, flash it toward planes or helicopters flying nearby.",
+   "Lay out brightly colored clothing in an open clearing where searchers can see it."
+  ],
+  "old_reply": "I don't have checked advice on a word game or a riddle. If you get any signal, 911 can help you with emergencies. If you have a mirror, flash it toward planes or helicopters flying nearby. Lay out brightly colored clothing in an open clearing where searchers can see it.",
+  "problem": "It gives unrelated signaling advice instead of answering or declining the requested riddle."
+ },
+ {
+  "id": "v2120.1",
+  "earlier": [],
+  "message": "I'm on a road trip near Hartford, Connecticut, and my daughter is learning to knit in the passenger seat while we are parked. What is a simple beginner scarf pattern?",
+  "notice_shown": "none",
+  "checked_steps": [],
+  "old_reply": "I don't have checked advice on a beginner scarf pattern. If you'd like, I can help you find a simple pattern online or suggest a basic knit pattern.",
+  "problem": "It declines checked knitting advice but offers an unverified pattern instead of staying within its checked scope."
+ },
+ {
+  "id": "v2120.2",
+  "earlier": [
+   "PERSON: I'm on a road trip near Hartford, Connecticut, and my daughter is learning to knit in the passenger seat while we are parked. What is a simple beginner scarf pattern?",
+   "APP: I don't have checked advice on a beginner scarf pattern. If you'd like, I can help you find a simple pattern online or suggest a basic knit pattern."
+  ],
+  "message": "She has blue and green yarn and keeps dropping stitches; how do you make a tidy stripe change?",
+  "notice_shown": "none",
+  "checked_steps": [],
+  "old_reply": "I don't have checked advice on making a tidy stripe change. If you'd like, I can help you find a simple pattern or suggest a basic knit technique.",
+  "problem": "It declines checked advice but offers an unverified knitting technique and does not solve the stripe question."
+ },
+ {
+  "id": "v2120.3",
+  "earlier": [
+   "PERSON: I'm on a road trip near Hartford, Connecticut, and my daughter is learning to knit in the passenger seat while we are parked. What is a simple beginner scarf pattern?",
+   "APP: I don't have checked advice on a beginner scarf pattern. If you'd like, I can help you find a simple pattern online or suggest a basic knit pattern.",
+   "PERSON: She has blue and green yarn and keeps dropping stitches; how do you make a tidy stripe change?",
+   "APP: I don't have checked advice on making a tidy stripe change. If you'd like, I can help you find a simple pattern or suggest a basic knit technique."
+  ],
+  "message": "We stopped at a rest area and she wants to name the scarf after a local river. What are some nice river-inspired names?",
+  "notice_shown": "none",
+  "checked_steps": [
+   "Don't ration your drinking water unless authorities tell you to. Drink what you need today and try to find more for tomorrow.",
+   "Streams, rivers and other moving water can be sources of water.",
+   "Water from outdoor sources must be treated to kill germs before you drink it.",
+   "If the water might have fuel or chemicals in it, don't drink it. Boiling won't make it safe.",
+   "If the water is cloudy, first filter it through a clean cloth, paper towel or coffee filter.",
+   "Bring clear water to a rolling boil for 1 minute. Above 6,500 feet, boil it for 3 minutes.",
+   "Do not drink seawater. Drinking seawater can be deadly to humans.",
+   "Melt snow before drinking it. Eating unmelted snow will lower your body temperature."
+  ],
+  "old_reply": "I don't have checked advice on river-inspired scarf names. If you'd like, I can help you find a simple pattern or suggest a basic knit technique.",
+  "problem": "It declines checked naming advice but follows with an unrelated unverified pattern offer."
+ }
+]
