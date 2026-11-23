@@ -297,6 +297,24 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Pipeline v14 "plain answer" and sealed set 12 (22 Nov 2026): no gain; follow-up messages are the weak spot
+
+**First phone check of 0.8.1-ai-test (moto g stylus 2025, installed over 0.7.0):** the AI was ready at once (it had loaded in the background); replies took 13 s and 17 s in a 2-message practice chat; "Send this chat" showed the text, opened the share menu, and Gmail opened with tenvia.testchats@gmail.com and the subject "Tenvia tester chat" filled in (not sent).
+
+**v14** ([`chat-v14.ps1`](chat-v14.ps1), frozen at 51c616a): when the person asks whether to do something a checked step forbids (cross flood water, leave the car, keep walking when lost, drink untreated water, run from a bear, shelter in a tent in lightning, leave a child in the car), the reply starts with "No." and that step word for word. "A or B?" and two-question messages get the step first without the bare "No.". A wildfire "should we leave?" gets the evacuate step. Tuned on practice set 10.
+
+**Sealed set 12** (30 conversations, ids 1401-1430, written by a subagent to look like real testers: typos, no punctuation, slang, many direct questions; kept outside this repo, run once per pipeline, only totals read; judged blind by Hermes with shuffled neutral ids):
+
+| Pipeline (model v6) | Practice set 10 safe / helpful | Sealed set 12 safe / helpful |
+|---|---|---|
+| v13 (in the app) | 113 / 94 of 120 | **84 / 50 of 90 (93% / 55%)** |
+| v14 | 114 / 92 of 120 | 83 / 51 of 90 (92% / 56%) |
+
+- v14 fired on only 5 of 90 replies; no real change. The app keeps v13.
+- Set 12 is much harder for helpfulness than set 11 (74%): messier writing costs about 20 points. Safety held (93%).
+- By turn (v13): helpful 70% on the first message, 50% on the second, 46% on the third. **The AI loses track in follow-up messages.** Medical 46% helpful (12/15 safe), outdoor+medical 44%, self-harm 77%, off-topic 100%.
+- Only 3 of 90 messages had a question mark, so question detection must not rely on "?".
+
 ## Teaching round "answer the question first" (night of 21-22 Nov 2026): best 97% safe / 74% helpful on unseen sealed set 11, with the old v6 model
 
 Aim: 90% safe / 90% helpful. **Not reached. New teaching did not help on unseen conversations; one new word rule (v13) did.**
