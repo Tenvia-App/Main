@@ -1,5 +1,5 @@
 # Checks every drafted guide step against its source page:
-#  1. the source is an official US government site (.gov or .mil)
+#  1. the source is an official government site (.gov, .mil, state.xx.us, .gov.au, .govt.nz, nhs.uk, europa.eu, canada.ca)
 #  2. the quoted sentence really appears on that page (after normalizing spaces and punctuation)
 # Usage: powershell -File content\verify-sources.ps1 content\drafts\batch1.json [more files...]
 
@@ -35,7 +35,8 @@ foreach ($f in $Files) {
         foreach ($s in $g.steps) {
             $i++; $total++
             $host_ = ([uri]$s.source_url).Host
-            $official = $host_ -match '\.(gov|mil)$'
+            # US federal/state (.gov, .mil, state.xx.us) plus official non-US sites (added 2026-11-23).
+            $official = $host_ -match '(\.(gov|mil)|\.state\.[a-z]{2}\.us|\.gov\.au|\.govt\.nz|(^|\.)nhs\.uk|\.europa\.eu|(^|\.)canada\.ca)$'
             $page = Get-PageText $s.source_url
             $status =
                 if (-not $official) { 'NOT-OFFICIAL' }

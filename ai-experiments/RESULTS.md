@@ -297,6 +297,47 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## First aid, 30 new emergencies, country numbers: pipelines v16/v17 and sealed sets 14-15 (night of 23 Nov 2026): more helpful, less safe
+
+After the first real tester chats, Aries Fulkerson decided (23 Nov) that Tenvia may give **first aid from checked steps** and use **official non-US sources**. Built overnight:
+
+- **Guide library version 4** (`guides.json`, drafts in `content/drafts/batch4-8`): 31 new guides, 201 new steps, every quote checked word for word against its official page (US federal and state, plus Australia, NZ, UK, EU and Canada sites). They cover first aid (snake bite, broken bone, bleeding, burns, choking, CPR, allergic reaction, head injury, seizure, heart attack, stroke, heat illness, hypothermia, frostbite, bites and stings, carbon monoxide), disasters (earthquake, tsunami, avalanche, hurricane, landslide, volcano, winter storm), water and ice (rip current, fell through ice, someone in the water), home (house fire, gas leak, power outage, chemical spill), and emergency numbers. Not yet reviewed by experts.
+- **v16** ([`chat-v16.ps1`](chat-v16.ps1), frozen at 389f735) has these parts:
+  - The new guides are raised by keyword only (the router keeps its 16 guides) and first-aid guides go first.
+  - The country named in the chat sets the number (000, 111, 999, 112) and the country-labelled steps; there is no "text if you can't" outside the US.
+  - Celsius, ml, litres and km get US units added for the AI.
+  - Less repeating: no step that was already given, and no sentence that mostly repeats the person.
+  - Six practice rounds on a readable practice set 16 (30 conversations) fixed these things:
+    - crisis false alarms during chest pain, choking and bleeding;
+    - the old "no first aid" rules removing checked steps;
+    - missing keywords;
+    - CPR steps shown for a seizure.
+- **v17** ([`chat-v17.ps1`](chat-v17.ps1), frozen at 3b7e0c2) is v16 plus fixes from the judged practice set:
+  - no self-rescue ice steps when helping someone else;
+  - no "stay inside" in a damaged building;
+  - CPR steps only when the person isn't breathing or responding;
+  - gas and CO replies say "get out" first;
+  - first-aid steps stay in their guide's order.
+- **Judge prompt v3** ([`chat-judge-prompt-v3.md`](chat-judge-prompt-v3.md)): the round-2 prompt counts *any* first aid or "move" instruction as unsafe, even a checked one, and only allows 911. v3 allows checked first-aid and movement steps when their conditions are kept, and allows the local number. It is also stricter about dropped "If ..." conditions and steps meant for another person. Both are reported.
+
+Sealed sets 14 (ids 1801-1830) and 15 (ids 1901-1930) were written by Hermes, kept outside this repo, run once per pipeline and judged blind with shuffled ids. Only totals and counts by kind were read. v13 ran with the old library (version 3), as in the app today.
+
+| Sealed set (90 replies each) | Round-2 judge, safe / helpful | v3 judge, safe / helpful |
+|---|---|---|
+| 14: v13 (app now) | 84 / 39 (93% / 43%) | 55 / 24 (61% / 26%) |
+| 14: v16 | 79 / 57 (87% / **63%**) | 66 / 48 (**73%** / **53%**) |
+| 15: v13 (app now) | **88** / 46 (**97%** / 51%) | **71** / 42 (**78%** / 46%) |
+| 15: v17 | 83 / 50 (92% / 55%) | 64 / 44 (71% / 48%) |
+
+- **Set 14:** v16 was much more helpful (medical turns 15 → 33 of 45 helpful). It was less safe under the old judge but safer under v3.
+- **Set 15 (fresh, after the v17 fixes):** v17 is **less safe than v13 under both judges** and only a little more helpful. Most of the extra unsafe replies were in disaster and home conversations (v3 judge: 4 → 10 of 27). Medical was about even, and the gap grows in follow-up turns.
+- **Verdict:** the new guides make Tenvia answer far more situations, but the app shouldn't reach testers on these numbers yet. The new steps are long and full of conditions ("If you're inside...", "If the building is damaged..."), and the small model often drops a condition or mixes steps from two situations. App **0.9.0-ai-test** (versionCode 18, v17 logic) is built but not released. Testers stay on 0.8.3.
+- **Next ideas:**
+  - Expert review of the new steps.
+  - Shorter, single-condition steps.
+  - For disaster guides, maybe show the guide's steps as a fixed card instead of letting the AI choose and mix them.
+  - A fresh sealed set after that.
+
 ## Pipeline v15 "follow-ups and medical" and sealed set 13 (22 Nov 2026): big practice gain, no blind gain
 
 **v15** ([`chat-v15.ps1`](chat-v15.ps1), frozen at c791507) targets the two weak spots from set 12, tuned on practice set 10 and a new readable practice set 14 (40 tester-style conversations, written by a subagent, kept out of git). Changes: medical words (rolled/twisted ankle, heard a pop, can't put weight on it, turning purple, burns and scalds, fever, won't stop shivering, hit his head); an injury is not a crisis (a broken ankle got the 988 notice); "hope nobody finds me" is a crisis phrase; an unanswered direct question gets an honest first line; "Only with these limits:" plus both engine steps for running the engine in the cold; no heat guide in the cold or when "hot/sweaty" are symptoms; child and power-line steps only when mentioned; steps for a blocked road, telling them where you are, and little water left; homework is off-topic; two new rules (boiling without the fuel condition; "no checked advice" on something that is a checked step).

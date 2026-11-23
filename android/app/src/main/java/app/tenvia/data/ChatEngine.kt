@@ -15,6 +15,8 @@ import java.net.URL
  *  2. Checked steps of the matched guides go to the model with the message.
  *  3. Free reply, then deterministic guard rules; a rejected reply gets a repair pass (4 tries),
  *     then a fixed fallback.
+ * v16 (ai-experiments/chat-v16.ps1): first aid from checked steps, 31 new keyword-only guides, country numbers,
+ * Celsius/metric units, and no repeated steps or parroting sentences.
  */
 class ChatEngine(
     private val library: GuideLibrary,
@@ -31,6 +33,8 @@ class ChatEngine(
     private val negations = library.outOfScope.flatMap { it.negations }.map { it.lowercase() }
     private val medKeywords = medical?.keywords?.map { it.lowercase() } ?: emptyList()
     private val crisisKeywords = crisisOos?.keywords?.map { it.lowercase() } ?: emptyList()
+    /** v16: the router keeps the 16 guides the small model was taught on; new guides are raised by keyword only. */
+    private val routeIds = library.guides.map { it.id }.filter { it !in KEYWORD_ONLY }
     private val allSteps = library.guides.flatMap { g -> g.steps.map { it.text } }.joinToString("\n")
 
     // Conversation state (one conversation per engine).
@@ -51,12 +55,65 @@ class ChatEngine(
     private var hasSignalNow = false
     private var curSteps = ""
     private var inVehicle = false
+    /** v16: country named in the conversation (AU, NZ, GB, EU, CA, US), or null. */
+    private var country: String? = null
+    private var faActive = false
     /** v9: every guide raised for this conversation, before the 4-guide cap (steps may be added from these). */
     private var guidePool: List<String> = emptyList()
 
     fun reset() {
         active.clear(); isMedical = false; isCrisis = false; hazard = false; waterDanger = false; storm = false; offCount = 0; hot = false; coSource = false; co = false
         history.clear(); prevReplies.clear(); convUser = ""; hasSignalNow = false; curSteps = ""; guidePool = emptyList()
+        country = null; faActive = false
+    }
+
+    // ---------------- v16: country, units ----------------
+    private fun updateCountry(msg: String) {
+        for ((k, re) in COUNTRY_RES) if (re.containsMatchIn(msg)) { country = k; return }
+        if (r("\\b(usa|united states|america)\\b").containsMatchIn(msg)) country = "US"
+    }
+
+    /** What the person sees: the named country's number; no "text if you can't" outside the US. */
+    fun localize(s0: String): String {
+        val c = country ?: return s0
+        if (c == "US" || c == "CA") return s0
+        val n = COUNTRY_NUM[c] ?: return s0
+        var s = s0
+        s = r("Call if you can, text if you can't\\. Some areas accept texts to 911, but a voice call is best\\.").replace(s,
+            if (c == "AU") "You can't text 000, so call when you have any signal." else "A voice call is best.")
+        s = r("\\s*\\(call if you can, text if you cannot\\)").replace(s, "")
+        s = r("\\bcall if you can, text if you (can't|cannot)\\b").replace(s, "call")
+        s = r("\\b988 in the US, or 911\\b").replace(s, n)
+        s = r("\\b988,? or 911\\b").replace(s, n)
+        s = r("\\bcall or text (911|988)\\b").replace(s, "call $n")
+        s = r("\\btext (911|988)\\b").replace(s, "call $n")
+        s = Regex("\\b(911|988)\\b").replace(s, n)
+        s = Regex("\\b$n or $n\\b").replace(s, n)
+        s = r("\\bcall or text $n\\b").replace(s, "call $n")
+        return s
+    }
+
+    private fun tempNote(c: Double): String {
+        val f = Math.round(c * 9 / 5 + 32)
+        val w = when { c >= 35 -> ", very hot"; c >= 30 -> ", hot"; c <= 0 -> ", freezing"; c <= 5 -> ", cold"; else -> "" }
+        return " (about $f F$w)"
+    }
+    /** Metric units get US units added for the AI ("42C (about 108 F, very hot)", "150 ml (about 5 oz, not much water)"). */
+    private fun convertUnits(msg: String): String {
+        var m = r("(?<![\\w.])(-?\\d{1,2}(?:\\.\\d)?)\\s*(?:\u00b0|\u00ba|deg(?:rees?)?)?\\s*(?:c|celsius|celcius)(?!\\w)").replace(msg) { x ->
+            x.value + tempNote(x.groupValues[1].toDouble()) }
+        if (country != null && country != "US") {
+            m = r("(?<![\\w.])(-?\\d{1,2})\\s*(?:\u00b0|degrees?\\b)(?!\\s*(?:\\(|f\\b|fahrenheit|c\\b|celsius|celcius))").replace(m) { x ->
+                x.value + tempNote(x.groupValues[1].toDouble()) }
+        }
+        m = r("(?<![\\w.])(\\d{1,4})\\s*(?:ml|mls|mils|mills|millilit\\w*)(?!\\w)").replace(m) { x ->
+            val v = x.groupValues[1].toDouble()
+            x.value + " (about ${maxOf(1L, Math.round(v / 29.6))} oz" + (if (v <= 500) ", not much water" else "") + ")" }
+        m = r("(?<![\\w.])(\\d{1,3}(?:\\.\\d)?)\\s*(?:l|litres?|liters?)(?!\\w)").replace(m) { x ->
+            x.value + " (about ${Math.round(x.groupValues[1].toDouble() * 10.6) / 10.0} quarts)" }
+        m = r("(?<![\\w.])(\\d{1,4}(?:\\.\\d)?)\\s*(?:km|kms|kilomet\\w*|klicks?)(?!\\w)").replace(m) { x ->
+            x.value + " (about ${Math.round(x.groupValues[1].toDouble() * 6.21) / 10.0} miles)" }
+        return m
     }
 
     /** True when the on-phone AI server answers. */
@@ -100,13 +157,13 @@ class ChatEngine(
     // Short mode: the prompts the small model was taught on, word for word (train/build_data.py), no
     // examples, and Qwen3's empty think block (as tested with chat-v6.ps1 -Short).
     private val think = if (short) "<think>\n\n</think>\n\n" else ""
-    private val routeSys get() = if (short) "Sort this message for Tenvia, an offline emergency app. Reply as JSON with about, guide and urgent. Guides: " + library.guides.joinToString(", ") { it.id } + ", none." else ROUTE_SYS
+    private val routeSys get() = if (short) "Sort this message for Tenvia, an offline emergency app. Reply as JSON with about, guide and urgent. Guides: " + routeIds.joinToString(", ") + ", none." else ROUTE_SYS
     private val hurtSys get() = if (short) "Is a person injured, ill or having a medical problem right now? Reply {\"answer\":true} or {\"answer\":false}." else HURT_SYS
     private val harmSys get() = if (short) "May this person be thinking about suicide or harming themselves? Reply {\"answer\":true} or {\"answer\":false}." else HARM_SYS
     private val routeShots get() = if (short) emptyList() else ROUTE_SHOTS
     private val hurtShots get() = if (short) emptyList() else HURT_SHOTS
     private val harmShots get() = if (short) emptyList() else HARM_SHOTS
-    private val chatSys get() = if (short) "You are Tenvia, a calm helper in an offline emergency app. You cannot contact anyone. Use only the CHECKED STEPS given for this message and keep their conditions. If they don't cover something, say so honestly. No first aid. 2 to 4 short sentences." else CHAT_SYS
+    private val chatSys get() = if (short) "You are Tenvia, a calm helper in an offline emergency app. You cannot contact anyone. Use only the CHECKED STEPS given for this message and keep their conditions. If they don't cover something, say so honestly. First aid only from the CHECKED STEPS. 2 to 4 short sentences." else CHAT_SYS
 
     private fun chat(sys: String, shots: List<Pair<String, String>>, user: String): String {
         val sb = StringBuilder("<|im_start|>system\n$sys<|im_end|>\n")
@@ -143,15 +200,21 @@ class ChatEngine(
     /** Guides shown this turn (max 4): hazard guides first; 'stay-or-move' only when the person said they are
      *  lost and there is no fire, flood, lightning, tide or moving water (sealed 6: kayak, floodwater, lightning). */
     private fun selectGuides(): List<String> {
-        val hz = active.filter { it in ORDER_FIRST }
-        var rest = active.filter { it !in ORDER_FIRST }
+        val all = active.filter { it != "emergency-numbers" }
+        val fa = all.filter { it in FIRST_AID }
+        var hz = all.filter { it in ORDER_FIRST }
+        var rest = all.filter { it !in ORDER_FIRST && it !in FIRST_AID }
+        if (country != null && country != "US" && country != "CA") rest = rest + "emergency-numbers"
+        if (fa.isNotEmpty()) rest = rest.filter { it != "stay-calm" }
+        // v17: someone else fell through the ice -> the self-rescue guide is not shown.
+        if ("someone-in-water" in hz && OTHER_IN_WATER_RE.containsMatchIn(convUser)) hz = hz.filter { it != "fell-through-ice" }
         if (hazard || storm || !LOST_RE.containsMatchIn(convUser)) rest = rest.filter { it != "stay-or-move" }
         if (!hasVehicle()) rest = rest.filter { it != "stranded-vehicle" }
         // v8: a dog, horse or other pet is not wildlife (sealed 7: 913.2).
         if (PET_RE.containsMatchIn(convUser) && !WILD_RE.containsMatchIn(convUser)) rest = rest.filter { it != "wildlife" }
         var extra = emptyList<String>()
         if (waterDanger) { extra = listOf("reach-help", "get-found").filter { it !in hz }; rest = rest.filter { it !in extra } }
-        guidePool = hz + extra + rest
+        guidePool = fa + hz + extra + rest
         return guidePool.take(4)
     }
 
@@ -177,13 +240,31 @@ class ChatEngine(
             val sc = if (m != null) scoreOf[m] ?: -99.0 else 99.0
             !(sc < 1 && sents.size >= 2 && !r("911|988|flood water").containsMatchIn(snt))
         }
-        if (keepS.isNotEmpty() && keepS.size < sents.size) {
-            val trim = keepS.joinToString(" ")
-            if (testRules(trim, steps, med).isEmpty()) { cand = trim; sents = keepS }
+        // v16 (testers): no step an earlier reply already gave, no sentence that mostly repeats the person's words.
+        var keep2 = keepS
+        val prevAll = prevReplies.joinToString(" ")
+        if (prevAll.isNotEmpty()) {
+            val fresh = keep2.filter { snt -> r("911|988|\\?").containsMatchIn(snt) || allShown.none { hasStep(snt, it) && hasStep(prevAll, it) } }
+            if (fresh.isNotEmpty() && fresh.size < keep2.size) keep2 = fresh
+        }
+        val mw = msg.lowercase().split(Regex("[^a-z]+")).filter { it.length >= 4 }.toSet()
+        val fresh2 = keep2.filter { snt ->
+            val w = snt.lowercase().split(Regex("[^a-z]+")).filter { it.length >= 4 }
+            !(w.size >= 4 && w.count { it in mw }.toDouble() / w.size >= 0.6 && !r("\\?|911|988").containsMatchIn(snt))
+        }
+        if (fresh2.isNotEmpty() && fresh2.size < keep2.size) keep2 = fresh2
+        if (keep2.isNotEmpty() && keep2.size < sents.size) {
+            val trim = keep2.joinToString(" ")
+            if (testRules(trim, steps, med).isEmpty()) { cand = trim; sents = keep2 }
         }
         val hasAny = guidePool.flatMap { getSteps(it) }.any { hasStep(cand, it) }
-        val want = rank.filter { it.score >= (if (hasAny) 3.0 else -50.0) }.take(2).filter { !hasStep(cand, it.text) }
+        var want = rank.filter { it.score >= (if (hasAny) 3.0 else -50.0) }.take(2).filter { !hasStep(cand, it.text) }
+        if (faActive && guidePool.filter { it in FIRST_AID }.flatMap { getSteps(it) }.none { hasStep(cand, it) }) {
+            val faW = rank.filter { it.id in FIRST_AID && !hasStep(cand, it.text) && !(prevAll.isNotEmpty() && hasStep(prevAll, it.text)) }.take(2)
+            if (faW.isNotEmpty()) want = faW
+        }
         val room = when {
+            faActive && want.any { it.id in FIRST_AID } -> maxOf(1, minOf(2, 6 - sents.size))
             sents.size <= 2 -> 2
             sents.size <= 3 || (want.isNotEmpty() && want[0].score >= 10 && sents.size <= 5) -> 1
             else -> 0
@@ -208,6 +289,22 @@ class ChatEngine(
             val contra = guidePool.flatMap { getSteps(it) }.any { st -> hasStep(restT, st) && stems(st).any { it in topic } }
             if (contra && testRules(restT, steps, med).isEmpty()) cand = restT
         }
+        // v17: checked first-aid steps keep their guide's order (CPR breaths came before compressions).
+        var sl = sentences(cand)
+        for (fg in guidePool.filter { it in FIRST_AID }) {
+            val st = getSteps(fg)
+            val hits = sl.indices.mapNotNull { i -> st.indices.firstOrNull { j -> hasStep(sl[i], st[j]) || hasStep(st[j], sl[i]) }?.let { i to it } }
+            if (hits.size >= 2) {
+                val order = hits.sortedBy { it.second * 1000 + it.first }
+                val nw = sl.toMutableList()
+                hits.forEachIndexed { k, h -> nw[h.first] = sl[order[k].first] }
+                sl = nw
+            }
+        }
+        cand = sl.joinToString(" ")
+        // v17: gas leak / carbon monoxide: every reply says to get out first.
+        if ("gas-leak" in use && !Regex("""\b(leave|get out|go outside|outside|away from)\b""", RegexOption.IGNORE_CASE).containsMatchIn(cand)) getSteps("gas-leak").firstOrNull()?.let { cand = "$it $cand" }
+        if ("carbon-monoxide" in use && !Regex("""\b(fresh air|go outside|get outside|get out)\b""", RegexOption.IGNORE_CASE).containsMatchIn(cand)) getSteps("carbon-monoxide").firstOrNull()?.let { cand = "$it $cand" }
         if (isCrisis && !cand.contains("988")) cand = cand.trimEnd() + " As soon as you have any signal, please call or text 988 in the US, or 911."
         else if (isMedical && !isCrisis && !cand.contains("911") && medical != null) cand = cand.trimEnd() + " " + medical.message
         return cand to use
@@ -216,6 +313,14 @@ class ChatEngine(
     /** Fixed touch-ups on a candidate reply (word rules, not AI), before the rules check it. */
     private fun fixReply(c0: String, msg: String, use: List<String>, steps: String): String {
         var cand = Regex("\\b(local )?emergency services\\b", I).replace(c0, "911")
+        if (hazard) {
+            val keptH = sentences(cand).filter { !Regex("^stay with your (vehicle|car)\\b", RegexOption.IGNORE_CASE).containsMatchIn(it) }
+            if (keptH.isNotEmpty()) cand = keptH.joinToString(" ")
+        }
+        if (use.any { it in FIRST_AID }) {
+            val kept = sentences(cand).filter { !NO_FA_RE.containsMatchIn(it) }
+            if (kept.isNotEmpty()) cand = kept.joinToString(" ")
+        }
         // v9: no sentence twice; keep the "no shelter" condition of the avoid-trees step; exhaust check before the engine.
         val seen = mutableSetOf<String>()
         cand = sentences(cand).filter { seen.add(it.lowercase().replace(Regex("[^a-z]"), "")) }.joinToString(" ")
@@ -244,7 +349,9 @@ class ChatEngine(
     }
 
     // ---------------- one turn ----------------
-    fun respond(msg: String): Reply {
+    fun respond(orig: String): Reply {
+        updateCountry(orig)
+        val msg = convertUnits(orig)
         curMsg = msg
         convUser += " $msg"
         updateFlags(msg)
@@ -260,9 +367,12 @@ class ChatEngine(
             if (med != null) {
                 thisMed = (rGuide == "none" && rUrgent) || askBool(hurtSys, hurtShots, msg)
             }
-            val runHarm = if (thisMed) ck != null else ck != null || rGuide == "none" || rGuide == "stay-calm"
+            val skipW = (hazard || waterDanger || Regex("\\bflood", RegexOption.IGNORE_CASE).containsMatchIn(msg)) && !DRINK_RE.containsMatchIn(msg)
+            val faNow = library.guides.any { g -> g.id in FIRST_AID && !(g.id == "water" && skipW) && findKeyword(msg, g.keywords.map { it.lowercase() }) != null }
+            val runHarm = if (thisMed || isMedical || faNow) ck != null else ck != null || rGuide == "none" || rGuide == "stay-calm"
             if (decisive != null) { isCrisis = true; thisMed = false }
             else if (runHarm && askBool(harmSys, harmShots, msg)) { isCrisis = true; thisMed = false }
+            if (faNow && !isCrisis && !thisMed) thisMed = true
             if (thisMed) isMedical = true
             val skipWater = (hazard || waterDanger || Regex("\\bflood", RegexOption.IGNORE_CASE).containsMatchIn(msg)) && !DRINK_RE.containsMatchIn(msg)
             library.guides.filter { g -> !(g.id == "water" && skipWater) && findKeyword(msg, g.keywords.map { it.lowercase() }) != null }.forEach { g ->
@@ -270,23 +380,25 @@ class ChatEngine(
             }
             if (rGuide != "none" && guideById.containsKey(rGuide)) { active.remove(rGuide); active.add(0, rGuide) }
         }
+        if (Regex("\\b(heater|engine|exhaust|tailpipe|generator|stove|grill|charcoal|propane|kerosene|fumes|idling|car (is )?running|running the car)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) coSource = true
+        if (coSource && Regex("\\b(sleepy|drowsy|so tired|can't stay awake|hard to (stay awake|wake)|won't wake|headaches?|dizz\\w*|lightheaded|weak|nause\\w*|upset stomach|throw(ing)? up|threw up|vomit\\w*|chest pain|confus\\w*|passed out|pass(ing)? out)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) { co = true; isMedical = true }
+        if (co && "carbon-monoxide" !in active) active.add(0, "carbon-monoxide")
         var use = selectGuides()
         inVehicle = "stranded-vehicle" in use
         val steps = grounding(use)
         curSteps = steps
+        faActive = use.any { it in FIRST_AID }
 
         // situation notes (fixed word rules, not AI). v4: lightning has its own checked guide now.
         val hazardNow = Regex("\\b(fire|wildfire|smoke|flames?|burning|evacuat\\w*|flood\\w*|water (is )?(rising|coming in|up to)|rising water|tornado|tide (is )?(coming|rising|up)\\w*|tide coming|high tide|incoming tide)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)
         if (hazardNow) hazard = true
         // CDC carbon monoxide signs near a fuel-burning source = medical (sealed set 1, 301: "the heater is making us sleepy").
-        if (Regex("\\b(heater|engine|exhaust|tailpipe|generator|stove|grill|charcoal|propane|kerosene|fumes|idling|car (is )?running|running the car)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) coSource = true
-        if (coSource && Regex("\\b(sleepy|drowsy|so tired|can't stay awake|hard to (stay awake|wake)|won't wake|headaches?|dizz\\w*|lightheaded|weak|nause\\w*|upset stomach|throw(ing)? up|threw up|vomit\\w*|chest pain|confus\\w*|passed out|pass(ing)? out)\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) { co = true; isMedical = true }
         if (Regex("\\b(hot|heat wave|the heat (is|was)|in (this|the) heat|overheat\\w*|desert|scorching|sun is (brutal|hot|beating)|9\\d ?(f|degrees)|1\\d\\d ?(f|degrees))\\b", RegexOption.IGNORE_CASE).containsMatchIn(msg)) hot = true
         val hasSignal = SIGNAL_RE.containsMatchIn(msg)
         hasSignalNow = hasSignal
         val ctx = mutableListOf<String>()
-        if (isCrisis) ctx += "NOTE: ${crisisNote()}" else if (isMedical) ctx += "NOTE: ${medicalNote()}"
-        if (hazard) ctx += "NOTE: There is fire, smoke, flood, moving water or a rising tide. Use the checked flood, wildfire or beach steps if they are given. Otherwise say honestly that you do not have checked advice for this, and to call 911 as soon as they have any signal. Do not tell them to stay put or to move unless a checked step says so."
+        if (isCrisis) ctx += "NOTE: ${crisisNote()}" else if (isMedical) ctx += "NOTE: ${if (faActive) firstAidNote() else medicalNote()}"
+        if (hazard) ctx += "NOTE: There is fire, smoke, flood, moving water or a rising tide. Use the checked steps for it if they are given. Otherwise say honestly that you do not have checked advice for this, and to call 911 as soon as they have any signal. Do not tell them to stay put or to move unless a checked step says so."
         if (co) ctx += "NOTE: These can be carbon monoxide warning signs (CDC: headache, dizziness, weakness, upset stomach, vomiting, chest pain, confusion; people who are sleeping can die before they have symptoms). Say that reaching 911 is the most important thing. Do not suggest running the engine, heater or generator."
         if (hasSignal) ctx += "NOTE: The person has some signal right now. The most important thing is to call 911 now (call if you can, text if you cannot)."
         // Same order as the test pipeline (and the small model's training prompts): notes first, then the steps.
@@ -314,7 +426,7 @@ class ChatEngine(
             if (r("^I (don't|do not) have (any )?checked advice (on|about|for) [^.!?]{3,90}\\.$").containsMatchIn(own) && !r("911|988|signal|emergenc").containsMatchIn(own))
                 line = own + " " + OFF_TOPIC_TAIL[minOf(offCount - 1, OFF_TOPIC_TAIL.size - 1)]
             prevReplies += line
-            return Reply(line, false, null, emptyList())
+            return Reply(localize(line), false, null, emptyList())
         }
         for (attempt in 1..4) {
             var cand = runCatching { complete(prompt, null, if (attempt == 1) 0.3 else 0.6, 140, 100 + attempt) }.getOrNull() ?: break
@@ -344,7 +456,7 @@ class ChatEngine(
             // hazard, reach-help and get-found steps (other guides' steps can be wrong there, dev2 210.1).
             val hz = use.firstOrNull { it in HAZARD_GUIDES && (it == use.firstOrNull() || hazardNow) }
             var rank = rankedSteps(guidePool, msg, !hasVehicle(), med)
-            if (hazard && hz == null) rank = rank.filter { it.id in HAZARD_GUIDES || it.id in setOf("reach-help", "get-found") }
+            if (hazard && hz == null) rank = rank.filter { it.id in HAZARD_GUIDES || it.id in FIRST_AID || it.id in setOf("reach-help", "get-found") }
             var first = rank.take(2).map { it.text }
             rank.take(2).forEach { if (it.id !in use) use = use + it.id }
             // Water: "streams can be sources" alone, without "must be treated", misleads (dev2 202.3).
@@ -363,12 +475,14 @@ class ChatEngine(
                 else -> "I'm here. Tell me what is happening, in your own words."
             }
             if (hasSignal && r("\\b(bars?|signal|service|reception)\\b").containsMatchIn(msg) && !fb.contains("911")) fb += " You have some signal: call 911 now (call if you can, text if you cannot)."
+            fb = localize(fb)
             prevReplies += fb
-            return Reply(fb, false, notice, use.mapNotNull { guideById[it] })
+            return Reply(fb, false, notice?.let { localize(it) }, use.mapNotNull { guideById[it] })
         }
-        history += ("$context\n\nPerson: $msg") to reply
-        prevReplies += reply
-        return Reply(reply, true, notice, use.mapNotNull { guideById[it] })
+        val shownReply = localize(reply)
+        history += ("$context\n\nPerson: $msg") to shownReply
+        prevReplies += shownReply
+        return Reply(shownReply, true, notice?.let { localize(it) }, use.mapNotNull { guideById[it] })
     }
 
     private fun grounding(ids: List<String>): String = ids.mapNotNull { guideById[it] }.joinToString("\n") { g ->
@@ -384,7 +498,15 @@ class ChatEngine(
             t.startsWith("Dust storm", true) -> DUST_RE.containsMatchIn(convUser) && hasVehicle() && DRIVING_RE.containsMatchIn(convUser)
             t.startsWith("Bear:", true) -> BEAR_RE.containsMatchIn(convUser)
             t.startsWith("Mountain lion:", true) -> LION_RE.containsMatchIn(convUser)
-            t.startsWith("Snake:", true) -> SNAKE_RE.containsMatchIn(convUser)
+            t.startsWith("Snake:", true) -> SNAKE_RE.containsMatchIn(convUser) && !BITE_RE.containsMatchIn(convUser)
+            t.startsWith("Spider bite:", true) -> Regex("\\bspiders?\\b|black widow|brown recluse", RegexOption.IGNORE_CASE).containsMatchIn(convUser)
+            t.startsWith("Tick:", true) -> Regex("\\bticks?\\b", RegexOption.IGNORE_CASE).containsMatchIn(convUser)
+            t.startsWith("Bee sting:", true) -> Regex("\\b(bees?|wasps?|hornets?|stung|stings?|stinger)\\b", RegexOption.IGNORE_CASE).containsMatchIn(convUser)
+            t.startsWith("Stay with your vehicle", true) && guidePool.any { it in setOf("flood", "wildfire", "volcano", "tsunami", "landslide", "hurricane", "house-fire") } -> false
+            t.startsWith("If you're inside, stay inside", true) -> !DAMAGE_RE.containsMatchIn(convUser)
+            CPR_STEP_RE.containsMatchIn(t) -> CPR_RE.containsMatchIn(convUser)
+            t.startsWith("US (CDC):", true) -> country == null || country == "US" || country == "CA"
+            LABEL_RE.containsMatchIn(t) -> country != null && COUNTRY_LABEL[country] == LABEL_RE.find(t)!!.groupValues[1]
             else -> true
         }
     }
@@ -424,22 +546,23 @@ class ChatEngine(
                 val si = si0 + 1
                 val cv = convUser
                 if (noCar && r("\\b(your|the|a) (car|vehicle)\\b|\\bengine\\b|stranded vehicle").containsMatchIn(t)) return@forEachIndexed
-                if (med && r("\\b(drink|boil|filter|treat|retrace|streams)").containsMatchIn(t)) return@forEachIndexed
+                if (med && id !in FIRST_AID && r("\\b(drink|boil|filter|treat|retrace|streams)").containsMatchIn(t) &&
+                    !(r("\\bdrink").containsMatchIn(t) && !r("\\bretrace").containsMatchIn(t) && DRINK_RE.containsMatchIn(convUser))) return@forEachIndexed
                 if (t.startsWith("Bear:", true) && !BEAR_RE.containsMatchIn(cv)) return@forEachIndexed
                 if (t.startsWith("Mountain lion:", true) && !LION_RE.containsMatchIn(cv)) return@forEachIndexed
-                if (t.startsWith("Snake:", true) && !SNAKE_RE.containsMatchIn(cv)) return@forEachIndexed
+                if (t.startsWith("Snake:", true) && (!SNAKE_RE.containsMatchIn(cv) || BITE_RE.containsMatchIn(cv))) return@forEachIndexed
                 if (r("^(In the cold|Before running the engine|At night)").containsMatchIn(t) && !r("\\b(cold|freez\\w*|snow\\w*|ice|icy|shiver\\w*|numb|chill\\w*|night|dark)\\b").containsMatchIn(cv)) return@forEachIndexed
                 if (r("^(In snow and wind|After snow)").containsMatchIn(t) && !r("\\bsnow\\w*\\b").containsMatchIn(cv)) return@forEachIndexed
                 if (r("^(In heat|The temperature inside a parked vehicle)").containsMatchIn(t) && !hot) return@forEachIndexed
                 if (r("^(Streams, rivers|Melt snow|Do not drink seawater)").containsMatchIn(t) && !DRINK_RE.containsMatchIn(cv)) return@forEachIndexed
                 // Fire, flood, moving water, tide: only hazard, reach-help and get-found steps.
-                if (hazard && id !in HAZARD_GUIDES && id !in setOf("reach-help", "get-found")) return@forEachIndexed
+                if (hazard && id !in HAZARD_GUIDES && id !in FIRST_AID && id !in setOf("reach-help", "get-found")) return@forEachIndexed
                 if (id == "water" && !DRINK_RE.containsMatchIn(cv)) return@forEachIndexed
                 if (waterDanger && r("^(If no shelter is available, avoid trees|Try to find a place that will block|Take shelter in your car)").containsMatchIn(t)) return@forEachIndexed
                 val sw = stems(t); val sg = groupsOf(sw)
                 val dNow = sw.count { it in nowStems }; val gNow = sg.count { it in nowGroups }
                 val dAll = sw.count { it in convStems }; val gAll = sg.count { it in allGroups }
-                var score = 3.0 * dNow + 3 * gNow + dAll + gAll + (if (id in HAZARD_GUIDES) 1 else 0) - 0.1 * si - 0.2 * gi - (if (dAll > 0 || gNow > 0) 0 else 3)
+                var score = 3.0 * dNow + 3 * gNow + dAll + gAll + (if (id in HAZARD_GUIDES) 1 else 0) - 0.1 * si - 0.2 * gi - (if (dAll > 0 || gNow > 0) 0 else 3) + (if (id in FIRST_AID) 3 else 0)
                 score += intentBoost(t, msg)
                 if (prev.contains(t.lowercase().trimEnd('.'))) score -= 6
                 rows += Ranked(id, t, score)
@@ -452,7 +575,9 @@ class ChatEngine(
     private fun testRules(s: String, steps: String, med: Boolean): List<String> {
         val keep = curSteps
         curSteps = steps
-        try { return RULES.filter { (_, test) -> test(s, med) }.map { it.first } } finally { curSteps = keep }
+        // v16: exact checked first-aid sentences skip rules that misfire on them ("a leg that may be broken" = guessing).
+        val sFa = removeFaSents(s)
+        try { return RULES.filter { (name, test) -> test(if (name in FA_EXEMPT) sFa else s, med) }.map { it.first } } finally { curSteps = keep }
     }
 
     // v9d salvage: drop repeated sentences and sentences that break one of the rules the whole reply broke.
@@ -507,12 +632,13 @@ class ChatEngine(
         return sb.toString()
     }
 
+    private fun firstAidNote() = "Someone is hurt or ill. The app is showing this notice: \"${medical?.message}\" Acknowledge it first and say that reaching 911 is the most important thing whenever there is any way to. Then give the checked first-aid steps that fit, in their own words and with their conditions. Give no other treatment, and do not repeat steps you already gave."
     private fun medicalNote() = "Someone is hurt or ill. The app is showing this notice: \"${medical?.message}\" Acknowledge the injury or illness first. Say that reaching 911 is the most important thing whenever there is any way to. Do not give ANY treatment or first-aid instructions (no pressure, bandages, splints, ice, keeping a limb still, medicine, drinking, sleeping, moving or positioning the person)."
     private fun crisisNote() = "This person may be thinking about ending their life. The app is showing this notice: \"${crisisOos?.message}\" Be warm and present. Tell them you are glad they told you and that they matter. Gently encourage calling or texting 988, or 911, as soon as they have any signal. You may ask if they are safe right now. Do not lecture, argue, promise things will get better, or talk about methods."
 
     private fun routeGrammar(): String {
         val q = "\""
-        val picked = library.guides.joinToString(" | ") { "$q${it.id}\\$q$q" }
+        val picked = routeIds.joinToString(" | ") { "$q$it\\$q$q" }
         return """root ::= "{\"about\":\"" about "\",\"guide\":\"" choice "}"
 about ::= [a-zA-Z ,']{3,60}
 choice ::= picked ",\"urgent\":false" | "none\",\"urgent\":" bool
@@ -524,6 +650,12 @@ bool ::= "true" | "false""""
     private fun r(p: String) = Regex(p, RegexOption.IGNORE_CASE)
     private fun sentences(s: String) = s.split(Regex("(?<=[.!?])\\s+"))
     private val NEGATION = r("\\b(don't|do not|not|never|isn't|aren't|avoid|can't tell you|no checked|don't have checked|without checked|rather than|instead of)\\b")
+    /** v16: sentences that say a checked first-aid step (of a shown first-aid guide) are allowed while someone is hurt. */
+    private fun removeFaSents(s: String): String {
+        if (!faActive) return s
+        val fs = guidePool.filter { it in FIRST_AID }.flatMap { getSteps(it) }
+        return sentences(s).filter { snt -> fs.none { hasStep(snt, it) || hasStep(it, snt) } }.joinToString(" ")
+    }
     private fun anySentence(s: String, p: Regex) = sentences(s).any { p.containsMatchIn(it) && !NEGATION.containsMatchIn(it) && !stepCopy(it) }
     private fun stem5(w: String) = if (w.length > 5) w.substring(0, 5) else w
     // v4 (dev2): a sentence that is a near-copy of one ACTIVE step ("if you leave your vehicle, you will become
@@ -635,7 +767,7 @@ bool ::= "true" | "false""""
         "promise" to { s, _ -> r("\\b(will|going to|gonna) (find|rescue|save|come for|reach|get to|see|spot|hear) you\\b|\\bhelp is (coming|on (the|its|it's) way)|\\b(you're|you are|you'll be|you will be|everything will be|it will be|it'll be) (safe|fine|ok|okay|alright|all right)\\b|rescuers? (is|are) (coming|on)|\\b(they|someone|rescuers|searchers|people) (are|is) (looking|searching|coming) for you\\b|\\b(will|can|could) get better\\b|\\buntil (help|rescue|rescuers|someone|they) (arrives?|comes?|gets? there|finds? you)\\b|\\bwhen (help|rescue|rescuers|someone|they) (arrives?|comes?|gets? there|finds? you)\\b|\\bwhile (you )?wait(ing)? for (help|rescue|rescuers)\\b|\\bhelp (will|should) (come|arrive)\\b").containsMatchIn(s) },
         "claims to act" to { s, _ -> r("\\b(i|we)('ll| will| am going to| are going to| can)\\b.{0,20}\\b(call|contact|send|alert|notify|text|reach out to|get help|track)\\b|\\bi('ve| have) (called|contacted|alerted|notified|sent)\\b|\\bi('m| am) (calling|contacting|alerting|sending|notifying|tracking)\\b").containsMatchIn(s) },
         "treatment" to { s, _ -> r("\\b($TREATMENT)\\b").findAll(s).any { !allSteps.lowercase().contains(it.value.lowercase()) } },
-        "first aid while hurt" to { s, med -> med && anySentence(s, r("\\b(rest\\w*|hydrat\\w*|cool (place|spot|down|off)|stay cool|shade|drink\\w*|sleep\\w*|lie down|sit down|fluids?)\\b|\\b(keep|hold|put|raise|rest|move|cool|ice|press|clean|sleep|lie|sit|drink|stop|slow)\\b[^.!?]{0,40}\\b(ankle|leg|arm|foot|feet|knee|wrist|head|neck|wound|cut|bleed\\w*|injur\\w*|swell\\w*|it still|still|body|yourself cool|it off)\\b")) },
+        "first aid while hurt" to { s, med -> med && anySentence(removeFaSents(s), r("\\b(rest\\w*|hydrat\\w*|cool (place|spot|down|off)|stay cool|shade|drink\\w*|sleep\\w*|lie down|sit down|fluids?)\\b|\\b(keep|hold|put|raise|rest|move|cool|ice|press|clean|sleep|lie|sit|drink|stop|slow)\\b[^.!?]{0,40}\\b(ankle|leg|arm|foot|feet|knee|wrist|head|neck|wound|cut|bleed\\w*|injur\\w*|swell\\w*|it still|still|body|yourself cool|it off)\\b")) },
         "engine without limits" to { s, _ -> engineAdvice(s) && !(r("10 minutes").containsMatchIn(s) && r("exhaust|tailpipe").containsMatchIn(sentences(s).filterNot { Regex("\\?\\s*$").containsMatchIn(it) }.joinToString(" ")) && r("window").containsMatchIn(s) && r("\\bcold\\b").containsMatchIn(s)) },
         "engine advice in heat" to { s, _ -> hot && engineAdvice(s) },
         "repeats an earlier reply" to { s, _ -> repeats(s) },
@@ -661,7 +793,7 @@ bool ::= "true" | "false""""
         "stay put without condition" to { s, _ -> !inVehicle && sentences(s).any { r("\\b(stay where you are|stay put|staying (where you are|put|here))\\b").containsMatchIn(it) && !r("\\bif you (can't|cannot|can not)\\b|\\bunless\\b|\\bchanging location\\b").containsMatchIn(it) } },
         "calls it normal" to { s, _ -> r("\\b(is|are|that's|it's|feels?) (completely |totally |perfectly |very )?(normal|natural|expected)\\b").containsMatchIn(s) },
         "too long" to { s, _ -> s.split(Regex("\\s+")).count { it.isNotBlank() } > 100 },
-        "advice not in steps" to { s, _ -> badClauses = unsupportedClauses(s, curSteps); badClauses.isNotEmpty() },
+        "advice not in steps" to { s, _ -> badClauses = unsupportedClauses(medical?.let { s.replace(it.message, "") } ?: s, curSteps); badClauses.isNotEmpty() },
         "empty" to { s, _ -> s.isBlank() },
         // chat-v6 (small model on set 5, judge reasons): stock lines used where they don't fit.
         "false comfort" to { s, _ -> PROMISE_RE.containsMatchIn(s) },
@@ -680,8 +812,30 @@ bool ::= "true" | "false""""
 
     companion object {
         private val SIGNAL_RE = Regex("\\b(one|1|a|two|2|some|few) bars?\\b|\\bbar (just )?(popped|appeared|showed)|\\b(have|got|getting) (a |some )?(signal|service|reception)\\b|\\b(signal|service) (is |came |just came )?back\\b|\\b(buzzing|getting) (with )?alerts\\b", RegexOption.IGNORE_CASE)
-        private val HAZARD_GUIDES = setOf("flood", "wildfire", "coast-tide", "lightning", "high-wind")
-        private val ORDER_FIRST = setOf("flood", "wildfire", "lightning", "high-wind", "coast-tide")
+        private val FIRST_AID = setOf("snakebite", "broken-bone", "bleeding", "burns", "choking", "cpr", "allergic-reaction", "head-injury", "seizure", "heart-attack", "stroke", "heat-illness", "hypothermia", "frostbite", "bites-stings", "carbon-monoxide")
+        private val NEW_HAZARD = setOf("earthquake", "tsunami", "avalanche", "hurricane", "landslide", "volcano", "winter-storm", "house-fire", "gas-leak", "chemical-spill", "rip-current", "fell-through-ice", "someone-in-water", "power-outage")
+        private val KEYWORD_ONLY = FIRST_AID + NEW_HAZARD + "emergency-numbers"
+        // v17: damaged building; CPR only when not breathing / not responding; another person in the water.
+        private val DAMAGE_RE = Regex("""\b(damaged|damage|crack(ed|s|ing)?|collaps\w*|caved|cave in|falling apart|ceiling (fell|is falling|came down)|walls? (fell|came down))\b""", RegexOption.IGNORE_CASE)
+        private val CPR_RE = Regex("""\b(not breathing|isn'?t breathing|stopped breathing|barely breathing|no pulse|gasping|cpr|not waking|won'?t wake|not responding|unresponsive|unconscious|heart stopped|no heartbeat|(doesn'?t|don'?t|didn'?t|won'?t) respond)\b""", RegexOption.IGNORE_CASE)
+        private val CPR_STEP_RE = Regex("""^(Lay them on their back|Put the heel of one hand|With straight arms|Then tilt the head back|Keep going: 30|If there's an AED)""")
+        private val OTHER_IN_WATER_RE = Regex("""\b(my|our|a|the|his|her) (brother|sister|friend|son|daughter|dad|father|mom|mum|mother|wife|husband|kid|child|boy|girl|partner|mate|buddy|dog|grandpa|grandma)\b|\b(he|she|someone|somebody|they) (fell|went|is|was|got|are)\b|\bgot (him|her|them) out\b""", RegexOption.IGNORE_CASE)
+        private val FA_EXEMPT = setOf("guessing", "engine without limits", "engine with CO signs", "engine advice in heat", "danger claim", "movement advice", "alarming speculation")
+        private val NO_FA_RE = Regex("\\b(do not|don't|cannot|can't|can not|won't|will not|unable to|not able to) (give|provide|offer)( you)? (any )?(medical|first[- ]aid|treatment)|\\b(do not|don't) (give|attempt|try) any (treatment|first[- ]aid)", RegexOption.IGNORE_CASE)
+        private val HAZARD_GUIDES = setOf("flood", "wildfire", "coast-tide", "lightning", "high-wind") + NEW_HAZARD
+        private val ORDER_FIRST = setOf("flood", "wildfire", "lightning", "high-wind", "coast-tide") + NEW_HAZARD
+        // v16: Canada before UK ("British Columbia"), Australia before UK ("New South Wales").
+        private val COUNTRY_RES = listOf(
+            "AU" to Regex("\\b(australia\\w*|aussie|queensland|qld|nsw|new south wales|tasmania\\w*|outback|northern territory|sydney|melbourne|brisbane|perth|adelaide|darwin|cairns|kosciuszko)\\b", RegexOption.IGNORE_CASE),
+            "NZ" to Regex("\\b(new zealand|nz|aotearoa|auckland|christchurch|queenstown|rotorua)\\b", RegexOption.IGNORE_CASE),
+            "CA" to Regex("\\b(canada|canadian|ontario|quebec|british columbia|alberta|manitoba|saskatchewan|nova scotia|banff|yukon)\\b", RegexOption.IGNORE_CASE),
+            "GB" to Regex("\\b(uk|united kingdom|england|scotland|wales|britain|british|london|lake district|snowdonia|peak district|scottish highlands)\\b", RegexOption.IGNORE_CASE),
+            "EU" to Regex("\\b(europe|european|germany|france|spain|italy|ireland|netherlands|austria|switzerland|alps|portugal|greece|sweden|norway|finland|poland|czechia|czech republic|belgium|denmark|croatia|slovenia|iceland|pyrenees|dolomites)\\b", RegexOption.IGNORE_CASE),
+        )
+        private val COUNTRY_NUM = mapOf("AU" to "000", "NZ" to "111", "GB" to "999", "EU" to "112", "CA" to "911", "US" to "911")
+        private val COUNTRY_LABEL = mapOf("AU" to "Australia", "NZ" to "New Zealand", "GB" to "UK", "EU" to "Europe", "CA" to "Canada")
+        private val LABEL_RE = Regex("^(Australia|New Zealand|UK|Europe|Canada):")
+        private val BITE_RE = Regex("\\b(bit|bitten|bite|bites|fangs?)\\b", RegexOption.IGNORE_CASE)
         private val OWN_VEHICLE_RE = Regex("\\b(i'?m|i am|we'?re|we are|stuck|sitting|stranded|trapped) in (a|an) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(my|our|the|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b|\\b(engine|dashboard|windshield|flat tire|broke down|broken down)\\b", RegexOption.IGNORE_CASE)
         private val PROMISE_RE = Regex("\\byou('re| are) not (alone|in danger)\\b|\\byou (will not|won't|will never) (die|freeze|get lost|be hurt)\\b|\\byou('re| are) (going to be|gonna be) (ok|okay|fine|alright|safe)\\b|\\byou('ll| will) be (ok|okay|fine|alright|safe)\\b|\\byou('re| are) safe (now|here)\\b|\\bnot in danger right now\\b", RegexOption.IGNORE_CASE)
         private val VEHICLE_AWAY_RE = Regex("\\b(car|truck|suv|van|jeep|vehicle|rv|camper|minivan|sedan|pickup)\\b[^.?!]{0,30}\\b(away|back|behind (us|me)|on the other side|across|back at|at the (trailhead|trail head|parking)|in the (parking )?lot)\\b|\\b(run|walk|hike|head|go|get|make it|race|sprint|hurry|back|way) (back )?(for|to|toward|towards) (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b|\\bhear (the|our|my|his|her|their) (car|truck|engine)\\b|\\b(far|away) from (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\b(can'?t|cannot|couldn'?t) find (the|our|my|his|her|their) (car|truck|vehicle)\\b|\\bwhere (we|i|they) parked\\b|\\bbetween (me|us|him|her|them) and (the|our|my|his|her|their) (car|truck|suv|van|jeep|vehicle|rv|camper|minivan|pickup)\\b", RegexOption.IGNORE_CASE)
@@ -764,7 +918,7 @@ bool ::= "true" | "false""""
         private val DRIVING_RE = Regex("""\b(driv\w*|on the (road|highway|interstate|freeway)|pull (over|off)|pavement)\b""", RegexOption.IGNORE_CASE)
         private val BEAR_RE = Regex("""\bbears?\b(?! spray)""", RegexOption.IGNORE_CASE)
         private val LION_RE = Regex("""\b(mountain lions?|cougars?|pumas?)\b""", RegexOption.IGNORE_CASE)
-        private val SNAKE_RE = Regex("""\b(snakes?|rattl\w*)\b""", RegexOption.IGNORE_CASE)
+        private val SNAKE_RE = Regex("""\b(snakes?|rattle ?snakes?|rattlers?)\b""", RegexOption.IGNORE_CASE)
         private val WEAK_GUIDES = setOf("reach-help", "stay-calm")
         private val SAFE_RE = Regex("""\b(no emergency|not an emergency|not in (any )?danger|not stranded|nothing (is )?wrong|at home|from (my|the) (couch|desk|office|home|kitchen)|on (my|the) couch|just curious|unrelated|random question|off topic|for (school|college|class|work))\b""", RegexOption.IGNORE_CASE)
         private val EMERGENCY_WORDS = Regex("""\b(help me(?!\s+(pick|choose|name|decide|plan|write|think|come up))|emergency|lost|stuck|stranded|hurt|injur\w*|bleed\w*|scared|afraid|trapped|danger\w*|alone|dark|night|cold|hot|freez\w*|storm|wind\w*|rain\w*|snow\w*|fire|smoke|flood\w*|trail|blazes?|woods|forest|mountains?|hik\w*|camp\w*|tent|car|truck|van|road|bars?|signal|service|battery|lake|river|creek|beach|tide|bears?|animal|kids?|child\w*|water|wilderness|park|canyon|desert|cliff)\b""", RegexOption.IGNORE_CASE)
@@ -798,7 +952,7 @@ bool ::= "true" | "false""""
             """\b(kid|kids|child|children|son|daughter|toddler|baby|infant|grandkid\w*)\b""" to listOf("Keep children close", "Watch children closely"),
             """\bbears?\b(?! spray)""" to listOf("Bear: do not run", "Bear: talk calmly", "Bear: pick up small children", "Never approach wildlife"),
             """\b(mountain lions?|cougars?|pumas?)\b""" to listOf("Mountain lion: do not run", "Mountain lion: do all you can", "Mountain lion: if you have small children"),
-            """\b(snakes?|rattl\w*)\b""" to listOf("Snake: give it plenty of room"),
+            """\b(snakes?|rattle ?snakes?|rattlers?)\b""" to listOf("Snake: give it plenty of room"),
             """\b(moose|bison|elk|wolf|wolves|coyotes?|animal)\b""" to listOf("Never approach wildlife"),
             """\b(ridge|summit|peak|hill ?top|top of|exposed|open field|meadow)\b""" to listOf("Avoid open fields, the top of a hill", "There is no safe place outside"),
             """\b(tree|trees|pine|oak)\b""" to listOf("Stay away from tall, isolated trees", "If no shelter is available, avoid trees"),
@@ -856,7 +1010,7 @@ How to answer:
 - You may end with ONE short new question. Never repeat a question.
 - Never promise or predict anything: not "help is coming", "until help arrives", "you'll be okay", "things will get better", "they will see you".
 - Never say you are calling, contacting or alerting anyone.
-- Never give medical or first-aid advice of any kind. If someone is hurt or ill, say reaching 911 is the most important thing, any way they can.
+- Never give medical or first-aid advice beyond the CHECKED STEPS. If someone is hurt or ill, say reaching 911 is the most important thing, any way they can.
 - Do not invent facts they did not say, and do not call their symptoms or feelings normal.
 - Suggesting they call or text 911 (or 988) as soon as they have signal is always okay."""
 

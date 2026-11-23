@@ -152,7 +152,8 @@ class MatcherTest {
     @Test fun everyStepHasAnOfficialSource() {
         val lib = parseGuideLibrary(java.io.File("src/main/assets/guides.json").readText())
         lib.guides.flatMap { it.steps }.forEach { s ->
-            assertTrue("no official source: ${s.text}", Regex("^https://[^/]+\\.(gov|mil)/").containsMatchIn(s.sourceUrl))
+            // Same rule as content/verify-sources.ps1: US federal/state, plus official non-US sites (since 2026-11-23).
+            assertTrue("no official source: ${s.text}", Regex("^https://([^/]+\\.(gov|mil)|[^/]+\\.state\\.[a-z]{2}\\.us|[^/]+\\.gov\\.au|[^/]+\\.govt\\.nz|([^/]+\\.)?nhs\\.uk|[^/]+\\.europa\\.eu|([^/]+\\.)?canada\\.ca)/").containsMatchIn(s.sourceUrl))
         }
     }
 
