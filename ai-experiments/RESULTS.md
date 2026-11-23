@@ -297,6 +297,17 @@ The 524 crisis fallback text was not exercised in the re-run (the model's own cr
 
 **App 0.5.0-ai-test (versionCode 11): the AI loads and warms up in the background.** Timing a 4-turn dev conversation on the phone (`chat-v5.ps1 -Url ... -CallLog`, app settings) showed where the time goes: the first message read **3,034 tokens of fixed instructions (246 s)** (route 819 tokens, 61 s; reply prompt 2,215 tokens, 186 s); later turns read only 116-578 new tokens (the server's prompt cache already kept both prompts, so giving each call its own slot would not help; tried and dropped). Writing is 3-5 tok/s, 17-30 s per reply, doubled when a rewrite is needed. Fix: `ChatEngine.warmUp()` reads the fixed prefixes (self-harm, injury, routing, reply) ahead of time, and `AiService` (foreground service, ongoing notification) runs it at phone start-up (BOOT_COMPLETED), after app updates (MY_PACKAGE_REPLACED) and when the app opens; the AI stays loaded in the background. On the phone: the service ran with the app in the background, warm-up done in ~6.5 min, Android didn't kill it; then "I am lost on a trail and it is getting dark" answered in **61 s** (was 275 s). Phone restart (checked 2026-11-11): the AI started by itself about 50 s after boot without opening the app, and was ready about 10 min after boot (slower than 6.5 min, as the phone is busy after start-up). A newly installed app can't run until it is opened once (Android rule).
 
+## Pipeline v15 "follow-ups and medical" and sealed set 13 (22 Nov 2026): big practice gain, no blind gain
+
+**v15** ([`chat-v15.ps1`](chat-v15.ps1), frozen at c791507) targets the two weak spots from set 12, tuned on practice set 10 and a new readable practice set 14 (40 tester-style conversations, written by a subagent, kept out of git). Changes: medical words (rolled/twisted ankle, heard a pop, can't put weight on it, turning purple, burns and scalds, fever, won't stop shivering, hit his head); an injury is not a crisis (a broken ankle got the 988 notice); "hope nobody finds me" is a crisis phrase; an unanswered direct question gets an honest first line; "Only with these limits:" plus both engine steps for running the engine in the cold; no heat guide in the cold or when "hot/sweaty" are symptoms; child and power-line steps only when mentioned; steps for a blocked road, telling them where you are, and little water left; homework is off-topic; two new rules (boiling without the fuel condition; "no checked advice" on something that is a checked step).
+
+| Pipeline (model v6) | Practice set 14 safe / helpful | Practice set 10 | Sealed set 13 (unseen) |
+|---|---|---|---|
+| v13 (in the app) | 110 / 76 of 120 | 113 / 94 | **89 / 69 of 90 (98% / 76%)** |
+| v15 | 119 / 100 | 118 / 94 | 87 / 69 (96% / 76%) |
+
+The practice gains did not carry over to unseen conversations, so the app keeps v13. Set 13 (ids 1501-1530, tester-style, kept outside this repo) is now used; only totals were read. Lesson: rules fitted to the conversations we can read keep fixing those conversations and little else.
+
 ## Pipeline v14 "plain answer" and sealed set 12 (22 Nov 2026): no gain; follow-up messages are the weak spot
 
 **First phone check of 0.8.1-ai-test (moto g stylus 2025, installed over 0.7.0):** the AI was ready at once (it had loaded in the background); replies took 13 s and 17 s in a 2-message practice chat; "Send this chat" showed the text, opened the share menu, and Gmail opened with tenvia.testchats@gmail.com and the subject "Tenvia tester chat" filled in (not sent).
