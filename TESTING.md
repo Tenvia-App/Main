@@ -1,4 +1,4 @@
-# Testing Tenvia (test version 0.8.3-ai-test)
+# Testing Tenvia (test version 0.9.0-ai-test)
 
 Thanks for helping test **Tenvia**, a free offline app meant to help people through dangerous situations when there's no signal. This version has an AI chat that runs fully on your phone.
 
@@ -8,7 +8,7 @@ Thanks for helping test **Tenvia**, a free offline app meant to help people thro
 
 1. **Install** with the step-by-step guide: [INSTALL.md](INSTALL.md). You need Android 8 or newer, about 2.5 GB free, and Wi-Fi for the download.
 2. **Turn on airplane mode.** Everything should still work.
-3. **Pretend you're in trouble.** Open the chat and describe a made-up situation in your own words. Then send 2 or 3 follow-up messages that add details or change things. For example: lost on a trail at dusk, car stuck in snow, a creek rising, phone almost dead. Typos and slang are welcome; write the way you really would.
+3. **Pretend you're in trouble.** Open the chat and describe a made-up situation in your own words. Then send 2 or 3 follow-up messages that add details or change things. For example: lost on a trail at dusk, car stuck in snow, a creek rising, phone almost dead. New in 0.9.0: first aid (a snake bite, a broken leg, a burn, someone choking) and disasters at home or in town (earthquake, house fire, gas smell, flood, ice). Please try those too, and tell us which country you are in. Typos and slang are welcome; write the way you really would.
 4. **Send the chat.** Tap **Send this chat to help improve Tenvia (testers)**. Check the text, remove anything personal, then tap **Open share menu** and pick your email app. The address **tenvia.testchats@gmail.com** is filled in for you. The app never sends anything by itself.
 
 Several short chats about different situations help more than one long one.
@@ -34,7 +34,7 @@ Screenshots help a lot. To report a bad answer in public instead, use the [bad A
 
 ## Not in this version yet
 
-- Only English, and US emergency numbers.
+- Only English. Emergency numbers for the US and Canada (911), Australia (000), New Zealand (111), the UK (999) and Europe (112) when you name the country; crisis lines are US and Canada only (988).
 - Tested on only one phone so far (8 GB of memory). Phones with less memory may be slow or may not run the AI: the app warns on 4-5 GB phones and asks before starting the AI on 3 GB or less. If you see that message, please tell us your phone model.
 - The test build asks for internet permission only to talk to the AI running on the same phone and, when the phone is online, to check GitHub for a newer test version. The finished app is planned to drop it.
 
