@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.tenvia.data.TenviaAi
+import app.tenvia.data.PhoneCheck
 import app.tenvia.AiService
 import androidx.compose.ui.platform.LocalContext
 import app.tenvia.data.ChatEngine
@@ -84,7 +85,12 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
     val context = LocalContext.current
     val aiStatus by TenviaAi.status
     var startTry by remember { mutableStateOf(0) }
+    // Phones with too little memory: the AI is only started after "Try anyway".
+    val memLevel = remember { PhoneCheck.level(context) }
+    val memNote = remember { PhoneCheck.message(context) }
+    val heldBack = memLevel == PhoneCheck.Level.TooLow && !TenviaAi.tryAnyway
     LaunchedEffect(startTry) {
+        if (heldBack && startTry == 0) return@LaunchedEffect
         if (aiStatus == TenviaAi.Status.Off || aiStatus == TenviaAi.Status.Failed || startTry > 0) AiService.start(context)
     }
     val aiUp: Boolean? = when (aiStatus) { TenviaAi.Status.Ready, TenviaAi.Status.Warming -> true; TenviaAi.Status.Failed -> false; else -> null }
@@ -95,10 +101,11 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
         Column(Modifier.fillMaxWidth().border(1.dp, Warning, Bubble).padding(10.dp)) {
             Text("AI TEST BUILD: NOT FOR REAL EMERGENCIES", color = Warning, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
             Text(
-                when (aiUp) {
-                    null -> "Starting the on-phone AI. This can take up to a minute..."
-                    true -> if (warming) "The AI is getting ready (a few minutes). You can type now; your first reply comes after it is ready. It can be wrong." else "The AI runs on this phone, no internet. Replies take about 1-2 minutes. It can be wrong."
-                    false -> "The on-phone AI couldn't start. ${TenviaAi.server.lastProblem} Use the guides instead, or tap Retry."
+                when {
+                    heldBack && (aiUp == false || aiStatus == TenviaAi.Status.Off) -> memNote ?: ""
+                    aiUp == null -> "Starting the on-phone AI. This can take up to a minute..." + (memNote?.let { " $it" } ?: "")
+                    aiUp == true -> (if (warming) "The AI is getting ready (a few minutes). You can type now; your first reply comes after it is ready. It can be wrong." else "The AI runs on this phone, no internet. Replies take about 1-2 minutes. It can be wrong.") + (memNote?.let { " $it" } ?: "")
+                    else -> "The on-phone AI couldn't start. ${TenviaAi.server.lastProblem} The checked guides still work: tap Back to use them, or tap Retry."
                 },
                 style = MaterialTheme.typography.bodyMedium, color = Muted,
             )
@@ -188,8 +195,8 @@ fun ChatScreen(engine: ChatEngine, state: ChatUiState, onOpenGuide: (Guide) -> U
             OutlinedButton(onClick = onBack, modifier = Modifier.weight(1f).heightIn(min = 56.dp), shape = Bubble) {
                 Text("Back", style = MaterialTheme.typography.labelLarge)
             }
-            if (aiUp == false) OutlinedButton(onClick = { startTry++ }, modifier = Modifier.weight(1f).heightIn(min = 56.dp), shape = Bubble) {
-                Text("Retry", style = MaterialTheme.typography.labelLarge)
+            if (aiUp == false || (heldBack && aiStatus == TenviaAi.Status.Off)) OutlinedButton(onClick = { if (heldBack) TenviaAi.tryAnyway = true; startTry++ }, modifier = Modifier.weight(1f).heightIn(min = 56.dp), shape = Bubble) {
+                Text(if (heldBack) "Try anyway" else "Retry", style = MaterialTheme.typography.labelLarge)
             }
             Button(
                 onClick = {

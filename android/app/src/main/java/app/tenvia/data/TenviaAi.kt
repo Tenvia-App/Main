@@ -30,13 +30,28 @@ object TenviaAi {
         engine = ChatEngine(library, short = AiServer.SMALL)
     }
 
+    /** Set by the chat screen's "Try anyway": start the AI even on a phone with too little memory. */
+    @Volatile var tryAnyway = false
+
     /** Blocking (call off the main thread). Safe to call again: does nothing when the AI is ready. */
     @Synchronized
     fun prepare(context: Context): Boolean {
         init(context)
         if (status.value == Status.Ready && server.isUp()) return true
+        val level = PhoneCheck.level(context)
+        if (level == PhoneCheck.Level.TooLow && !tryAnyway) {
+            server.lastProblem = ""
+            status.value = Status.Failed
+            return false
+        }
         status.value = Status.Starting
-        if (!server.ensureRunning()) { status.value = Status.Failed; return false }
+        if (!server.ensureRunning()) {
+            if (level != PhoneCheck.Level.Ok && server.lastProblem.startsWith("The AI stopped")) {
+                server.lastProblem = "The AI stopped while starting, probably because the phone ran out of memory. Close other apps and tap Retry."
+            }
+            status.value = Status.Failed
+            return false
+        }
         status.value = Status.Warming
         runCatching { engine.warmUp() }
         status.value = Status.Ready

@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import app.tenvia.data.TenviaAi
+import app.tenvia.data.PhoneCheck
 import kotlin.concurrent.thread
 
 /**
@@ -30,6 +31,10 @@ class AiService : Service() {
         else startForeground(NOTIFY_ID, notification)
         thread(name = "tenvia-ai-prepare") {
             val ok = TenviaAi.prepare(applicationContext)
+            // Too little memory and no "Try anyway": no AI, so no ongoing notification either.
+            if (!ok && PhoneCheck.level(applicationContext) == PhoneCheck.Level.TooLow && !TenviaAi.tryAnyway) {
+                stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(); return@thread
+            }
             getSystemService(NotificationManager::class.java).notify(
                 NOTIFY_ID,
                 notification(if (ok) "Tenvia AI is ready, offline" else "Tenvia AI couldn't start. Open the chat to retry."),

@@ -17,8 +17,8 @@ class AiServer(private val context: Context, private val port: Int = 8080) {
 
     private var process: Process? = null
 
+    /** Shown in the chat when the AI can't start (TenviaAi also writes the low-memory explanation). */
     var lastProblem: String = ""
-        private set
 
     fun isUp(): Boolean = runCatching {
         val c = URL("http://127.0.0.1:$port/health").openConnection() as HttpURLConnection
