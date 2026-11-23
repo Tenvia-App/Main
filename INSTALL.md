@@ -4,7 +4,7 @@
 
 ## What you need
 
-- An Android phone, Android 8 or newer. So far it has only been tested on one phone (a moto g stylus 2025 with 8 GB of memory). Phones with less memory may be slow or may not run the AI.
+- An Android phone, Android 8 or newer. So far it has only been tested on one phone (a moto g stylus 2025 with 8 GB of memory). Phones with less memory may be slow or may not run the AI: with 4-5 GB the app warns you, and with 3 GB or less it doesn't start the AI on its own (you can tap **Try anyway**). The guides work on any phone.
 - About **2.5 GB of free space**: the download is about 1.2 GB, and the app copies its AI model out once on first start.
 - Wi-Fi for the download. After that, nothing needs a connection.
 
@@ -16,7 +16,7 @@ The exact wording of the screens below differs a little between phones. Plan abo
 
 **Step 2. Open the download page on your phone.** Go to the [releases page](https://github.com/Tenvia-App/Main/releases). The newest version is at the top.
 
-**Step 3. Download the app.** Under **Assets** for the newest version, tap the file ending in **`.apk`** (for example `Tenvia-0.8.1-ai-test.apk`).
+**Step 3. Download the app.** Under **Assets** for the newest version, tap the file ending in **`.apk`** (for example `Tenvia-0.8.2-ai-test.apk`).
 - Chrome may say *"File might be harmful"* or *"Download anyway?"*. Tap **Download anyway**. Chrome says this about every app that isn't from the Play Store.
 - Wait for the download to finish.
 
