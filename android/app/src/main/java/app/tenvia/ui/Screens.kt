@@ -29,8 +29,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 import app.tenvia.data.Guide
 import app.tenvia.data.MatchResult
+import app.tenvia.data.UpdateCheck
 
 private val Corner = RoundedCornerShape(14.dp)
 
@@ -50,6 +54,42 @@ fun PrototypeBanner() {
     }
 }
 
+/** TEST BUILD: shown on the home screen when a newer test version is on GitHub (see UpdateCheck). */
+@Composable
+private fun UpdateNote() {
+    val update = UpdateCheck.available ?: return
+    if (UpdateCheck.dismissed) return
+    val context = LocalContext.current
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(ForestLight, Corner)
+            .border(1.dp, Amber, Corner)
+            .padding(14.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        Text("New test version: ${update.version}", color = Amber,
+            style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+        Text("Download it and install it over this one. No need to uninstall, and your app stays set up. It's a big download (about 1 GB), so use Wi-Fi.",
+            style = MaterialTheme.typography.bodyMedium, color = Muted)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+            OutlinedButton(
+                onClick = { UpdateCheck.dismissed = true },
+                modifier = Modifier.weight(1f).heightIn(min = 52.dp), shape = Corner,
+            ) { Text("Not now", style = MaterialTheme.typography.labelLarge) }
+            Button(
+                onClick = {
+                    runCatching {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(update.pageUrl)))
+                    }
+                },
+                modifier = Modifier.weight(1f).heightIn(min = 52.dp), shape = Corner,
+                colors = ButtonDefaults.buttonColors(containerColor = Amber, contentColor = Forest),
+            ) { Text("Download", style = MaterialTheme.typography.labelLarge) }
+        }
+    }
+}
+
 @Composable
 fun HomeScreen(
     guides: List<Guide>,
@@ -60,6 +100,7 @@ fun HomeScreen(
     var text by rememberSaveable { mutableStateOf("") }
     ScreenColumn {
         PrototypeBanner()
+        UpdateNote()
         Text("Tenvia", style = MaterialTheme.typography.headlineLarge, color = Amber)
         // TEST BUILD: free AI conversation (needs the on-phone AI server started over USB).
         BigButton("Talk to Tenvia (AI test)") { onChat() }

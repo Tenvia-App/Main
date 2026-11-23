@@ -48,6 +48,9 @@ class MainActivity : ComponentActivity() {
         val chatEngine = TenviaAi.engine
         // TEST BUILD: load and warm up the on-phone AI in the background right away.
         AiService.start(this)
+        // TEST BUILD: if online, see whether a newer test version is on GitHub (never downloads anything).
+        runCatching { packageManager.getPackageInfo(packageName, 0).versionName }.getOrNull()
+            ?.let { app.tenvia.data.UpdateCheck.start(it) }
         if (android.os.Build.VERSION.SDK_INT >= 33 && checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED)
             requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
         val chatState = ChatUiState()

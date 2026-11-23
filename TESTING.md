@@ -1,4 +1,4 @@
-# Testing Tenvia (test version 0.8.2-ai-test)
+# Testing Tenvia (test version 0.8.3-ai-test)
 
 Thanks for helping test **Tenvia**, a free offline app meant to help people through dangerous situations when there's no signal. This version has an AI chat that runs fully on your phone.
 
@@ -36,4 +36,8 @@ Screenshots help a lot. To report a bad answer in public instead, use the [bad A
 
 - Only English, and US emergency numbers.
 - Tested on only one phone so far (8 GB of memory). Phones with less memory may be slow or may not run the AI: the app warns on 4-5 GB phones and asks before starting the AI on 3 GB or less. If you see that message, please tell us your phone model.
-- The test build asks for internet permission only to talk to the AI running on the same phone. The finished app is planned to drop it.
+- The test build asks for internet permission only to talk to the AI running on the same phone and, when the phone is online, to check GitHub for a newer test version. The finished app is planned to drop it.
+
+## Getting new versions
+
+From 0.8.3 on, when your phone is online, the home screen shows **New test version** when there's a newer build. Tap **Download**, then install the new file over the old one. You don't need to uninstall first, and your app stays set up. It's about 1 GB, so use Wi-Fi. The app never downloads or installs anything by itself.

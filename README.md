@@ -1,6 +1,6 @@
 # Tenvia
 
-**Hold on, there's a way through.** Tenvia is a free, fully offline Android app that helps people through dangerous situations when there's no signal: lost, stranded, or waiting for rescue. It's free like 911: no ads, accounts, limits or tracking. Test builds ask for internet permission only to reach the AI running on the same phone; the finished app is planned to have none.
+**Hold on, there's a way through.** Tenvia is a free, fully offline Android app that helps people through dangerous situations when there's no signal: lost, stranded, or waiting for rescue. It's free like 911: no ads, accounts, limits or tracking. Test builds ask for internet permission only to reach the AI running on the same phone and to check GitHub for a newer test version; the finished app is planned to have none.
 
 Website: **https://tenvia-app.github.io/Main/**
 

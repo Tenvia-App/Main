@@ -16,7 +16,7 @@ The exact wording of the screens below differs a little between phones. Plan abo
 
 **Step 2. Open the download page on your phone.** Go to the [releases page](https://github.com/Tenvia-App/Main/releases). The newest version is at the top.
 
-**Step 3. Download the app.** Under **Assets** for the newest version, tap the file ending in **`.apk`** (for example `Tenvia-0.8.2-ai-test.apk`).
+**Step 3. Download the app.** Under **Assets** for the newest version, tap the file ending in **`.apk`** (for example `Tenvia-0.8.3-ai-test.apk`).
 - Chrome may say *"File might be harmful"* or *"Download anyway?"*. Tap **Download anyway**. Chrome says this about every app that isn't from the Play Store.
 - Wait for the download to finish.
 

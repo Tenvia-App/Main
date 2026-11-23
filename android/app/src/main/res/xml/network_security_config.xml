@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TEST BUILD: the only network traffic allowed is to the AI server on this same phone. -->
+<!-- TEST BUILD: plain (unencrypted) traffic is allowed only to the AI server on this same phone.
+     The only other connection is the HTTPS update check to GitHub (data/UpdateCheck.kt). -->
 <network-security-config>
     <base-config cleartextTrafficPermitted="false" />
     <domain-config cleartextTrafficPermitted="true">
