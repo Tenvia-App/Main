@@ -20,7 +20,7 @@ Offline safety guides and an on-phone AI for when you're lost or out of signal.
 > Tenvia is a free safety app for when you're outdoors and out of signal.
 >
 > - **Works with no signal.** Every guide and the AI run on your phone. Nothing is sent anywhere.
-> - **Checked guides** for being lost, getting found, cold, heat, water, flooding, wildfire, lightning, strong wind, tornadoes, tides, wild animals, kids and groups, a stranded vehicle and saving phone battery. Each step is taken from an official US government safety page, and the page is linked.
+> - **Checked guides** for being lost, getting found, cold, heat, water, flooding, wildfire, lightning, strong wind, tornadoes, tides, wild animals, kids and groups, a stranded vehicle and saving phone battery, plus basic first aid (bites and stings, bleeding, burns, broken bones, choking, CPR) and emergencies like earthquakes, house fires, gas leaks, falling through ice and rip currents. Each step is taken from an official government safety page, and the page is linked.
 > - **AI chat on your phone.** Describe what's happening in your own words. The AI answers only from the checked guide steps, and a set of safety rules checks every reply before you see it.
 > - **Free, no ads, no account, no tracking.** Open source under Apache 2.0.
 >

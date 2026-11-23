@@ -41,7 +41,9 @@ Anyone, with no training needed: people who are stressed or scared, who may be c
 - contacting help as soon as any signal or connection is available
 - staying calm and thinking clearly
 
-**Out of scope for the first release:** medical treatment instructions (bleeding, CPR, fractures and so on), poisoning, mental-health crises and anything else not listed above. When a person describes one of these, Tenvia says plainly that it can't guide them yet and encourages them to reach emergency services if possible.
+**Update, 23 November 2026:** after the first real tester chats (a snake bite in Australia), basic first aid and many more emergencies (earthquake, house fire, gas leak, ice, rip current and others) were added in test build 0.9.0, only as checked steps from official pages, and official sources outside the US are now allowed. Expert review is still required before anyone relies on them.
+
+**Out of scope for the first release (original plan):** medical treatment instructions (bleeding, CPR, fractures and so on), poisoning, mental-health crises and anything else not listed above. When a person describes one of these, Tenvia says plainly that it can't guide them yet and encourages them to reach emergency services if possible.
 
 **Content rule:** all guide content will be drafted from reputable public sources (for example US government emergency-preparedness and park-safety material, which is generally free to reuse), with every source and licence recorded. Before anyone relies on it, qualified people must review it. Until then, every build is clearly labelled "not for real emergencies."
 
@@ -83,7 +85,7 @@ Targets (battery use, response time and so on) will be set with experts and by m
 | 2 | On-device AI experiment: does a small model run acceptably on a mid-range phone? | First round done 7 Nov 2026: see [ai-experiments/RESULTS.md](ai-experiments/RESULTS.md) |
 | 3 | Offline and battery testing (testing track 1) | No |
 | 4 | Expert review and supervised simulations (testing tracks 2–4) | Likely |
-| 5 | Medical first aid category, with expert-reviewed content | Likely |
+| 5 | Medical first aid category, with expert-reviewed content | Likely. Started 23 Nov 2026: checked first-aid steps in test build 0.9.0, not expert-reviewed yet |
 
 ## 9. Open decisions
 

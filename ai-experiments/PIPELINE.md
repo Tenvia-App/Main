@@ -2,7 +2,9 @@
 
 This is how Tenvia's optional on-device AI handles one message, end to end. Everything runs **on the phone, offline**. The model is Qwen3 4B (Apache 2.0, 4-bit, about 2.3 GB), run with llama.cpp. The reference implementation is [`freetext-v3.ps1`](freetext-v3.ps1); the evidence for each design choice is in [`RESULTS.md`](RESULTS.md).
 
-> **Status:** an experiment, not in the app yet. The keyword safety-net list *is* already in the app ([`guides.json`](../android/app/src/main/assets/guides.json) `outOfScope`, matched by [`Matcher.kt`](../android/app/src/main/java/app/tenvia/data/Matcher.kt), with unit tests). Nothing here is reviewed by experts yet. Not for real emergencies.
+> **Out of date:** this page describes the round-8 design. Test build 0.9.0 (23 Nov 2026) runs the v6 model with pipeline v17 ([`chat-v17.ps1`](chat-v17.ps1), ported to [`ChatEngine.kt`](../android/app/src/main/java/app/tenvia/data/ChatEngine.kt)), which also gives checked first-aid steps. See [`RESULTS.md`](RESULTS.md) for every round since.
+
+> **Status (round 8):** an experiment, not in the app yet. The keyword safety-net list *is* already in the app ([`guides.json`](../android/app/src/main/assets/guides.json) `outOfScope`, matched by [`Matcher.kt`](../android/app/src/main/java/app/tenvia/data/Matcher.kt), with unit tests). Nothing here is reviewed by experts yet. Not for real emergencies.
 
 ```
 message
