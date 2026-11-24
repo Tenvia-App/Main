@@ -1,4 +1,4 @@
-# Testing Tenvia (test version 0.9.0-ai-test)
+# Testing Tenvia (test version 0.9.1-ai-test)
 
 Thanks for helping test **Tenvia**, a free offline app meant to help people through dangerous situations when there's no signal. This version has an AI chat that runs fully on your phone.
 

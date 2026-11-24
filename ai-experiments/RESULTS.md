@@ -660,3 +660,14 @@ Files: `chat-v6.ps1`, `train/` (data, scripts, `overnight.ps1`, `pause-training.
 1. Use **Qwen3 1.7B** for the optional AI tier, as a *router only*.
 2. Keep the keyword matcher as the always-available fallback. On these 10 scenarios it does nearly as well, so the AI's value is understanding unusual phrasing.
 3. Next: build a larger scenario set (a good job for Hermes), test a properly made 4-bit model, and measure battery unplugged.
+
+## Phone check of 0.9.0 and app 0.9.1-ai-test (pipeline v18), 23 November 2026
+
+0.9.0 installed on the test phone (moto g stylus 2025): AI ready at once, replies in 11-30 s. Four problems found:
+- "earthquake just hit, the walls cracked and I'm inside my apartment" got the **self-harm crisis notice** (the router found no guide, so the self-harm check ran and said yes);
+- "a snake just bit my mate" and "I think my leg is broken" got **no first aid** (the guides only matched exact phrases like "snake bit" and "broken leg");
+- the home banner still said "US government safety pages".
+
+Pipeline v18 ([`chat-v18.ps1`](chat-v18.ps1), same change in `ChatEngine.kt`): when a disaster guide matches, the self-harm check runs only for crisis words, and "trapped", "dying" and similar are not counted (decisive crisis phrases still work); snake + bite words and body part + broken words now count as "snake bite" / "broken bone". Practice set dev16: all 90 replies unchanged. On the phone with 0.9.1, the same chats got snake-bite first aid (including the Australian pressure bandage on the follow-up), drop-cover-hold-on for the earthquake with no crisis notice, broken-bone steps, and a real crisis message still got the 988 notice. Not blind-tested (no fresh sealed set).
+
+Still weak: after "the walls cracked", "should I stay or go outside?" got "get down next to an inside wall" rather than the checked "if the building is damaged, get out".
