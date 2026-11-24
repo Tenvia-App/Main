@@ -128,6 +128,9 @@ class ChatEngine(
         val tokens0 = text.lowercase().replace("'", "").split(Regex("[^\\p{L}\\p{N}]+")).filter { it.isNotBlank() }
         var phrase = " " + tokens0.joinToString(" ") + " "
         negations.forEach { phrase = phrase.replace(" $it ", " ") }
+        // 0.9.1 (phone check): "a snake just bit my mate", "my leg is broken" missed the exact phrases.
+        if (SB_SNAKE_RE.containsMatchIn(phrase) && SB_BIT_RE.containsMatchIn(phrase)) phrase += "snake bite "
+        if (BONE_BREAK_RE.containsMatchIn(phrase)) phrase += "broken bone "
         val tokens = phrase.trim().split(' ').filter { it.isNotBlank() }
         for (kw in keywords) {
             if (' ' in kw) { if (phrase.contains(" $kw ")) return kw }
@@ -369,7 +372,10 @@ class ChatEngine(
             }
             val skipW = (hazard || waterDanger || Regex("\\bflood", RegexOption.IGNORE_CASE).containsMatchIn(msg)) && !DRINK_RE.containsMatchIn(msg)
             val faNow = library.guides.any { g -> g.id in FIRST_AID && !(g.id == "water" && skipW) && findKeyword(msg, g.keywords.map { it.lowercase() }) != null }
-            val runHarm = if (thisMed || isMedical || faNow) ck != null else ck != null || rGuide == "none" || rGuide == "stay-calm"
+            // 0.9.1 (phone check): "earthquake just hit, the walls cracked" routed to none and got the crisis notice.
+            val hzNow = library.guides.any { g -> g.id in NEW_HAZARD && findKeyword(msg, g.keywords.map { it.lowercase() }) != null }
+            val runHarm = if (hzNow || hazard) ck != null && ck !in PHYSICAL_TRIGGERS
+                else if (thisMed || isMedical || faNow) ck != null else ck != null || rGuide == "none" || rGuide == "stay-calm"
             if (decisive != null) { isCrisis = true; thisMed = false }
             else if (runHarm && askBool(harmSys, harmShots, msg)) { isCrisis = true; thisMed = false }
             if (faNow && !isCrisis && !thisMed) thisMed = true
@@ -815,6 +821,12 @@ bool ::= "true" | "false""""
         private val FIRST_AID = setOf("snakebite", "broken-bone", "bleeding", "burns", "choking", "cpr", "allergic-reaction", "head-injury", "seizure", "heart-attack", "stroke", "heat-illness", "hypothermia", "frostbite", "bites-stings", "carbon-monoxide")
         private val NEW_HAZARD = setOf("earthquake", "tsunami", "avalanche", "hurricane", "landslide", "volcano", "winter-storm", "house-fire", "gas-leak", "chemical-spill", "rip-current", "fell-through-ice", "someone-in-water", "power-outage")
         private val KEYWORD_ONLY = FIRST_AID + NEW_HAZARD + "emergency-numbers"
+        // 0.9.1: word pairs for snake bites and broken bones (text is lowercased, no apostrophes).
+        private val SB_SNAKE_RE = Regex(""" (snake|snakes|rattlesnake|rattler|adder|viper|cobra|taipan|copperhead|cottonmouth|mamba) """)
+        private val SB_BIT_RE = Regex(""" (bit|bite|bites|bitten|biting|fangs?) """)
+        private val BONE_BREAK_RE = Regex(""" (leg|legs|arm|arms|wrist|ankle|foot|feet|hand|hip|finger|toe|knee|elbow|shoulder|collarbone|rib|ribs|shin|bone|bones)( \w+){0,4} (broken|broke|fractured|snapped|cracked)( |$)| (broken|broke|fractured|snapped)( \w+){0,2} (leg|arm|wrist|ankle|foot|hand|hip|finger|toe|knee|elbow|shoulder|collarbone|rib|ribs|shin) """)
+        // 0.9.1 (phone check): in a disaster, these words are physical, not a sign of self-harm.
+        private val PHYSICAL_TRIGGERS = setOf("trapped", "no way out", "death", "dying", "die")
         // v17: damaged building; CPR only when not breathing / not responding; another person in the water.
         private val DAMAGE_RE = Regex("""\b(damaged|damage|crack(ed|s|ing)?|collaps\w*|caved|cave in|falling apart|ceiling (fell|is falling|came down)|walls? (fell|came down))\b""", RegexOption.IGNORE_CASE)
         private val CPR_RE = Regex("""\b(not breathing|isn'?t breathing|stopped breathing|barely breathing|no pulse|gasping|cpr|not waking|won'?t wake|not responding|unresponsive|unconscious|heart stopped|no heartbeat|(doesn'?t|don'?t|didn'?t|won'?t) respond)\b""", RegexOption.IGNORE_CASE)

@@ -49,7 +49,7 @@ fun PrototypeBanner() {
     ) {
         Text("PROTOTYPE: NOT FOR REAL EMERGENCIES", color = Warning,
             style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
-        Text("Guides come from US government safety pages but haven't been reviewed by experts yet. If you can call or text emergency services, do that first.",
+        Text("Guides come from official government safety pages but haven't been reviewed by experts yet. If you can call or text emergency services, do that first.",
             style = MaterialTheme.typography.bodyMedium, color = Muted)
     }
 }
