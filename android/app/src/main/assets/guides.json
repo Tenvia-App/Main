@@ -1,5 +1,5 @@
 {
-    "version": 4,
+    "version": 5,
     "note": "DRAFT LIBRARY. Every step is paraphrased from an official government page (source_url; US federal and state sites, and since version 4 also official Australian, UK, EU, New Zealand and Canadian sites), and the supporting quote was checked word for word against that page (versions 1-3 on 2026-11-07, version 4 on 2026-11-23). Version 4 adds first aid and more emergencies by the maintainer's decision after the first tester chats. Not yet reviewed by qualified experts: not for real emergencies. Process: content/README.md.",
     "guides": [
         {
@@ -1930,7 +1930,7 @@
                     "quote": "Drop where you are onto hands and knees"
                 },
                 {
-                    "text": "Cover your head and neck with your arm. Get under a sturdy table if one is close. If not, get down next to an inside wall, away from windows.",
+                    "text": "Cover your head and neck with your arm, under a sturdy table or next to an inside wall, away from windows.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "If no shelter is nearby, crawl next to an interior wall (away from windows)"
                 },
@@ -1940,7 +1940,7 @@
                     "quote": "Hold until the shaking stops"
                 },
                 {
-                    "text": "If you're inside, stay inside. Don't run outside, and stay out of doorways.",
+                    "text": "If you're inside during the shaking, stay inside and away from doorways.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "If you are inside, stay and do not run outside; avoid doorways"
                 },
@@ -1950,27 +1950,27 @@
                     "quote": "Move to an open area away from buildings, trees, streetlights and power lines"
                 },
                 {
-                    "text": "If you're driving, pull over, stop, and set the parking brake.",
+                    "text": "If you're driving, pull over, stop and set the parking brake.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "If you are in a car, pull over and stop. Set your parking brake"
                 },
                 {
-                    "text": "Expect aftershocks. Drop, cover and hold on again each time.",
+                    "text": "Expect aftershocks, and drop, cover and hold on each time.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "Expect aftershocks to follow the main shock of an earthquake"
                 },
                 {
-                    "text": "If the building is damaged, get out and away from it. Don't go back into damaged buildings.",
+                    "text": "After the shaking, if the building is damaged, get out and away from it.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "If you are in a damaged building, go outside and quickly move away from the building"
                 },
                 {
-                    "text": "If you're trapped, text or bang on a pipe or wall. Cover your mouth with your shirt, and use a whistle instead of shouting.",
+                    "text": "If you're trapped, text or bang on a pipe or wall instead of shouting.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "If you are trapped, send a text or bang on a pipe or wall"
                 },
                 {
-                    "text": "Near the coast, go inland or to high ground as soon as the shaking stops, in case of a tsunami.",
+                    "text": "If you're near the coast, go inland or to high ground as soon as the shaking stops.",
                     "source_url": "https://www.ready.gov/earthquakes",
                     "quote": "go inland or to higher ground immediately after the shaking stops"
                 }
@@ -1992,22 +1992,22 @@
             ],
             "steps": [
                 {
-                    "text": "Signs of a tsunami: an earthquake, a loud roar from the ocean, or the sea suddenly rising or draining away to show the sea floor.",
+                    "text": "Signs of a tsunami: an earthquake, a loud roar from the sea, or the sea suddenly rising or draining away.",
                     "source_url": "https://www.ready.gov/tsunamis",
                     "quote": "a loud roar from the ocean"
                 },
                 {
-                    "text": "Don't wait. Leave as soon as you see any natural sign or hear a warning.",
+                    "text": "If you see a sign or hear a warning, leave right away.",
                     "source_url": "https://www.ready.gov/tsunamis",
                     "quote": "Leave as soon as you see any natural signs of a tsunami or receive an official tsunami warning"
                 },
                 {
-                    "text": "Get to high ground, as far inland as you can. Aim for at least 100 feet (30 m) above sea level, or a mile (1.6 km) inland.",
+                    "text": "Go to high ground at least 100 feet (30 m) above sea level, or at least a mile (1.6 km) inland.",
                     "source_url": "https://www.ready.gov/tsunamis",
                     "quote": "Pick shelters 100 feet or more above sea level, or at least one mile inland"
                 },
                 {
-                    "text": "If an earthquake caused it, protect yourself from the shaking first, then go.",
+                    "text": "If you feel an earthquake, protect yourself from the shaking first, then go.",
                     "source_url": "https://www.ready.gov/tsunamis",
                     "quote": "protect yourself from the earthquake first"
                 },
@@ -2033,22 +2033,22 @@
             ],
             "steps": [
                 {
-                    "text": "Warning signs: recent avalanches nearby and cracks shooting across the snow. Stay off slopes steeper than about 30 degrees and out from under them.",
+                    "text": "Stay off slopes steeper than about 30 degrees, and out from under them.",
                     "source_url": "https://www.ready.gov/avalanche",
                     "quote": "Avoid areas of increased risk, such as slopes steeper than 30 degrees or areas under steep slopes"
                 },
                 {
-                    "text": "If someone is buried, call for help, then start searching if it's safe for you.",
+                    "text": "If someone is buried, call for help, then search only if it's safe for you.",
                     "source_url": "https://www.ready.gov/avalanche",
                     "quote": "call 9-1-1 and then begin to search if it is safe to do so"
                 },
                 {
-                    "text": "Act fast. When an avalanche stops, the snow sets hard like concrete, and buried people can't dig themselves out.",
+                    "text": "Act fast: once an avalanche stops, the snow sets hard and buried people can't dig out.",
                     "source_url": "https://www.ready.gov/avalanche",
                     "quote": "When an avalanche stops, the snow becomes solid like concrete and people are unable to dig out"
                 },
                 {
-                    "text": "Once someone is out, watch for hypothermia: warm the middle of the body first and keep them dry and wrapped up.",
+                    "text": "Once someone is out, warm the middle of their body first and keep them dry.",
                     "source_url": "https://www.ready.gov/avalanche",
                     "quote": "Warm the center of the body first"
                 }
@@ -2079,7 +2079,7 @@
                     "quote": "Take refuge in a designated storm shelter or an interior room for high winds"
                 },
                 {
-                    "text": "If flooding traps you, go to the highest floor. Don't climb into a closed attic: rising water can trap you there.",
+                    "text": "If flooding traps you, go to the highest floor, but not into a closed attic.",
                     "source_url": "https://www.ready.gov/hurricanes",
                     "quote": "Do not climb into a closed attic"
                 },
@@ -2089,12 +2089,12 @@
                     "quote": "Do not walk, swim or drive through flood waters"
                 },
                 {
-                    "text": "Afterward, don't touch wet electrical equipment, and stay out of flood water: it can be dirty or charged by downed power lines.",
+                    "text": "After the storm, stay out of flood water: downed power lines can charge it.",
                     "source_url": "https://www.ready.gov/hurricanes",
                     "quote": "Underground or downed power lines can electrically charge the water"
                 },
                 {
-                    "text": "Phone lines get jammed after a disaster. Use texts, and save calls for emergencies.",
+                    "text": "Use texts instead of calls, and save calls for emergencies.",
                     "source_url": "https://www.ready.gov/hurricanes",
                     "quote": "Save phone calls for emergencies"
                 }
@@ -2128,27 +2128,27 @@
                     "quote": "If you do get stuck in the path of a landslide move uphill as quickly as possible"
                 },
                 {
-                    "text": "Never cross a road with water or mud flowing over it, or a bridge when a flow is coming.",
+                    "text": "Never cross a road with water or mud flowing over it.",
                     "source_url": "https://www.ready.gov/landslides-debris-flow",
                     "quote": "Never cross a road with water or mud flowing"
                 },
                 {
-                    "text": "Stay out of river valleys and low ground when slides are likely.",
+                    "text": "When slides are likely, stay out of river valleys and low ground.",
                     "source_url": "https://www.ready.gov/landslides-debris-flow",
                     "quote": "Avoid river valleys and low-lying areas during times of danger"
                 },
                 {
-                    "text": "Near a stream, a sudden rise or drop in the water, or clear water turning muddy, can mean a landslide is coming.",
+                    "text": "If a stream suddenly turns muddy, a landslide may be coming.",
                     "source_url": "https://www.ready.gov/landslides-debris-flow",
                     "quote": "water that changes from clear to muddy"
                 },
                 {
-                    "text": "During heavy storms that could cause slides, stay awake and alert. Many landslide deaths happen while people sleep.",
+                    "text": "During heavy storms, stay awake: many landslide deaths happen while people sleep.",
                     "source_url": "https://www.ready.gov/landslides-debris-flow",
                     "quote": "Many deaths from landslides occur while people are sleeping"
                 },
                 {
-                    "text": "Afterward, stay away from the slide area. More slides and flooding can follow.",
+                    "text": "After a slide, stay away from the slide area.",
                     "source_url": "https://www.ready.gov/landslides-debris-flow",
                     "quote": "Stay away from the slide area"
                 }
@@ -2182,22 +2182,22 @@
                     "quote": "If advised to evacuate, do so early"
                 },
                 {
-                    "text": "Stay away from areas downwind of the volcano and river valleys downstream of it.",
+                    "text": "Stay away from areas downwind of the volcano and valleys downstream of it.",
                     "source_url": "https://www.ready.gov/volcanoes",
                     "quote": "Avoid areas downwind and river valleys downstream of the volcano"
                 },
                 {
-                    "text": "If ash is falling, take shelter where you are. Close windows and doors and cover vents.",
+                    "text": "If ash is falling, stay inside and seal doors, windows and vents.",
                     "source_url": "https://www.ready.gov/volcanoes",
                     "quote": "Cover ventilation openings and seal doors and windows"
                 },
                 {
-                    "text": "If you must be outside, limit your time and cover your nose and mouth with a dust mask or cloth.",
+                    "text": "If you must go outside in ash, cover your nose and mouth with a dust mask or cloth.",
                     "source_url": "https://www.ready.gov/volcanoes",
                     "quote": "use a dust mask or cloth mask as a last resort if you must be outside"
                 },
                 {
-                    "text": "Avoid driving in heavy ash. If you must, keep the windows up and the air conditioning off.",
+                    "text": "If you must drive in ash, keep the windows up and the air conditioning off.",
                     "source_url": "https://www.ready.gov/volcanoes",
                     "quote": "If you must drive, keep the windows up and do not use the air conditioning system"
                 }
@@ -2220,32 +2220,32 @@
             ],
             "steps": [
                 {
-                    "text": "Get to shelter right away when a winter storm warning is out.",
+                    "text": "If a winter storm warning is out, get to shelter right away.",
                     "source_url": "https://www.ready.gov/winter-weather",
                     "quote": "IF YOU ARE UNDER A WINTER STORM WARNING, FIND SHELTER RIGHT AWAY"
                 },
                 {
-                    "text": "Stay off the roads. If you're stuck in your car, stay inside it.",
+                    "text": "If you're stuck in your car, stay inside it.",
                     "source_url": "https://www.ready.gov/winter-weather",
                     "quote": "If trapped in your car, then stay inside"
                 },
                 {
-                    "text": "Never heat a home with a gas stove or oven, and run generators and grills only outdoors, away from windows (carbon monoxide).",
+                    "text": "Run generators and grills only outdoors, away from windows.",
                     "source_url": "https://www.ready.gov/winter-weather",
                     "quote": "Only use generators and grills outdoors and away from windows"
                 },
                 {
-                    "text": "Go outside as little as you can, and wear layers.",
+                    "text": "If you must go outside, wear layers of warm clothing.",
                     "source_url": "https://www.ready.gov/winter-weather",
                     "quote": "If you need to go outside, wear layers of warm clothing"
                 },
                 {
-                    "text": "Don't overdo it shoveling or walking in deep snow. It can bring on a heart attack.",
+                    "text": "Don't overdo it shoveling or walking in deep snow.",
                     "source_url": "https://www.ready.gov/winter-weather",
                     "quote": "avoiding overexertion when shoveling snow and walking in the snow"
                 },
                 {
-                    "text": "Frostbite signs: numbness, and white, grayish-yellow, firm or waxy skin. Warm it in warm water or with body heat. Don't rub it or use a heating pad.",
+                    "text": "Frostbite signs: numbness, and white, grayish-yellow, firm or waxy skin.",
                     "source_url": "https://www.ready.gov/winter-weather",
                     "quote": "Signs: Numbness, white or grayish-yellow skin, firm or waxy skin"
                 }
@@ -2271,22 +2271,22 @@
             ],
             "steps": [
                 {
-                    "text": "Stay calm. A rip current pulls you out, not under.",
+                    "text": "Stay calm: a rip current pulls you out, not under.",
                     "source_url": "https://www.weather.gov/safety/ripcurrent-surviving",
                     "quote": "Rip currents don't pull you under"
                 },
                 {
-                    "text": "Don't swim straight back to shore against it. It can be faster than an Olympic swimmer and will wear you out.",
+                    "text": "Don't swim straight back against the current; it will wear you out.",
                     "source_url": "https://www.weather.gov/safety/ripcurrent-surviving",
                     "quote": "Trying to swim against a rip current will only use up your energy"
                 },
                 {
-                    "text": "Swim along the shoreline until you're out of the pull, then swim at an angle back toward shore.",
+                    "text": "Swim along the shoreline until you're out of the pull, then angle back to shore.",
                     "source_url": "https://www.weather.gov/safety/ripcurrent-surviving",
                     "quote": "Swim along the shoreline until you escape the current's pull"
                 },
                 {
-                    "text": "If you can't make it, float, face the shore, and call or wave for help.",
+                    "text": "If you can't reach shore, float, face the shore, and call or wave for help.",
                     "source_url": "https://www.weather.gov/safety/ripcurrent-surviving",
                     "quote": "If you feel you can't reach shore, relax, face the shore, and call or wave for help"
                 }
@@ -2313,27 +2313,27 @@
             ],
             "steps": [
                 {
-                    "text": "Try not to panic. Keep your winter clothes on: they trap air and help you float.",
+                    "text": "If you fall through, keep your winter clothes on: they trap air and help you float.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/survival.html",
                     "quote": "Heavy clothes won't drag you down, but instead can trap air to provide warmth and flotation"
                 },
                 {
-                    "text": "Turn back toward the way you came. That ice is probably the strongest.",
+                    "text": "Turn back toward the way you came.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/survival.html",
                     "quote": "Turn toward the direction you came"
                 },
                 {
-                    "text": "Put your hands and arms on the unbroken ice. Kick your feet and pull yourself forward onto it. Ice picks, nails or keys help you grip.",
+                    "text": "Put your arms on the solid ice, kick your feet, and work your way forward onto it.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/survival.html",
                     "quote": "Kick your feet and dig in your ice picks to work your way back onto the solid ice"
                 },
                 {
-                    "text": "Once you're out, stay flat and roll away from the hole to spread your weight.",
+                    "text": "Once you're out, lie flat and roll away from the hole.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/survival.html",
                     "quote": "Lie flat on the ice once you are out and roll away from the hole"
                 },
                 {
-                    "text": "Get somewhere warm, dry and sheltered and warm up right away. Get medical help if you're badly chilled.",
+                    "text": "Then get somewhere warm, dry and sheltered, and warm up right away.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/survival.html",
                     "quote": "Get to a warm, dry, sheltered area and re-warm yourself immediately"
                 }
@@ -2360,32 +2360,32 @@
             ],
             "steps": [
                 {
-                    "text": "Call for help first. Don't run to the edge: you could end up in the water too.",
+                    "text": "Call for help first, and don't run to the edge.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/saving.html",
                     "quote": "Resist the urge to run up to the edge of the hole"
                 },
                 {
-                    "text": "Shout to them that help is coming, and keep encouraging them.",
+                    "text": "Shout to them and keep encouraging them.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/saving.html",
                     "quote": "Shout to the victim to encourage them to fight to survive"
                 },
                 {
-                    "text": "Reach: from a safe spot, hold out a rope, branch, ladder or jumper cables. If they start pulling you in, let go and try again.",
+                    "text": "From a safe spot, hold out a rope, branch or ladder; if they start pulling you in, let go.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/saving.html",
                     "quote": "If the person starts to pull you in, release your grip on the object and start over"
                 },
                 {
-                    "text": "Throw: toss them a rope or something that floats. If it's a rope, have them tie it around themselves before the cold weakens their grip.",
+                    "text": "Throw them a rope or something that floats.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/saving.html",
                     "quote": "Toss one end of a rope or something that will float to the victim"
                 },
                 {
-                    "text": "Don't go out to them yourself unless nothing else is possible. Untrained rescuers often drown too.",
+                    "text": "Don't go out to them yourself unless nothing else is possible.",
                     "source_url": "https://www.dnr.state.mn.us/safety/ice/saving.html",
                     "quote": "A non-professional shouldn't go out on the ice to perform a rescue unless all other basic rescue techniques have been ruled out"
                 },
                 {
-                    "text": "Cold water makes people gasp and breathe fast, so a fall into cold water can drown even strong swimmers. A life jacket buys time.",
+                    "text": "Cold water makes people gasp, so even strong swimmers can drown in it.",
                     "source_url": "https://www.weather.gov/safety/coldwater",
                     "quote": "The sudden gasp and rapid breathing alone creates a greater risk of drowning, even for confident swimmers in calm waters"
                 }
@@ -2416,32 +2416,32 @@
             ],
             "steps": [
                 {
-                    "text": "Get low and crawl under the smoke to your way out. Smoke and poison gases collect near the ceiling first.",
+                    "text": "Get low and crawl under the smoke to your way out.",
                     "source_url": "https://www.ready.gov/home-fires",
                     "quote": "Drop down to the floor and crawl low, under any smoke to your exit"
                 },
                 {
-                    "text": "Feel a door and its handle before opening it. If either is hot, or smoke is coming around it, keep it shut and use another way out.",
+                    "text": "If a door or its handle is hot, or smoke comes around it, keep it shut and use another way out.",
                     "source_url": "https://www.ready.gov/home-fires",
                     "quote": "If either is hot, or if there is smoke coming around the door, leave the door closed and use your second way out"
                 },
                 {
-                    "text": "Open doors slowly, ready to slam them shut if there's heavy smoke or fire.",
+                    "text": "Open doors slowly.",
                     "source_url": "https://www.ready.gov/home-fires",
                     "quote": "If you open a door, open it slowly"
                 },
                 {
-                    "text": "If you can't reach someone, get out, call for help, and tell them where the person is.",
+                    "text": "If you can't reach someone, get out and tell the emergency operator where they are.",
                     "source_url": "https://www.ready.gov/home-fires",
                     "quote": "Tell the emergency operator where the person is located"
                 },
                 {
-                    "text": "If you can't get out: close the door, block vents and gaps with cloth or tape, call for help, and signal at a window with a light-colored cloth or a flashlight.",
+                    "text": "If you can't get out, signal at a window with a light-colored cloth or a flashlight.",
                     "source_url": "https://www.ready.gov/home-fires",
                     "quote": "signal for help at the window with a light-colored cloth or a flashlight"
                 },
                 {
-                    "text": "If your clothes catch fire: stop, drop to the ground, cover your face, and roll until the fire is out, then cool the burn with cool water for 3 to 5 minutes.",
+                    "text": "If your clothes catch fire, stop, drop, cover your face and roll until the fire is out.",
                     "source_url": "https://www.ready.gov/home-fires",
                     "quote": "Roll over and over or back and forth until the fire is out"
                 }
@@ -2520,17 +2520,17 @@
             ],
             "steps": [
                 {
-                    "text": "If you smell gas (like rotten eggs), stop what you're doing and leave right away.",
+                    "text": "If you smell gas, stop what you're doing and leave right away.",
                     "source_url": "https://www.kcc.ks.gov/natural-gas-pipeline-safety-liquid-pipeline/natural-gas-safety",
                     "quote": "If you smell gas, stop what you are doing and leave the area immediately"
                 },
                 {
-                    "text": "Don't touch light switches, phones or garage door openers on the way out. A spark can set the gas off.",
+                    "text": "On the way out, don't touch light switches, phones or garage door openers.",
                     "source_url": "https://www.kcc.ks.gov/natural-gas-pipeline-safety-liquid-pipeline/natural-gas-safety",
                     "quote": "That includes light switches, telephones/cell phones, or garage door openers"
                 },
                 {
-                    "text": "Call the gas company or emergency services once you're safely away, and don't go back in until they say it's OK.",
+                    "text": "Once you're safely away, call the gas company or emergency services.",
                     "source_url": "https://www.kcc.ks.gov/natural-gas-pipeline-safety-liquid-pipeline/natural-gas-safety",
                     "quote": "Once you are in a safe location, call your utility company or 911"
                 }
@@ -2553,7 +2553,7 @@
             ],
             "steps": [
                 {
-                    "text": "Keep the fridge and freezer closed to keep food cold longer.",
+                    "text": "Keep the fridge and freezer closed.",
                     "source_url": "https://www.ready.gov/power-outages",
                     "quote": "Keep freezers and refrigerators closed"
                 },
@@ -2563,22 +2563,22 @@
                     "quote": "Generators, camp stoves or charcoal grills should always be used outdoors and at least 20 feet away from windows"
                 },
                 {
-                    "text": "Don't heat your home with a gas stove or oven: it can cause carbon monoxide poisoning.",
+                    "text": "Don't heat your home with a gas stove or oven.",
                     "source_url": "https://www.ready.gov/power-outages",
                     "quote": "Do not use a gas stove or oven to heat your home"
                 },
                 {
-                    "text": "Unplug appliances and electronics so a power surge doesn't damage them when it comes back.",
+                    "text": "Unplug appliances and electronics to protect them from a power surge.",
                     "source_url": "https://www.ready.gov/power-outages",
                     "quote": "Disconnect appliances and electronics to avoid damage from electrical surges"
                 },
                 {
-                    "text": "If it's dangerously hot or cold, go somewhere in the community that has power.",
+                    "text": "If it's dangerously hot or cold, go to a place in town that has power.",
                     "source_url": "https://www.ready.gov/power-outages",
                     "quote": "Go to a community location with power if heat or cold is extreme"
                 },
                 {
-                    "text": "If medicines need a fridge or a medical device needs power, plan for it early.",
+                    "text": "If medicines need a fridge or a device needs power, make a backup plan early.",
                     "source_url": "https://www.ready.gov/power-outages",
                     "quote": "Have alternate plans for refrigerating medicines or using power-dependent medical devices"
                 }
@@ -2605,7 +2605,7 @@
             ],
             "steps": [
                 {
-                    "text": "Signs of a chemical release: trouble breathing, stinging eyes, nausea, or burning in the nose and throat. Some toxic chemicals have no smell.",
+                    "text": "Some toxic chemicals have no smell. Trouble breathing or stinging eyes can be a sign.",
                     "source_url": "https://www.ready.gov/hazmat",
                     "quote": "Remember that some toxic chemicals are odorless"
                 },
@@ -2620,17 +2620,17 @@
                     "quote": "If asked to evacuate, do so immediately"
                 },
                 {
-                    "text": "If you're told to stay inside: go to an inside room, close doors, windows and vents, and turn off air conditioning and fans.",
+                    "text": "If you're told to stay inside, turn off air conditioning, fans and vents.",
                     "source_url": "https://www.ready.gov/hazmat",
                     "quote": "Turn off air conditioners and ventilation systems"
                 },
                 {
-                    "text": "Seal gaps around doors and windows with wet towels, plastic or tape.",
+                    "text": "If you're staying inside, seal gaps around doors and windows with wet towels, plastic or tape.",
                     "source_url": "https://www.ready.gov/hazmat",
                     "quote": "Seal gaps under and around the following areas with wet towels, plastic sheeting, duct tape, wax paper or aluminum foil"
                 },
                 {
-                    "text": "If fumes may have got in, take shallow breaths through a cloth or towel.",
+                    "text": "If fumes may have got in, take shallow breaths through a cloth.",
                     "source_url": "https://www.ready.gov/hazmat",
                     "quote": "Take shallow breaths through a cloth or a towel if gas or vapors could have entered the building"
                 },
@@ -2638,6 +2638,138 @@
                     "text": "Don't eat or drink anything that may be contaminated.",
                     "source_url": "https://www.ready.gov/hazmat",
                     "quote": "Avoid eating or drinking any food or water that may be contaminated"
+                }
+            ],
+            "draft": true
+        },
+        {
+            "id": "boat-trouble",
+            "title": "Boat trouble on open water",
+            "summary": "Out of fuel, broken down, leaking, swamped or capsized at sea or on a lake.",
+            "keywords": [
+                "boat",
+                "boats",
+                "my boat",
+                "the boat",
+                "dinghy",
+                "tinnie",
+                "yacht",
+                "sailboat",
+                "kayak",
+                "canoe",
+                "jet ski",
+                "out at sea",
+                "at sea",
+                "offshore",
+                "off the coast",
+                "capsized",
+                "capsize",
+                "flipped",
+                "swamped",
+                "sinking",
+                "taking on water",
+                "leaking",
+                "bilge",
+                "epirb",
+                "beacon",
+                "vhf",
+                "channel 16",
+                "adrift",
+                "drifting",
+                "lifejacket",
+                "life jacket",
+                "flares",
+                "outboard"
+            ],
+            "steps": [
+                {
+                    "text": "Get everyone into a lifejacket now.",
+                    "source_url": "https://www.nsw.gov.au/driving-boating-and-transport/waterways-safety-and-rules/emergencies/capsizing-and-swamping",
+                    "quote": "Make sure everyone is wearing a lifejacket."
+                },
+                {
+                    "text": "If you have a marine radio, make a distress call on VHF channel 16.",
+                    "source_url": "https://transport.wa.gov.au/marine/recreational-boating/boating-emergencies/what-to-do",
+                    "quote": "make a distress call using your marine radio on channel 16 for VHF"
+                },
+                {
+                    "text": "If your radio isn't working, use a phone if you have any signal.",
+                    "source_url": "https://www.nsw.gov.au/driving-boating-and-transport/waterways-safety-and-rules/emergencies/capsizing-and-swamping",
+                    "quote": "Use your marine radio, if it's working, to make a distress call."
+                },
+                {
+                    "text": "When you reach anyone, tell them what's wrong and where you are.",
+                    "source_url": "https://tc.canada.ca/en/marine-transportation/marine-safety/taking-water",
+                    "quote": "contact authorities and surrounding vessels to advise your situation and your position"
+                },
+                {
+                    "text": "If you have an EPIRB or distress beacon, switch it on and leave it on until rescuers tell you to turn it off.",
+                    "source_url": "https://handbook.safetransport.vic.gov.au/boating-essentials/emergency-procedures/abandoning-vessel/",
+                    "quote": "Switch on the EPIRB and leave it on until emergency services tell you to turn it off."
+                },
+                {
+                    "text": "If water is coming in, bail or pump it out.",
+                    "source_url": "https://tc.canada.ca/en/marine-transportation/marine-safety/taking-water",
+                    "quote": "Start pumps or have someone start bailing."
+                },
+                {
+                    "text": "Find where the water is coming in, and try to stop or slow the leak.",
+                    "source_url": "https://tc.canada.ca/en/marine-transportation/marine-safety/taking-water",
+                    "quote": "Take steps to stop or slow down the leak."
+                },
+                {
+                    "text": "Stay with your boat, even if it capsizes: it's easier for rescuers to find.",
+                    "source_url": "https://www.nsw.gov.au/driving-boating-and-transport/waterways-safety-and-rules/emergencies/capsizing-and-swamping",
+                    "quote": "Stay with your capsized vessel - this makes it easier for rescuers to find you."
+                },
+                {
+                    "text": "Don't try to swim to shore unless it's very close and there's a safe place to land.",
+                    "source_url": "https://handbook.safetransport.vic.gov.au/boating-essentials/emergency-procedures/abandoning-vessel/",
+                    "quote": "Do not try to swim ashore unless it is very close and a suitable landing place exists."
+                },
+                {
+                    "text": "Make yourself as easy to see as you can for boats and aircraft.",
+                    "source_url": "https://handbook.safetransport.vic.gov.au/boating-essentials/emergency-procedures/abandoning-vessel/",
+                    "quote": "Make yourself as visible as you can to both ships and aircraft."
+                },
+                {
+                    "text": "If you have flares, save them until you can see an aircraft or another boat.",
+                    "source_url": "https://handbook.safetransport.vic.gov.au/boating-essentials/before-you-go-boating/raising-the-alarm-calling-for-help/",
+                    "quote": "Always delay using flares until you can see an aircraft, or until people on shore or in other boats are in visual range."
+                },
+                {
+                    "text": "If you're in the water, keep your lifejacket on and huddle together.",
+                    "source_url": "https://handbook.safetransport.vic.gov.au/boating-essentials/emergency-procedures/abandoning-vessel/",
+                    "quote": "Do not remove your lifejacket and, if you are in the water, stay together in a HUDDLE or HELP position."
+                },
+                {
+                    "text": "Put on more clothes if you can, to help keep warm.",
+                    "source_url": "https://www.nsw.gov.au/driving-boating-and-transport/waterways-safety-and-rules/emergencies/capsizing-and-swamping",
+                    "quote": "Put on more clothes if you can - this helps keep you warm and may delay or prevent hypothermia."
+                }
+            ],
+            "draft": true
+        },
+        {
+            "id": "crisis-lines",
+            "title": "Crisis lines outside the US",
+            "summary": "Mental-health crisis lines by country, used only in the crisis notice.",
+            "keywords": [],
+            "steps": [
+                {
+                    "text": "Australia crisis line: call Lifeline on 13 11 14, any time.",
+                    "source_url": "https://www.healthdirect.gov.au/mental-health-helplines",
+                    "quote": "You can also call Lifeline on 13 11 14 - 24 hours a day, 7 days a week."
+                },
+                {
+                    "text": "UK crisis line: call Samaritans on 116 123.",
+                    "source_url": "https://www.nhs.uk/nhs-services/mental-health-services/where-to-get-urgent-help-for-mental-health/",
+                    "quote": "call 116 123 to talk to Samaritans"
+                },
+                {
+                    "text": "New Zealand crisis line: text 1737, or call 0800 1737 1737, to talk to a counsellor.",
+                    "source_url": "https://www.healthnz.govt.nz/health-topics/mental-health/where-to-get-help",
+                    "quote": "1737 is staffed by a team of paid counsellors who can talk to you if you have mental health or addiction problems"
                 }
             ],
             "draft": true

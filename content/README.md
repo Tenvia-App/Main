@@ -40,4 +40,8 @@ The app's guides live in [`android/app/src/main/assets/guides.json`](../android/
   - **Bleeding:** the home-made tourniquet step.
   - **Frostbite:** the "don't thaw if it may refreeze" step.
   - **Stroke:** "call an ambulance rather than drive", in places an ambulance can't reach.
-- Still missing: boat trouble on open water (tester chat 5003: out of fuel and leaking 10 km out at sea got land and beach steps; a USCG/NOAA-sourced guide is proposed, not yet approved), and crisis lines outside the US (988 is US and Canada only; elsewhere the app gives the emergency number).
+- **Version 5 (26 November 2026):**
+  - the 14 disaster, home and water guides were rewritten shorter, one condition per step with the condition first (same sources and quotes), because the AI tended to drop "If ..." conditions from the longer steps ([`rewrite-v5.py`](rewrite-v5.py));
+  - new **boat trouble on open water** guide (tester chat 5003), 13 steps from NSW, Victoria and Western Australia boating pages and Transport Canada;
+  - **crisis lines outside the US**: Lifeline (Australia), Samaritans (UK) and 1737 (New Zealand), shown with the emergency number in the crisis notice. healthnz.govt.nz blocks automated downloads, so the NZ quote was checked in a browser ([`drafts/batch9-boat-crisis.json`](drafts/batch9-boat-crisis.json)).
+- **For reviewers:** [EXPERT-REVIEW.md](EXPERT-REVIEW.md) has a letter to send, the specific questions, and every first-aid, disaster and boat step with its source.

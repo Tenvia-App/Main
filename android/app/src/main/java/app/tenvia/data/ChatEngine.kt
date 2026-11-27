@@ -83,7 +83,7 @@ class ChatEngine(
             if (c == "AU") "You can't text 000, so call when you have any signal." else "A voice call is best.")
         s = r("\\s*\\(call if you can, text if you cannot\\)").replace(s, "")
         s = r("\\bcall if you can, text if you (can't|cannot)\\b").replace(s, "call")
-        s = r("\\b988 in the US, or 911\\b").replace(s, n)
+        s = r("\\b988 in the US, or 911\\b").replace(s, CRISIS_LINE[c] ?: n)
         s = r("\\b988,? or 911\\b").replace(s, n)
         s = r("\\bcall or text (911|988)\\b").replace(s, "call $n")
         s = r("\\btext (911|988)\\b").replace(s, "call $n")
@@ -509,7 +509,7 @@ class ChatEngine(
             t.startsWith("Tick:", true) -> Regex("\\bticks?\\b", RegexOption.IGNORE_CASE).containsMatchIn(convUser)
             t.startsWith("Bee sting:", true) -> Regex("\\b(bees?|wasps?|hornets?|stung|stings?|stinger)\\b", RegexOption.IGNORE_CASE).containsMatchIn(convUser)
             t.startsWith("Stay with your vehicle", true) && guidePool.any { it in setOf("flood", "wildfire", "volcano", "tsunami", "landslide", "hurricane", "house-fire") } -> false
-            t.startsWith("If you're inside, stay inside", true) -> !DAMAGE_RE.containsMatchIn(convUser)
+            t.startsWith("If you're inside during the shaking", true) -> !DAMAGE_RE.containsMatchIn(convUser)
             CPR_STEP_RE.containsMatchIn(t) -> CPR_RE.containsMatchIn(convUser)
             t.startsWith("US (CDC):", true) -> country == null || country == "US" || country == "CA"
             LABEL_RE.containsMatchIn(t) -> country != null && COUNTRY_LABEL[country] == LABEL_RE.find(t)!!.groupValues[1]
@@ -568,7 +568,7 @@ class ChatEngine(
                 val sw = stems(t); val sg = groupsOf(sw)
                 val dNow = sw.count { it in nowStems }; val gNow = sg.count { it in nowGroups }
                 val dAll = sw.count { it in convStems }; val gAll = sg.count { it in allGroups }
-                var score = 3.0 * dNow + 3 * gNow + dAll + gAll + (if (id in HAZARD_GUIDES) 1 else 0) - 0.1 * si - 0.2 * gi - (if (dAll > 0 || gNow > 0) 0 else 3) + (if (id in FIRST_AID) 3 else 0)
+                var score = 3.0 * dNow + 3 * gNow + dAll + gAll + (if (id in HAZARD_GUIDES) 1 else 0) - 0.1 * si - 0.2 * gi - (if (dAll > 0 || gNow > 0) 0 else 3) + (if (id in FIRST_AID) 3 else if (id in NEW_HAZARD) 4 else 0)
                 score += intentBoost(t, msg)
                 if (prev.contains(t.lowercase().trimEnd('.'))) score -= 6
                 rows += Ranked(id, t, score)
@@ -819,8 +819,8 @@ bool ::= "true" | "false""""
     companion object {
         private val SIGNAL_RE = Regex("\\b(one|1|a|two|2|some|few) bars?\\b|\\bbar (just )?(popped|appeared|showed)|\\b(have|got|getting) (a |some )?(signal|service|reception)\\b|\\b(signal|service) (is |came |just came )?back\\b|\\b(buzzing|getting) (with )?alerts\\b", RegexOption.IGNORE_CASE)
         private val FIRST_AID = setOf("snakebite", "broken-bone", "bleeding", "burns", "choking", "cpr", "allergic-reaction", "head-injury", "seizure", "heart-attack", "stroke", "heat-illness", "hypothermia", "frostbite", "bites-stings", "carbon-monoxide")
-        private val NEW_HAZARD = setOf("earthquake", "tsunami", "avalanche", "hurricane", "landslide", "volcano", "winter-storm", "house-fire", "gas-leak", "chemical-spill", "rip-current", "fell-through-ice", "someone-in-water", "power-outage")
-        private val KEYWORD_ONLY = FIRST_AID + NEW_HAZARD + "emergency-numbers"
+        private val NEW_HAZARD = setOf("earthquake", "tsunami", "avalanche", "hurricane", "landslide", "volcano", "winter-storm", "house-fire", "gas-leak", "chemical-spill", "rip-current", "fell-through-ice", "someone-in-water", "power-outage", "boat-trouble")
+        private val KEYWORD_ONLY = FIRST_AID + NEW_HAZARD + "emergency-numbers" + "crisis-lines"
         // 0.9.1: word pairs for snake bites and broken bones (text is lowercased, no apostrophes).
         private val SB_SNAKE_RE = Regex(""" (snake|snakes|rattlesnake|rattler|adder|viper|cobra|taipan|copperhead|cottonmouth|mamba) """)
         private val SB_BIT_RE = Regex(""" (bit|bite|bites|bitten|biting|fangs?) """)
@@ -845,6 +845,8 @@ bool ::= "true" | "false""""
             "EU" to Regex("\\b(europe|european|germany|france|spain|italy|ireland|netherlands|austria|switzerland|alps|portugal|greece|sweden|norway|finland|poland|czechia|czech republic|belgium|denmark|croatia|slovenia|iceland|pyrenees|dolomites)\\b", RegexOption.IGNORE_CASE),
         )
         private val COUNTRY_NUM = mapOf("AU" to "000", "NZ" to "111", "GB" to "999", "EU" to "112", "CA" to "911", "US" to "911")
+        // v19: crisis lines outside the US (checked steps in the 'crisis-lines' guide); EU has no single line, so 112.
+        private val CRISIS_LINE = mapOf("AU" to "000, or Lifeline on 13 11 14", "GB" to "999, or Samaritans on 116 123", "NZ" to "111, or text 1737")
         private val COUNTRY_LABEL = mapOf("AU" to "Australia", "NZ" to "New Zealand", "GB" to "UK", "EU" to "Europe", "CA" to "Canada")
         private val LABEL_RE = Regex("^(Australia|New Zealand|UK|Europe|Canada):")
         private val BITE_RE = Regex("\\b(bit|bitten|bite|bites|fangs?)\\b", RegexOption.IGNORE_CASE)

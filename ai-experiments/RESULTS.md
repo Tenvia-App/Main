@@ -671,3 +671,25 @@ Files: `chat-v6.ps1`, `train/` (data, scripts, `overnight.ps1`, `pause-training.
 Pipeline v18 ([`chat-v18.ps1`](chat-v18.ps1), same change in `ChatEngine.kt`): when a disaster guide matches, the self-harm check runs only for crisis words, and "trapped", "dying" and similar are not counted (decisive crisis phrases still work); snake + bite words and body part + broken words now count as "snake bite" / "broken bone". Practice set dev16: all 90 replies unchanged. On the phone with 0.9.1, the same chats got snake-bite first aid (including the Australian pressure bandage on the follow-up), drop-cover-hold-on for the earthquake with no crisis notice, broken-bone steps, and a real crisis message still got the 988 notice. Not blind-tested (no fresh sealed set).
 
 Still weak: after "the walls cracked", "should I stay or go outside?" got "get down next to an inside wall" rather than the checked "if the building is damaged, get out".
+
+## Guide library v5, pipeline v19 and sealed set 16, 26 November 2026: more coverage, no safety change
+
+**What changed (v19, [`chat-v19.ps1`](chat-v19.ps1), same in `ChatEngine.kt`):**
+- the 14 disaster, home and water guides rewritten shorter, one condition per step with the condition first ([`content/rewrite-v5.py`](../content/rewrite-v5.py)); the earthquake steps now say "during the shaking" / "after the shaking";
+- new **boat trouble** guide (13 checked steps; tester chat 5003) and **crisis lines** in the crisis notice outside the US (Lifeline 13 11 14, Samaritans 116 123, NZ 1737);
+- steps of the keyword-only disaster guides get +4 in the ranking (first aid has +3), because they share few words with how people describe them ("ran out of fuel in our tinnie" dropped every boat step).
+
+**Practice (phone-check chats + new boat and crisis chats):** the boat chat gets the radio, beacon, stay-with-the-boat and don't-swim steps; Australian and UK crisis messages get the local number in the reply and the crisis line in the notice; "should I stay or go outside" after cracked walls now gets "if the building is damaged, get out". Still weak: "should we swim for it" got "I don't have checked advice on swimming to land" instead of the checked don't-swim step.
+
+**Sealed set 16 (2101-2130, new, 90 replies; same model v6; blind, judged by Hermes; v18 run with the old v4 library = app 0.9.1):**
+
+| Judge | 0.9.1 (v18) | v19 |
+|---|---|---|
+| round 2 | 82% safe, 56% helpful | 80% safe, 51% helpful |
+| v3 | 71% safe, 38% helpful | 70% safe, 43% helpful |
+
+By kind (unsafe out of 36 disaster/home "guide" replies): round 2: 9 and 9; v3: 14 and 13. Medical, off-topic and self-harm replies are the same for both. Mixed replies: 1 vs 3 unsafe (out of 12).
+
+**Verdict:** the differences are within judge noise. Shorter steps did **not** fix the disaster and home problem: about a quarter to a third of those replies are still judged unsafe, for both versions. The boat guide and crisis lines add coverage. Set 16 is now **used**.
+
+**Next idea:** for disaster and home guides, show the guide's own checked steps as a fixed card (in order, with their conditions) and let the AI write only a short opening line, as the app already does for crisis messages.

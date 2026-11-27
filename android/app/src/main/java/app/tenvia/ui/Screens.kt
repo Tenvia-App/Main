@@ -116,7 +116,7 @@ fun HomeScreen(
         BigButton("Find help", enabled = text.isNotBlank()) { onSearch(text) }
         Spacer(Modifier.height(8.dp))
         Text("Or choose a topic", style = MaterialTheme.typography.titleLarge)
-        guides.forEach { g -> GuideButton(g) { onOpenGuide(g) } }
+        guides.filter { it.id != "crisis-lines" }.forEach { g -> GuideButton(g) { onOpenGuide(g) } }
     }
 }
 
